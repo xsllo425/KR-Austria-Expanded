@@ -1,0 +1,342 @@
+### KRAUS 王冠领国策树：GAL（2026-10-12，AI 向）。设计：王领政治树设计 v2。
+### 忠诚与自主两条分支不互斥，各推一档「王冠领地位」；另挂共同经济树、共同军事树。
+focus_tree = {
+	id = KRAUS_GAL_focus
+	country = {
+		factor = 0
+		modifier = { add = 100 original_tag = GAL }
+	}
+	default = no
+	continuous_focus_position = { x = 50 y = 1200 }
+	shared_focus = AUS_eco_council
+	shared_focus = AUS_military_expansion
+
+	focus = {
+		id = KRAUS_GAL_path
+		icon = GFX_goal_generic_national_unity
+		x = 6
+		y = 0
+		cost = 3
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_path"
+			add_political_power = 150
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_boryslaw_oil
+		icon = GFX_goal_generic_oil_refinery
+		prerequisite = { focus = KRAUS_GAL_path }
+		relative_position_id = KRAUS_GAL_path
+		x = -2
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_boryslaw_oil"
+			add_resource = { type = oil amount = 6 state = 91 }
+			91 = { add_extra_state_shared_building_slots = 2 }
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_eastern_farms
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = KRAUS_GAL_path }
+		relative_position_id = KRAUS_GAL_path
+		x = 0
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_eastern_farms"
+			80 = {
+				add_building_construction = { type = infrastructure level = 2 instant_build = yes }
+				increase_state_category_by_one_level = yes
+			}
+			713 = {
+				add_building_construction = { type = infrastructure level = 2 instant_build = yes }
+				increase_state_category_by_one_level = yes
+			}
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_jagiellonian
+		icon = GFX_goal_generic_scientific_exchange
+		prerequisite = { focus = KRAUS_GAL_path }
+		relative_position_id = KRAUS_GAL_path
+		x = 2
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_jagiellonian"
+			add_tech_bonus = { name = KRAUS_GAL_jagiellonian bonus = 1 uses = 1 category = electronics category = industry }
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_witos_peasants
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = KRAUS_GAL_eastern_farms }
+		relative_position_id = KRAUS_GAL_path
+		x = -1
+		y = 2
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_witos_peasants"
+			add_stability = 0.15
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_ruthenian_schools
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = KRAUS_GAL_eastern_farms }
+		relative_position_id = KRAUS_GAL_path
+		x = 1
+		y = 2
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_ruthenian_schools"
+			add_stability = 0.09
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_habsburg_poles
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = KRAUS_GAL_path }
+		relative_position_id = KRAUS_GAL_path
+		x = -5
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_habsburg_poles"
+			KRAUS_cl_toward_loyal = yes
+			add_political_power = 150
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority > 49 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 AUS = { has_country_flag = KRAUS_dc_won_GAL } }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value < -0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_magnates
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = KRAUS_GAL_habsburg_poles }
+		relative_position_id = KRAUS_GAL_path
+		x = -5
+		y = 2
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_magnates"
+			KRAUS_cl_toward_loyal = yes
+			random_owned_controlled_state = {
+				prioritize = { 88 91 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+			}
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority > 49 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 AUS = { has_country_flag = KRAUS_dc_won_GAL } }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value < -0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_sapieha_blessing
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = KRAUS_GAL_magnates }
+		relative_position_id = KRAUS_GAL_path
+		x = -5
+		y = 3
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_sapieha_blessing"
+			KRAUS_cl_toward_loyal = yes
+			add_stability = 0.09
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority > 49 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 AUS = { has_country_flag = KRAUS_dc_won_GAL } }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value < -0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_imperial_galicia
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = KRAUS_GAL_sapieha_blessing }
+		relative_position_id = KRAUS_GAL_path
+		x = -5
+		y = 4
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_imperial_galicia"
+			KRAUS_cl_toward_loyal = yes
+			add_political_power = 150
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority > 49 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 AUS = { has_country_flag = KRAUS_dc_won_GAL } }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value < -0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_sikorski_army
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = KRAUS_GAL_path }
+		relative_position_id = KRAUS_GAL_path
+		x = 5
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_sikorski_army"
+			KRAUS_cl_toward_autonomy = yes
+			army_experience = 45
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority < 25 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < -1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 3 has_country_flag = KRAUS_dc_punished }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value > 0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_legion_tradition
+		icon = GFX_goal_generic_cavalry
+		prerequisite = { focus = KRAUS_GAL_sikorski_army }
+		relative_position_id = KRAUS_GAL_path
+		x = 5
+		y = 2
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_legion_tradition"
+			KRAUS_cl_toward_autonomy = yes
+			add_ideas = KRAUS_GAL_legion_tradition
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority < 25 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < -1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 3 has_country_flag = KRAUS_dc_punished }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value > 0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_krakow_arms
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = KRAUS_GAL_legion_tradition }
+		relative_position_id = KRAUS_GAL_path
+		x = 5
+		y = 3
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_krakow_arms"
+			KRAUS_cl_toward_autonomy = yes
+			88 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+			}
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority < 25 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < -1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 3 has_country_flag = KRAUS_dc_punished }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value > 0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_polish_galicia
+		icon = GFX_focus_generic_self_management
+		prerequisite = { focus = KRAUS_GAL_krakow_arms }
+		relative_position_id = KRAUS_GAL_path
+		x = 5
+		y = 4
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_polish_galicia"
+			KRAUS_cl_toward_autonomy = yes
+			add_war_support = 0.15
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority < 25 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < -1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 3 has_country_flag = KRAUS_dc_punished }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value > 0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_GAL_transcarpathia
+		icon = GFX_goal_generic_more_territorial_claims
+		prerequisite = { focus = KRAUS_GAL_witos_peasants }
+		relative_position_id = KRAUS_GAL_path
+		x = 0
+		y = 3
+		cost = 5
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+		}
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_GAL_transcarpathia"
+			custom_effect_tooltip = KRAUS_cl_dispute_tt
+			hidden_effect = { AUS = { country_event = { id = KRAUS_cl_dispute.2 days = 1 } } }
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+}

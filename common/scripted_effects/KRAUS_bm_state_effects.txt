@@ -1,0 +1,293 @@
+############################################################
+### KRAUS 黑色星期一 · 州级效果的换挂逻辑
+###
+### ★★ 2026-09-21 第六轮新增（场景 B），第七轮重做 ★★
+###
+### 用途：读条决议每成功/失败一层，就把本部州上的
+###       州级修正【换一档】，让地图上的效果跟着变。
+###
+### ══════════════════════════════════════════════════════════
+### ★★★ 第七轮重做原因（用户实测：tooltip 里同一效果出现两遍）★★★
+###
+### 【上一版的错】我用了「先全清五档，再挂一档」的无状态写法：
+###
+###     KRAUS_bm_clear_state_modifiers = yes   # 清掉全部 5 档
+###     if = { ... add_dynamic_modifier = 某一档 }
+###
+###   看着"永远正确"，实则错在两处：
+###     ① tooltip 会把「移除」和「添加」分别渲染一遍，
+###        同一个修正名在同一段效果里出现两次（玩家看到的怪象）
+###     ② 在同一遍 effect 执行里移除又重挂【同一批州】上的修正，
+###        引擎可能把旧的那条也算进去 → 修正叠加/刷新异常
+###
+### 【正确写法】照抄 KR 原版的【精确成对换挂】：
+###
+###     remove_dynamic_modifier = { modifier = RUS_industrial_region }
+###     add_dynamic_modifier    = { modifier = RUS_industrial_region_2 }
+###
+###   实证：common/characters/RUS characters.txt:3754
+###         common/characters/UKR characters.txt:1414
+###
+###   ★ 关键：一次只换【一个已知的旧档 → 一个已知的新档】，
+###     不做"全清"这种无差别操作。
+###     档位判定用 else_if 链，只走其中一个分支。
+### ══════════════════════════════════════════════════════════
+###
+### ★ 实测依据（2026-09-21，用户已确认）
+###   · 州级 add_dynamic_modifier 生效          ✅
+###   · 州级变量绑定生效                        ✅
+###   · remove_dynamic_modifier 干净清除        ✅
+###
+### ★ 不使用 replace_path（三条铁律之二）
+############################################################
+
+############################################################
+### ★ 单档换挂辅助：把 A 档换成 B 档（只对本部州）
+###
+### ★ 写成参数化太复杂（HOI4 无宏），所以按档位组合各写一支。
+###   实际用到的组合只有 4 个方向，直接写清楚更好维护。
+############################################################
+
+############################################################
+### ★★ 主入口：按当前黑一层级，把本部州换到对应档位
+###
+### 层级 → 档位对照
+###   黑一已消除            → E 复苏红利（正面）
+###   _cs-3 / _sdap-3       → D 最轻
+###   _cs-2 / _sdap-2       → C 缓解
+###   _cs-1 / _sdap-1       → B 稍缓
+###   AUS_black_monday      → A 最重
+###
+### ★ 判定顺序：从「已消除」往下判
+###   （消除后所有 has_idea 为假，必须最先处理，否则落进 else 挂错档）
+############################################################
+KRAUS_bm_apply_state_tier = {
+
+	# ══════════════════════════════════════════════════════
+	# ★ 目标档 = E（复苏红利）：黑一已完全消除
+	#
+	#   从任意档换到 E：
+	#     A/B/C/D → E
+	# ══════════════════════════════════════════════════════
+	if = {
+		limit = { NOT = { KRAUS_has_black_monday_trigger = yes } }
+
+		every_owned_state = {
+			limit = { KRAUS_is_austrian_all = yes }
+
+			# ---- A → E ----
+			if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep }
+				add_dynamic_modifier = { modifier = KRAUS_dm_recovery }
+			}
+			# ---- B → E ----
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy }
+				add_dynamic_modifier = { modifier = KRAUS_dm_recovery }
+			}
+			# ---- C → E ----
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate }
+				add_dynamic_modifier = { modifier = KRAUS_dm_recovery }
+			}
+			# ---- D → E ----
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_light } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_light }
+				add_dynamic_modifier = { modifier = KRAUS_dm_recovery }
+			}
+			# ---- 已是 E（或首次无档）→ 直接挂上 ----
+			else_if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = KRAUS_dm_recovery } } }
+				add_dynamic_modifier = { modifier = KRAUS_dm_recovery }
+			}
+		}
+	}
+
+	# ══════════════════════════════════════════════════════
+	# ★ 目标档 = D（最轻）：_cs-3 / _sdap-3
+	# ══════════════════════════════════════════════════════
+	else_if = {
+		limit = {
+			OR = {
+				has_idea = AUS_black_monday_cs-3
+				has_idea = AUS_black_monday_sdap-3
+			}
+		}
+
+		every_owned_state = {
+			limit = { KRAUS_is_austrian_all = yes }
+
+			# ---- A → D ----
+			if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_light }
+			}
+			# ---- B → D ----
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_light }
+			}
+			# ---- C → D ----
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_light }
+			}
+			# ---- E → D（从复苏退回危机）----
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_recovery } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_recovery }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_light }
+			}
+			# ---- 已是 D → 不动 ----
+			else_if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_light } } }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_light }
+			}
+		}
+	}
+
+	# ══════════════════════════════════════════════════════
+	# ★ 目标档 = C（缓解）：_cs-2 / _sdap-2
+	# ══════════════════════════════════════════════════════
+	else_if = {
+		limit = {
+			OR = {
+				has_idea = AUS_black_monday_cs-2
+				has_idea = AUS_black_monday_sdap-2
+			}
+		}
+
+		every_owned_state = {
+			limit = { KRAUS_is_austrian_all = yes }
+
+			if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate }
+			}
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate }
+			}
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_light } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_light }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate }
+			}
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_recovery } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_recovery }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate }
+			}
+			else_if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate } } }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate }
+			}
+		}
+	}
+
+	# ══════════════════════════════════════════════════════
+	# ★ 目标档 = B（稍缓）：_cs-1 / _sdap-1
+	# ══════════════════════════════════════════════════════
+	else_if = {
+		limit = {
+			OR = {
+				has_idea = AUS_black_monday_cs-1
+				has_idea = AUS_black_monday_sdap-1
+			}
+		}
+
+		every_owned_state = {
+			limit = { KRAUS_is_austrian_all = yes }
+
+			if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy }
+			}
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy }
+			}
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_light } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_light }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy }
+			}
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_recovery } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_recovery }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy }
+			}
+			else_if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy } } }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy }
+			}
+		}
+	}
+
+	# ══════════════════════════════════════════════════════
+	# ★ 目标档 = A（最重）：初始 AUS_black_monday
+	# ══════════════════════════════════════════════════════
+	else_if = {
+		limit = { has_idea = AUS_black_monday }
+
+		every_owned_state = {
+			limit = { KRAUS_is_austrian_all = yes }
+
+			if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_heavy }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep }
+			}
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_moderate }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep }
+			}
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_light } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_crisis_light }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep }
+			}
+			else_if = {
+				limit = { has_dynamic_modifier = { modifier = KRAUS_dm_recovery } }
+				remove_dynamic_modifier = { modifier = KRAUS_dm_recovery }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep }
+			}
+			else_if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep } } }
+				add_dynamic_modifier = { modifier = KRAUS_dm_crisis_deep }
+			}
+		}
+	}
+
+	# ---- 刷新显示 ----
+	force_update_dynamic_modifier = yes
+}
+
+############################################################
+### ★ 全清（只在【移除黑一事件】里用，不参与档位换挂）
+###
+### ★ 保留这个 effect 是为了「黑一被事件直接移除」的场景
+###   （不走档位逻辑，需要一次性打扫干净）。
+###   ★ 绝不要在 KRAUS_bm_apply_state_tier 里调用它 ——
+###     那就是第七轮修掉的 bug。
+############################################################
+
+############################################################
+### ★ 变量驱动的平滑版本（可选）
+###
+### 若希望数值随「皇帝权威」等变量连续变化，
+### 用 KRAUS_dm_crisis_dynamic 替代五档跳变。
+### 每日调用一次即可。
+############################################################

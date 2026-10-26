@@ -1,0 +1,250 @@
+add_namespace = KRAUS_court_events
+
+country_event = {
+	id = KRAUS_court_events.13
+	title = KRAUS_court_events.13.t
+	desc = KRAUS_court_events.13.d
+	picture = GFX_report_event_generic_arrests
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_court_events.13.a
+		add_political_power = 25
+		custom_effect_tooltip = KRAUS_plotting_tt
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_court_events.2
+	title = KRAUS_court_events.2.t
+	desc = KRAUS_court_events.2.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_court_events.2.a
+		add_stability = 0.01
+		custom_effect_tooltip = KRAUS_slovak_approached_tt
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_court_events.12
+	title = KRAUS_court_events.12.t
+	desc = KRAUS_court_events.12.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_court_events.12.a
+		add_stability = 0.03
+		custom_effect_tooltip = KRAUS_slovak_ally_tt
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_court_events.10
+	title = KRAUS_court_events.10.t
+	desc = KRAUS_court_events.10.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_court_events.10.a
+		custom_effect_tooltip = KRAUS_court_events.10.a_tt
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_court_events.3
+	title = KRAUS_court_events.3.t
+	desc = KRAUS_court_events.3.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_court_events.3.a
+		add_stability = 0.01
+		custom_effect_tooltip = KRAUS_hungarian_approached_tt
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_court_events.1
+	title = KRAUS_court_events.1.t
+	desc = KRAUS_court_events.1.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_court_events.1.a
+		add_stability = 0.01
+		custom_effect_tooltip = KRAUS_czech_approached_tt
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_court_events.11
+	title = KRAUS_court_events.11.t
+	desc = KRAUS_court_events.11.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_court_events.11.a
+		add_stability = 0.03
+		custom_effect_tooltip = KRAUS_czech_ally_tt
+		ai_chance = { base = 100 }
+	}
+}
+
+
+country_event = {
+	id = KRAUS_court_events.14
+	title = KRAUS_court_events.14.t
+	desc = KRAUS_court_events.14.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_court_events.14.cze
+		trigger = { country_exists = CZE CZE = { is_subject_of = ROOT } }
+		CZE = {
+			random_character = { limit = { is_political_advisor = yes is_country_leader = no } set_nationality = ROOT }
+			random_character = { limit = { is_field_marshal = yes is_country_leader = no } set_nationality = ROOT }
+			random_character = { limit = { is_corps_commander = yes is_country_leader = no } set_nationality = ROOT }
+			random_scientist = { limit = { is_country_leader = no } set_nationality = ROOT }
+		}
+		ai_chance = { base = 25 }
+		# 选定 波西米亚（布拉格）为试点辖区。
+		#   ★ 在**小弟自己的作用域**里 add_ideas —— 它拿到的是它自己的
+		#     国家级固定修正，而不是奥地利替它挂的。
+		#     写法依据：KR 里 TAG = { add_ideas = X } 有数十处用例
+		#     （如 BUL focus (Bulgaria).txt:341 的 TUR = { add_ideas = ... }）。
+		#   ★ 与奥地利本部共享同一个精神 KRAUS_crown_harmony ——
+		#     不再另设「帝国协同发展协定」独立精神，协同发展由共享取代。
+		CZE = {
+			add_ideas = KRAUS_crown_harmony
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = KR_pleased
+			}
+			# 0.9 实测 17：重点投资——忠诚直接拉满，并给两座民用工厂
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			capital_scope = { add_building_construction = { type = industrial_complex level = 2 instant_build = yes } }
+		}
+		set_country_flag = KRAUS_accord_with_CZE
+		custom_effect_tooltip = KRAUS_accord_vassal_tt
+	}
+	option = {
+		name = KRAUS_court_events.14.cro
+		trigger = { country_exists = CRO CRO = { is_subject_of = ROOT } }
+		CRO = {
+			random_character = { limit = { is_political_advisor = yes is_country_leader = no } set_nationality = ROOT }
+			random_character = { limit = { is_field_marshal = yes is_country_leader = no } set_nationality = ROOT }
+			random_character = { limit = { is_corps_commander = yes is_country_leader = no } set_nationality = ROOT }
+			random_scientist = { limit = { is_country_leader = no } set_nationality = ROOT }
+		}
+		ai_chance = { base = 25 }
+		# 选定 伊利里亚（萨格勒布）为试点辖区。共享 KRAUS_crown_harmony。
+		CRO = {
+			add_ideas = KRAUS_crown_harmony
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = KR_pleased
+			}
+			# 0.9 实测 17：重点投资——忠诚直接拉满，并给两座民用工厂
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			capital_scope = { add_building_construction = { type = industrial_complex level = 2 instant_build = yes } }
+		}
+		set_country_flag = KRAUS_accord_with_CRO
+		custom_effect_tooltip = KRAUS_accord_vassal_tt
+	}
+	option = {
+		name = KRAUS_court_events.14.gal
+		trigger = { country_exists = GAL GAL = { is_subject_of = ROOT } }
+		GAL = {
+			random_character = { limit = { is_political_advisor = yes is_country_leader = no } set_nationality = ROOT }
+			random_character = { limit = { is_field_marshal = yes is_country_leader = no } set_nationality = ROOT }
+			random_character = { limit = { is_corps_commander = yes is_country_leader = no } set_nationality = ROOT }
+			random_scientist = { limit = { is_country_leader = no } set_nationality = ROOT }
+		}
+		ai_chance = { base = 25 }
+		# 选定 加利西亚（利沃夫）为试点辖区。共享 KRAUS_crown_harmony。
+		GAL = {
+			add_ideas = KRAUS_crown_harmony
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = KR_pleased
+			}
+			# 0.9 实测 17：重点投资——忠诚直接拉满，并给两座民用工厂
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			capital_scope = { add_building_construction = { type = industrial_complex level = 2 instant_build = yes } }
+		}
+		set_country_flag = KRAUS_accord_with_GAL
+		custom_effect_tooltip = KRAUS_accord_vassal_tt
+	}
+	option = {
+		name = KRAUS_court_events.14.hun
+		trigger = { country_exists = HUN HUN = { is_subject_of = ROOT } }
+		HUN = {
+			random_character = { limit = { is_political_advisor = yes is_country_leader = no } set_nationality = ROOT }
+			random_character = { limit = { is_field_marshal = yes is_country_leader = no } set_nationality = ROOT }
+			random_character = { limit = { is_corps_commander = yes is_country_leader = no } set_nationality = ROOT }
+			random_scientist = { limit = { is_country_leader = no } set_nationality = ROOT }
+		}
+		ai_chance = { base = 25 }
+		# 选定 匈牙利（布达佩斯）为试点辖区。共享 KRAUS_crown_harmony。
+		HUN = {
+			add_ideas = KRAUS_crown_harmony
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = KR_pleased
+			}
+			# 0.9 实测 17：重点投资——忠诚直接拉满，并给两座民用工厂
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			KRAUS_cl_toward_loyal = yes
+			capital_scope = { add_building_construction = { type = industrial_complex level = 2 instant_build = yes } }
+		}
+		set_country_flag = KRAUS_accord_with_HUN
+		custom_effect_tooltip = KRAUS_accord_vassal_tt
+	}
+}

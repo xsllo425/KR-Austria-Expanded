@@ -1,0 +1,53 @@
+############################################################
+### 对待王领事件（2026-10-12）：王领对奥地利的看法。每个事件一对，可以叠加。
+############################################################
+opinion_modifiers = {
+	KRAUS_cl_treat_1_good = {
+		value = 20
+		decay = 1
+	}
+	KRAUS_cl_treat_1_bad = {
+		value = -20
+		decay = 1
+	}
+	KRAUS_cl_treat_2_good = {
+		value = 20
+		decay = 1
+	}
+	KRAUS_cl_treat_2_bad = {
+		value = -20
+		decay = 1
+	}
+	KRAUS_cl_treat_3_good = {
+		value = 20
+		decay = 1
+	}
+	KRAUS_cl_treat_3_bad = {
+		value = -20
+		decay = 1
+	}
+	KRAUS_cl_treat_4_good = {
+		value = 20
+		decay = 1
+	}
+	KRAUS_cl_treat_4_bad = {
+		value = -20
+		decay = 1
+	}
+	KRAUS_cl_treat_5_good = {
+		value = 20
+		decay = 1
+	}
+	KRAUS_cl_treat_5_bad = {
+		value = -20
+		decay = 1
+	}
+	KRAUS_cl_treat_6_good = {
+		value = 20
+		decay = 1
+	}
+	KRAUS_cl_treat_6_bad = {
+		value = -20
+		decay = 1
+	}
+}

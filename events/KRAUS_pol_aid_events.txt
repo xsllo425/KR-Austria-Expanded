@@ -1,0 +1,82 @@
+############################################################
+### 经加利西亚援助波兰共和派（0.9 实测，2026-10-14）
+### 波兰的政局由影响力决定。加利西亚走廊打通之后，克拉科夫与伦贝格的银行可以把钱和人送给华沙的共和派。
+### 效果走 KR 自己的 POL_add_republican_influence，与国策「加利西亚的走廊」用的是同一个。
+############################################################
+add_namespace = KRAUS_pol_aid
+
+country_event = {
+	id = KRAUS_pol_aid.1
+	title = KRAUS_pol_aid.1.t
+	desc = KRAUS_pol_aid.1.d
+	picture = GFX_report_event_KRAUS_pol_aid_1
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = { hidden_effect = { set_country_flag = KRAUS_pol_line_open } }
+	option = {
+		name = KRAUS_pol_aid.1.a
+		log = "[GetLogInfo]: event KRAUS_pol_aid.1 option KRAUS_pol_aid.1.a"
+		add_political_power = -40
+		custom_effect_tooltip = KRAUS_pol_aid_a_tt
+		hidden_effect = {
+			POL = {
+				set_temp_variable = { POL_influence_change = 4 }
+				POL_add_republican_influence = yes
+			}
+			country_event = { id = KRAUS_pol_aid.2 days = 60 }
+		}
+		ai_chance = { base = 70 }
+	}
+	option = {
+		name = KRAUS_pol_aid.1.b
+		log = "[GetLogInfo]: event KRAUS_pol_aid.1 option KRAUS_pol_aid.1.b"
+		add_political_power = -80
+		custom_effect_tooltip = KRAUS_pol_aid_b_tt
+		hidden_effect = {
+			POL = {
+				set_temp_variable = { POL_influence_change = 7 }
+				POL_add_republican_influence = yes
+				set_temp_variable = { POL_influence_change = 3 }
+				POL_add_austrian_influence = yes
+			}
+			country_event = { id = KRAUS_pol_aid.2 days = 60 }
+		}
+		ai_chance = { base = 20 }
+	}
+	option = {
+		name = KRAUS_pol_aid.1.c
+		log = "[GetLogInfo]: event KRAUS_pol_aid.1 option KRAUS_pol_aid.1.c"
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRAUS_pol_aid.2
+	title = KRAUS_pol_aid.2.t
+	desc = KRAUS_pol_aid.2.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		country_exists = POL
+		NOT = { POL = { has_country_flag = POL_election_happened } }
+	}
+	option = {
+		name = KRAUS_pol_aid.2.a
+		log = "[GetLogInfo]: event KRAUS_pol_aid.2 option KRAUS_pol_aid.2.a"
+		add_political_power = -40
+		custom_effect_tooltip = KRAUS_pol_aid_a_tt
+		hidden_effect = {
+			POL = {
+				set_temp_variable = { POL_influence_change = 4 }
+				POL_add_republican_influence = yes
+			}
+		}
+		ai_chance = { base = 70 }
+	}
+	option = {
+		name = KRAUS_pol_aid.2.b
+		log = "[GetLogInfo]: event KRAUS_pol_aid.2 option KRAUS_pol_aid.2.b"
+		ai_chance = { base = 30 }
+	}
+}

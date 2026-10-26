@@ -1,0 +1,1163 @@
+### KRAUS 共同经济树（多瑙河共同建设纲要），2026-10-12
+### 由 KR 奥地利国策树的 AUS_eco_council 子树改造为联合国策；AUS 国策树用 shared_focus 挂入。
+### 奖励按国家分：奥地利 = KR 原效果（原样保留）；成员王领 = 「多瑙河共同建设」精神升级 + 实物。
+### 王领奖励由奥地利那份 completion_reward 统一发放（every_subject_country），不依赖王领树里是否有该国策。
+
+joint_focus = {
+	id = AUS_eco_council
+	dynamic = yes
+	offset = { x = 12 y = 0 trigger = { OR = { has_focus_tree = KRAUS_CZE_focus has_focus_tree = KRAUS_GAL_focus has_focus_tree = KRAUS_CRO_focus has_focus_tree = KRAUS_HUN_focus has_focus_tree = KRAUS_SLO_focus has_focus_tree = KRAUS_TRS_focus } } }
+	bypass = { AUS = { has_completed_focus = AUS_eco_council } }
+	icon = GFX_goal_AUS_eco_council
+	x = 5
+	y = 0
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	available = {
+		KRAUS_joint_econ_member = yes
+		date > 1936.3.1
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_eco_council completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_golden_danube_open = yes
+				add_political_power = 100
+
+				KRAUS_joint_econ_recalc = yes
+				add_dynamic_modifier = { modifier = KRAUS_joint_econ_aus_dm }
+				remove_ideas = { AUS_vienna_circle AUS_vienna_circle_expanded }
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_eco_council_1 } }
+					set_country_flag = KRAUS_ext_AUS_eco_council_1
+					KRAUS_golden_danube_open = yes
+					add_political_power = 100
+
+					KRAUS_joint_econ_recalc = yes
+					add_dynamic_modifier = { modifier = KRAUS_joint_econ_aus_dm }
+					remove_ideas = { AUS_vienna_circle AUS_vienna_circle_expanded }
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_skoda
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_skoda } }
+	icon = GFX_goal_generic_army_tanks2
+	x = -3
+	y = 1
+	relative_position_id = AUS_eco_council
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_eco_council }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_skoda completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				if = {
+					limit = {
+						has_dlc_aat = no
+					}
+					custom_effect_tooltip = available_designer
+					show_ideas_tooltip = skoda
+				}
+				else = {
+					custom_effect_tooltip = available_mio_tt
+					show_mio_tooltip = AUS_skoda_organisation
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_tech_bonus = {
+					name = AUS_skoda
+					bonus = 1
+					uses = 1
+					category = armor
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					capital_scope = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+					}
+					add_tech_bonus = { name = KRAUS_joint_skoda_tech bonus = 0.5 uses = 1 category = armor }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_skoda_1 } }
+					set_country_flag = KRAUS_ext_AUS_skoda_1
+					if = {
+						limit = {
+							has_dlc_aat = no
+						}
+						custom_effect_tooltip = available_designer
+						show_ideas_tooltip = skoda
+					}
+					else = {
+						custom_effect_tooltip = available_mio_tt
+						show_mio_tooltip = AUS_skoda_organisation
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_tech_bonus = {
+						name = AUS_skoda
+						bonus = 1
+						uses = 1
+						category = armor
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						capital_scope = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+						}
+						add_tech_bonus = { name = KRAUS_joint_skoda_tech bonus = 0.5 uses = 1 category = armor }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_skoda_orders }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_skoda_orders
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_vienna_circle_1
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_vienna_circle_1 } }
+	icon = GFX_focus_research
+	x = -1
+	y = 1
+	relative_position_id = AUS_eco_council
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_eco_council }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_vienna_circle_1 completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_research_slot_until_five = yes
+
+				hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_econ_spirit_up = yes
+					add_tech_bonus = { name = KRAUS_joint_vienna_tech bonus = 0.5 uses = 1 category = electronics }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_vienna_circle_1_1 } }
+					set_country_flag = KRAUS_ext_AUS_vienna_circle_1_1
+					add_research_slot_until_five = yes
+
+					hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_econ_spirit_up = yes
+						add_tech_bonus = { name = KRAUS_joint_vienna_tech bonus = 0.5 uses = 1 category = electronics }
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_suedbahn
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_suedbahn } }
+	icon = GFX_focus_generic_railroad
+	x = 1
+	y = 1
+	relative_position_id = AUS_eco_council
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_eco_council }
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+	available = {
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_suedbahn completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				build_railway = {
+					level = 1
+					path = {
+						11666
+						6690
+						9648
+						13575
+						9646
+						665
+						9596
+						9627
+						13905
+						599
+						6626
+					}
+				}
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_coreworks_built_rail775 } }
+					set_country_flag = KRAUS_coreworks_grant_rail775
+				}
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_coreworks_built_rail102 } }
+					set_country_flag = KRAUS_coreworks_grant_rail102
+				}
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_coreworks_built_rail736 } }
+					set_country_flag = KRAUS_coreworks_grant_rail736
+				}
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_coreworks_built_rail488 } }
+					set_country_flag = KRAUS_coreworks_grant_rail488
+				}
+				custom_effect_tooltip = KRAUS_coreworks_ent_rail_tt
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					capital_scope = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = { type = infrastructure level = 2 instant_build = yes }
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_suedbahn_1 } }
+					set_country_flag = KRAUS_ext_AUS_suedbahn_1
+					build_railway = {
+						level = 1
+						path = {
+							11666
+							6690
+							9648
+							13575
+							9646
+							665
+							9596
+							9627
+							13905
+							599
+							6626
+						}
+					}
+					if = {
+						limit = { NOT = { has_country_flag = KRAUS_coreworks_built_rail775 } }
+						set_country_flag = KRAUS_coreworks_grant_rail775
+					}
+					if = {
+						limit = { NOT = { has_country_flag = KRAUS_coreworks_built_rail102 } }
+						set_country_flag = KRAUS_coreworks_grant_rail102
+					}
+					if = {
+						limit = { NOT = { has_country_flag = KRAUS_coreworks_built_rail736 } }
+						set_country_flag = KRAUS_coreworks_grant_rail736
+					}
+					if = {
+						limit = { NOT = { has_country_flag = KRAUS_coreworks_built_rail488 } }
+						set_country_flag = KRAUS_coreworks_grant_rail488
+					}
+					custom_effect_tooltip = KRAUS_coreworks_ent_rail_tt
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						capital_scope = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = { type = infrastructure level = 2 instant_build = yes }
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_wnl_efficiency }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_wnl_efficiency
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_farms_expand
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_farms_expand } }
+	icon = GFX_goal_agricultural_policies
+	x = 3
+	y = 1
+	relative_position_id = AUS_eco_council
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_eco_council }
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+	available = {
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_farms_expand completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				random_owned_controlled_state = {
+					prioritize = { 4 }
+					increase_state_category_by_one_level = yes
+				}
+				random_owned_controlled_state = {
+					prioritize = { 736 }
+					increase_state_category_by_one_level = yes
+				}
+				random_owned_controlled_state = {
+					prioritize = { 152 }
+					increase_state_category_by_one_level = yes
+				}
+
+				hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_econ_spirit_up = yes
+					capital_scope = {
+						increase_state_category_by_one_level = yes
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_farms_expand_1 } }
+					set_country_flag = KRAUS_ext_AUS_farms_expand_1
+					random_owned_controlled_state = {
+						prioritize = { 4 }
+						increase_state_category_by_one_level = yes
+					}
+					random_owned_controlled_state = {
+						prioritize = { 736 }
+						increase_state_category_by_one_level = yes
+					}
+					random_owned_controlled_state = {
+						prioritize = { 152 }
+						increase_state_category_by_one_level = yes
+					}
+
+					hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_econ_spirit_up = yes
+						capital_scope = {
+							increase_state_category_by_one_level = yes
+						}
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_daimler
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_daimler } }
+	icon = GFX_goal_generic_automobile
+	x = -3
+	y = 2
+	relative_position_id = AUS_eco_council
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_skoda }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_econ_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_daimler completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = available_industrial_concern
+				show_ideas_tooltip = austro_daimler
+				custom_effect_tooltip = tooltip_white_line
+				add_tech_bonus = {
+					name = AUS_daimler
+					bonus = 1
+					uses = 1
+					category = industry
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					capital_scope = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+					}
+					add_tech_bonus = { name = KRAUS_joint_daimler_tech bonus = 0.5 uses = 1 category = industry }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_daimler_1 } }
+					set_country_flag = KRAUS_ext_AUS_daimler_1
+					custom_effect_tooltip = available_industrial_concern
+					show_ideas_tooltip = austro_daimler
+					custom_effect_tooltip = tooltip_white_line
+					add_tech_bonus = {
+						name = AUS_daimler
+						bonus = 1
+						uses = 1
+						category = industry
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						capital_scope = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+						}
+						add_tech_bonus = { name = KRAUS_joint_daimler_tech bonus = 0.5 uses = 1 category = industry }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_gs_orders }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_gs_orders
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_vienna_circle_2
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_vienna_circle_2 } }
+	icon = GFX_goal_tfv_generic_tech_sharing
+	x = -1
+	y = 2
+	relative_position_id = AUS_eco_council
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_vienna_circle_1 }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_econ_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_vienna_circle_2 completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = AUS_vienna_circle
+					add_idea = AUS_vienna_circle_expanded
+				}
+				add_to_tech_sharing_group = austrian_research
+				if = {
+					limit = {
+						is_in_faction = yes
+						OR = {
+							is_faction_leader = yes
+							faction_leader = {
+								tag = OTT
+							}
+						}
+					}
+					every_allied_country = {
+						effect_tooltip = {
+							add_to_tech_sharing_group = austrian_research
+						}
+						country_event = austria_foreign_events.4030
+					}
+				}
+				else = {
+					every_other_country = {
+						limit = {
+							OR = {
+								is_subject_of = ROOT
+								AND = {
+									is_in_faction_with = ROOT
+									has_country_flag = AUS_former_faction_member
+								}
+							}
+						}
+						effect_tooltip = {
+							add_to_tech_sharing_group = austrian_research
+						}
+						country_event = austria_foreign_events.4030
+					}
+				}
+
+				hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_econ_spirit_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_vienna_circle_2_1 } }
+					set_country_flag = KRAUS_ext_AUS_vienna_circle_2_1
+					swap_ideas = {
+						remove_idea = AUS_vienna_circle
+						add_idea = AUS_vienna_circle_expanded
+					}
+					add_to_tech_sharing_group = austrian_research
+					if = {
+						limit = {
+							is_in_faction = yes
+							OR = {
+								is_faction_leader = yes
+								faction_leader = {
+									tag = OTT
+								}
+							}
+						}
+						every_allied_country = {
+							effect_tooltip = {
+								add_to_tech_sharing_group = austrian_research
+							}
+							country_event = austria_foreign_events.4030
+						}
+					}
+					else = {
+						every_other_country = {
+							limit = {
+								OR = {
+									is_subject_of = ROOT
+									AND = {
+										is_in_faction_with = ROOT
+										has_country_flag = AUS_former_faction_member
+									}
+								}
+							}
+							effect_tooltip = {
+								add_to_tech_sharing_group = austrian_research
+							}
+							country_event = austria_foreign_events.4030
+						}
+					}
+
+					hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_econ_spirit_up = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_lo_research }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_lo_research
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_homeland_eco
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_homeland_eco } }
+	icon = GFX_goal_generic_construct_civ_factory
+	x = 0
+	y = 1
+	relative_position_id = AUS_suedbahn
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_suedbahn }
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+	available = {
+		KRAUS_joint_econ_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_homeland_eco completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				4 = {
+					add_extra_state_shared_building_slots = 3
+				}
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_coreworks_built_eco4 } }
+					set_country_flag = KRAUS_coreworks_grant_eco4
+				}
+				custom_effect_tooltip = KRAUS_coreworks_ent_eco_tt
+
+				hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_econ_spirit_up = yes
+					capital_scope = {
+						add_extra_state_shared_building_slots = 3
+						add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_homeland_eco_1 } }
+					set_country_flag = KRAUS_ext_AUS_homeland_eco_1
+					4 = {
+						add_extra_state_shared_building_slots = 3
+					}
+					if = {
+						limit = { NOT = { has_country_flag = KRAUS_coreworks_built_eco4 } }
+						set_country_flag = KRAUS_coreworks_grant_eco4
+					}
+					custom_effect_tooltip = KRAUS_coreworks_ent_eco_tt
+
+					hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_econ_spirit_up = yes
+						capital_scope = {
+							add_extra_state_shared_building_slots = 3
+							add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_sw_mass }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_sw_mass
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_alpine_mines
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_alpine_mines } }
+	icon = GFX_focus_generic_mining_industry
+	x = 0
+	y = 1
+	relative_position_id = AUS_farms_expand
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_farms_expand }
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+	available = {
+		KRAUS_joint_econ_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_alpine_mines completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_resource = {
+					type = steel
+					amount = 4
+					state = 775
+				}
+				add_resource = {
+					type = steel
+					amount = 3
+					state = 835
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					capital_scope = {
+						add_resource = { type = steel amount = 2 }
+						add_extra_state_shared_building_slots = 1
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_alpine_mines_1 } }
+					set_country_flag = KRAUS_ext_AUS_alpine_mines_1
+					add_resource = {
+						type = steel
+						amount = 4
+						state = 775
+					}
+					add_resource = {
+						type = steel
+						amount = 3
+						state = 835
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						capital_scope = {
+							add_resource = { type = steel amount = 2 }
+							add_extra_state_shared_building_slots = 1
+						}
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_homeland_mil
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_homeland_mil } }
+	icon = GFX_goal_generic_construct_mil_factory
+	x = -3
+	y = 3
+	relative_position_id = AUS_eco_council
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_daimler }
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+	available = {
+		KRAUS_joint_econ_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_homeland_mil completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				4 = {
+					add_extra_state_shared_building_slots = 3
+				}
+				736 = {
+					add_extra_state_shared_building_slots = 3
+				}
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_coreworks_built_mil4 } }
+					set_country_flag = KRAUS_coreworks_grant_mil4
+				}
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_coreworks_built_mil736 } }
+					set_country_flag = KRAUS_coreworks_grant_mil736
+				}
+				custom_effect_tooltip = KRAUS_coreworks_ent_mil_tt
+
+				hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_econ_spirit_up = yes
+					capital_scope = {
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_homeland_mil_1 } }
+					set_country_flag = KRAUS_ext_AUS_homeland_mil_1
+					4 = {
+						add_extra_state_shared_building_slots = 3
+					}
+					736 = {
+						add_extra_state_shared_building_slots = 3
+					}
+					if = {
+						limit = { NOT = { has_country_flag = KRAUS_coreworks_built_mil4 } }
+						set_country_flag = KRAUS_coreworks_grant_mil4
+					}
+					if = {
+						limit = { NOT = { has_country_flag = KRAUS_coreworks_built_mil736 } }
+						set_country_flag = KRAUS_coreworks_grant_mil736
+					}
+					custom_effect_tooltip = KRAUS_coreworks_ent_mil_tt
+
+					hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_econ_spirit_up = yes
+						capital_scope = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_wnl_capacity }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_wnl_capacity
+				}
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_st_karabiner }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_st_karabiner
+				}
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_sw_methods }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_sw_methods
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = KRAUS_je_institute
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = KRAUS_je_institute } }
+	icon = GFX_focus_research
+	x = -1
+	y = 3
+	relative_position_id = AUS_eco_council
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_vienna_circle_2 }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_econ_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus KRAUS_je_institute completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = KRAUS_je_spirit_up_tt
+				add_tech_bonus = { name = KRAUS_je_institute_tb bonus = 1 uses = 1 category = electronics }
+				add_tech_bonus = { name = KRAUS_je_institute_tb bonus = 1 uses = 1 category = industry }
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_econ_spirit_up = yes
+					add_tech_bonus = { name = KRAUS_je_institute_tb bonus = 0.5 uses = 1 category = electronics }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_KRAUS_je_institute_1 } }
+					set_country_flag = KRAUS_ext_KRAUS_je_institute_1
+					hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+					KRAUS_joint_econ_recalc = yes
+					add_tech_bonus = { name = KRAUS_je_institute_tb bonus = 1 uses = 1 category = electronics }
+					add_tech_bonus = { name = KRAUS_je_institute_tb bonus = 1 uses = 1 category = industry }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_econ_spirit_up = yes
+						add_tech_bonus = { name = KRAUS_je_institute_tb bonus = 0.5 uses = 1 category = electronics }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_skoda_research }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_skoda_research
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = KRAUS_je_works
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = KRAUS_je_works } }
+	icon = GFX_goal_generic_construct_infrastructure
+	x = 1
+	y = 3
+	relative_position_id = AUS_eco_council
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_homeland_eco }
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+	available = {
+		KRAUS_joint_econ_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus KRAUS_je_works completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = KRAUS_je_spirit_up_tt
+				4 = {
+					add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+				}
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_econ_spirit_up = yes
+					capital_scope = {
+						add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+						add_extra_state_shared_building_slots = 1
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_KRAUS_je_works_1 } }
+					set_country_flag = KRAUS_ext_KRAUS_je_works_1
+					hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+					KRAUS_joint_econ_recalc = yes
+					4 = {
+						add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+					}
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_econ_spirit_up = yes
+						capital_scope = {
+							add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+							add_extra_state_shared_building_slots = 1
+						}
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = KRAUS_je_resources
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = KRAUS_je_resources } }
+	icon = GFX_focus_generic_mining_industry
+	x = 3
+	y = 3
+	relative_position_id = AUS_eco_council
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_alpine_mines }
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+	available = {
+		KRAUS_joint_econ_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus KRAUS_je_resources completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = KRAUS_je_spirit_up_tt
+				add_resource = {
+					type = oil
+					amount = 4
+					state = 4
+				}
+				add_resource = {
+					type = aluminium
+					amount = 4
+					state = 152
+				}
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_econ_spirit_up = yes
+					capital_scope = {
+						add_resource = { type = aluminium amount = 2 }
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_KRAUS_je_resources_1 } }
+					set_country_flag = KRAUS_ext_KRAUS_je_resources_1
+					hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+					KRAUS_joint_econ_recalc = yes
+					add_resource = {
+						type = oil
+						amount = 4
+						state = 4
+					}
+					add_resource = {
+						type = aluminium
+						amount = 4
+						state = 152
+					}
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_econ_spirit_up = yes
+						capital_scope = {
+							add_resource = { type = aluminium amount = 2 }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = KRAUS_je_charter
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = KRAUS_je_charter } }
+	icon = GFX_goal_KRAUS_je_charter
+	x = 0
+	y = 4
+	relative_position_id = AUS_eco_council
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 14
+	prerequisite = { focus = AUS_homeland_mil }
+	prerequisite = { focus = KRAUS_je_institute }
+	prerequisite = { focus = KRAUS_je_works }
+	prerequisite = { focus = KRAUS_je_resources }
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	available = {
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus KRAUS_je_charter completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_political_power = 50
+				custom_effect_tooltip = KRAUS_je_spirit_up_tt
+				set_country_flag = KRAUS_je_charter_done
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_econ_spirit_up = yes
+					capital_scope = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_KRAUS_je_charter_1 } }
+					set_country_flag = KRAUS_ext_KRAUS_je_charter_1
+					add_political_power = 50
+					hidden_effect = { add_to_variable = { KRAUS_joint_econ_level = 1 } }
+					KRAUS_joint_econ_recalc = yes
+					set_country_flag = KRAUS_je_charter_done
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_econ_spirit_up = yes
+						capital_scope = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}

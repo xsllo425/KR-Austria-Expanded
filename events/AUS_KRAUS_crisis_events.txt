@@ -1,0 +1,269 @@
+add_namespace = KRAUS_crisis_events
+
+country_event = {
+	id = KRAUS_crisis_events.4
+	title = KRAUS_crisis_events.4.t
+	desc = KRAUS_crisis_events.4.d
+	picture = GFX_report_event_generic_army
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	# ── 未雨绸缪：把繁荣共享给一个王领兄弟 ──
+	#   选定者获得「共同繁荣」精神（复制中欧繁荣 + 巴伐利亚联合军事演习的效果）
+	#   外加工厂、基建与建筑位 —— 体现真正的共同繁荣
+	option = {
+		name = KRAUS_crisis_events.4.a
+		log = "[GetLogInfo]: event KRAUS_crisis_events.4 option a (CZE)"
+		ai_chance = { base = 25 }
+		if = {
+			limit = { country_exists = CZE }
+			CZE = {
+				add_ideas = KRAUS_common_prosperity_CZE
+				add_one_random_civilian_factory = yes
+				add_one_random_civilian_factory = yes
+				add_one_random_military_factory = yes
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = industrial_complex size > 0 } }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				}
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = infrastructure size > 0 } }
+					add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+				}
+			}
+			set_country_flag = KRAUS_prosperity_shared_with_CZE
+		}
+		else = {
+			# 王冠领已经整合：不给精神，只在原王冠领的州里添加建筑位和工厂
+			random_owned_controlled_state = {
+				limit = { is_core_of = CZE }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	option = {
+		name = KRAUS_crisis_events.4.b
+		log = "[GetLogInfo]: event KRAUS_crisis_events.4 option b (CRO)"
+		ai_chance = { base = 25 }
+		if = {
+			limit = { country_exists = CRO }
+			CRO = {
+				add_ideas = KRAUS_common_prosperity_CRO
+				add_one_random_civilian_factory = yes
+				add_one_random_civilian_factory = yes
+				add_one_random_military_factory = yes
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = industrial_complex size > 0 } }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				}
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = infrastructure size > 0 } }
+					add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+				}
+			}
+			set_country_flag = KRAUS_prosperity_shared_with_CRO
+		}
+		else = {
+			# 王冠领已经整合：不给精神，只在原王冠领的州里添加建筑位和工厂
+			random_owned_controlled_state = {
+				limit = { is_core_of = CRO }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	option = {
+		name = KRAUS_crisis_events.4.c
+		log = "[GetLogInfo]: event KRAUS_crisis_events.4 option c (GAL)"
+		ai_chance = { base = 25 }
+		if = {
+			limit = { country_exists = GAL }
+			GAL = {
+				add_ideas = KRAUS_common_prosperity_GAL
+				add_one_random_civilian_factory = yes
+				add_one_random_civilian_factory = yes
+				add_one_random_military_factory = yes
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = industrial_complex size > 0 } }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				}
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = infrastructure size > 0 } }
+					add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+				}
+			}
+			set_country_flag = KRAUS_prosperity_shared_with_GAL
+		}
+		else = {
+			# 王冠领已经整合：不给精神，只在原王冠领的州里添加建筑位和工厂
+			random_owned_controlled_state = {
+				limit = { is_core_of = GAL }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	option = {
+		name = KRAUS_crisis_events.4_hun
+		ai_chance = { base = 25 }
+		if = {
+			limit = { country_exists = HUN }
+			HUN = {
+				add_ideas = KRAUS_common_prosperity_HUN
+				add_one_random_civilian_factory = yes
+				add_one_random_civilian_factory = yes
+				add_one_random_military_factory = yes
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = industrial_complex size > 0 } }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				}
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = infrastructure size > 0 } }
+					add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+				}
+			}
+			set_country_flag = KRAUS_prosperity_shared_with_HUN
+		}
+		else = {
+			# 王冠领已经整合：不给精神，只在原王冠领的州里添加建筑位和工厂
+			random_owned_controlled_state = {
+				limit = { is_core_of = HUN }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+	option = {
+		name = KRAUS_crisis_events.4_slo
+		log = "[GetLogInfo]: event KRAUS_crisis_events.4 option c (SLO)"
+		trigger = {
+			country_exists = SLO
+			SLO = { is_subject_of = ROOT }
+		}
+		ai_chance = { base = 25 }
+		if = {
+			limit = { country_exists = SLO }
+			SLO = {
+				add_ideas = KRAUS_common_prosperity_SLO
+				add_one_random_civilian_factory = yes
+				add_one_random_civilian_factory = yes
+				add_one_random_military_factory = yes
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = industrial_complex size > 0 } }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				}
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = infrastructure size > 0 } }
+					add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+				}
+			}
+			set_country_flag = KRAUS_prosperity_shared_with_SLO
+		}
+		else = {
+			# 王冠领已经整合：不给精神，只在原王冠领的州里添加建筑位和工厂
+			random_owned_controlled_state = {
+				limit = { is_core_of = SLO }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+	option = {
+		name = KRAUS_crisis_events.4_trs
+		log = "[GetLogInfo]: event KRAUS_crisis_events.4 option c (TRS)"
+		trigger = {
+			country_exists = TRS
+			TRS = { is_subject_of = ROOT }
+		}
+		ai_chance = { base = 25 }
+		if = {
+			limit = { country_exists = TRS }
+			TRS = {
+				add_ideas = KRAUS_common_prosperity_TRS
+				add_one_random_civilian_factory = yes
+				add_one_random_civilian_factory = yes
+				add_one_random_military_factory = yes
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = industrial_complex size > 0 } }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				}
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = infrastructure size > 0 } }
+					add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+				}
+			}
+			set_country_flag = KRAUS_prosperity_shared_with_TRS
+		}
+		else = {
+			# 王冠领已经整合：不给精神，只在原王冠领的州里添加建筑位和工厂
+			random_owned_controlled_state = {
+				limit = { is_core_of = TRS }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+}
+
+country_event = {
+	id = KRAUS_crisis_events.5
+	title = KRAUS_crisis_events.5.t
+	desc = KRAUS_crisis_events.5.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRAUS_crisis_events.5.a
+		# 互相提升好感度
+		if = {
+			limit = { country_exists = GER }
+			GER = {
+				reverse_add_opinion_modifier = { target = ROOT modifier = KR_pleased }
+			}
+			add_opinion_modifier = { target = GER modifier = KR_pleased }
+			add_opinion_modifier = { target = GER modifier = KR_pleased }
+		}
+		add_stability = 0.02
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+### 巴伐利亚联合军事演习在战争中完成：不谈未雨绸缪，改为战时增产与后勤（0.9 实测）
+country_event = {
+	id = KRAUS_crisis_events.40
+	title = KRAUS_crisis_events.40.t
+	desc = KRAUS_crisis_events.40.d
+	picture = GFX_report_event_generic_army
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRAUS_crisis_events.40.a
+		log = "[GetLogInfo]: event KRAUS_crisis_events.40 option a"
+		add_timed_idea = { days = 365 idea = KRAUS_wartime_joint_prod }
+		army_experience = 25
+		ai_chance = { base = 100 }
+	}
+}

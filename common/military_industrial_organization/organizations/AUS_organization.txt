@@ -1,0 +1,827 @@
+###################
+### Armour MIOs ###
+###################
+AUS_skoda_organisation = { #TODO: make unique? #If possible, change name to CKD in CZE?
+	include = generic_infantry_tank_organization
+	name = skoda
+	icon = GFX_idea_skodovy_zavody
+	allowed = {
+		is_danubian_tag = yes
+	}
+	# 0.9 实测 2：开局即可用（原为完成对应国策后才解锁）
+
+	add_trait = {
+		token = KRAUS_mio_trait_skoda_orders
+		name = KRAUS_mio_trait_skoda_orders
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		special_trait_background = yes
+		position = { x = 0 y = 3 }
+		available = {
+			AUS = { has_completed_focus = AUS_skoda }
+		}
+		production_bonus = { production_capacity_factor = 0.05 }
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_skoda_research
+		name = KRAUS_mio_trait_skoda_research
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_skoda_orders
+		all_parents = { KRAUS_mio_trait_skoda_orders }
+		available = {
+			AUS = { has_completed_focus = KRAUS_je_institute }
+		}
+		organization_modifier = { military_industrial_organization_research_bonus = 0.05 }
+		ai_will_do = { base = 2 }
+	}
+}
+AUS_simmering_graz_pauker_organisation = {
+	include = generic_heavy_tank_organization
+	name = simmering_graz_pauker
+	icon = GFX_idea_simmering_graz_pauker
+	allowed = {
+		is_danubian_tag = yes
+	}
+	visible = { FROM = { owns_state = 4 } }
+
+	add_trait = {
+		token = KRAUS_mio_trait_sgp_multi_role
+		name = KRAUS_mio_trait_sgp_multi_role
+		icon = GFX_generic_mio_department_icon_tank_heavy_tank_aa
+		special_trait_background = yes
+		position = { x = -1 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_motorisation }
+		}
+		equipment_bonus = {
+					soft_attack = 0.05
+					air_attack = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_sgp_anti_tank
+		name = KRAUS_mio_trait_sgp_anti_tank
+		icon = GFX_generic_mio_department_icon_tank_heavy_tank_at
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_sgp_multi_role
+		all_parents = { KRAUS_mio_trait_sgp_multi_role }
+		available = {
+			AUS = { has_completed_focus = AUS_tank_trials }
+		}
+		equipment_bonus = {
+					hard_attack = 0.05
+					ap_attack = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_sgp_transmission
+		name = KRAUS_mio_trait_sgp_transmission
+		icon = GFX_generic_mio_department_icon_tank_heavy_tank_engine
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_sgp_anti_tank
+		all_parents = { KRAUS_mio_trait_sgp_anti_tank }
+		available = {
+			AUS = { has_completed_focus = AUS_doctrine_von_Hubicki }
+		}
+		limit_to_equipment_type = { armor }
+		equipment_bonus = {
+					maximum_speed = 0.05
+					reliability = -0.02
+				}
+		ai_will_do = { base = 2 }
+	}
+}
+AUS_graef_stift_organisation = {
+	include = generic_mobile_tank_organization
+	name = graef_stift
+	icon = GFX_idea_AUS_graf_and_stift
+	allowed = {
+		is_danubian_tag = yes
+	}
+	visible = { FROM = { owns_state = 4 } }
+
+	add_trait = {
+		token = KRAUS_mio_trait_gs_orders
+		name = KRAUS_mio_trait_gs_orders
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		special_trait_background = yes
+		position = { x = 9 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_daimler }
+		}
+		production_bonus = { production_capacity_factor = 0.05 }
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_gs_research
+		name = KRAUS_mio_trait_gs_research
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_gs_orders
+		all_parents = { KRAUS_mio_trait_gs_orders }
+		available = {
+			AUS = { has_completed_focus = AUS_mech_cavalry }
+		}
+		organization_modifier = { military_industrial_organization_research_bonus = 0.05 }
+		ai_will_do = { base = 2 }
+	}
+}
+AUS_wiener_neu_lokomotiv_organisation = {
+	include = generic_tank_refurbishment_plant_organization
+	name = wiener_neu_lokomotiv
+	icon = GFX_idea_wiener_neu_lokomotiv
+	allowed = {
+		is_danubian_tag = yes
+	}
+	visible = { FROM = { owns_state = 4 } }
+
+	add_trait = {
+		token = KRAUS_mio_trait_wnl_capacity
+		name = KRAUS_mio_trait_wnl_capacity
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		special_trait_background = yes
+		position = { x = 9 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_homeland_mil }
+		}
+		production_bonus = { production_capacity_factor = 0.05 }
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_wnl_efficiency
+		name = KRAUS_mio_trait_wnl_efficiency
+		icon = GFX_generic_mio_department_icon_tank_general_technology
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_wnl_capacity
+		all_parents = { KRAUS_mio_trait_wnl_capacity }
+		available = {
+			AUS = { has_completed_focus = AUS_suedbahn }
+		}
+		production_bonus = { production_efficiency_gain_factor = 0.05 production_efficiency_cap_factor = 0.05 }
+		ai_will_do = { base = 2 }
+	}
+}
+
+##################
+### Naval MIOs ###
+##################
+AUS_stabilimento_tecnico_triestino_organisation = {
+	include = generic_battle_line_ship_organization
+	name = stabilimento_tecnico_triestino
+	icon = GFX_idea_AUS_stabilimento_tecnico_triestino
+	allowed = {
+		is_danubian_tag = yes
+	}
+	visible = { FROM = { owns_state = 488 } }
+
+	add_trait = {
+		token = KRAUS_mio_trait_stt_history
+		name = KRAUS_mio_trait_stt_history
+		icon = GFX_generic_mio_department_icon_ship_capital_ship_production
+		special_trait_background = yes
+		position = { x = 10 y = 8 }
+		available = {
+			AUS = { has_completed_focus = AUS_naval_effort }
+		}
+		limit_to_equipment_type = { mio_cat_eq_all_battleship }
+		equipment_bonus = {
+					hg_attack = 0.05
+					build_cost_ic = -0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_stt_guns
+		name = KRAUS_mio_trait_stt_guns
+		icon = GFX_generic_mio_department_icon_ship_capital_ship_weapons
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_stt_history
+		all_parents = { KRAUS_mio_trait_stt_history }
+		available = {
+			AUS = { has_completed_focus = AUS_large_navy }
+		}
+		equipment_bonus = {
+					hg_attack = 0.05
+					lg_attack = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_stt_lissa
+		name = KRAUS_mio_trait_stt_lissa
+		icon = GFX_generic_mio_department_icon_ship_capital_ship_quality
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_stt_guns
+		all_parents = { KRAUS_mio_trait_stt_guns }
+		available = {
+			AUS = { has_completed_focus = AUS_capital_ships_effort }
+		}
+		limit_to_equipment_type = { mio_cat_eq_all_battleship }
+		equipment_bonus = {
+					hg_armor_piercing = 0.05
+					naval_speed = 0.05
+					build_cost_ic = -0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+}
+AUS_ganz_danubius_organisation = {
+	include = generic_submarine_organization
+	name = ganz_danubius
+	icon = GFX_idea_HUN_ganz_danubius
+	allowed = {
+		is_danubian_tag = yes
+	}
+	visible = {
+		FROM = {
+			owns_any_state_of = {
+				4 #Lower Austria
+				43 #Central Hungary
+			}
+		}
+	}
+
+	add_trait = {
+		token = KRAUS_mio_trait_gd_ocean
+		name = KRAUS_mio_trait_gd_ocean
+		icon = GFX_generic_mio_department_icon_ship_submarine_engine
+		special_trait_background = yes
+		position = { x = 9 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_small_ships_effort }
+		}
+		equipment_bonus = {
+					sub_visibility = -0.03
+					naval_range = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_gd_pens
+		name = KRAUS_mio_trait_gd_pens
+		icon = GFX_generic_mio_department_icon_ship_submarine_production
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_gd_ocean
+		all_parents = { KRAUS_mio_trait_gd_ocean }
+		available = {
+			AUS = { has_completed_focus = AUS_cattaro }
+		}
+		production_bonus = {
+					production_capacity_factor = 0.05
+				}
+		equipment_bonus = {
+					build_cost_ic = -0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_gd_diving
+		name = KRAUS_mio_trait_gd_diving
+		icon = GFX_generic_mio_department_icon_ship_submarine_survivability
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_gd_pens
+		all_parents = { KRAUS_mio_trait_gd_pens }
+		available = {
+			AUS = { has_completed_focus = AUS_istria_ports }
+		}
+		equipment_bonus = {
+					sub_visibility = -0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+}
+
+#####################
+### Airplane MIOs ###
+#####################
+AUS_phoenix_organisation = {
+	include = generic_high_agility_fighter_aircraft_organization
+	name = phoenix
+	icon = GFX_idea_AUS_phonix_fleugzeugwerke
+	allowed = {
+		is_danubian_tag = yes
+	}
+	visible = { FROM = { owns_state = 4 } }
+	# 0.9 实测 2：开局即可用（原为完成对应国策后才解锁）
+
+	add_trait = {
+		token = KRAUS_mio_trait_px_research
+		name = KRAUS_mio_trait_px_research
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+		position = { x = 9 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_fighter_trials }
+		}
+		organization_modifier = { military_industrial_organization_research_bonus = 0.05 }
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_px_capacity
+		name = KRAUS_mio_trait_px_capacity
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_px_research
+		all_parents = { KRAUS_mio_trait_px_research }
+		available = {
+			AUS = { has_completed_focus = AUS_phoenix }
+		}
+		production_bonus = { production_capacity_factor = 0.05 }
+		ai_will_do = { base = 2 }
+	}
+}
+AUS_wiener_neu_flugzeug_organisation = {
+	include = generic_light_aircraft_organization
+	name = wiener_neu_flugzeug
+	icon = GFX_idea_wiener_neu_flugzeug
+	allowed = {
+		is_danubian_tag = yes
+	}
+	visible = { FROM = { owns_state = 4 } }
+
+	add_trait = {
+		token = KRAUS_mio_trait_wnf_maintenance
+		name = KRAUS_mio_trait_wnf_maintenance
+		icon = GFX_generic_mio_department_icon_plane_fighter_line_efficiency
+		special_trait_background = yes
+		position = { x = 9 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_flugschule }
+		}
+		equipment_bonus = {
+					reliability = 0.05
+				}
+		production_bonus = {
+					production_efficiency_gain_factor = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_wnf_fuselage
+		name = KRAUS_mio_trait_wnf_fuselage
+		icon = GFX_generic_mio_trait_icon_anti_air_attack
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_wnf_maintenance
+		all_parents = { KRAUS_mio_trait_wnf_maintenance }
+		available = {
+			AUS = { has_completed_focus = AUS_airbase_expansion }
+		}
+		equipment_bonus = {
+					air_attack = 0.05
+					air_agility = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+}
+AUS_aviatik_organisation = {
+	include = generic_cas_aircraft_organization
+	name = aviatik
+	icon = GFX_idea_aviatik
+	allowed = {
+		is_danubian_tag = yes
+	}
+	visible = { FROM = { owns_state = 4 } }
+
+	add_trait = {
+		token = KRAUS_mio_trait_av_psych
+		name = KRAUS_mio_trait_av_psych
+		icon = GFX_generic_mio_trait_icon_fuel_consumption
+		special_trait_background = yes
+		position = { x = 9 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_uzelac-plan }
+		}
+		equipment_bonus = {
+					fuel_consumption = -0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_av_dives
+		name = KRAUS_mio_trait_av_dives
+		icon = GFX_generic_mio_department_icon_plane_cas_quality
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_av_psych
+		all_parents = { KRAUS_mio_trait_av_psych }
+		available = {
+			AUS = { has_completed_focus = AUS_light_bomber_trials }
+		}
+		equipment_bonus = {
+					air_ground_attack = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+}
+AUS_hansa_brandenburg_aus_organisation = {
+	include = generic_medium_aircraft_organization
+	name = hansa_brandenburg_aus
+	icon = GFX_idea_hansa_brandenburg_aus
+	allowed = {
+		is_danubian_tag = yes
+	}
+	visible = { FROM = { owns_state = 4 } }
+
+	add_trait = {
+		token = KRAUS_mio_trait_hb_flyingboat
+		name = KRAUS_mio_trait_hb_flyingboat
+		icon = GFX_generic_mio_trait_icon_torpedo_attack
+		special_trait_background = yes
+		position = { x = 9 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_aviation_effort }
+		}
+		limit_to_equipment_type = { mio_cat_eq_all_medium_plane }
+		equipment_bonus = {
+					surface_detection = 0.03
+					naval_strike_attack = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_hb_schnell
+		name = KRAUS_mio_trait_hb_schnell
+		icon = GFX_generic_mio_department_icon_plane_medium_engine
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_hb_flyingboat
+		all_parents = { KRAUS_mio_trait_hb_flyingboat }
+		available = {
+			AUS = { has_completed_focus = AUS_medium_bomber_trials }
+		}
+		limit_to_equipment_type = { mio_cat_eq_all_medium_plane }
+		equipment_bonus = {
+					maximum_speed = 0.1
+				}
+		ai_will_do = { base = 2 }
+	}
+}
+AUS_lohner_organisation = {
+	include = generic_naval_aircraft_organization
+	name = lohner
+	icon = GFX_idea_lohner
+	allowed = {
+		is_danubian_tag = yes
+	}
+	visible = { FROM = { owns_state = 4 } }
+
+	add_trait = {
+		token = KRAUS_mio_trait_lo_capacity
+		name = KRAUS_mio_trait_lo_capacity
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		special_trait_background = yes
+		position = { x = 9 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_aviation_effort }
+		}
+		production_bonus = { production_capacity_factor = 0.05 }
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_lo_research
+		name = KRAUS_mio_trait_lo_research
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_lo_capacity
+		all_parents = { KRAUS_mio_trait_lo_capacity }
+		available = {
+			AUS = { has_completed_focus = AUS_vienna_circle_2 }
+		}
+		organization_modifier = { military_industrial_organization_research_bonus = 0.05 }
+		ai_will_do = { base = 2 }
+	}
+}
+
+#####################
+### Materiel MIOs ###
+#####################
+AUS_steyr_organisation = {
+	include = generic_infantry_equipment_organization
+	name = steyr
+	icon = GFX_idea_steyr
+	allowed = {
+		is_danubian_tag = yes
+	}
+	visible = { FROM = { owns_state = 152 } }
+
+	add_trait = {
+		token = KRAUS_mio_trait_st_experienced
+		name = KRAUS_mio_trait_st_experienced
+		icon = GFX_generic_mio_trait_icon_reliability
+		special_trait_background = yes
+		position = { x = -1 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_rifle_trials }
+		}
+		equipment_bonus = {
+					reliability = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_st_karabiner
+		name = KRAUS_mio_trait_st_karabiner
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_st_experienced
+		all_parents = { KRAUS_mio_trait_st_experienced }
+		available = {
+			AUS = { has_completed_focus = AUS_homeland_mil }
+		}
+		equipment_bonus = {
+					soft_attack = 0.03
+				}
+		production_bonus = {
+					production_capacity_factor = 0.03
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_st_assault
+		name = KRAUS_mio_trait_st_assault
+		icon = GFX_generic_mio_department_icon_infantry_offense
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_st_karabiner
+		all_parents = { KRAUS_mio_trait_st_karabiner }
+		available = {
+			AUS = { has_completed_focus = AUS_auftragstaktik }
+		}
+		equipment_bonus = {
+					soft_attack = 0.07
+					breakthrough = 0.03
+				}
+		production_bonus = {
+					production_cost_factor = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+}
+AUS_bohler_organisation = {
+	include = generic_artillery_organization
+	name = bohler
+	icon = GFX_idea_bohler
+	allowed = {
+		is_danubian_tag = yes
+	}
+	visible = {
+		FROM = {
+			OR = {
+				owns_state = 4
+				tag = CZE
+				tag = CRO
+			}
+		}
+	}
+
+	add_trait = {
+		token = KRAUS_mio_trait_bo_pak37
+		name = KRAUS_mio_trait_bo_pak37
+		icon = GFX_generic_mio_department_icon_anti_tank
+		special_trait_background = yes
+		position = { x = 9 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_artillery_modernisation }
+		}
+		limit_to_equipment_type = { anti_tank_equipment }
+		equipment_bonus = {
+					ap_attack = 0.05
+					hard_attack = 0.05
+					soft_attack = 0.1
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_bo_pak75
+		name = KRAUS_mio_trait_bo_pak75
+		icon = GFX_generic_mio_trait_icon_ap_attack
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_bo_pak37
+		all_parents = { KRAUS_mio_trait_bo_pak37 }
+		available = {
+			AUS = { has_completed_focus = AUS_doctrine_Hickmann }
+		}
+		limit_to_equipment_type = { anti_tank_equipment }
+		equipment_bonus = {
+					ap_attack = 0.05
+					hard_attack = 0.1
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_bo_carriage
+		name = KRAUS_mio_trait_bo_carriage
+		icon = GFX_generic_mio_department_icon_anti_air
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_bo_pak75
+		all_parents = { KRAUS_mio_trait_bo_pak75 }
+		available = {
+			AUS = { has_completed_focus = AUS_better_support_equipment }
+		}
+		limit_to_equipment_type = { anti_tank_equipment anti_air_equipment }
+		equipment_bonus = {
+					ap_attack = 0.03
+					hard_attack = 0.03
+					air_attack = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+}
+AUS_leopold_gasser_waffenfabrik_organisation = {
+	include = generic_support_equipment_organization
+	name = leopold_gasser_waffenfabrik
+	icon = GFX_idea_leopold_gasser_waffenfabrik
+	allowed = {
+		is_danubian_tag = yes
+		NOT = { original_tag = CZE }
+	}
+
+	add_trait = {
+		token = KRAUS_mio_trait_lg_safety
+		name = KRAUS_mio_trait_lg_safety
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+		position = { x = 9 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_better_support_equipment }
+		}
+		organization_modifier = {
+					military_industrial_organization_research_bonus = 0.05
+					military_industrial_organization_design_team_assign_cost = -0.05
+					military_industrial_organization_industrial_manufacturer_assign_cost = -0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_lg_police
+		name = KRAUS_mio_trait_lg_police
+		icon = GFX_generic_mio_department_icon_support_equipment
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_lg_safety
+		all_parents = { KRAUS_mio_trait_lg_safety }
+		available = {
+			AUS = { has_completed_focus = AUS_communications }
+		}
+		limit_to_equipment_type = { support_equipment }
+		organization_modifier = {
+					military_industrial_organization_funds_gain = 0.05
+				}
+		equipment_bonus = {
+					build_cost_ic = -0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+}
+AUS_puch_organisation = {
+	include = generic_armored_car_organization
+	name = puch
+	icon = GFX_idea_puch
+	allowed = {
+		is_danubian_tag = yes
+		has_dlc_lar = yes
+	}
+	visible = { FROM = { owns_state = 775 } }
+
+	add_trait = {
+		token = KRAUS_mio_trait_pu_racing
+		name = KRAUS_mio_trait_pu_racing
+		icon = GFX_generic_mio_department_icon_armored_car_engine
+		special_trait_background = yes
+		position = { x = 9 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_motorisation }
+		}
+		equipment_bonus = {
+					maximum_speed = 0.07
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_pu_exclusive
+		name = KRAUS_mio_trait_pu_exclusive
+		icon = GFX_generic_mio_department_icon_armored_car_line_efficiency
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_pu_racing
+		all_parents = { KRAUS_mio_trait_pu_racing }
+		available = {
+			AUS = { has_completed_focus = AUS_kavalleriepanzer }
+		}
+		production_bonus = {
+					production_efficiency_gain_factor = 0.05
+					production_efficiency_cap_factor = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_pu_heavy
+		name = KRAUS_mio_trait_pu_heavy
+		icon = GFX_generic_mio_department_icon_armored_car_defense
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_pu_exclusive
+		all_parents = { KRAUS_mio_trait_pu_exclusive }
+		available = {
+			AUS = { has_completed_focus = AUS_infanteriepanzer }
+		}
+		equipment_bonus = {
+					breakthrough = 0.03
+					armor_value = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+}
+AUS_sauerwerke_organisation = {
+	include = generic_motorized_mechanized_organization
+	name = sauerwerke
+	icon = GFX_idea_sauerwerke
+	allowed = {
+		is_danubian_tag = yes
+	}
+	visible = { FROM = { owns_state = 4 } }
+
+	add_trait = {
+		token = KRAUS_mio_trait_sw_tires
+		name = KRAUS_mio_trait_sw_tires
+		icon = GFX_generic_mio_trait_icon_reliability
+		special_trait_background = yes
+		position = { x = 9 y = 0 }
+		available = {
+			AUS = { has_completed_focus = AUS_motorisation }
+		}
+		equipment_bonus = {
+					reliability = 0.05
+					build_cost_ic = -0.02
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_sw_methods
+		name = KRAUS_mio_trait_sw_methods
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_sw_tires
+		all_parents = { KRAUS_mio_trait_sw_tires }
+		available = {
+			AUS = { has_completed_focus = AUS_homeland_mil }
+		}
+		production_bonus = {
+					production_capacity_factor = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_sw_mass
+		name = KRAUS_mio_trait_sw_mass
+		icon = GFX_generic_mio_trait_icon_efficiency_cap
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_sw_methods
+		all_parents = { KRAUS_mio_trait_sw_methods }
+		available = {
+			AUS = { has_completed_focus = AUS_homeland_eco }
+		}
+		production_bonus = {
+					production_efficiency_cap_factor = 0.05
+				}
+		ai_will_do = { base = 2 }
+	}
+	add_trait = {
+		token = KRAUS_mio_trait_sw_engines
+		name = KRAUS_mio_trait_sw_engines
+		icon = GFX_generic_mio_department_icon_motorized_mechanized_engine
+		special_trait_background = yes
+		position = { x = 0 y = 1 }
+		relative_position_id = KRAUS_mio_trait_sw_mass
+		all_parents = { KRAUS_mio_trait_sw_mass }
+		available = {
+			AUS = { has_completed_focus = AUS_mech_cavalry }
+		}
+		equipment_bonus = {
+					maximum_speed = 0.05
+					reliability = 0.03
+					build_cost_ic = 0.02
+				}
+		ai_will_do = { base = 2 }
+	}
+}

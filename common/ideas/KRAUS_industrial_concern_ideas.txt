@@ -1,0 +1,23 @@
+ideas = {
+	industrial_concern = {
+		# 2026-10-11: Austrian Alpine Montan after KRAUS_bm_accelerator_2 (civilian construction +10% -> +20%)
+		KRAUS_austria_montage_2 = {
+			picture = KRAUS_austria_montage
+			allowed = { is_danubian_tag = yes }
+			visible = {
+				owns_state = 775
+				has_completed_focus = KRAUS_bm_accelerator_2
+			}
+			traits = {
+				industrial_manufacturer
+			}
+			modifier = {
+				production_speed_arms_factory_factor = 0.1
+				production_speed_industrial_complex_factor = 0.2
+			}
+			research_bonus = {
+				industry = 0.1
+			}
+		}
+	}
+}

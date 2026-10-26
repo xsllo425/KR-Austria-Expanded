@@ -1,0 +1,337 @@
+############################################################
+### 0.9 反馈33：共同军事树按陆、海、空各留一个精神，每个国策升一级；最后一级即该军种的终点国策。
+############################################################
+ideas = {
+	country = {
+		KRAUS_jm_land_1 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.03
+				experience_gain_army_factor = 0.1
+				training_time_factor = -0.05
+			}
+		}
+		KRAUS_jm_land_2 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				army_artillery_attack_factor = 0.1
+				army_org_factor = 0.03
+				experience_gain_army_factor = 0.1
+				training_time_factor = -0.05
+			}
+		}
+		KRAUS_jm_land_3 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				army_artillery_attack_factor = 0.1
+				army_org_factor = 0.03
+				decryption_factor = 0.1
+				experience_gain_army_factor = 0.1
+				intel_network_gain_factor = 0.15
+				training_time_factor = -0.05
+			}
+		}
+		KRAUS_jm_land_4 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				army_artillery_attack_factor = 0.1
+				army_armor_attack_factor = 0.05
+				army_org_factor = 0.03
+				breakthrough_factor = 0.05
+				cas_damage_reduction = 0.15
+				decryption_factor = 0.1
+				experience_gain_army_factor = 0.1
+				intel_network_gain_factor = 0.15
+				org_loss_when_moving = -0.1
+				training_time_factor = -0.05
+				unit_heavy_armor_design_cost_factor = -1.0
+				unit_light_armor_design_cost_factor = -1.0
+				unit_mechanized_design_cost_factor = -1.0
+				unit_medium_armor_design_cost_factor = -1.0
+				unit_modern_armor_design_cost_factor = -1.0
+			}
+		}
+		KRAUS_jm_land_5 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				army_artillery_attack_factor = 0.1
+				army_armor_attack_factor = 0.05
+				army_armor_defence_factor = 0.05
+				army_org_factor = 0.03
+				breakthrough_factor = 0.05
+				cas_damage_reduction = 0.15
+				decryption_factor = 0.1
+				experience_gain_army_factor = 0.1
+				intel_network_gain_factor = 0.15
+				org_loss_when_moving = -0.3
+				training_time_factor = -0.05
+				unit_heavy_armor_design_cost_factor = -1.0
+				unit_light_armor_design_cost_factor = -1.0
+				unit_mechanized_design_cost_factor = -1.0
+				unit_medium_armor_design_cost_factor = -1.0
+				unit_modern_armor_design_cost_factor = -1.0
+			}
+		}
+		KRAUS_jm_land_6 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				army_artillery_attack_factor = 0.1
+				army_armor_attack_factor = 0.1
+				army_armor_defence_factor = 0.1
+				army_attack_factor = 0.05
+				army_defence_factor = 0.05
+				army_org_factor = 0.03
+				breakthrough_factor = 0.1
+				cas_damage_reduction = 0.15
+				decryption_factor = 0.1
+				experience_gain_army_factor = 0.1
+				intel_network_gain_factor = 0.15
+				land_reinforce_rate = 0.05
+				org_loss_when_moving = -0.5
+				training_time_factor = -0.05
+				unit_heavy_armor_design_cost_factor = -1.0
+				unit_light_armor_design_cost_factor = -1.0
+				unit_mechanized_design_cost_factor = -1.0
+				unit_medium_armor_design_cost_factor = -1.0
+				unit_modern_armor_design_cost_factor = -1.0
+			}
+		}
+		KRAUS_jm_land_7 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				army_artillery_attack_factor = 0.1
+				army_armor_attack_factor = 0.1
+				army_armor_defence_factor = 0.1
+				army_attack_factor = 0.05
+				army_defence_factor = 0.05
+				army_org_factor = 0.06
+				breakthrough_factor = 0.1
+				cas_damage_reduction = 0.15
+				command_power_gain_mult = 0.1
+				conscription_factor = 0.03
+				decryption_factor = 0.1
+				experience_gain_army_factor = 0.1
+				intel_network_gain_factor = 0.15
+				land_reinforce_rate = 0.05
+				org_loss_when_moving = -0.5
+				planning_speed = 0.1
+				training_time_factor = -0.05
+				unit_heavy_armor_design_cost_factor = -1.0
+				unit_light_armor_design_cost_factor = -1.0
+				unit_mechanized_design_cost_factor = -1.0
+				unit_medium_armor_design_cost_factor = -1.0
+				unit_modern_armor_design_cost_factor = -1.0
+			}
+		}
+		KRAUS_jm_navy_1 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				navy_fuel_consumption_factor = -0.05
+				navy_max_range_factor = 0.1
+			}
+		}
+		KRAUS_jm_navy_2 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				naval_doctrine_cost_factor = -0.05
+				naval_morale_factor = 0.05
+				navy_fuel_consumption_factor = -0.05
+				navy_max_range_factor = 0.1
+			}
+		}
+		KRAUS_jm_navy_3 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				convoy_raiding_efficiency_factor = 0.1
+				naval_doctrine_cost_factor = -0.05
+				naval_invasion_prep_speed = 0.1
+				naval_morale_factor = 0.05
+				navy_fuel_consumption_factor = -0.05
+				navy_max_range_factor = 0.1
+			}
+		}
+		KRAUS_jm_navy_4 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				convoy_raiding_efficiency_factor = 0.1
+				experience_gain_navy_factor = 0.1
+				naval_doctrine_cost_factor = -0.05
+				naval_invasion_prep_speed = 0.1
+				naval_morale_factor = 0.05
+				navy_fuel_consumption_factor = -0.05
+				navy_max_range_factor = 0.1
+			}
+		}
+		KRAUS_jm_navy_5 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				convoy_raiding_efficiency_factor = 0.1
+				experience_gain_navy_factor = 0.1
+				industrial_capacity_dockyard = 0.05
+				naval_doctrine_cost_factor = -0.05
+				naval_invasion_prep_speed = 0.1
+				naval_morale_factor = 0.05
+				navy_fuel_consumption_factor = -0.05
+				navy_max_range_factor = 0.1
+			}
+		}
+		KRAUS_jm_navy_6 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				convoy_raiding_efficiency_factor = 0.1
+				experience_gain_navy_factor = 0.1
+				industrial_capacity_dockyard = 0.15
+				naval_doctrine_cost_factor = -0.05
+				naval_invasion_prep_speed = 0.1
+				naval_morale_factor = 0.05
+				naval_speed_factor = 0.05
+				navy_fuel_consumption_factor = -0.05
+				navy_max_range_factor = 0.1
+				navy_org_factor = 0.05
+			}
+		}
+		KRAUS_jm_air_1 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				air_defence_factor = 0.05
+				air_mission_efficiency = 0.05
+				experience_gain_air_factor = 0.1
+			}
+		}
+		KRAUS_jm_air_2 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				air_accidents_factor = -0.1
+				air_defence_factor = 0.05
+				air_doctrine_cost_factor = -0.05
+				air_mission_efficiency = 0.05
+				experience_gain_air_factor = 0.1
+			}
+		}
+		KRAUS_jm_air_3 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				air_range_factor = 0.1
+				air_attack_factor = 0.05
+				air_accidents_factor = -0.1
+				air_agility_factor = 0.03
+				air_defence_factor = 0.05
+				air_doctrine_cost_factor = -0.05
+				air_mission_efficiency = 0.05
+				experience_gain_air_factor = 0.1
+			}
+		}
+		KRAUS_jm_air_4 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				air_range_factor = 0.1
+				air_attack_factor = 0.05
+				air_accidents_factor = -0.1
+				air_agility_factor = 0.03
+				air_cas_efficiency = 0.1
+				air_defence_factor = 0.05
+				air_doctrine_cost_factor = -0.05
+				air_mission_efficiency = 0.05
+				experience_gain_air_factor = 0.1
+			}
+		}
+		KRAUS_jm_air_5 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				air_range_factor = 0.1
+				air_attack_factor = 0.05
+				air_accidents_factor = -0.1
+				air_agility_factor = 0.03
+				air_cas_efficiency = 0.1
+				air_defence_factor = 0.05
+				air_doctrine_cost_factor = -0.05
+				air_mission_efficiency = 0.1
+				experience_gain_air_factor = 0.1
+			}
+		}
+		KRAUS_jm_air_6 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				air_range_factor = 0.1
+				air_attack_factor = 0.05
+				air_accidents_factor = -0.1
+				air_agility_factor = 0.03
+				air_cas_efficiency = 0.1
+				air_defence_factor = 0.05
+				air_doctrine_cost_factor = -0.05
+				air_mission_efficiency = 0.1
+				experience_gain_air_factor = 0.1
+			}
+		}
+		KRAUS_jm_air_7 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				air_range_factor = 0.1
+				air_attack_factor = 0.05
+				air_accidents_factor = -0.1
+				air_agility_factor = 0.03
+				air_cas_efficiency = 0.1
+				air_cas_present_factor = 0.05
+				air_defence_factor = 0.05
+				air_doctrine_cost_factor = -0.05
+				air_mission_efficiency = 0.1
+				experience_gain_air_factor = 0.1
+			}
+		}
+		KRAUS_jm_air_8 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				air_range_factor = 0.1
+				air_attack_factor = 0.05
+				air_accidents_factor = -0.1
+				air_agility_factor = 0.03
+				air_cas_efficiency = 0.1
+				air_cas_present_factor = 0.05
+				air_defence_factor = 0.05
+				air_doctrine_cost_factor = -0.05
+				air_mission_efficiency = 0.1
+				experience_gain_air_factor = 0.1
+				production_speed_air_base_factor = 0.1
+			}
+		}
+		KRAUS_jm_air_9 = {
+			picture = KRAUS_joint_mil
+			removal_cost = -1
+			modifier = {
+				air_range_factor = 0.1
+				air_attack_factor = 0.05
+				air_accidents_factor = -0.1
+				air_ace_generation_chance_factor = 0.2
+				air_agility_factor = 0.08
+				air_cas_efficiency = 0.1
+				air_cas_present_factor = 0.05
+				air_defence_factor = 0.05
+				air_doctrine_cost_factor = -0.05
+				air_mission_efficiency = 0.1
+				experience_gain_air_factor = 0.1
+				production_speed_air_base_factor = 0.1
+			}
+		}
+	}
+}

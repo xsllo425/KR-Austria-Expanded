@@ -1,0 +1,96 @@
+############################################################
+### 王冠领地位（2026-10-12）：7 档梯子，中立档不挂精神。
+### 忠诚一侧：整合更便宜，整合后红利更多；自主一侧：王领更强、整合更贵，不整合时给奥地利的份数更多。
+### 整合红利的临时精神也在这里（奥地利专用）。
+############################################################
+ideas = {
+	country = {
+		KRAUS_cl_auto_3 = {
+			picture = KRAUS_cl_auto
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				political_power_factor = 0.15
+				industrial_capacity_factory = 0.10
+				conscription_factor = 0.05
+			}
+		}
+		KRAUS_cl_auto_2 = {
+			picture = KRAUS_cl_auto
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.07
+				political_power_factor = 0.10
+				industrial_capacity_factory = 0.05
+			}
+		}
+		KRAUS_cl_auto_1 = {
+			picture = KRAUS_cl_auto
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = 0.05
+			}
+		}
+		KRAUS_cl_loyal_1 = {
+			picture = KRAUS_cl_loyal
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+			}
+		}
+		KRAUS_cl_loyal_2 = {
+			picture = KRAUS_cl_loyal
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+			}
+		}
+		KRAUS_cl_loyal_3 = {
+			picture = KRAUS_cl_loyal
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = 0.05
+			}
+		}
+		KRAUS_integ_boom_industry = {
+			picture = KRAUS_integ_boom_industry
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.05
+			}
+		}
+		KRAUS_integ_boom_construction = {
+			picture = KRAUS_integ_boom_construction
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.10
+			}
+		}
+	}
+}

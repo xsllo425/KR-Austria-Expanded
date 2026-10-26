@@ -1,0 +1,419 @@
+############################################################
+### 0.9 实测 58：王领的怨言——消除决议（gen_integ53b.py 生成）
+### 全国的怨言：「帝国议会改革」给议会听证一套，「皇帝巡幸王冠领」给巡幸安抚一套，两套共用一个读条（KRAUS_cg_busy_gov）；
+### 各王领的怨言：六个王领各三级，共用另一个读条（KRAUS_cg_busy_reg）。两个读条互不影响，可以并行。
+### 每一级的天数与点数阶梯递减。
+############################################################
+KRAUS_crownland_integration_category = {
+	KRAUS_cg_reg_CZE_3 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_CZE_3
+			has_completed_focus = KRAUS_pl_L1
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_CZE_3
+		days_remove = KRAUS_cgd_CZE_3
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_CZE_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			if = { limit = { has_idea = KRAUS_cg_CZE_3 } swap_ideas = { remove_idea = KRAUS_cg_CZE_3 add_idea = KRAUS_cg_CZE_2 } }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_CZE_2 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_CZE_2
+			has_completed_focus = KRAUS_pl_L1
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_CZE_2
+		days_remove = KRAUS_cgd_CZE_2
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_CZE_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			if = { limit = { has_idea = KRAUS_cg_CZE_2 } swap_ideas = { remove_idea = KRAUS_cg_CZE_2 add_idea = KRAUS_cg_CZE_1 } }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_CZE_1 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_CZE_1
+			has_completed_focus = KRAUS_pl_L1
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_CZE_1
+		days_remove = KRAUS_cgd_CZE_1
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_CZE_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			remove_ideas = KRAUS_cg_CZE_1
+			country_event = { id = KRAUS_integ53.21 days = 1 }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_HUN_3 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_HUN_3
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_GAL_3 has_idea = KRAUS_cg_GAL_2 has_idea = KRAUS_cg_GAL_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_CRO_3 has_idea = KRAUS_cg_CRO_2 has_idea = KRAUS_cg_CRO_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_HUN_3
+		days_remove = KRAUS_cgd_HUN_3
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_HUN_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			if = { limit = { has_idea = KRAUS_cg_HUN_3 } swap_ideas = { remove_idea = KRAUS_cg_HUN_3 add_idea = KRAUS_cg_HUN_2 } }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_HUN_2 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_HUN_2
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_GAL_3 has_idea = KRAUS_cg_GAL_2 has_idea = KRAUS_cg_GAL_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_CRO_3 has_idea = KRAUS_cg_CRO_2 has_idea = KRAUS_cg_CRO_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_HUN_2
+		days_remove = KRAUS_cgd_HUN_2
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_HUN_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			if = { limit = { has_idea = KRAUS_cg_HUN_2 } swap_ideas = { remove_idea = KRAUS_cg_HUN_2 add_idea = KRAUS_cg_HUN_1 } }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_HUN_1 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_HUN_1
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_GAL_3 has_idea = KRAUS_cg_GAL_2 has_idea = KRAUS_cg_GAL_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_CRO_3 has_idea = KRAUS_cg_CRO_2 has_idea = KRAUS_cg_CRO_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_HUN_1
+		days_remove = KRAUS_cgd_HUN_1
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_HUN_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			remove_ideas = KRAUS_cg_HUN_1
+			country_event = { id = KRAUS_integ53.22 days = 1 }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_GAL_3 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_GAL_3
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_GAL_3
+		days_remove = KRAUS_cgd_GAL_3
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_GAL_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			if = { limit = { has_idea = KRAUS_cg_GAL_3 } swap_ideas = { remove_idea = KRAUS_cg_GAL_3 add_idea = KRAUS_cg_GAL_2 } }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_GAL_2 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_GAL_2
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_GAL_2
+		days_remove = KRAUS_cgd_GAL_2
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_GAL_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			if = { limit = { has_idea = KRAUS_cg_GAL_2 } swap_ideas = { remove_idea = KRAUS_cg_GAL_2 add_idea = KRAUS_cg_GAL_1 } }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_GAL_1 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_GAL_1
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_GAL_1
+		days_remove = KRAUS_cgd_GAL_1
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_GAL_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			remove_ideas = KRAUS_cg_GAL_1
+			country_event = { id = KRAUS_integ53.23 days = 1 }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_CRO_3 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_CRO_3
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_GAL_3 has_idea = KRAUS_cg_GAL_2 has_idea = KRAUS_cg_GAL_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_CRO_3
+		days_remove = KRAUS_cgd_CRO_3
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_CRO_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			if = { limit = { has_idea = KRAUS_cg_CRO_3 } swap_ideas = { remove_idea = KRAUS_cg_CRO_3 add_idea = KRAUS_cg_CRO_2 } }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_CRO_2 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_CRO_2
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_GAL_3 has_idea = KRAUS_cg_GAL_2 has_idea = KRAUS_cg_GAL_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_CRO_2
+		days_remove = KRAUS_cgd_CRO_2
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_CRO_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			if = { limit = { has_idea = KRAUS_cg_CRO_2 } swap_ideas = { remove_idea = KRAUS_cg_CRO_2 add_idea = KRAUS_cg_CRO_1 } }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_CRO_1 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_CRO_1
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_GAL_3 has_idea = KRAUS_cg_GAL_2 has_idea = KRAUS_cg_GAL_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_CRO_1
+		days_remove = KRAUS_cgd_CRO_1
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_CRO_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			remove_ideas = KRAUS_cg_CRO_1
+			country_event = { id = KRAUS_integ53.24 days = 1 }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_SLO_3 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_SLO_3
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_GAL_3 has_idea = KRAUS_cg_GAL_2 has_idea = KRAUS_cg_GAL_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_CRO_3 has_idea = KRAUS_cg_CRO_2 has_idea = KRAUS_cg_CRO_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_HUN_3 has_idea = KRAUS_cg_HUN_2 has_idea = KRAUS_cg_HUN_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_SLO_3
+		days_remove = KRAUS_cgd_SLO_3
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_SLO_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			if = { limit = { has_idea = KRAUS_cg_SLO_3 } swap_ideas = { remove_idea = KRAUS_cg_SLO_3 add_idea = KRAUS_cg_SLO_2 } }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_SLO_2 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_SLO_2
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_GAL_3 has_idea = KRAUS_cg_GAL_2 has_idea = KRAUS_cg_GAL_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_CRO_3 has_idea = KRAUS_cg_CRO_2 has_idea = KRAUS_cg_CRO_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_HUN_3 has_idea = KRAUS_cg_HUN_2 has_idea = KRAUS_cg_HUN_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_SLO_2
+		days_remove = KRAUS_cgd_SLO_2
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_SLO_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			if = { limit = { has_idea = KRAUS_cg_SLO_2 } swap_ideas = { remove_idea = KRAUS_cg_SLO_2 add_idea = KRAUS_cg_SLO_1 } }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_SLO_1 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_SLO_1
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_GAL_3 has_idea = KRAUS_cg_GAL_2 has_idea = KRAUS_cg_GAL_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_CRO_3 has_idea = KRAUS_cg_CRO_2 has_idea = KRAUS_cg_CRO_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_HUN_3 has_idea = KRAUS_cg_HUN_2 has_idea = KRAUS_cg_HUN_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_SLO_1
+		days_remove = KRAUS_cgd_SLO_1
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_SLO_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			remove_ideas = KRAUS_cg_SLO_1
+			country_event = { id = KRAUS_integ53.25 days = 1 }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_TRS_3 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_TRS_3
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_GAL_3 has_idea = KRAUS_cg_GAL_2 has_idea = KRAUS_cg_GAL_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_CRO_3 has_idea = KRAUS_cg_CRO_2 has_idea = KRAUS_cg_CRO_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_HUN_3 has_idea = KRAUS_cg_HUN_2 has_idea = KRAUS_cg_HUN_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_SLO_3 has_idea = KRAUS_cg_SLO_2 has_idea = KRAUS_cg_SLO_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_TRS_3
+		days_remove = KRAUS_cgd_TRS_3
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_TRS_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			if = { limit = { has_idea = KRAUS_cg_TRS_3 } swap_ideas = { remove_idea = KRAUS_cg_TRS_3 add_idea = KRAUS_cg_TRS_2 } }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_TRS_2 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_TRS_2
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_GAL_3 has_idea = KRAUS_cg_GAL_2 has_idea = KRAUS_cg_GAL_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_CRO_3 has_idea = KRAUS_cg_CRO_2 has_idea = KRAUS_cg_CRO_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_HUN_3 has_idea = KRAUS_cg_HUN_2 has_idea = KRAUS_cg_HUN_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_SLO_3 has_idea = KRAUS_cg_SLO_2 has_idea = KRAUS_cg_SLO_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_TRS_2
+		days_remove = KRAUS_cgd_TRS_2
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_TRS_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			if = { limit = { has_idea = KRAUS_cg_TRS_2 } swap_ideas = { remove_idea = KRAUS_cg_TRS_2 add_idea = KRAUS_cg_TRS_1 } }
+		}
+		ai_will_do = { factor = 4 }
+	}
+	KRAUS_cg_reg_TRS_1 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_idea = KRAUS_cg_TRS_1
+			has_completed_focus = KRAUS_pl_L1
+			NOT = { OR = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_GAL_3 has_idea = KRAUS_cg_GAL_2 has_idea = KRAUS_cg_GAL_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_CRO_3 has_idea = KRAUS_cg_CRO_2 has_idea = KRAUS_cg_CRO_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_HUN_3 has_idea = KRAUS_cg_HUN_2 has_idea = KRAUS_cg_HUN_1 } }
+			NOT = { OR = { has_idea = KRAUS_cg_SLO_3 has_idea = KRAUS_cg_SLO_2 has_idea = KRAUS_cg_SLO_1 } }
+		}
+		available = { NOT = { has_country_flag = KRAUS_cg_busy_reg } }
+		cost = KRAUS_cgc_TRS_1
+		days_remove = KRAUS_cgd_TRS_1
+		complete_effect = {
+			set_country_flag = KRAUS_cg_busy_reg
+			custom_effect_tooltip = KRAUS_cg_reg_TRS_tt
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_cg_busy_reg
+			remove_ideas = KRAUS_cg_TRS_1
+			country_event = { id = KRAUS_integ53.26 days = 1 }
+		}
+		ai_will_do = { factor = 4 }
+	}
+}

@@ -1,0 +1,73 @@
+############################################################
+### 共同经济树（2026-10-12）：成员与分级门槛
+############################################################
+# 成员：奥地利，加上已加入王冠领共同投资、仍是奥地利附庸的王冠领（任意国家作用域）
+KRAUS_joint_econ_member = {
+	OR = {
+		original_tag = AUS
+		AND = {
+			OR = { tag = CZE tag = GAL tag = CRO tag = HUN tag = SLO tag = TRS }
+			is_subject_of = AUS
+			has_country_flag = KRAUS_cw_accepted
+		}
+	}
+}
+# 奥地利作用域内（ROOT = 奥地利）：这个附庸是参与共同建设的王冠领
+KRAUS_joint_econ_crownland = {
+	KRAUS_is_crownland_of_root = yes
+	has_country_flag = KRAUS_cw_accepted
+}
+# 第 2 级：经济危机缓解 >= 3 层（第 2 级半或更好），皇权与秩序 >= 25
+KRAUS_joint_econ_tier2 = {
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_joint_econ_gate_2_tt
+		AUS = {
+			NOT = { has_idea = aus_economic_crisis }
+			NOT = { has_idea = aus_economic_crisis_1h }
+			NOT = { has_idea = aus_economic_crisis_2 }
+			check_variable = { KRAUS_imperial_authority > 24 }
+		}
+	}
+}
+# 第 3 级：经济危机缓解 >= 5 层（第 3 级半或更好），皇权与秩序 >= 50
+KRAUS_joint_econ_tier3 = {
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_joint_econ_gate_3_tt
+		AUS = {
+			NOT = { has_idea = aus_economic_crisis }
+			NOT = { has_idea = aus_economic_crisis_1h }
+			NOT = { has_idea = aus_economic_crisis_2 }
+			NOT = { has_idea = aus_economic_crisis_2h }
+			NOT = { has_idea = aus_economic_crisis_3 }
+			check_variable = { KRAUS_imperial_authority > 49 }
+		}
+	}
+}
+
+############################################################
+### 共同军事树（2026-10-12）：分级门槛（成员沿用 KRAUS_joint_econ_member / _crownland）
+############################################################
+# 第 2 级：军事弱势缓解 >= 2 层（第 2 级或更好），皇权与秩序 >= 25
+KRAUS_joint_mil_tier2 = {
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_joint_mil_gate_2_tt
+		AUS = {
+			NOT = { has_idea = aus_military_weakness }
+			NOT = { has_idea = aus_military_weakness_1h }
+			check_variable = { KRAUS_imperial_authority > 24 }
+		}
+	}
+}
+# 第 3 级：军事弱势缓解 >= 4 层（第 3 级或更好，与扩军锁定解除同步），皇权与秩序 >= 50
+KRAUS_joint_mil_tier3 = {
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_joint_mil_gate_3_tt
+		AUS = {
+			NOT = { has_idea = aus_military_weakness }
+			NOT = { has_idea = aus_military_weakness_1h }
+			NOT = { has_idea = aus_military_weakness_2 }
+			NOT = { has_idea = aus_military_weakness_2h }
+			check_variable = { KRAUS_imperial_authority > 49 }
+		}
+	}
+}

@@ -1,0 +1,115 @@
+KRAUS_industrial = {
+	icon = GFX_decision_category_generic_industry
+	allowed = {
+		original_tag = AUS
+	}
+}
+
+############################################################
+### ★ 黑色星期一读条决议的类别（2026-09-21 新增）
+###
+### ★★ 本次修复：error.log 报
+###     "Unknown category: KRAUS_black_monday"
+###     "Unknown category for : KRAUS_black_monday_progress It will be ignored"
+###   → 决议文件里用了 KRAUS_black_monday 作类别，但从未定义它。
+###   → 决议整条被引擎忽略（这就是「决议不出现」的原因）。
+###
+### visible_when_empty = yes：即使暂时没有可做决议，
+###   也让类别常驻显示，玩家能看到自己的进度。
+############################################################
+KRAUS_black_monday = {
+	icon = GFX_decision_category_generic_crisis
+	priority = 50
+
+	allowed = {
+		original_tag = AUS
+	}
+
+	# ★ 黑一存在时才出现（消失后整类隐藏）
+	visible = {
+		KRAUS_has_black_monday_trigger = yes
+	}
+
+	visible_when_empty = yes
+}
+
+############################################################
+### ★★ 政局天平的类别（2026-09-21 第三轮新增）
+###
+### ★★ 为什么必须有这个定义
+###
+###   BOP 文件里写了 decision_category = KRAUS_regime_balance_category，
+###   但若该 category 从未定义，BOP 就不会正确显示。
+###
+###   参考 SRI（社会主义意大利）的完整链条：
+###     ① common/bop/SRI.txt   → decision_category = SRI_balance_of_power_category
+###     ② categories 文件      → SRI_balance_of_power_category = { allowed = { tag = SRI } }
+###     ③ events（hidden_effect）→ set_power_balance = { id = SRI_power_balance ... }
+###     三者缺一不可。
+###
+###   ★ 本类别【不设 allowed/visible 限制】——
+###     激活完全由 set_power_balance 控制（大选后由事件调用），
+###     所以开局不会出现。
+############################################################
+KRAUS_regime_balance_category = {
+	icon = GFX_decision_category_generic_political_actions
+	priority = 60
+}
+
+############################################################
+### ★★ 引擎规则：类别定义【只能】写在本文件夹
+###
+###   实测报错（error.log 原文，2026-09-21）：
+###     "Unknown category: <某类别>"
+###     "Unexpected token: <某决议>, near line: N"
+###     → 该类别下的所有决议整条被引擎忽略，游戏里完全看不到。
+###
+###   ★ 规则：
+###     类别定义（icon / priority / allowed / visible）【只能】写在
+###       common/decisions/categories/*.txt
+###     decisions 文件里的同名块只是【决议容器】，
+###     在其中写 icon/priority 会被当成未知 token 报错。
+###
+###   参考：common/decisions/categories/AFG decision_cats (Afghanistan).txt:2
+###         AFG 的类别同时出现在 categories/ 与 decisions/ 两个文件，
+###         但只有 categories/ 那个带 allowed，是真正的定义。
+############################################################
+
+############################################################
+### ★★ 天主教秩序 · 推进决议类别（2026-09-21 第九轮新增）
+###
+### 米克拉斯线的秩序推进决议。
+###
+### ★ 只在他掌权后才出现（KRAUS_miklas_line_active）
+###   —— 否则开局就能刷秩序，没有叙事依据。
+###
+### ★ 注意：类别定义【只能】写在这里（categories/），
+###   decisions 文件里的同名块只是决议容器。
+###   实证：categories/AFG decision_cats (Afghanistan).txt:2
+############################################################
+KRAUS_catholic_order_decisions = {
+	icon = GFX_decision_category_generic_propaganda
+	priority = 70
+
+	allowed = {
+		original_tag = AUS
+	}
+
+	visible = {
+		has_country_flag = KRAUS_imperial_authority_ready
+	}
+
+	visible_when_empty = no
+}
+
+############################################################
+### ★★ 执政联盟 · 决议类别（2026-09-21 方案 D 新增）
+###
+### 目前只有一条「召开联盟会议」。
+###
+### ★ 联盟成立后才显示（KRAUS_coalition_active）——
+###   大选前没有联盟可言。
+###
+### ★ 类别定义【只能】写在这里（categories/），
+###   decisions 文件里的同名块只是决议容器。
+############################################################

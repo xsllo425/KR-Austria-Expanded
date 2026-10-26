@@ -1,0 +1,16 @@
+# A crownland subject of THIS/ROOT
+KRAUS_is_crownland_of_root = {
+	OR = { tag = CZE tag = GAL tag = CRO tag = HUN tag = SLO tag = TRS }
+	is_subject_of = ROOT
+}
+# Danube crisis under way (crownland investment is paused)
+KRAUS_dc_ongoing = {
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_dc_ongoing_tt
+		has_country_flag = KRAUS_dc_started
+		NOT = { has_country_flag = KRAUS_dc_resolved_flag }
+	}
+}
+KRAUS_has_crownland = {
+	any_subject_country = { OR = { tag = CZE tag = GAL tag = CRO tag = HUN tag = SLO tag = TRS } }
+}

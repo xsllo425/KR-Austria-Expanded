@@ -1,0 +1,4445 @@
+### KRAUS 共同军事树（帝国共同军队），2026-10-12
+### 由 KR 奥地利国策树的 AUS_military_expansion 子树（37 个）改造为联合国策；AUS 国策树用 shared_focus 挂入。
+### 成员与经济树相同（KRAUS_joint_econ_member）。奖励按国家分：奥地利 = KR 原效果（原样保留）；
+### 成员王领 = 「帝国共同军队」精神升级 + 按规则减半照搬奥地利的研究/学说/经验奖励（海军部分只给沿海王领）。
+### 王领奖励由奥地利那份 completion_reward 统一发放（every_subject_country）。
+
+joint_focus = {
+	id = AUS_military_expansion
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_military_expansion } }
+	icon = GFX_goal_AUS_military_expansion
+	x = 30
+	y = 0
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_ARMY_XP }
+	available = {
+		KRAUS_joint_econ_member = yes
+		OR = {
+		threat > 0.1
+		has_war = yes
+		}
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_military_expansion completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 35
+
+				KRAUS_joint_mil_recalc = yes
+				add_dynamic_modifier = { modifier = KRAUS_joint_mil_aus_dm }
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					army_experience = 18
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_military_expansion_1 } }
+					set_country_flag = KRAUS_ext_AUS_military_expansion_1
+					army_experience = 35
+
+					KRAUS_joint_mil_recalc = yes
+					add_dynamic_modifier = { modifier = KRAUS_joint_mil_aus_dm }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						army_experience = 18
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		factor = 50
+		modifier = {
+		factor = 10
+		has_war = yes
+		}
+		modifier = {
+		factor = 5
+		}
+	}
+}
+
+joint_focus = {
+	id = AUS_naval_effort
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_naval_effort } }
+	icon = GFX_goal_AUS_kriegsmarine
+	x = 11
+	y = 1
+	relative_position_id = AUS_military_expansion
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_military_expansion }
+	search_filters = { FOCUS_FILTER_NAVY_XP }
+	available = {
+		any_owned_state = {
+		is_coastal = yes
+		}
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_naval_effort completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				navy_experience = 25
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes any_owned_state = { is_coastal = yes } }
+					navy_experience = 12
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_naval_effort_1 } }
+					set_country_flag = KRAUS_ext_AUS_naval_effort_1
+					navy_experience = 25
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes any_owned_state = { is_coastal = yes } }
+						navy_experience = 12
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_stt_history }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_stt_history
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		factor = 1
+		modifier = {
+		factor = 0
+		NOT = {
+		has_completed_focus = AUS_auftragstaktik
+		}
+		}
+	}
+}
+
+joint_focus = {
+	id = AUS_flexible_navy
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_flexible_navy } }
+	icon = GFX_goal_generic_coastal_navy
+	x = -1
+	y = 1
+	relative_position_id = AUS_naval_effort
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_naval_effort }
+	mutually_exclusive = { focus = AUS_large_navy }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_flexible_navy completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_doctrine_cost_reduction = {
+					name = AUS_flexible_navy
+					cost_reduction = 0.5
+					uses = 1
+					category = naval_doctrine
+				}
+				add_tech_bonus = {
+					name = AUS_flexible_navy
+					bonus = 1
+					uses = 1
+					category = ss_tech
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes any_owned_state = { is_coastal = yes } }
+					add_tech_bonus = { name = AUS_flexible_navy bonus = 0.5 uses = 1 category = ss_tech }
+					add_doctrine_cost_reduction = { name = AUS_flexible_navy cost_reduction = 0.25 uses = 1 category = naval_doctrine }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_flexible_navy_1 } }
+					set_country_flag = KRAUS_ext_AUS_flexible_navy_1
+					add_doctrine_cost_reduction = {
+						name = AUS_flexible_navy
+						cost_reduction = 0.5
+						uses = 1
+						category = naval_doctrine
+					}
+					add_tech_bonus = {
+						name = AUS_flexible_navy
+						bonus = 1
+						uses = 1
+						category = ss_tech
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes any_owned_state = { is_coastal = yes } }
+						add_tech_bonus = { name = AUS_flexible_navy bonus = 0.5 uses = 1 category = ss_tech }
+						add_doctrine_cost_reduction = { name = AUS_flexible_navy cost_reduction = 0.25 uses = 1 category = naval_doctrine }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_navy_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_navy_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_flexible_navy_v4 } }
+					set_country_flag = KRAUS_ext_AUS_flexible_navy_v4
+					KRAUS_joint_navy_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_navy_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_navy_up = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_istria_ports
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_istria_ports } }
+	icon = GFX_goal_generic_construct_naval_dockyard
+	x = 1
+	y = 3
+	relative_position_id = AUS_naval_effort
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_small_ships_effort focus = AUS_capital_ships_effort }
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+	available = {
+		any_state_of = {
+		target = { 488 736 }
+		is_owned_and_controlled_by = ROOT
+		}
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_istria_ports completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				random_owned_controlled_state = {
+					prioritize = { 736 488 }
+					limit = {
+						is_core_of = ROOT
+						is_valid_state_for_development = yes
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+				custom_effect_tooltip = tooltip_white_line
+				every_core_state = {
+					random_select_amount = 2
+					display_individual_scopes = yes
+					limit = {
+						OR = {
+							state = 488
+							state = 736
+						}
+						is_owned_and_controlled_by = ROOT
+						is_valid_state_for_development = yes
+						can_construct_building = naval_base
+					}
+					custom_override_tooltip = {
+						add_building_construction = {
+							type = naval_base
+							level = 2
+							province = {
+								all_provinces = yes
+								limit_to_naval_base = yes
+							}
+							instant_build = yes
+						}
+						tooltip = {
+							localization_key = tooltip_add_naval_base_levels
+							BUILDING = naval_base
+							NUMBER = 2
+						}
+					}
+				}
+				custom_effect_tooltip = tooltip_white_line
+				random_owned_controlled_state = {
+					prioritize = { 736 }
+					limit = {
+						is_core_of = ROOT
+						can_construct_building = naval_facility
+					}
+					construct_building_in_random_province = {
+						naval_facility = 1
+					}
+				}
+
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_istria_ports_1 } }
+					set_country_flag = KRAUS_ext_AUS_istria_ports_1
+					random_owned_controlled_state = {
+						prioritize = { 736 488 }
+						limit = {
+							is_core_of = ROOT
+							is_valid_state_for_development = yes
+							free_building_slots = {
+								building = dockyard
+								size > 2
+								include_locked = yes
+							}
+						}
+						add_extra_state_shared_building_slots = 3
+						add_building_construction = {
+							type = dockyard
+							level = 3
+							instant_build = yes
+						}
+					}
+					custom_effect_tooltip = tooltip_white_line
+					every_core_state = {
+						random_select_amount = 2
+						display_individual_scopes = yes
+						limit = {
+							OR = {
+								state = 488
+								state = 736
+							}
+							is_owned_and_controlled_by = ROOT
+							is_valid_state_for_development = yes
+							can_construct_building = naval_base
+						}
+						custom_override_tooltip = {
+							add_building_construction = {
+								type = naval_base
+								level = 2
+								province = {
+									all_provinces = yes
+									limit_to_naval_base = yes
+								}
+								instant_build = yes
+							}
+							tooltip = {
+								localization_key = tooltip_add_naval_base_levels
+								BUILDING = naval_base
+								NUMBER = 2
+							}
+						}
+					}
+					custom_effect_tooltip = tooltip_white_line
+					random_owned_controlled_state = {
+						prioritize = { 736 }
+						limit = {
+							is_core_of = ROOT
+							can_construct_building = naval_facility
+						}
+						construct_building_in_random_province = {
+							naval_facility = 1
+						}
+					}
+
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_istria_ports_v2 } }
+					set_country_flag = KRAUS_ext_AUS_istria_ports_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_gd_diving }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_gd_diving
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_navy_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_navy_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_istria_ports_v4 } }
+					set_country_flag = KRAUS_ext_AUS_istria_ports_v4
+					KRAUS_joint_navy_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_navy_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_navy_up = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_cattaro
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_cattaro } }
+	icon = GFX_goal_generic_airports
+	x = 0
+	y = 2
+	relative_position_id = AUS_flexible_navy
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_small_ships_effort focus = AUS_capital_ships_effort }
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+	available = {
+		841 = {
+		is_owned_and_controlled_by = ROOT
+		}
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_cattaro completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				841 = {
+					add_building_construction = {
+						type = air_base
+						level = 6
+						instant_build = yes
+					}
+					custom_override_tooltip = {
+						add_building_construction = {
+							type = naval_base
+							level = 4
+							province = 7623
+						}
+						tooltip = {
+							localization_key = tooltip_add_building_on_victory_point
+							BUILDING = naval_base
+							NUMBER = 4
+							VP = 7623
+						}
+					}
+				}
+
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_cattaro_1 } }
+					set_country_flag = KRAUS_ext_AUS_cattaro_1
+					841 = {
+						add_building_construction = {
+							type = air_base
+							level = 6
+							instant_build = yes
+						}
+						custom_override_tooltip = {
+							add_building_construction = {
+								type = naval_base
+								level = 4
+								province = 7623
+							}
+							tooltip = {
+								localization_key = tooltip_add_building_on_victory_point
+								BUILDING = naval_base
+								NUMBER = 4
+								VP = 7623
+							}
+						}
+					}
+
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_cattaro_v2 } }
+					set_country_flag = KRAUS_ext_AUS_cattaro_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_gd_pens }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_gd_pens
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_military_tech
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_military_tech } }
+	icon = GFX_focus_generic_military_equipment
+	x = 0
+	y = 1
+	relative_position_id = AUS_military_expansion
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_military_expansion }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_military_tech completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_tech_bonus = {
+					name = AUS_military_tech
+					bonus = 1
+					uses = 1
+					category = infantry_weapons
+					category = artillery
+				}
+				if = {
+					limit = {
+						land_facility < 1
+					}
+					custom_effect_tooltip = tooltip_white_line
+					random_owned_controlled_state = {
+						prioritize = { 4 }
+						limit = {
+							is_core_of = ROOT
+							can_construct_building = land_facility
+						}
+						construct_building_in_random_province = {
+							land_facility = 1
+						}
+					}
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_military_tech bonus = 0.5 uses = 1 category = infantry_weapons category = artillery }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_military_tech_1 } }
+					set_country_flag = KRAUS_ext_AUS_military_tech_1
+					add_tech_bonus = {
+						name = AUS_military_tech
+						bonus = 1
+						uses = 1
+						category = infantry_weapons
+						category = artillery
+					}
+					if = {
+						limit = {
+							land_facility < 1
+						}
+						custom_effect_tooltip = tooltip_white_line
+						random_owned_controlled_state = {
+							prioritize = { 4 }
+							limit = {
+								is_core_of = ROOT
+								can_construct_building = land_facility
+							}
+							construct_building_in_random_province = {
+								land_facility = 1
+							}
+						}
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_military_tech bonus = 0.5 uses = 1 category = infantry_weapons category = artillery }
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_radar
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_radar } }
+	icon = GFX_goal_generic_radar_instillation
+	x = 2
+	y = 1
+	relative_position_id = AUS_military_tech
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_military_tech }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_radar completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_breakthrough_progress = {
+					specialization = specialization_air
+					value = 0.75
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_tech_bonus = {
+					name = AUS_radar
+					bonus = 1
+					uses = 1
+					category = radar_tech
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_radar bonus = 0.5 uses = 1 category = radar_tech }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_radar_1 } }
+					set_country_flag = KRAUS_ext_AUS_radar_1
+					add_breakthrough_progress = {
+						specialization = specialization_air
+						value = 0.75
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_tech_bonus = {
+						name = AUS_radar
+						bonus = 1
+						uses = 1
+						category = radar_tech
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_radar bonus = 0.5 uses = 1 category = radar_tech }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				enable_tech_improved_decryption = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					enable_tech_improved_encryption = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_radar_2 } }
+					set_country_flag = KRAUS_ext_AUS_radar_2
+					enable_tech_improved_decryption = yes
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						enable_tech_improved_encryption = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		factor = 1
+		modifier = {
+		factor = 0
+		NOT = {
+		has_completed_focus = AUS_mil_expanded
+		}
+		}
+	}
+}
+
+joint_focus = {
+	id = AUS_rockets
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_rockets } }
+	icon = GFX_focus_rocketry
+	x = 0
+	y = 1
+	relative_position_id = AUS_radar
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_radar }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_rockets completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_breakthrough_progress = {
+					specialization = specialization_air
+					value = 0.5
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_tech_bonus = {
+					name = AUS_rockets
+					bonus = 0.75
+					uses = 2
+					category = jet_technology
+					category = rocketry
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_rockets bonus = 0.375 uses = 1 category = jet_technology category = rocketry }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_rockets_1 } }
+					set_country_flag = KRAUS_ext_AUS_rockets_1
+					add_breakthrough_progress = {
+						specialization = specialization_air
+						value = 0.5
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_tech_bonus = {
+						name = AUS_rockets
+						bonus = 0.75
+						uses = 2
+						category = jet_technology
+						category = rocketry
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_rockets bonus = 0.375 uses = 1 category = jet_technology category = rocketry }
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		factor = 1
+		modifier = {
+		factor = 0
+		NOT = {
+		has_completed_focus = AUS_mil_expanded
+		}
+		}
+	}
+}
+
+joint_focus = {
+	id = AUS_rifle_trials
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_rifle_trials } }
+	icon = GFX_goal_generic_small_arms
+	x = 0
+	y = 1
+	relative_position_id = AUS_military_tech
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_military_tech }
+	search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_XP }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_rifle_trials completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				add_tech_bonus = {
+					name = AUS_rifle_trials
+					bonus = 1
+					uses = 1
+					category = infantry_weapons
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_rifle_trials bonus = 0.5 uses = 1 category = infantry_weapons }
+					army_experience = 5
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_rifle_trials_1 } }
+					set_country_flag = KRAUS_ext_AUS_rifle_trials_1
+					army_experience = 10
+					add_tech_bonus = {
+						name = AUS_rifle_trials
+						bonus = 1
+						uses = 1
+						category = infantry_weapons
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_rifle_trials bonus = 0.5 uses = 1 category = infantry_weapons }
+						army_experience = 5
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				enable_tech_bicycle_battalion = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					enable_tech_bicycle_battalion = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_rifle_trials_2 } }
+					set_country_flag = KRAUS_ext_AUS_rifle_trials_2
+					enable_tech_bicycle_battalion = yes
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						enable_tech_bicycle_battalion = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = infantry_officer } }
+					add_trait = { trait = infantry_officer }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = infantry_officer } }
+					add_trait = { trait = infantry_officer }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_rifle_trials_v2 } }
+					set_country_flag = KRAUS_ext_AUS_rifle_trials_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = infantry_officer } }
+						add_trait = { trait = infantry_officer }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = infantry_officer } }
+						add_trait = { trait = infantry_officer }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_st_experienced }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_st_experienced
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_artillery_modernisation
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_artillery_modernisation } }
+	icon = GFX_goal_national_artillery
+	x = 0
+	y = 1
+	relative_position_id = AUS_rifle_trials
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_rifle_trials }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_artillery_modernisation completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_tech_bonus = {
+					name = AUS_artillery_modernisation
+					bonus = 1
+					uses = 1
+					category = artillery
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_artillery_modernisation bonus = 0.5 uses = 1 category = artillery }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_artillery_modernisation_1 } }
+					set_country_flag = KRAUS_ext_AUS_artillery_modernisation_1
+					add_tech_bonus = {
+						name = AUS_artillery_modernisation
+						bonus = 1
+						uses = 1
+						category = artillery
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_artillery_modernisation bonus = 0.5 uses = 1 category = artillery }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = fortress_buster } }
+					add_trait = { trait = fortress_buster }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = fortress_buster } }
+					add_trait = { trait = fortress_buster }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_artillery_modernisation_v2 } }
+					set_country_flag = KRAUS_ext_AUS_artillery_modernisation_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = fortress_buster } }
+						add_trait = { trait = fortress_buster }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = fortress_buster } }
+						add_trait = { trait = fortress_buster }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_bo_pak37 }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_bo_pak37
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_military_mountaineers
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_military_mountaineers } }
+	icon = GFX_focus_PER_feat_of_engineering
+	x = 0
+	y = 1
+	relative_position_id = AUS_artillery_modernisation
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_artillery_modernisation }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_military_mountaineers completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				enable_tech_expanded_engineer_corps = yes
+				custom_effect_tooltip = tooltip_white_line
+				add_tech_bonus = {
+					name = AUS_military_mountaineers
+					bonus = 1.0
+					ahead_reduction = 2
+					uses = 1
+					technology = tech_engineers
+					technology = tech_engineers2
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = expert_improviser } }
+					add_trait = { trait = expert_improviser }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = expert_improviser } }
+					add_trait = { trait = expert_improviser }
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					enable_tech_expanded_engineer_corps = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_military_mountaineers_1 } }
+					set_country_flag = KRAUS_ext_AUS_military_mountaineers_1
+					enable_tech_expanded_engineer_corps = yes
+					custom_effect_tooltip = tooltip_white_line
+					add_tech_bonus = {
+						name = AUS_military_mountaineers
+						bonus = 1.0
+						ahead_reduction = 2
+						uses = 1
+						technology = tech_engineers
+						technology = tech_engineers2
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = expert_improviser } }
+						add_trait = { trait = expert_improviser }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = expert_improviser } }
+						add_trait = { trait = expert_improviser }
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						enable_tech_expanded_engineer_corps = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_motorisation
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_motorisation } }
+	icon = GFX_goal_generic_army_motorized
+	x = -2
+	y = 1
+	relative_position_id = AUS_military_tech
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_military_tech }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_motorisation completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_tech_bonus = {
+					name = AUS_motorisation
+					bonus = 1
+					uses = 1
+					category = cat_mechanized_equipment
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_motorisation bonus = 0.5 uses = 1 category = cat_mechanized_equipment }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_motorisation_1 } }
+					set_country_flag = KRAUS_ext_AUS_motorisation_1
+					add_tech_bonus = {
+						name = AUS_motorisation
+						bonus = 1
+						uses = 1
+						category = cat_mechanized_equipment
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_motorisation bonus = 0.5 uses = 1 category = cat_mechanized_equipment }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				if = {
+					limit = { has_tech = mechanised_infantry }
+					add_equipment_to_stockpile = { type = mechanized_equipment_1 amount = 2000 producer = AUS }
+				}
+				else = {
+					add_equipment_to_stockpile = { type = motorized_equipment_1 amount = 2000 producer = AUS }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_motorisation_v3 } }
+					set_country_flag = KRAUS_ext_AUS_motorisation_v3
+					if = {
+						limit = { has_tech = mechanised_infantry }
+						add_equipment_to_stockpile = { type = mechanized_equipment_1 amount = 2000 producer = AUS }
+					}
+					else = {
+						add_equipment_to_stockpile = { type = motorized_equipment_1 amount = 2000 producer = AUS }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_sgp_multi_role }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_sgp_multi_role
+				}
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_pu_racing }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_pu_racing
+				}
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_sw_tires }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_sw_tires
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		factor = 1
+		modifier = {
+		factor = 0
+		NOT = {
+		has_completed_focus = AUS_mil_expanded
+		}
+		}
+	}
+}
+
+joint_focus = {
+	id = AUS_aviation_effort
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_aviation_effort } }
+	icon = GFX_goal_AUS_airforce
+	x = 6
+	y = 1
+	relative_position_id = AUS_military_expansion
+	dynamic = yes
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_military_expansion }
+	search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
+	available = {
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_aviation_effort completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_air_up = yes
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_air_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_aviation_effort_1 } }
+					set_country_flag = KRAUS_ext_AUS_aviation_effort_1
+					KRAUS_joint_air_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_air_level = 1 } }
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_air_up = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_hb_flyingboat }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_hb_flyingboat
+				}
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_lo_capacity }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_lo_capacity
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_aviation_effort_v4 } }
+					set_country_flag = KRAUS_ext_AUS_aviation_effort_v4
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		factor = 1
+		modifier = {
+		factor = 50
+		has_tech = basic_small_airframe
+		}
+	}
+}
+
+joint_focus = {
+	id = AUS_loehr-plan
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_loehr-plan } }
+	icon = GFX_focus_SWE_marauder_bombers
+	x = 2
+	y = 1
+	relative_position_id = AUS_aviation_effort
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_aviation_effort }
+	mutually_exclusive = { focus = AUS_uzelac-plan }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_loehr-plan completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			add_doctrine_cost_reduction = {
+				name = AUS_loehr-plan
+				cost_reduction = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+			custom_effect_tooltip = tooltip_white_line
+			add_mastery_bonus = {
+				name = AUS_loehr-plan
+				bonus = 0.1
+				days = 365
+				track = heavy_aircraft
+			}
+
+			every_subject_country = {
+				limit = { KRAUS_joint_econ_crownland = yes }
+				add_doctrine_cost_reduction = { name = AUS_loehr-plan cost_reduction = 0.25 uses = 1 category = air_doctrine }
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		factor = 2
+	}
+}
+
+joint_focus = {
+	id = AUS_mil_expanded
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_mil_expanded } }
+	icon = GFX_goal_AUS_mil_expanded
+	x = -3
+	y = 5
+	relative_position_id = AUS_military_expansion
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_auftragstaktik }
+	prerequisite = { focus = AUS_military_mountaineers }
+	prerequisite = { focus = AUS_infanteriepanzer focus = AUS_kavalleriepanzer }
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+		AUS = { has_completed_focus = KRAUS_common_army_people }
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_mil_expanded completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_land_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_land_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_mil_expanded_1 } }
+					set_country_flag = KRAUS_ext_AUS_mil_expanded_1
+					KRAUS_joint_land_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_land_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_land_up = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_mil_expanded_2 } }
+					set_country_flag = KRAUS_ext_AUS_mil_expanded_2
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				custom_effect_tooltip = KRAUS_doctrine_enhance_tt
+				if = {
+					limit = {
+						has_idea = AUS_modern_army_hickmann
+					}
+					swap_ideas = {
+						remove_idea = AUS_modern_army_hickmann
+						add_idea = AUS_modern_army_hickmann_2
+					}
+				}
+				else_if = {
+					limit = {
+						has_idea = KRAUS_modern_army_hubicki_2
+					}
+					swap_ideas = {
+						remove_idea = KRAUS_modern_army_hubicki_2
+						add_idea = KRAUS_modern_army_hubicki_3
+					}
+				}
+				else = {
+					swap_ideas = {
+						remove_idea = KRAUS_modern_army_jansa_2
+						add_idea = KRAUS_modern_army_jansa_3
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_mil_expanded_4 } }
+					set_country_flag = KRAUS_ext_AUS_mil_expanded_4
+					custom_effect_tooltip = tooltip_white_line
+					custom_effect_tooltip = KRAUS_doctrine_enhance_tt
+					KRAUS_ma_level_3 = yes
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_small_ships_effort
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_small_ships_effort } }
+	icon = GFX_focus_generic_destroyer
+	x = 0
+	y = 1
+	relative_position_id = AUS_flexible_navy
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_flexible_navy }
+	search_filters = { FOCUS_FILTER_NAVY_XP FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_small_ships_effort completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				navy_experience = 25
+				add_tech_bonus = {
+					name = AUS_small_ships_effort
+					bonus = 0.75
+					uses = 2
+					category = dd_tech
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_mastery_bonus = {
+					name = AUS_small_ships_effort
+					bonus = 0.1
+					days = 365
+					track = screens
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes any_owned_state = { is_coastal = yes } }
+					add_tech_bonus = { name = AUS_small_ships_effort bonus = 0.375 uses = 1 category = dd_tech }
+					navy_experience = 12
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_small_ships_effort_1 } }
+					set_country_flag = KRAUS_ext_AUS_small_ships_effort_1
+					navy_experience = 25
+					add_tech_bonus = {
+						name = AUS_small_ships_effort
+						bonus = 0.75
+						uses = 2
+						category = dd_tech
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_mastery_bonus = {
+						name = AUS_small_ships_effort
+						bonus = 0.1
+						days = 365
+						track = screens
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes any_owned_state = { is_coastal = yes } }
+						add_tech_bonus = { name = AUS_small_ships_effort bonus = 0.375 uses = 1 category = dd_tech }
+						navy_experience = 12
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_small_ships_effort_v2 } }
+					set_country_flag = KRAUS_ext_AUS_small_ships_effort_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_gd_ocean }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_gd_ocean
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_navy_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_navy_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_small_ships_effort_v4 } }
+					set_country_flag = KRAUS_ext_AUS_small_ships_effort_v4
+					KRAUS_joint_navy_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_navy_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_navy_up = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_tank_trials
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_tank_trials } }
+	icon = GFX_goal_AUS_tanks
+	x = 0
+	y = 1
+	relative_position_id = AUS_motorisation
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_motorisation }
+	search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_XP }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_tank_trials completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				add_tech_bonus = {
+					name = AUS_tank_trials
+					bonus = 0.5
+					uses = 2
+					category = armor
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_breakthrough_progress = {
+					specialization = specialization_land
+					value = 0.25
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_tank_trials bonus = 0.25 uses = 1 category = armor }
+					army_experience = 5
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_tank_trials_1 } }
+					set_country_flag = KRAUS_ext_AUS_tank_trials_1
+					army_experience = 10
+					add_tech_bonus = {
+						name = AUS_tank_trials
+						bonus = 0.5
+						uses = 2
+						category = armor
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_breakthrough_progress = {
+						specialization = specialization_land
+						value = 0.25
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_tank_trials bonus = 0.25 uses = 1 category = armor }
+						army_experience = 5
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = armor_officer } }
+					add_trait = { trait = armor_officer }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = armor_officer } }
+					add_trait = { trait = armor_officer }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_tank_trials_v2 } }
+					set_country_flag = KRAUS_ext_AUS_tank_trials_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = armor_officer } }
+						add_trait = { trait = armor_officer }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = armor_officer } }
+						add_trait = { trait = armor_officer }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_sgp_anti_tank }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_sgp_anti_tank
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		factor = 1
+		modifier = {
+		factor = 0
+		NOT = {
+		has_completed_focus = AUS_mil_expanded
+		}
+		}
+	}
+}
+
+joint_focus = {
+	id = AUS_large_navy
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_large_navy } }
+	icon = GFX_goal_generic_sea_focused_navy
+	x = 1
+	y = 1
+	relative_position_id = AUS_naval_effort
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_naval_effort }
+	mutually_exclusive = { focus = AUS_flexible_navy }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_large_navy completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_doctrine_cost_reduction = {
+					name = AUS_large_navy
+					cost_reduction = 0.5
+					uses = 1
+					category = naval_doctrine
+				}
+				add_tech_bonus = {
+					name = AUS_large_navy
+					bonus = 1
+					uses = 1
+					category = ca_tech
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes any_owned_state = { is_coastal = yes } }
+					add_tech_bonus = { name = AUS_large_navy bonus = 0.5 uses = 1 category = ca_tech }
+					add_doctrine_cost_reduction = { name = AUS_large_navy cost_reduction = 0.25 uses = 1 category = naval_doctrine }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_large_navy_1 } }
+					set_country_flag = KRAUS_ext_AUS_large_navy_1
+					add_doctrine_cost_reduction = {
+						name = AUS_large_navy
+						cost_reduction = 0.5
+						uses = 1
+						category = naval_doctrine
+					}
+					add_tech_bonus = {
+						name = AUS_large_navy
+						bonus = 1
+						uses = 1
+						category = ca_tech
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes any_owned_state = { is_coastal = yes } }
+						add_tech_bonus = { name = AUS_large_navy bonus = 0.5 uses = 1 category = ca_tech }
+						add_doctrine_cost_reduction = { name = AUS_large_navy cost_reduction = 0.25 uses = 1 category = naval_doctrine }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_stt_guns }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_stt_guns
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_navy_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_navy_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_large_navy_v4 } }
+					set_country_flag = KRAUS_ext_AUS_large_navy_v4
+					KRAUS_joint_navy_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_navy_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_navy_up = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_capital_ships_effort
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_capital_ships_effort } }
+	icon = GFX_focus_generic_navy_battleship2
+	x = 0
+	y = 1
+	relative_position_id = AUS_large_navy
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_large_navy }
+	search_filters = { FOCUS_FILTER_NAVY_XP FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_capital_ships_effort completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				navy_experience = 25
+				add_tech_bonus = {
+					name = AUS_capital_ships_effort
+					bonus = 1
+					uses = 1
+					category = bb_tech
+				}
+				add_tech_bonus = {
+					name = AUS_capital_ships_effort
+					bonus = 1
+					uses = 1
+					category = ship_modules_tech
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_mastery_bonus = {
+					name = AUS_capital_ships_effort
+					bonus = 0.1
+					days = 365
+					track = capital_ships
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes any_owned_state = { is_coastal = yes } }
+					add_tech_bonus = { name = AUS_capital_ships_effort bonus = 0.5 uses = 1 category = bb_tech }
+					add_tech_bonus = { name = AUS_capital_ships_effort bonus = 0.5 uses = 1 category = ship_modules_tech }
+					navy_experience = 12
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_capital_ships_effort_1 } }
+					set_country_flag = KRAUS_ext_AUS_capital_ships_effort_1
+					navy_experience = 25
+					add_tech_bonus = {
+						name = AUS_capital_ships_effort
+						bonus = 1
+						uses = 1
+						category = bb_tech
+					}
+					add_tech_bonus = {
+						name = AUS_capital_ships_effort
+						bonus = 1
+						uses = 1
+						category = ship_modules_tech
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_mastery_bonus = {
+						name = AUS_capital_ships_effort
+						bonus = 0.1
+						days = 365
+						track = capital_ships
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes any_owned_state = { is_coastal = yes } }
+						add_tech_bonus = { name = AUS_capital_ships_effort bonus = 0.5 uses = 1 category = bb_tech }
+						add_tech_bonus = { name = AUS_capital_ships_effort bonus = 0.5 uses = 1 category = ship_modules_tech }
+						navy_experience = 12
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_capital_ships_effort_v2 } }
+					set_country_flag = KRAUS_ext_AUS_capital_ships_effort_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_stt_lissa }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_stt_lissa
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_navy_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_navy_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_capital_ships_effort_v4 } }
+					set_country_flag = KRAUS_ext_AUS_capital_ships_effort_v4
+					KRAUS_joint_navy_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_navy_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_navy_up = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_reform_AOK
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_reform_AOK } }
+	icon = GFX_goal_AUS_armeeoberkommando
+	x = -6
+	y = 1
+	relative_position_id = AUS_military_expansion
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_military_expansion }
+	search_filters = { FOCUS_FILTER_ARMY_BONUS }
+	available = {
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_reform_AOK completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_ideas = AUS_modern_army
+
+				KRAUS_joint_land_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_land_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_reform_AOK_1 } }
+					set_country_flag = KRAUS_ext_AUS_reform_AOK_1
+					add_ideas = AUS_modern_army
+
+					KRAUS_joint_land_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_land_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_land_up = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				every_army_leader = {
+					limit = { is_corps_commander = yes skill < 3 }
+					add_skill_level = 1
+				}
+				army_experience = 15
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					army_experience = 5
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_reform_AOK_2 } }
+					set_country_flag = KRAUS_ext_AUS_reform_AOK_2
+					every_army_leader = {
+						limit = { is_corps_commander = yes skill < 3 }
+						add_skill_level = 1
+					}
+					army_experience = 15
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						army_experience = 5
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_reform_AOK_v2 } }
+					set_country_flag = KRAUS_ext_AUS_reform_AOK_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		factor = 1
+		modifier = {
+		factor = 10
+		has_war = yes
+		}
+		modifier = {
+		factor = 5
+		}
+	}
+}
+
+joint_focus = {
+	id = AUS_doctrine_Hickmann
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_doctrine_Hickmann } }
+	icon = GFX_goal_generic_army_artillery2
+	x = 0
+	y = 1
+	relative_position_id = AUS_reform_AOK
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_reform_AOK }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_doctrine_Hickmann completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = KRAUS_ma_pick_info_tt
+				every_army_leader = {
+					add_attack = 1
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_doctrine_cost_reduction = {
+					name = AUS_doctrine_Hickmann
+					cost_reduction = 0.5
+					uses = 1
+					category = land_doctrine
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_mastery_bonus = {
+					name = AUS_doctrine_Hickmann
+					bonus = 0.1
+					days = 365
+					track = combat_support
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_doctrine_cost_reduction = { name = AUS_doctrine_Hickmann cost_reduction = 0.25 uses = 1 category = land_doctrine }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_doctrine_Hickmann_1 } }
+					set_country_flag = KRAUS_ext_AUS_doctrine_Hickmann_1
+					KRAUS_ma_pick_hickmann = yes
+					every_army_leader = {
+						add_attack = 1
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_doctrine_cost_reduction = {
+						name = AUS_doctrine_Hickmann
+						cost_reduction = 0.5
+						uses = 1
+						category = land_doctrine
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_mastery_bonus = {
+						name = AUS_doctrine_Hickmann
+						bonus = 0.1
+						days = 365
+						track = combat_support
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_doctrine_cost_reduction = { name = AUS_doctrine_Hickmann cost_reduction = 0.25 uses = 1 category = land_doctrine }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				random_army_leader = {
+					limit = { NOT = { has_trait = artillery_officer } }
+					add_trait = { trait = artillery_officer }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_doctrine_Hickmann_2 } }
+					set_country_flag = KRAUS_ext_AUS_doctrine_Hickmann_2
+					random_army_leader = {
+						limit = { NOT = { has_trait = artillery_officer } }
+						add_trait = { trait = artillery_officer }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				custom_effect_tooltip = tooltip_increases_focus_effects
+				custom_effect_tooltip = {
+					localization_key = tooltip_yellow_text
+					TEXT = AUS_auftragstaktik
+				}
+				custom_effect_tooltip = {
+					localization_key = tooltip_yellow_text
+					TEXT = AUS_mil_expanded
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_doctrine_Hickmann_3 } }
+					set_country_flag = KRAUS_ext_AUS_doctrine_Hickmann_3
+					custom_effect_tooltip = tooltip_white_line
+					custom_effect_tooltip = tooltip_increases_focus_effects
+					custom_effect_tooltip = {
+						localization_key = tooltip_yellow_text
+						TEXT = AUS_auftragstaktik
+					}
+					custom_effect_tooltip = {
+						localization_key = tooltip_yellow_text
+						TEXT = AUS_mil_expanded
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_bo_pak75 }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_bo_pak75
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_land_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_land_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_doctrine_Hickmann_v4 } }
+					set_country_flag = KRAUS_ext_AUS_doctrine_Hickmann_v4
+					KRAUS_joint_land_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_land_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_land_up = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		factor = 1
+		modifier = {
+		factor = 20
+		}
+	}
+}
+
+joint_focus = {
+	id = AUS_better_support_equipment
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_better_support_equipment } }
+	icon = GFX_focus_SWE_let_fly_all_guns
+	x = 0
+	y = 1
+	relative_position_id = AUS_doctrine_Hickmann
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_doctrine_Hickmann }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_better_support_equipment completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_tech_bonus = {
+					name = AUS_better_support_equipment
+					bonus = 1
+					uses = 1
+					category = support_tech
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_better_support_equipment bonus = 0.5 uses = 1 category = support_tech }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_better_support_equipment_1 } }
+					set_country_flag = KRAUS_ext_AUS_better_support_equipment_1
+					KRAUS_ma_step_hickmann = yes
+					add_tech_bonus = {
+						name = AUS_better_support_equipment
+						bonus = 1
+						uses = 1
+						category = support_tech
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_better_support_equipment bonus = 0.5 uses = 1 category = support_tech }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				enable_tech_strengthened_support_companies = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					enable_tech_strengthened_support_companies = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_better_support_equipment_2 } }
+					set_country_flag = KRAUS_ext_AUS_better_support_equipment_2
+					enable_tech_strengthened_support_companies = yes
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						enable_tech_strengthened_support_companies = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = logistics_wizard } }
+					add_trait = { trait = logistics_wizard }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = logistics_wizard } }
+					add_trait = { trait = logistics_wizard }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_better_support_equipment_v2 } }
+					set_country_flag = KRAUS_ext_AUS_better_support_equipment_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = logistics_wizard } }
+						add_trait = { trait = logistics_wizard }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = logistics_wizard } }
+						add_trait = { trait = logistics_wizard }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_bo_carriage }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_bo_carriage
+				}
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_lg_safety }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_lg_safety
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_doctrine_von_Hubicki
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_doctrine_von_Hubicki } }
+	icon = GFX_goal_doctrine_tank_warfare
+	x = 2
+	y = 1
+	relative_position_id = AUS_reform_AOK
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_reform_AOK }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_doctrine_von_Hubicki completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = KRAUS_ma_pick_info_tt
+				every_army_leader = {
+					add_logistics = 1
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_doctrine_cost_reduction = {
+					name = AUS_doctrine_von_Hubicki
+					cost_reduction = 0.5
+					uses = 1
+					category = land_doctrine
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_mastery_bonus = {
+					name = AUS_doctrine_von_Hubicki
+					bonus = 0.1
+					days = 365
+					track = armor
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_doctrine_cost_reduction = { name = AUS_doctrine_von_Hubicki cost_reduction = 0.25 uses = 1 category = land_doctrine }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_doctrine_von_Hubicki_1 } }
+					set_country_flag = KRAUS_ext_AUS_doctrine_von_Hubicki_1
+					KRAUS_ma_pick_hubicki = yes
+					every_army_leader = {
+						add_logistics = 1
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_doctrine_cost_reduction = {
+						name = AUS_doctrine_von_Hubicki
+						cost_reduction = 0.5
+						uses = 1
+						category = land_doctrine
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_mastery_bonus = {
+						name = AUS_doctrine_von_Hubicki
+						bonus = 0.1
+						days = 365
+						track = armor
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_doctrine_cost_reduction = { name = AUS_doctrine_von_Hubicki cost_reduction = 0.25 uses = 1 category = land_doctrine }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				random_army_leader = {
+					limit = { NOT = { has_trait = armor_officer } }
+					add_trait = { trait = armor_officer }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_doctrine_von_Hubicki_2 } }
+					set_country_flag = KRAUS_ext_AUS_doctrine_von_Hubicki_2
+					random_army_leader = {
+						limit = { NOT = { has_trait = armor_officer } }
+						add_trait = { trait = armor_officer }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				custom_effect_tooltip = tooltip_increases_focus_effects
+				custom_effect_tooltip = {
+					localization_key = tooltip_yellow_text
+					TEXT = AUS_auftragstaktik
+				}
+				custom_effect_tooltip = {
+					localization_key = tooltip_yellow_text
+					TEXT = AUS_mil_expanded
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_doctrine_von_Hubicki_3 } }
+					set_country_flag = KRAUS_ext_AUS_doctrine_von_Hubicki_3
+					custom_effect_tooltip = tooltip_white_line
+					custom_effect_tooltip = tooltip_increases_focus_effects
+					custom_effect_tooltip = {
+						localization_key = tooltip_yellow_text
+						TEXT = AUS_auftragstaktik
+					}
+					custom_effect_tooltip = {
+						localization_key = tooltip_yellow_text
+						TEXT = AUS_mil_expanded
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_sgp_transmission }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_sgp_transmission
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		factor = 1
+		modifier = {
+		factor = 20
+		}
+	}
+}
+
+joint_focus = {
+	id = AUS_mech_cavalry
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_mech_cavalry } }
+	icon = GFX_goal_generic_mechanized_infantry
+	x = 0
+	y = 1
+	relative_position_id = AUS_doctrine_von_Hubicki
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_doctrine_von_Hubicki }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_mech_cavalry completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = AUS_modern_army
+					add_idea = KRAUS_modern_army_hubicki
+				}
+				add_tech_bonus = {
+					name = AUS_mech_cavalry
+					bonus = 1
+					category = cat_mechanized_equipment
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_mech_cavalry bonus = 0.5 uses = 1 category = cat_mechanized_equipment }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_mech_cavalry_1 } }
+					set_country_flag = KRAUS_ext_AUS_mech_cavalry_1
+					KRAUS_ma_step_hubicki = yes
+					add_tech_bonus = {
+						name = AUS_mech_cavalry
+						bonus = 1
+						category = cat_mechanized_equipment
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_mech_cavalry bonus = 0.5 uses = 1 category = cat_mechanized_equipment }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				enable_tech_semi_motorised_cav = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					enable_tech_semi_motorised_cav = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_mech_cavalry_2 } }
+					set_country_flag = KRAUS_ext_AUS_mech_cavalry_2
+					enable_tech_semi_motorised_cav = yes
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						enable_tech_semi_motorised_cav = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = cavalry_leader } }
+					add_trait = { trait = cavalry_leader }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = cavalry_leader } }
+					add_trait = { trait = cavalry_leader }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_mech_cavalry_v2 } }
+					set_country_flag = KRAUS_ext_AUS_mech_cavalry_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = cavalry_leader } }
+						add_trait = { trait = cavalry_leader }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = cavalry_leader } }
+						add_trait = { trait = cavalry_leader }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_gs_research }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_gs_research
+				}
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_sw_engines }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_sw_engines
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_doctrine_Jansa
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_doctrine_Jansa } }
+	icon = GFX_goal_generic_position_armies
+	x = -2
+	y = 1
+	relative_position_id = AUS_reform_AOK
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 12
+	prerequisite = { focus = AUS_reform_AOK }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_doctrine_Jansa completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = KRAUS_ma_pick_info_tt
+				every_army_leader = {
+					add_planning = 1
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_doctrine_cost_reduction = {
+					name = AUS_doctrine_Jansa
+					cost_reduction = 0.5
+					uses = 1
+					category = land_doctrine
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_mastery_bonus = {
+					name = AUS_doctrine_Jansa
+					bonus = 0.1
+					days = 365
+					track = operations
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_doctrine_cost_reduction = { name = AUS_doctrine_Jansa cost_reduction = 0.25 uses = 1 category = land_doctrine }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_doctrine_Jansa_1 } }
+					set_country_flag = KRAUS_ext_AUS_doctrine_Jansa_1
+					KRAUS_ma_pick_jansa = yes
+					every_army_leader = {
+						add_planning = 1
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_doctrine_cost_reduction = {
+						name = AUS_doctrine_Jansa
+						cost_reduction = 0.5
+						uses = 1
+						category = land_doctrine
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_mastery_bonus = {
+						name = AUS_doctrine_Jansa
+						bonus = 0.1
+						days = 365
+						track = operations
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_doctrine_cost_reduction = { name = AUS_doctrine_Jansa cost_reduction = 0.25 uses = 1 category = land_doctrine }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				random_army_leader = {
+					limit = { NOT = { has_trait = defensive_doctrine } }
+					add_trait = { trait = defensive_doctrine }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_doctrine_Jansa_2 } }
+					set_country_flag = KRAUS_ext_AUS_doctrine_Jansa_2
+					random_army_leader = {
+						limit = { NOT = { has_trait = defensive_doctrine } }
+						add_trait = { trait = defensive_doctrine }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = defensive_doctrine } }
+					add_trait = { trait = defensive_doctrine }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = defensive_doctrine } }
+					add_trait = { trait = defensive_doctrine }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_doctrine_Jansa_v2 } }
+					set_country_flag = KRAUS_ext_AUS_doctrine_Jansa_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = defensive_doctrine } }
+						add_trait = { trait = defensive_doctrine }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = defensive_doctrine } }
+						add_trait = { trait = defensive_doctrine }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				custom_effect_tooltip = tooltip_increases_focus_effects
+				custom_effect_tooltip = {
+					localization_key = tooltip_yellow_text
+					TEXT = AUS_auftragstaktik
+				}
+				custom_effect_tooltip = {
+					localization_key = tooltip_yellow_text
+					TEXT = AUS_mil_expanded
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_doctrine_Jansa_4 } }
+					set_country_flag = KRAUS_ext_AUS_doctrine_Jansa_4
+					custom_effect_tooltip = tooltip_white_line
+					custom_effect_tooltip = tooltip_increases_focus_effects
+					custom_effect_tooltip = {
+						localization_key = tooltip_yellow_text
+						TEXT = AUS_auftragstaktik
+					}
+					custom_effect_tooltip = {
+						localization_key = tooltip_yellow_text
+						TEXT = AUS_mil_expanded
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		factor = 1
+		modifier = {
+		factor = 20
+		}
+	}
+}
+
+joint_focus = {
+	id = AUS_auftragstaktik
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_auftragstaktik } }
+	icon = GFX_goal_army_guy_2
+	x = 0
+	y = 1
+	relative_position_id = AUS_better_support_equipment
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_communications focus = AUS_better_support_equipment focus = AUS_mech_cavalry }
+	search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_auftragstaktik completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_land_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_land_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_auftragstaktik_1 } }
+					set_country_flag = KRAUS_ext_AUS_auftragstaktik_1
+					KRAUS_joint_land_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_land_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_land_up = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				enable_tech_sturmtruppe_battalion = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					enable_tech_assault_battalion = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_auftragstaktik_2 } }
+					set_country_flag = KRAUS_ext_AUS_auftragstaktik_2
+					enable_tech_sturmtruppe_battalion = yes
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						enable_tech_assault_battalion = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = offensive_doctrine } }
+					add_trait = { trait = offensive_doctrine }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = offensive_doctrine } }
+					add_trait = { trait = offensive_doctrine }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_auftragstaktik_v2 } }
+					set_country_flag = KRAUS_ext_AUS_auftragstaktik_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = offensive_doctrine } }
+						add_trait = { trait = offensive_doctrine }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = offensive_doctrine } }
+						add_trait = { trait = offensive_doctrine }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				custom_effect_tooltip = KRAUS_doctrine_enhance_tt
+				add_mastery_bonus = {
+					name = AUS_auftragstaktik
+					bonus = 0.1
+					days = 365
+					track = infantry
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_auftragstaktik_4 } }
+					set_country_flag = KRAUS_ext_AUS_auftragstaktik_4
+					custom_effect_tooltip = tooltip_white_line
+					custom_effect_tooltip = KRAUS_doctrine_enhance_tt
+					
+					add_mastery_bonus = {
+						name = AUS_auftragstaktik
+						bonus = 0.1
+						days = 365
+						track = infantry
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_auftragstaktik_v3 } }
+					set_country_flag = KRAUS_ext_AUS_auftragstaktik_v3
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_st_assault }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_st_assault
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_communications
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_communications } }
+	icon = GFX_focus_SWE_radiotjanst
+	x = 0
+	y = 1
+	relative_position_id = AUS_doctrine_Jansa
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_doctrine_Jansa }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_communications completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = AUS_modern_army
+					add_idea = KRAUS_modern_army_jansa
+				}
+				add_tech_bonus = {
+					name = AUS_communications
+					bonus = 1
+					uses = 1
+					category = electronics
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_communications bonus = 0.5 uses = 1 category = electronics }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_communications_1 } }
+					set_country_flag = KRAUS_ext_AUS_communications_1
+					KRAUS_ma_step_jansa = yes
+					add_tech_bonus = {
+						name = AUS_communications
+						bonus = 1
+						uses = 1
+						category = electronics
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_communications bonus = 0.5 uses = 1 category = electronics }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = logistics_wizard } }
+					add_trait = { trait = logistics_wizard }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = logistics_wizard } }
+					add_trait = { trait = logistics_wizard }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_communications_v2 } }
+					set_country_flag = KRAUS_ext_AUS_communications_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = logistics_wizard } }
+						add_trait = { trait = logistics_wizard }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = logistics_wizard } }
+						add_trait = { trait = logistics_wizard }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_land_up = yes
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_communications_v3 } }
+					set_country_flag = KRAUS_ext_AUS_communications_v3
+					KRAUS_joint_land_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_land_level = 1 } }
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_lg_police }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_lg_police
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_infanteriepanzer
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_infanteriepanzer } }
+	icon = GFX_goal_generic_army_tanks
+	x = 0
+	y = 1
+	relative_position_id = AUS_communications
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_communications focus = AUS_better_support_equipment }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_infanteriepanzer completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_tech_bonus = {
+					name = AUS_infanteriepanzer
+					bonus = 1
+					category = armor
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_breakthrough_progress = {
+					specialization = specialization_land
+					value = 0.25
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_infanteriepanzer bonus = 0.5 uses = 1 category = armor }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_infanteriepanzer_1 } }
+					set_country_flag = KRAUS_ext_AUS_infanteriepanzer_1
+					add_tech_bonus = {
+						name = AUS_infanteriepanzer
+						bonus = 1
+						category = armor
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_breakthrough_progress = {
+						specialization = specialization_land
+						value = 0.25
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_infanteriepanzer bonus = 0.5 uses = 1 category = armor }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = panzer_leader } }
+					add_trait = { trait = panzer_leader }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = panzer_leader } }
+					add_trait = { trait = panzer_leader }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_infanteriepanzer_v2 } }
+					set_country_flag = KRAUS_ext_AUS_infanteriepanzer_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = panzer_leader } }
+						add_trait = { trait = panzer_leader }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = panzer_leader } }
+						add_trait = { trait = panzer_leader }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_land_up = yes
+				add_mastery_bonus = {
+					name = AUS_infanteriepanzer
+					bonus = 0.1
+					days = 365
+					track = armor
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_infanteriepanzer_v3 } }
+					set_country_flag = KRAUS_ext_AUS_infanteriepanzer_v3
+					KRAUS_joint_land_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_land_level = 1 } }
+					add_mastery_bonus = {
+						name = AUS_infanteriepanzer
+						bonus = 0.1
+						days = 365
+						track = armor
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_pu_heavy }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_pu_heavy
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_kavalleriepanzer
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_kavalleriepanzer } }
+	icon = GFX_goal_POL_light_tanks
+	x = 0
+	y = 1
+	relative_position_id = AUS_mech_cavalry
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_mech_cavalry }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_kavalleriepanzer completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_tech_bonus = { name = AUS_kavalleriepanzer bonus = 1 uses = 1 category = armor }
+				complete_special_project = sp:sp_land_military_engineering_vehicles
+				KRAUS_joint_land_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_kavalleriepanzer bonus = 0.5 uses = 1 category = armor }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_kavalleriepanzer_v3 } }
+					set_country_flag = KRAUS_ext_AUS_kavalleriepanzer_v3
+					add_tech_bonus = { name = AUS_kavalleriepanzer bonus = 1 uses = 1 category = armor }
+					complete_special_project = sp:sp_land_military_engineering_vehicles
+					KRAUS_joint_land_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_land_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_kavalleriepanzer bonus = 0.5 uses = 1 category = armor }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_pu_exclusive }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_pu_exclusive
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_uzelac-plan
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_uzelac-plan } }
+	icon = GFX_focus_generic_mining_industry
+	x = -2
+	y = 1
+	relative_position_id = AUS_aviation_effort
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_aviation_effort }
+	mutually_exclusive = { focus = AUS_loehr-plan }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_uzelac-plan completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			add_doctrine_cost_reduction = {
+				name = AUS_uzelac-plan
+				cost_reduction = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+			custom_effect_tooltip = tooltip_white_line
+			add_mastery_bonus = {
+				name = AUS_uzelac-plan
+				bonus = 0.1
+				days = 365
+				track = strike_aircraft
+			}
+
+			every_subject_country = {
+				limit = { KRAUS_joint_econ_crownland = yes }
+				add_doctrine_cost_reduction = { name = AUS_uzelac-plan cost_reduction = 0.25 uses = 1 category = air_doctrine }
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		factor = 2
+	}
+}
+
+joint_focus = {
+	id = AUS_flugschule
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_flugschule } }
+	icon = GFX_goal_generic_air_doctrine
+	x = 1
+	y = 1
+	relative_position_id = AUS_uzelac-plan
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_uzelac-plan focus = AUS_loehr-plan }
+	search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIRFORCE_BONUS }
+	available = {
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_flugschule completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				air_experience = 25
+				add_doctrine_cost_reduction = {
+					name = AUS_flugschule
+					cost_reduction = 0.5
+					uses = 1
+					category = air_doctrine
+				}
+				custom_effect_tooltip = tooltip_white_line
+				if = {
+					limit = {
+						43 = {
+							is_owned_and_controlled_by = ROOT
+							can_construct_building = air_facility
+						}
+					}
+					43 = {
+						construct_building_in_random_province = {
+							air_facility = 1
+						}
+					}
+				}
+				else = {
+					random_owned_controlled_state = {
+						prioritize = { 775 }
+						limit = {
+							is_core_of = ROOT
+							can_construct_building = air_facility
+						}
+						construct_building_in_random_province = {
+							air_facility = 1
+						}
+					}
+				}
+
+				KRAUS_joint_air_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_air_up = yes
+					add_doctrine_cost_reduction = { name = AUS_flugschule cost_reduction = 0.25 uses = 1 category = air_doctrine }
+					air_experience = 12
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_flugschule_1 } }
+					set_country_flag = KRAUS_ext_AUS_flugschule_1
+					air_experience = 25
+					add_doctrine_cost_reduction = {
+						name = AUS_flugschule
+						cost_reduction = 0.5
+						uses = 1
+						category = air_doctrine
+					}
+					custom_effect_tooltip = tooltip_white_line
+					if = {
+						limit = {
+							43 = {
+								is_owned_and_controlled_by = ROOT
+								can_construct_building = air_facility
+							}
+						}
+						43 = {
+							construct_building_in_random_province = {
+								air_facility = 1
+							}
+						}
+					}
+					else = {
+						random_owned_controlled_state = {
+							prioritize = { 775 }
+							limit = {
+								is_core_of = ROOT
+								can_construct_building = air_facility
+							}
+							construct_building_in_random_province = {
+								air_facility = 1
+							}
+						}
+					}
+
+					KRAUS_joint_air_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_air_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_air_up = yes
+						add_doctrine_cost_reduction = { name = AUS_flugschule cost_reduction = 0.25 uses = 1 category = air_doctrine }
+						air_experience = 12
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_flugschule_v2 } }
+					set_country_flag = KRAUS_ext_AUS_flugschule_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_wnf_maintenance }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_wnf_maintenance
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_flugschule_v4 } }
+					set_country_flag = KRAUS_ext_AUS_flugschule_v4
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_light_bomber_trials
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_light_bomber_trials } }
+	icon = GFX_focus_generic_cas_aircraft
+	x = -1
+	y = 1
+	relative_position_id = AUS_flugschule
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_uzelac-plan }
+	prerequisite = { focus = AUS_flugschule }
+	prerequisite = { focus = AUS_airbase_expansion }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_light_bomber_trials completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_tech_bonus = {
+					name = AUS_light_bomber_trials
+					bonus = 0.75
+					uses = 2
+					category = cas_bomber
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_light_bomber_trials bonus = 0.375 uses = 1 category = cas_bomber }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_light_bomber_trials_1 } }
+					set_country_flag = KRAUS_ext_AUS_light_bomber_trials_1
+					add_tech_bonus = {
+						name = AUS_light_bomber_trials
+						bonus = 0.75
+						uses = 2
+						category = cas_bomber
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_light_bomber_trials bonus = 0.375 uses = 1 category = cas_bomber }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_av_psych }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_av_psych
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_air_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_air_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_light_bomber_trials_v4 } }
+					set_country_flag = KRAUS_ext_AUS_light_bomber_trials_v4
+					KRAUS_joint_air_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_air_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_air_up = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_fighter_trials
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_fighter_trials } }
+	icon = GFX_focus_usa_escort_fighters
+	x = 1
+	y = 1
+	relative_position_id = AUS_flugschule
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_flugschule }
+	prerequisite = { focus = AUS_airbase_expansion }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_fighter_trials completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_tech_bonus = {
+					name = AUS_fighter_trials
+					bonus = 1
+					uses = 1
+					category = light_fighter
+					category = cat_heavy_fighter
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_mastery_bonus = {
+					name = AUS_fighter_trials
+					bonus = 0.1
+					days = 365
+					track = fighter_aircraft
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_fighter_trials bonus = 0.5 uses = 1 category = light_fighter category = cat_heavy_fighter }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_fighter_trials_1 } }
+					set_country_flag = KRAUS_ext_AUS_fighter_trials_1
+					add_tech_bonus = {
+						name = AUS_fighter_trials
+						bonus = 1
+						uses = 1
+						category = light_fighter
+						category = cat_heavy_fighter
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_mastery_bonus = {
+						name = AUS_fighter_trials
+						bonus = 0.1
+						days = 365
+						track = fighter_aircraft
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_fighter_trials bonus = 0.5 uses = 1 category = light_fighter category = cat_heavy_fighter }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_px_research }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_px_research
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_air_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_air_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_fighter_trials_v4 } }
+					set_country_flag = KRAUS_ext_AUS_fighter_trials_v4
+					KRAUS_joint_air_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_air_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_air_up = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_phoenix
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_phoenix } }
+	icon = GFX_focus_generic_aircraft_production
+	x = 1
+	y = 1
+	relative_position_id = AUS_fighter_trials
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_fighter_trials }
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_phoenix completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				if = {
+					limit = {
+						has_dlc_aat = no
+					}
+					custom_effect_tooltip = available_designer
+					show_ideas_tooltip = phoenix
+				}
+				else = {
+					custom_effect_tooltip = available_mio_tt
+					show_mio_tooltip = AUS_phoenix_organisation
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_one_random_military_factory = yes
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					air_experience = 10
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_phoenix_1 } }
+					set_country_flag = KRAUS_ext_AUS_phoenix_1
+					if = {
+						limit = {
+							has_dlc_aat = no
+						}
+						custom_effect_tooltip = available_designer
+						show_ideas_tooltip = phoenix
+					}
+					else = {
+						custom_effect_tooltip = available_mio_tt
+						show_mio_tooltip = AUS_phoenix_organisation
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_one_random_military_factory = yes
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						air_experience = 10
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_px_capacity }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_px_capacity
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_air_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_air_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_phoenix_v4 } }
+					set_country_flag = KRAUS_ext_AUS_phoenix_v4
+					KRAUS_joint_air_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_air_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_air_up = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_medium_bomber_trials
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_medium_bomber_trials } }
+	icon = GFX_goal_generic_air_bomber_new
+	x = -1
+	y = 1
+	relative_position_id = AUS_fighter_trials
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_fighter_trials }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_medium_bomber_trials completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_tech_bonus = {
+					name = AUS_medium_bomber_trials
+					bonus = 0.75
+					uses = 2
+					category = tactical_bomber
+				}
+				custom_effect_tooltip = tooltip_white_line
+				add_mastery_bonus = {
+					name = AUS_medium_bomber_trials
+					bonus = 0.1
+					days = 365
+					track = medium_aircraft
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_medium_bomber_trials bonus = 0.375 uses = 1 category = tactical_bomber }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_medium_bomber_trials_1 } }
+					set_country_flag = KRAUS_ext_AUS_medium_bomber_trials_1
+					add_tech_bonus = {
+						name = AUS_medium_bomber_trials
+						bonus = 0.75
+						uses = 2
+						category = tactical_bomber
+					}
+					custom_effect_tooltip = tooltip_white_line
+					add_mastery_bonus = {
+						name = AUS_medium_bomber_trials
+						bonus = 0.1
+						days = 365
+						track = medium_aircraft
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_medium_bomber_trials bonus = 0.375 uses = 1 category = tactical_bomber }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_hb_schnell }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_hb_schnell
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_air_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_air_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_medium_bomber_trials_v4 } }
+					set_country_flag = KRAUS_ext_AUS_medium_bomber_trials_v4
+					KRAUS_joint_air_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_air_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_air_up = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_airbase_expansion
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_airbase_expansion } }
+	icon = GFX_goal_generic_air_production
+	x = 3
+	y = 1
+	relative_position_id = AUS_uzelac-plan
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_uzelac-plan focus = AUS_loehr-plan }
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+	available = {
+		owns_any_state_of = { 4 153 736 }
+		KRAUS_joint_mil_tier2 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_airbase_expansion completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				4 = {
+					add_building_construction = {
+						type = air_base
+						level = 3
+						instant_build = yes
+					}
+				}
+				153 = {
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
+				}
+				736 = {
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					capital_scope = { add_building_construction = { type = air_base level = 2 instant_build = yes } }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_airbase_expansion_1 } }
+					set_country_flag = KRAUS_ext_AUS_airbase_expansion_1
+					4 = {
+						add_building_construction = {
+							type = air_base
+							level = 3
+							instant_build = yes
+						}
+					}
+					153 = {
+						add_building_construction = {
+							type = air_base
+							level = 2
+							instant_build = yes
+						}
+					}
+					736 = {
+						add_building_construction = {
+							type = air_base
+							level = 2
+							instant_build = yes
+						}
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						capital_scope = { add_building_construction = { type = air_base level = 2 instant_build = yes } }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				custom_effect_tooltip = tooltip_white_line
+				every_military_industrial_organization = {
+					display_individual_scopes = yes
+					limit = { has_mio_trait = KRAUS_mio_trait_wnf_fuselage }
+					unlock_mio_trait_tooltip = KRAUS_mio_trait_wnf_fuselage
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_air_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_air_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_airbase_expansion_v4 } }
+					set_country_flag = KRAUS_ext_AUS_airbase_expansion_v4
+					KRAUS_joint_air_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_air_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_air_up = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = AUS_heavy_bomber_trials
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = AUS_heavy_bomber_trials } }
+	icon = GFX_goal_generic_air_strategic_bomber_new
+	x = 1
+	y = 1
+	relative_position_id = AUS_airbase_expansion
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_flugschule }
+	prerequisite = { focus = AUS_airbase_expansion }
+	prerequisite = { focus = AUS_loehr-plan }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus AUS_heavy_bomber_trials completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_tech_bonus = {
+					name = AUS_heavy_bomber_trials
+					bonus = 0.75
+					uses = 2
+					category = cat_strategic_bomber
+				}
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = AUS_heavy_bomber_trials bonus = 0.375 uses = 1 category = cat_strategic_bomber }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_heavy_bomber_trials_1 } }
+					set_country_flag = KRAUS_ext_AUS_heavy_bomber_trials_1
+					add_tech_bonus = {
+						name = AUS_heavy_bomber_trials
+						bonus = 0.75
+						uses = 2
+						category = cat_strategic_bomber
+					}
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = AUS_heavy_bomber_trials bonus = 0.375 uses = 1 category = cat_strategic_bomber }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				army_experience = 10
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+				random_army_leader = {
+					limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+					add_trait = { trait = organizer }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_heavy_bomber_trials_v2 } }
+					set_country_flag = KRAUS_ext_AUS_heavy_bomber_trials_v2
+					army_experience = 10
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+					random_army_leader = {
+						limit = { is_field_marshal = no NOT = { has_trait = organizer } }
+						add_trait = { trait = organizer }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_air_up = yes
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					KRAUS_joint_air_up = yes
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_AUS_heavy_bomber_trials_v4 } }
+					set_country_flag = KRAUS_ext_AUS_heavy_bomber_trials_v4
+					KRAUS_joint_air_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_air_level = 1 } }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						KRAUS_joint_air_up = yes
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = KRAUS_flame_tank
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = KRAUS_flame_tank } }
+	icon = GFX_focus_PRC_stoke_the_flames
+	x = 0
+	y = 1
+	relative_position_id = AUS_tank_trials
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_tank_trials }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus KRAUS_flame_tank completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				capital_scope = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+				}
+				complete_special_project = {
+					project = sp:sp_land_flamethrower_tank
+					show_modifiers = no
+				}
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					capital_scope = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+					}
+					complete_special_project = {
+						project = sp:sp_land_flamethrower_tank
+						show_modifiers = no
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_KRAUS_flame_tank_v3 } }
+					set_country_flag = KRAUS_ext_KRAUS_flame_tank_v3
+					capital_scope = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+					}
+					complete_special_project = {
+						project = sp:sp_land_flamethrower_tank
+						show_modifiers = no
+					}
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						capital_scope = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+						}
+						complete_special_project = {
+							project = sp:sp_land_flamethrower_tank
+							show_modifiers = no
+						}
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = KRAUS_nuclear_tech
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = KRAUS_nuclear_tech } }
+	icon = GFX_focus_JAP_ni_go_nuclear_project
+	x = 0
+	y = 1
+	relative_position_id = AUS_rockets
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 8
+	prerequisite = { focus = AUS_rockets }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus KRAUS_nuclear_tech completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				add_tech_bonus = {
+					name = KRAUS_nuclear_tech
+					bonus = 1
+					uses = 1
+					category = nuclear
+				}
+				add_research_slot_until_five = yes
+
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = KRAUS_nuclear_tech bonus = 0.5 uses = 1 category = nuclear }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_KRAUS_nuclear_tech_1 } }
+					set_country_flag = KRAUS_ext_KRAUS_nuclear_tech_1
+					add_tech_bonus = {
+						name = KRAUS_nuclear_tech
+						bonus = 1
+						uses = 1
+						category = nuclear
+					}
+					add_research_slot_until_five = yes
+
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = KRAUS_nuclear_tech bonus = 0.5 uses = 1 category = nuclear }
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = KRAUS_common_air
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = KRAUS_common_air } }
+	icon = GFX_goal_KRAUS_common_air
+	x = 0
+	y = 2
+	relative_position_id = AUS_fighter_trials
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 10
+	prerequisite = { focus = AUS_medium_bomber_trials }
+	prerequisite = { focus = AUS_phoenix }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus KRAUS_common_air completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_air_up = yes
+				add_tech_bonus = { name = KRAUS_common_air bonus = 1 uses = 1 category = air_equipment }
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = KRAUS_common_air bonus = 0.5 uses = 1 category = air_equipment }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_KRAUS_common_air_1 } }
+					set_country_flag = KRAUS_ext_KRAUS_common_air_1
+					KRAUS_joint_air_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_air_level = 1 } }
+					add_tech_bonus = { name = KRAUS_common_air bonus = 1 uses = 1 category = air_equipment }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = KRAUS_common_air bonus = 0.5 uses = 1 category = air_equipment }
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}
+
+joint_focus = {
+	id = KRAUS_common_navy
+	dynamic = yes
+	bypass = { AUS = { has_completed_focus = KRAUS_common_navy } }
+	icon = GFX_goal_KRAUS_common_navy
+	x = 1
+	y = 1
+	relative_position_id = AUS_cattaro
+	joint_trigger = { KRAUS_joint_econ_member = yes }
+	cost = 10
+	prerequisite = { focus = AUS_cattaro }
+	prerequisite = { focus = AUS_istria_ports }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	available = {
+		KRAUS_joint_mil_tier3 = yes
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: Joint focus KRAUS_common_navy completed, ROOT=[Root.GetTag]"
+		if = {
+			limit = { original_tag = AUS }
+			effect_tooltip = {
+				KRAUS_joint_navy_up = yes
+				add_tech_bonus = { name = KRAUS_common_navy bonus = 1 uses = 1 category = naval_equipment }
+				every_subject_country = {
+					limit = { KRAUS_joint_econ_crownland = yes }
+					add_tech_bonus = { name = KRAUS_common_navy bonus = 0.5 uses = 1 category = naval_equipment }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ext_KRAUS_common_navy_1 } }
+					set_country_flag = KRAUS_ext_KRAUS_common_navy_1
+					KRAUS_joint_navy_up = yes
+					hidden_effect = { add_to_variable = { KRAUS_joint_navy_level = 1 } }
+					add_tech_bonus = { name = KRAUS_common_navy bonus = 1 uses = 1 category = naval_equipment }
+					every_subject_country = {
+						limit = { KRAUS_joint_econ_crownland = yes }
+						add_tech_bonus = { name = KRAUS_common_navy bonus = 0.5 uses = 1 category = naval_equipment }
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		modifier = { factor = 0.3 NOT = { original_tag = AUS } }
+		base = 1
+	}
+}

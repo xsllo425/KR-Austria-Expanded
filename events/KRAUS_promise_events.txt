@@ -1,0 +1,53 @@
+add_namespace = KRAUS_promise
+
+############################################################
+### 继承的王领承诺（合众国稿 6.1）：大德意志线签下的密约，在大战结束后于本线兑现。
+### 国家标志由大德意志线写入（代码未建，因此本文件在此之前不会触发）：
+###   KRAUS_gg_promise_hun_indep   与匈牙利签的「战后独立」
+###   KRAUS_gg_promise_<tag>_priv  与该王领签的「保留地位与特权」（tag = cze gal cro hun slo trs）
+############################################################
+country_event = {
+	id = KRAUS_promise.1
+	title = KRAUS_promise.1.t
+	desc = KRAUS_promise.1.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_promise.1.a
+		set_country_flag = KRAUS_promise_hun_done
+		if = {
+			limit = { country_exists = HUN HUN = { is_subject_of = ROOT } }
+			end_puppet = HUN
+			HUN = { add_ideas = KRAUS_promise_common_defence }
+		}
+		custom_effect_tooltip = KRAUS_promise.1.a_tt
+	}
+}
+
+country_event = {
+	id = KRAUS_promise.2
+	title = KRAUS_promise.2.t
+	desc = KRAUS_promise.2.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_promise.2.a
+		set_country_flag = KRAUS_promise_priv_done
+		every_subject_country = {
+			limit = {
+				OR = {
+					AND = { tag = CZE ROOT = { has_country_flag = KRAUS_gg_promise_cze_priv } }
+					AND = { tag = GAL ROOT = { has_country_flag = KRAUS_gg_promise_gal_priv } }
+					AND = { tag = CRO ROOT = { has_country_flag = KRAUS_gg_promise_cro_priv } }
+					AND = { tag = HUN ROOT = { has_country_flag = KRAUS_gg_promise_hun_priv } }
+					AND = { tag = SLO ROOT = { has_country_flag = KRAUS_gg_promise_slo_priv } }
+					AND = { tag = TRS ROOT = { has_country_flag = KRAUS_gg_promise_trs_priv } }
+				}
+			}
+			add_ideas = KRAUS_promise_privileges
+		}
+		custom_effect_tooltip = KRAUS_promise.2.a_tt
+	}
+}

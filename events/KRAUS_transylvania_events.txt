@@ -1,0 +1,20 @@
+add_namespace = KRAUS_trs_events
+
+# 罗马尼亚：我们在特兰西瓦尼亚的起义网络被破获
+country_event = {
+	id = KRAUS_trs_events.1
+	title = KRAUS_trs_events.1.t
+	desc = KRAUS_trs_events.1.d
+	picture = GFX_report_event_generic_riot
+	is_triggered_only = yes
+	option = { name = KRAUS_trs_events.1.a }
+}
+# 特兰西瓦尼亚的主人：破获了罗马尼亚的起义网络
+country_event = {
+	id = KRAUS_trs_events.2
+	title = KRAUS_trs_events.2.t
+	desc = KRAUS_trs_events.2.d
+	picture = GFX_report_event_soldiers_marching
+	is_triggered_only = yes
+	option = { name = KRAUS_trs_events.2.a }
+}

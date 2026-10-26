@@ -1,0 +1,127 @@
+############################################################
+### KRAUS 米克拉斯线 · 事件
+###
+### 设计依据：_work/三条政治线_独特政治机制.md §二
+###           §2.5「与史实细节的挂钩」
+###
+### ★ 史实钩子：
+###   · 私有记录里谴责违宪 → 事件「他在日记里写下了什么」
+###   · 拒绝赦免刺杀陶尔斐斯的凶手 → 秩序 +，但与德国交恶
+###   · 反对德意志民族主义 → 与丁霍费尔线的直接对立
+###   · 12 个孩子、邮差之子、校长出身 → 人物特质/事件素材
+###   · 确立红白红国旗 → 「守住象征」的小事件
+###
+### ★ 不使用 replace_path（三条铁律之二）
+############################################################
+
+add_namespace = KRAUS_miklas_events
+
+############################################################
+### .1 ★「他在日记里写下了什么」（史实：私下谴责违宪、公开沉默）
+############################################################
+country_event = {
+	id = KRAUS_miklas_events.1
+	title = KRAUS_miklas_events.1.t
+	desc = KRAUS_miklas_events.1.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_miklas_events.1.a
+		log = "[GetLogInfo]: KRAUS Miklas diary - he writes, and says nothing"
+	}
+}
+
+############################################################
+### .2 秩序推进的老办法（紧急法令）
+############################################################
+country_event = {
+	id = KRAUS_miklas_events.2
+	title = KRAUS_miklas_events.2.t
+	desc = KRAUS_miklas_events.2.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_miklas_events.2.a
+		log = "[GetLogInfo]: KRAUS Miklas - emergency decrees"
+		KRAUS_miklas_order_push = yes
+
+		# ★ 代价（第九轮·物质化）：政治点 −20
+		custom_override_tooltip = {
+			tooltip = KRAUS_order_cost_20pp_tt
+			add_political_power = -20
+		}
+	}
+}
+
+############################################################
+### .3 红白红（确立国旗，守住象征）
+############################################################
+country_event = {
+	id = KRAUS_miklas_events.3
+	title = KRAUS_miklas_events.3.t
+	desc = KRAUS_miklas_events.3.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_miklas_events.3.a
+		log = "[GetLogInfo]: KRAUS Miklas - the red-white-red"
+		add_stability = 0.02
+	}
+}
+
+############################################################
+### .10 ★ 米克拉斯就任：初始化双轴
+############################################################
+country_event = {
+	id = KRAUS_miklas_events.10
+	title = KRAUS_miklas_events.10.t
+	desc = KRAUS_miklas_events.10.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_miklas_events.10.a
+		log = "[GetLogInfo]: KRAUS Miklas - order axis initialised"
+		KRAUS_miklas_init = yes
+		set_country_flag = KRAUS_miklas_line_active
+	}
+}
+
+############################################################
+### .20 ★★ 合法性危机（秩序过度 85-100）
+###
+### 「他成功守住了天主教秩序，代价是帝国失去了合法性。」
+### → 这为丁霍费尔的崛起铺好了路。
+############################################################
+country_event = {
+	id = KRAUS_miklas_events.20
+	title = KRAUS_miklas_events.20.t
+	desc = KRAUS_miklas_events.20.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_miklas_events.20.a
+		log = "[GetLogInfo]: KRAUS Miklas - legitimacy crisis"
+		add_stability = -0.05
+		add_political_power = -50
+		# ★ 暗线 +10（米克拉斯的合法性崩 → 丁霍费尔受益）
+		#   变量改动【永不自动生成 tooltip】，必须用 custom_override_tooltip
+		custom_override_tooltip = {
+			tooltip = KRAUS_miklas_events.20_a_tt
+			add_to_variable = { KRAUS_dhofers_shadow = 10 }
+		}
+		KRAUS_clamp_political_vars = yes
+		hidden_effect = {
+			set_country_flag = KRAUS_miklas_legitimacy_crisis
+		}
+	}
+}

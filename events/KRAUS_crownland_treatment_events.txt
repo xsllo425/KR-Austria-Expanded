@@ -1,0 +1,310 @@
+add_namespace = KRAUS_cl_treat
+
+############################################################
+### 对待王领（2026-10-12）：低概率随机事件，皇权越低越频繁，两次之间至少隔 60 天。
+### 善待：奥地利付出代价，王领对奥地利好感上升，隐藏的待遇分 +1（王领 AI 据此偏向忠诚国策）；
+### 恶意对待：奥地利当场得利，王领好感下降，待遇分 -1（王领 AI 据此偏向自主国策）。
+### 注意：附庸对宗主的基础好感开局就在 35 以上，所以 AI 不读好感，只读待遇分。
+############################################################
+country_event = {
+	id = KRAUS_cl_treat.1
+	title = KRAUS_cl_treat.1.t
+	desc = KRAUS_cl_treat.1.d
+	picture = GFX_report_event_generic_read_write
+	trigger = {
+		original_tag = AUS
+		has_country_flag = { flag = KRAUS_imperial_authority_ready days > 30 }
+		NOT = { has_country_flag = KRAUS_cl_treat_cooldown }
+		NOT = { KRAUS_dc_ongoing = yes }
+		# 0.9 V2 实测：再妥协期间不出现；二战已经发生、或大奥地利合众国已经成立之后不再出现
+		NOT = { has_global_flag = second_weltkrieg_has_started }
+		NOT = { has_country_flag = KRAUS_usga_formed }
+		any_subject_country = {
+			KRAUS_is_crownland_of_root = yes
+		}
+	}
+	mean_time_to_happen = {
+		days = 720
+		modifier = { factor = 0.7 check_variable = { KRAUS_imperial_authority < 50 } }
+		modifier = { factor = 0.5 check_variable = { KRAUS_imperial_authority < 25 } }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = { flag = KRAUS_cl_treat_cooldown days = 60 value = 1 }
+			random_subject_country = {
+				limit = {
+					KRAUS_is_crownland_of_root = yes
+				}
+				save_event_target_as = KRAUS_cl_target
+			}
+		}
+	}
+	option = {
+		name = KRAUS_cl_treat.1.a
+		trigger = { has_political_power > 24 }
+		ai_chance = { base = 60 }
+		add_political_power = -25
+		event_target:KRAUS_cl_target = { add_opinion_modifier = { target = ROOT modifier = KRAUS_cl_treat_1_good } }
+		event_target:KRAUS_cl_target = { hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = 1 } } }
+	}
+	option = {
+		name = KRAUS_cl_treat.1.b
+		ai_chance = { base = 40 }
+		add_political_power = 25
+		event_target:KRAUS_cl_target = { add_opinion_modifier = { target = ROOT modifier = KRAUS_cl_treat_1_bad } }
+		event_target:KRAUS_cl_target = { hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = -1 } } }
+	}
+}
+country_event = {
+	id = KRAUS_cl_treat.2
+	title = KRAUS_cl_treat.2.t
+	desc = KRAUS_cl_treat.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+	trigger = {
+		original_tag = AUS
+		has_country_flag = { flag = KRAUS_imperial_authority_ready days > 30 }
+		NOT = { has_country_flag = KRAUS_cl_treat_cooldown }
+		NOT = { KRAUS_dc_ongoing = yes }
+		# 0.9 V2 实测：再妥协期间不出现；二战已经发生、或大奥地利合众国已经成立之后不再出现
+		NOT = { has_global_flag = second_weltkrieg_has_started }
+		NOT = { has_country_flag = KRAUS_usga_formed }
+		any_subject_country = {
+			KRAUS_is_crownland_of_root = yes
+		}
+	}
+	mean_time_to_happen = {
+		days = 720
+		modifier = { factor = 0.7 check_variable = { KRAUS_imperial_authority < 50 } }
+		modifier = { factor = 0.5 check_variable = { KRAUS_imperial_authority < 25 } }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = { flag = KRAUS_cl_treat_cooldown days = 60 value = 1 }
+			random_subject_country = {
+				limit = {
+					KRAUS_is_crownland_of_root = yes
+				}
+				save_event_target_as = KRAUS_cl_target
+			}
+		}
+	}
+	option = {
+		name = KRAUS_cl_treat.2.a
+		trigger = { has_political_power > 29 }
+		ai_chance = { base = 60 }
+		add_political_power = -30
+		event_target:KRAUS_cl_target = { add_opinion_modifier = { target = ROOT modifier = KRAUS_cl_treat_2_good } }
+		event_target:KRAUS_cl_target = { hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = 1 } } }
+	}
+	option = {
+		name = KRAUS_cl_treat.2.b
+		ai_chance = { base = 40 }
+		add_political_power = 60
+		event_target:KRAUS_cl_target = { add_stability = -0.05 }
+		event_target:KRAUS_cl_target = { add_opinion_modifier = { target = ROOT modifier = KRAUS_cl_treat_2_bad } }
+		event_target:KRAUS_cl_target = { hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = -1 } } }
+	}
+}
+country_event = {
+	id = KRAUS_cl_treat.3
+	title = KRAUS_cl_treat.3.t
+	desc = KRAUS_cl_treat.3.d
+	picture = GFX_report_event_soldiers_marching
+	trigger = {
+		original_tag = AUS
+		has_country_flag = { flag = KRAUS_imperial_authority_ready days > 30 }
+		NOT = { has_country_flag = KRAUS_cl_treat_cooldown }
+		NOT = { KRAUS_dc_ongoing = yes }
+		# 0.9 V2 实测：再妥协期间不出现；二战已经发生、或大奥地利合众国已经成立之后不再出现
+		NOT = { has_global_flag = second_weltkrieg_has_started }
+		NOT = { has_country_flag = KRAUS_usga_formed }
+		any_subject_country = {
+			KRAUS_is_crownland_of_root = yes
+		}
+	}
+	mean_time_to_happen = {
+		days = 720
+		modifier = { factor = 0.7 check_variable = { KRAUS_imperial_authority < 50 } }
+		modifier = { factor = 0.5 check_variable = { KRAUS_imperial_authority < 25 } }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = { flag = KRAUS_cl_treat_cooldown days = 60 value = 1 }
+			random_subject_country = {
+				limit = {
+					KRAUS_is_crownland_of_root = yes
+				}
+				save_event_target_as = KRAUS_cl_target
+			}
+		}
+	}
+	option = {
+		name = KRAUS_cl_treat.3.a
+		trigger = { has_political_power > 19 }
+		ai_chance = { base = 60 }
+		add_political_power = -20
+		event_target:KRAUS_cl_target = { add_opinion_modifier = { target = ROOT modifier = KRAUS_cl_treat_3_good } }
+		event_target:KRAUS_cl_target = { hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = 1 } } }
+	}
+	option = {
+		name = KRAUS_cl_treat.3.b
+		ai_chance = { base = 40 }
+		add_manpower = 15000
+		event_target:KRAUS_cl_target = { add_manpower = -15000 }
+		event_target:KRAUS_cl_target = { add_opinion_modifier = { target = ROOT modifier = KRAUS_cl_treat_3_bad } }
+		event_target:KRAUS_cl_target = { hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = -1 } } }
+	}
+}
+country_event = {
+	id = KRAUS_cl_treat.4
+	title = KRAUS_cl_treat.4.t
+	desc = KRAUS_cl_treat.4.d
+	picture = GFX_report_event_generic_factory
+	trigger = {
+		original_tag = AUS
+		has_country_flag = { flag = KRAUS_imperial_authority_ready days > 30 }
+		NOT = { has_country_flag = KRAUS_cl_treat_cooldown }
+		NOT = { KRAUS_dc_ongoing = yes }
+		# 0.9 V2 实测：再妥协期间不出现；二战已经发生、或大奥地利合众国已经成立之后不再出现
+		NOT = { has_global_flag = second_weltkrieg_has_started }
+		NOT = { has_country_flag = KRAUS_usga_formed }
+		any_subject_country = {
+			KRAUS_is_crownland_of_root = yes
+			any_owned_state = { industrial_complex > 0 }
+		}
+	}
+	mean_time_to_happen = {
+		days = 720
+		modifier = { factor = 0.7 check_variable = { KRAUS_imperial_authority < 50 } }
+		modifier = { factor = 0.5 check_variable = { KRAUS_imperial_authority < 25 } }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = { flag = KRAUS_cl_treat_cooldown days = 60 value = 1 }
+			random_subject_country = {
+				limit = {
+					KRAUS_is_crownland_of_root = yes
+					any_owned_state = { industrial_complex > 0 }
+				}
+				save_event_target_as = KRAUS_cl_target
+			}
+		}
+	}
+	option = {
+		name = KRAUS_cl_treat.4.a
+		trigger = { has_political_power > 49 }
+		ai_chance = { base = 60 }
+		add_political_power = -50
+		event_target:KRAUS_cl_target = { random_owned_controlled_state = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes } } }
+		event_target:KRAUS_cl_target = { add_opinion_modifier = { target = ROOT modifier = KRAUS_cl_treat_4_good } }
+		event_target:KRAUS_cl_target = { hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = 1 } } }
+	}
+	option = {
+		name = KRAUS_cl_treat.4.b
+		ai_chance = { base = 40 }
+		event_target:KRAUS_cl_target = { random_owned_controlled_state = { limit = { industrial_complex > 0 } remove_building = { type = industrial_complex level = 1 } } }
+		random_owned_controlled_state = { limit = { is_core_of = ROOT } add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes } }
+		event_target:KRAUS_cl_target = { add_opinion_modifier = { target = ROOT modifier = KRAUS_cl_treat_4_bad } }
+		event_target:KRAUS_cl_target = { hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = -1 } } }
+	}
+}
+country_event = {
+	id = KRAUS_cl_treat.5
+	title = KRAUS_cl_treat.5.t
+	desc = KRAUS_cl_treat.5.d
+	picture = GFX_report_event_generic_military_parade
+	trigger = {
+		original_tag = AUS
+		has_country_flag = { flag = KRAUS_imperial_authority_ready days > 30 }
+		NOT = { has_country_flag = KRAUS_cl_treat_cooldown }
+		NOT = { KRAUS_dc_ongoing = yes }
+		# 0.9 V2 实测：再妥协期间不出现；二战已经发生、或大奥地利合众国已经成立之后不再出现
+		NOT = { has_global_flag = second_weltkrieg_has_started }
+		NOT = { has_country_flag = KRAUS_usga_formed }
+		any_subject_country = {
+			KRAUS_is_crownland_of_root = yes
+		}
+	}
+	mean_time_to_happen = {
+		days = 720
+		modifier = { factor = 0.7 check_variable = { KRAUS_imperial_authority < 50 } }
+		modifier = { factor = 0.5 check_variable = { KRAUS_imperial_authority < 25 } }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = { flag = KRAUS_cl_treat_cooldown days = 60 value = 1 }
+			random_subject_country = {
+				limit = {
+					KRAUS_is_crownland_of_root = yes
+				}
+				save_event_target_as = KRAUS_cl_target
+			}
+		}
+	}
+	option = {
+		name = KRAUS_cl_treat.5.a
+		ai_chance = { base = 60 }
+		event_target:KRAUS_cl_target = { army_experience = 10 }
+		event_target:KRAUS_cl_target = { add_opinion_modifier = { target = ROOT modifier = KRAUS_cl_treat_5_good } }
+		event_target:KRAUS_cl_target = { hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = 1 } } }
+	}
+	option = {
+		name = KRAUS_cl_treat.5.b
+		ai_chance = { base = 40 }
+		army_experience = 10
+		event_target:KRAUS_cl_target = { add_opinion_modifier = { target = ROOT modifier = KRAUS_cl_treat_5_bad } }
+		event_target:KRAUS_cl_target = { hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = -1 } } }
+	}
+}
+country_event = {
+	id = KRAUS_cl_treat.6
+	title = KRAUS_cl_treat.6.t
+	desc = KRAUS_cl_treat.6.d
+	picture = GFX_report_event_generic_riot
+	trigger = {
+		original_tag = AUS
+		has_country_flag = { flag = KRAUS_imperial_authority_ready days > 30 }
+		NOT = { has_country_flag = KRAUS_cl_treat_cooldown }
+		NOT = { KRAUS_dc_ongoing = yes }
+		# 0.9 V2 实测：再妥协期间不出现；二战已经发生、或大奥地利合众国已经成立之后不再出现
+		NOT = { has_global_flag = second_weltkrieg_has_started }
+		NOT = { has_country_flag = KRAUS_usga_formed }
+		any_subject_country = {
+			KRAUS_is_crownland_of_root = yes
+		}
+	}
+	mean_time_to_happen = {
+		days = 720
+		modifier = { factor = 0.7 check_variable = { KRAUS_imperial_authority < 50 } }
+		modifier = { factor = 0.5 check_variable = { KRAUS_imperial_authority < 25 } }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = { flag = KRAUS_cl_treat_cooldown days = 60 value = 1 }
+			random_subject_country = {
+				limit = {
+					KRAUS_is_crownland_of_root = yes
+				}
+				save_event_target_as = KRAUS_cl_target
+			}
+		}
+	}
+	option = {
+		name = KRAUS_cl_treat.6.a
+		trigger = { check_variable = { KRAUS_imperial_authority > 4 } }
+		ai_chance = { base = 60 }
+		custom_effect_tooltip = KRAUS_ia_cost_5_tt
+		hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 5 } KRAUS_imperial_clamp = yes }
+		event_target:KRAUS_cl_target = { add_stability = 0.03 }
+		event_target:KRAUS_cl_target = { add_opinion_modifier = { target = ROOT modifier = KRAUS_cl_treat_6_good } }
+		event_target:KRAUS_cl_target = { hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = 1 } } }
+	}
+	option = {
+		name = KRAUS_cl_treat.6.b
+		ai_chance = { base = 40 }
+		custom_effect_tooltip = KRAUS_ia_gain_5_tt
+		hidden_effect = { add_to_variable = { KRAUS_imperial_authority = 5 } KRAUS_imperial_clamp = yes }
+		event_target:KRAUS_cl_target = { add_opinion_modifier = { target = ROOT modifier = KRAUS_cl_treat_6_bad } }
+		event_target:KRAUS_cl_target = { hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = -1 } } }
+	}
+}

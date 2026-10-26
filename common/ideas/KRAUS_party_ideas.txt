@@ -1,0 +1,342 @@
+############################################################
+### 四党团精神（2026-10-12 v2）：每党一个党团精神三档，每档新增一种效果；第二个党的效果减半（显示名相同，不再有"盟友"标识）
+### pps_<党>_<档>[a]；pp_boom_<党> 限时精神；pc_boom_<联> 跨党联合国策的限时精神
+############################################################
+ideas = {
+	country = {
+		KRAUS_pps_sd_1 = {
+			picture = KRAUS_pps_sd
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				consumer_goods_factor = -0.03
+			}
+		}
+		KRAUS_pps_sd_1a = {
+			name = KRAUS_pps_sd_1
+			picture = KRAUS_pps_sd
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.015
+				consumer_goods_factor = -0.015
+			}
+		}
+		KRAUS_pps_sd_2 = {
+			picture = KRAUS_pps_sd
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				consumer_goods_factor = -0.03
+				production_speed_buildings_factor = 0.05
+				political_power_gain = 0.05
+			}
+		}
+		KRAUS_pps_sd_2a = {
+			name = KRAUS_pps_sd_2
+			picture = KRAUS_pps_sd
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.015
+				consumer_goods_factor = -0.015
+				production_speed_buildings_factor = 0.025
+				political_power_gain = 0.025
+			}
+		}
+		KRAUS_pps_sd_3 = {
+			picture = KRAUS_pps_sd
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				consumer_goods_factor = -0.05
+				production_speed_buildings_factor = 0.05
+				political_power_gain = 0.05
+				production_speed_industrial_complex_factor = 0.1
+			}
+		}
+		KRAUS_pps_sd_3a = {
+			name = KRAUS_pps_sd_3
+			picture = KRAUS_pps_sd
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.025
+				consumer_goods_factor = -0.025
+				production_speed_buildings_factor = 0.025
+				political_power_gain = 0.025
+				production_speed_industrial_complex_factor = 0.05
+			}
+		}
+		KRAUS_pp_boom_sd = {
+			picture = KRAUS_pp_boom_sd
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				production_speed_buildings_factor = 0.1
+			}
+		}
+		KRAUS_pps_sl_1 = {
+			picture = KRAUS_pps_sl
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.05
+				political_power_gain = 0.05
+			}
+		}
+		KRAUS_pps_sl_1a = {
+			name = KRAUS_pps_sl_1
+			picture = KRAUS_pps_sl
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.025
+				political_power_gain = 0.025
+			}
+		}
+		KRAUS_pps_sl_2 = {
+			picture = KRAUS_pps_sl
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.05
+				political_power_gain = 0.1
+				stability_factor = 0.03
+			}
+		}
+		KRAUS_pps_sl_2a = {
+			name = KRAUS_pps_sl_2
+			picture = KRAUS_pps_sl
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.025
+				political_power_gain = 0.05
+				stability_factor = 0.015
+			}
+		}
+		KRAUS_pps_sl_3 = {
+			picture = KRAUS_pps_sl
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.08
+				political_power_gain = 0.1
+				stability_factor = 0.03
+				trade_opinion_factor = 0.25
+			}
+		}
+		KRAUS_pps_sl_3a = {
+			name = KRAUS_pps_sl_3
+			picture = KRAUS_pps_sl
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.04
+				political_power_gain = 0.05
+				stability_factor = 0.015
+				trade_opinion_factor = 0.125
+			}
+		}
+		KRAUS_pp_boom_sl = {
+			picture = KRAUS_pp_boom_sl
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.1
+				research_speed_factor = 0.05
+			}
+		}
+		KRAUS_pps_ml_1 = {
+			picture = KRAUS_pps_ml
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.05
+				consumer_goods_factor = -0.03
+			}
+		}
+		KRAUS_pps_ml_1a = {
+			name = KRAUS_pps_ml_1
+			picture = KRAUS_pps_ml
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.025
+				consumer_goods_factor = -0.015
+			}
+		}
+		KRAUS_pps_ml_2 = {
+			picture = KRAUS_pps_ml
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.08
+				consumer_goods_factor = -0.05
+				industrial_capacity_factory = 0.04
+			}
+		}
+		KRAUS_pps_ml_2a = {
+			name = KRAUS_pps_ml_2
+			picture = KRAUS_pps_ml
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.04
+				consumer_goods_factor = -0.025
+				industrial_capacity_factory = 0.02
+			}
+		}
+		KRAUS_pps_ml_3 = {
+			picture = KRAUS_pps_ml
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.1
+				consumer_goods_factor = -0.05
+				industrial_capacity_factory = 0.05
+				trade_opinion_factor = 0.25
+				local_resources_factor = 0.05
+			}
+		}
+		KRAUS_pps_ml_3a = {
+			name = KRAUS_pps_ml_3
+			picture = KRAUS_pps_ml
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.05
+				consumer_goods_factor = -0.025
+				industrial_capacity_factory = 0.025
+				trade_opinion_factor = 0.125
+				local_resources_factor = 0.025
+			}
+		}
+		KRAUS_pp_boom_ml = {
+			picture = KRAUS_pp_boom_ml
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.1
+				consumer_goods_factor = -0.05
+			}
+		}
+		KRAUS_pps_cs_1 = {
+			picture = KRAUS_pps_cs
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				war_support_factor = 0.03
+			}
+		}
+		KRAUS_pps_cs_1a = {
+			name = KRAUS_pps_cs_1
+			picture = KRAUS_pps_cs
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.015
+				war_support_factor = 0.015
+			}
+		}
+		KRAUS_pps_cs_2 = {
+			picture = KRAUS_pps_cs
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				war_support_factor = 0.03
+				conscription_factor = 0.05
+				political_power_gain = 0.05
+			}
+		}
+		KRAUS_pps_cs_2a = {
+			name = KRAUS_pps_cs_2
+			picture = KRAUS_pps_cs
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.015
+				war_support_factor = 0.015
+				conscription_factor = 0.025
+				political_power_gain = 0.025
+			}
+		}
+		KRAUS_pps_cs_3 = {
+			picture = KRAUS_pps_cs
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				war_support_factor = 0.05
+				conscription_factor = 0.05
+				political_power_gain = 0.08
+				army_org_factor = 0.05
+			}
+		}
+		KRAUS_pps_cs_3a = {
+			name = KRAUS_pps_cs_3
+			picture = KRAUS_pps_cs
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.025
+				war_support_factor = 0.025
+				conscription_factor = 0.025
+				political_power_gain = 0.04
+				army_org_factor = 0.025
+			}
+		}
+		KRAUS_pp_boom_cs = {
+			picture = KRAUS_pp_boom_cs
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				conscription_factor = 0.05
+			}
+		}
+		KRAUS_pc_boom_fed = {
+			picture = KRAUS_pc_boom_fed
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_gain = 0.1
+			}
+		}
+		KRAUS_pc_boom_mkt = {
+			picture = KRAUS_pc_boom_mkt
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.08
+				consumer_goods_factor = -0.04
+			}
+		}
+		KRAUS_pc_boom_imp = {
+			picture = KRAUS_pc_boom_imp
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				conscription_factor = 0.05
+				industrial_capacity_factory = 0.03
+			}
+		}
+		KRAUS_pc_boom_soc = {
+			picture = KRAUS_pc_boom_soc
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.04
+				war_support_factor = 0.03
+			}
+		}
+	}
+}

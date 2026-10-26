@@ -1,0 +1,42 @@
+add_namespace = KRAUS_echo
+
+# 0.9 实测 17：「1848 的回响」完成后的三选一
+country_event = {
+	id = KRAUS_echo.1
+	title = KRAUS_echo.1.t
+	desc = KRAUS_echo.1.d
+	picture = GFX_report_event_KRAUS_echo_1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_echo.1.a
+		log = "[GetLogInfo]: event KRAUS_echo.1 option KRAUS_echo.1.a"
+		trigger = { KRAUS_dc_victory = yes }
+		KRAUS_echo_lenient = yes
+		custom_effect_tooltip = KRAUS_echo_lenient_tt
+		add_stability = 0.03
+		ai_chance = { base = 40 }
+	}
+	option = {
+		name = KRAUS_echo.1.b
+		log = "[GetLogInfo]: event KRAUS_echo.1 option KRAUS_echo.1.b"
+		trigger = { KRAUS_dc_victory = yes }
+		KRAUS_echo_harsh = yes
+		custom_effect_tooltip = KRAUS_echo_harsh_tt
+		add_war_support = 0.03
+		ai_chance = { base = 20 }
+	}
+	option = {
+		name = KRAUS_echo.1.c
+		log = "[GetLogInfo]: event KRAUS_echo.1 option KRAUS_echo.1.c"
+		trigger = { KRAUS_dc_victory = yes }
+		KRAUS_echo_split = yes
+		custom_effect_tooltip = KRAUS_echo_split_tt
+		add_political_power = 25
+		ai_chance = { base = 40 }
+	}
+	option = {
+		name = KRAUS_echo.1.d_opt
+		trigger = { NOT = { KRAUS_dc_victory = yes } }
+	}
+}

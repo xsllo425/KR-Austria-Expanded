@@ -1,0 +1,44 @@
+############################################################
+### 拥抱多元主义 · 小单 H：决议用精神载体（2026-10-24）
+###
+### 只放本轮 6 条决议需要、别处没有的载体。
+### 不碰 KRAUS_crownland_status_ideas.txt 里的 KRAUS_integ_boom_industry /
+### KRAUS_integ_boom_construction —— 那两个被 KRAUS_pluralism_effects.txt 多处
+### 与 events\KRAUS_pluralism_events.txt:17 复用，改值会串到整合红利。
+############################################################
+ideas = {
+	country = {
+		# 铁门峡谷险滩炸礁疏浚：全国消费品 -2%（永久）。
+		# 数值表.md:432 —— 依据 B17（-0.05 以内的最小档）。
+		KRAUS_mult_dec_iron_gate_spirit = {
+			picture = KRAUS_mult_dec_iron_gate_spirit
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.02
+			}
+		}
+		# 催发波希米亚工业爆发：工厂产出 +15%，180 天。
+		# 数值表.md:434 —— 引擎无「仅军工产出」键（industrial_capacity_arms_factory /
+		# arms_factory_output_factor / factory_output 三键 h4q check 均不存在），
+		# 故 industrial_capacity_factory 影响全部工厂（含民工与军工），文案写「工厂产出」。
+		KRAUS_mult_dec_bohemia_boom_spirit = {
+			picture = KRAUS_mult_dec_bohemia_boom_spirit
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.15
+			}
+		}
+		# 发放各邦联合防务义勇津贴：动员速度 +15%，90 天。
+		# 数值表.md:438 —— B37（0.15 有 43 次）；人力 15000 在决议本体直接给。
+		KRAUS_mult_dec_doleance_spirit = {
+			picture = KRAUS_joint_mil
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				mobilization_speed = 0.15
+			}
+		}
+	}
+}

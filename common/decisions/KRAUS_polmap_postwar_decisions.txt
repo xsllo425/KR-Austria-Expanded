@@ -1,0 +1,50 @@
+############################################################
+### 合众国路线第 5 批：联合内阁危机的两条一次性决议（二选一）。本文件由 gen_postwar.py 生成。
+############################################################
+KRAUS_polmap_category = {
+	KRAUS_pm_crisis_reform = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_country_flag = KRAUS_pm_crisis_open
+			NOT = { has_country_flag = KRAUS_pm_crisis_done }
+		}
+		cost = 100
+		complete_effect = {
+			log = "[GetLogRoot]: Decision complete KRAUS_pm_crisis_reform"
+			remove_ideas = KRAUS_pm_crisis_idea
+			set_country_flag = KRAUS_pm_crisis_done
+			clr_country_flag = KRAUS_pm_crisis_open
+			custom_effect_tooltip = KRAUS_pm_crisis_reform_tt
+			hidden_effect = {
+				set_temp_variable = { var = KRAUS_pm_in_comp value = 25 }
+				KRAUS_pm_comp_add = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	KRAUS_pm_crisis_twoparty = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_country_flag = KRAUS_pm_crisis_open
+			NOT = { has_country_flag = KRAUS_pm_crisis_done }
+		}
+		cost = 25
+		complete_effect = {
+			log = "[GetLogRoot]: Decision complete KRAUS_pm_crisis_twoparty"
+			remove_ideas = KRAUS_pm_crisis_idea
+			set_country_flag = KRAUS_pm_crisis_done
+			clr_country_flag = KRAUS_pm_crisis_open
+			custom_effect_tooltip = KRAUS_pm_crisis_twoparty_tt
+			hidden_effect = {
+				add_stability = 0.03
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

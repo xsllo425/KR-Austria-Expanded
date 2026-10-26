@@ -1,0 +1,237 @@
+############################################################
+### KRAUS 明暗双线 · 动态修正定义
+###
+### 用途：把「明线 − 暗线」的净值实时映射成可读的修正。
+###       修正值绑定变量，引擎每天重算，所以同一个精神
+###       数值会随局势变化。
+###
+### 设计依据：_work/明暗双线_数值平衡表.md（用户定案：连续数值）
+### 权威参考：_ref/hagane-skills/guides/dynamic-spirit-from-variables.zh.md
+###           （钢之工坊，2026-09-11 在 1.19.2.0 实测通过）
+###
+### ★★ 实测确认的三条铁律（钢之工坊实测）
+###   1. idea 的 modifier 【不能】写变量名 —— 静默失效、不报错。
+###      → 所以「数值随变量变」只能用 dynamic_modifier，这是唯一解。
+###   2. 修正值写变量名是合法的：army_attack_factor = my_var
+###   3. 必须配 custom_modifier_tooltip 手写说明行 —— 引擎只自动
+###      渲染「总数」那一行，每条规则的文字要自己写在 loc 键里。
+###
+### ★★ 重要：本目录是否可用，取决于一次实测
+###   KR 的 descriptor.mod 声明了 replace_path="common/dynamic_modifiers"。
+###   但项目已实测证明：KR 的 replace_path 【只清原版，不跨 mod 卸载】
+###   （见 _dev/技术备忘_dynamic_modifier.md §2.3，setup.log 实证）。
+###   同类目录（common/ideas、common/national_focus、common/on_actions、events）
+###   我们都在用且正常工作。
+###
+###   ⚠️ 若本机制实测不可用 → 切换到 hidden_ideas 分级（3 档）保底方案。
+###      架构（国策树 / 读条决议 / 条件）完全不用改，只换「数值呈现层」。
+###
+### ★ 变量（由 KRAUS_recalc_political_edge 每日重算）
+###     KRAUS_regime_legitimacy  明线  初始 30  范围 0~100
+###     KRAUS_dhofers_shadow     暗线  初始 10  范围 0~100
+###     KRAUS_political_edge     净值 = 明 − 暗  −100~+100
+###     KRAUS_edge_stab / KRAUS_edge_pp  折算后的修正值
+###
+### ★ 不使用 replace_path（三条铁律之二）
+############################################################
+
+############################################################
+### ★★ 2026-09-21 第三轮：政局天平【已迁移到 BOP】
+###
+### 用户定案：「政局天平放在民族精神中并不合适，改到权力平衡的位置」
+###
+### → 已删除 KRAUS_political_edge_dm
+###   改为 common/bop/KRAUS_regime_balance_bop.txt
+###     左 = 伦纳 / 右 = 米克拉斯
+###     开局不存在，大选后由 austria_election_events.101/.102 激活
+###
+### ★ 本文件现在只保留【米克拉斯线】双轴精神（那是内部数值，适合放精神栏）
+############################################################
+
+############################################################
+### ★ 米克拉斯线：「天主教秩序」（第十轮：纯变量绑定）
+###
+### ★★ 历史沿革
+###   第一版：hidden_ideas 做 4 档（效果由 tier_1~4 承载）
+###           → tooltip 会把 4 个精神全展开，玩家看不出是动态数值
+###   第十版：★ 全部改为【变量绑定】，照抄俄罗斯 anger 系统
+###           → tooltip 只显示几行数值
+###
+### ★ 变量由 KRAUS_order_clamp 按档位赋值：
+###     0~29    稳定 −5% / 政治点 −5%
+###     30~59   稳定 +5% / 政治点 −2%
+###     60~84   稳定 +15% / 政治点 +5% / 陆军组织 +5% / 战争支持 +2%
+###     85~100  稳定 +20% / 政治点 −10% / 陆军组织 +10% / 战争支持 −10%
+###             ★ 第 4 档即「代价」所在：稳定与军队最强，
+###               但行政成本侵蚀政治点、战争支持受损 —— 米克拉斯的悲剧
+############################################################
+
+############################################################
+### ★★ 皇帝权威（第五轮方案 · 第 3 批，2026-09-21 新增）
+###
+### 用户要求：「皇帝权威可以可见，加一个民族精神，
+###           里面有动态数值，从 0 开始，
+###           然后可以使用决议消耗数值获得好处。」
+###
+### ★ 呈现：这条 dynmod 会作为【民族精神】显示在精神栏，
+###   数值随 KRAUS_imperial_authority 变量每日重算。
+###
+### ★ 为什么必须是 dynamic_modifier 而不是普通 idea：
+###   已实测（见本文件开头铁律 1）—— idea 的 modifier
+###   不能写变量名，会静默失效。dynmod 是唯一解。
+###
+### ★ 图标：复用已核实存在的 KR 图标（同 KRAUS_catholic_order_dm）
+############################################################
+KRAUS_imperial_authority_dm = {
+	# ★★ 2026-09-21 换图标（用户要求）
+	#
+	# 【问题】原先和 KRAUS_catholic_order_dm 共用
+	#   "GFX_bop_RUS_balanced" → 两个精神图标一模一样。
+	#   而且那是个【权力平衡条】的图（69×42，极扁），
+	#   放在精神栏里比例也不对。
+	#
+	# 【新图标】用国策 KRAUS_reflect_our_rule（王冠的重量）的徽记 ——
+	#   vanilla 的 gfx/interface/goals/focus_AUS_proclaim_austrian_empire.dds
+	#
+	# ★ 关键：国策图是 100×88，精神图标规范是 60×68，
+	#   【长宽比不同】，直接引用会被引擎拉伸变形。
+	#   → 已用 _work/make_ia_icon.py 等比缩放 + 透明留边，
+	#     生成 60×68 的 gfx/interface/ideas/KRAUS_imperial_authority.dds，
+	#     并在 interface/kraus_spirit_icons.gfx 登记精灵。
+	icon = "GFX_idea_KRAUS_imperial_authority"
+
+	enable = { always = yes }
+
+	# ★ 权威 → 稳定度 / 政治点 / 战争支持
+	#   满值 100 时各 +10%（用户定案 2026-09-21）
+	stability_factor = KRAUS_ia_stab
+	political_power_factor = KRAUS_ia_pp
+	war_support_factor = KRAUS_ia_ws
+	army_org_factor = KRAUS_ia_org
+	conscription_factor = KRAUS_ia_cons
+
+	# ★ 说明行必须手写（引擎只渲染"总数"那一行）
+	custom_modifier_tooltip = KRAUS_imperial_authority_dm_tt
+}
+
+# 共同经济树（2026-10-12）：奥地利按成员王领数获得加成，变量由 KRAUS_joint_econ_recalc 每日重算
+KRAUS_joint_econ_aus_dm = {
+	# 0.9 反馈34：合众国已成立、王冠领都已整合之后，不再显示
+	remove_trigger = {
+		has_country_flag = KRAUS_usga_formed
+		NOT = { KRAUS_has_crownland = yes }
+	}
+	icon = "GFX_idea_KRAUS_joint_econ"
+	enable = { always = yes }
+	industrial_capacity_factory = KRAUS_joint_econ_ic
+	research_speed_factor = KRAUS_joint_econ_rs
+	consumer_goods_factor = KRAUS_jf_cg
+	production_speed_buildings_factor = KRAUS_jf_bs
+	production_speed_infrastructure_factor = KRAUS_jf_inf
+	production_factory_max_efficiency_factor = KRAUS_jf_me
+	production_factory_efficiency_gain_factor = KRAUS_jf_eg
+	industry_free_repair_factor = KRAUS_jf_rep
+	local_resources_factor = KRAUS_jf_lr
+	production_lack_of_resource_penalty_factor = KRAUS_jf_lk
+	custom_modifier_tooltip = KRAUS_joint_econ_aus_dm_tt
+}
+
+# 九级集齐后的终态（只改名字，数值同上）
+KRAUS_joint_econ_aus_dm_final = {
+	# 0.9 反馈34：合众国已成立、王冠领都已整合之后，不再显示
+	remove_trigger = {
+		has_country_flag = KRAUS_usga_formed
+		NOT = { KRAUS_has_crownland = yes }
+	}
+	icon = "GFX_idea_KRAUS_joint_econ"
+	enable = { always = yes }
+	industrial_capacity_factory = KRAUS_joint_econ_ic
+	research_speed_factor = KRAUS_joint_econ_rs
+	consumer_goods_factor = KRAUS_jf_cg
+	production_speed_buildings_factor = KRAUS_jf_bs
+	production_speed_infrastructure_factor = KRAUS_jf_inf
+	production_factory_max_efficiency_factor = KRAUS_jf_me
+	production_factory_efficiency_gain_factor = KRAUS_jf_eg
+	industry_free_repair_factor = KRAUS_jf_rep
+	local_resources_factor = KRAUS_jf_lr
+	production_lack_of_resource_penalty_factor = KRAUS_jf_lk
+	custom_modifier_tooltip = KRAUS_joint_econ_aus_dm_tt
+}
+
+# 共同军事树（2026-10-12）：奥地利按成员王领数获得加成，变量由 KRAUS_joint_mil_recalc 每日重算
+KRAUS_joint_mil_aus_dm = {
+	# 0.9 反馈34：合众国已成立、王冠领都已整合之后，不再显示
+	remove_trigger = {
+		has_country_flag = KRAUS_usga_formed
+		NOT = { KRAUS_has_crownland = yes }
+	}
+	icon = "GFX_idea_KRAUS_joint_mil"
+	enable = { always = yes }
+	army_org_factor = KRAUS_joint_mil_org
+	conscription_factor = KRAUS_joint_mil_cons
+	recruitable_population_factor = KRAUS_joint_mil_pop
+	training_time_factor = KRAUS_joint_mil_train
+	custom_modifier_tooltip = KRAUS_joint_mil_aus_dm_tt
+}
+
+# 王冠领整合红利（2026-10-12）：被整合王领的共同树精神按级数转入，由 KRAUS_integ_collect_dividend 累计
+KRAUS_integ_dividend_dm = {
+	icon = "GFX_idea_KRAUS_integ_dividend"
+	enable = { always = yes }
+	industrial_capacity_factory = KRAUS_integ_div_ic
+	research_speed_factor = KRAUS_integ_div_rs
+	army_org_factor = KRAUS_integ_div_org
+	conscription_factor = KRAUS_integ_div_cons
+	custom_modifier_tooltip = KRAUS_integ_dividend_dm_tt
+}
+
+# 匈牙利「马扎尔化」（2026-10-12）：州修正，特兰西瓦尼亚各州人力 +10%
+KRAUS_trs_magyarization = {
+	icon = "GFX_modifier_KRAUS_magyarization"
+	enable = { always = yes }
+	local_manpower = 0.10
+}
+
+KRAUS_hd_legacy_dm = {
+	icon = "GFX_idea_KRAUS_hd_legacy"
+	enable = { always = yes }
+	political_power_factor = KRAUS_hd_pp
+	custom_modifier_tooltip = KRAUS_hd_legacy_dm_tt
+}
+
+# 0.9 反馈28：加利西亚经济合作开发区（地区修正）
+KRAUS_gal_sez = {
+	icon = "GFX_modifier_KRAUS_sez"
+	enable = { always = yes }
+	state_production_speed_buildings_factor = 0.10
+	local_resources_factor = 0.10
+}
+KRAUS_gal_sez_tri = {
+	icon = "GFX_modifier_KRAUS_sez"
+	enable = { always = yes }
+	state_production_speed_buildings_factor = 0.20
+	local_resources_factor = 0.20
+}
+
+# 0.9 反馈：王冠领地的复苏（拥抱多元主义左支），挂在王冠领核心州上
+KRAUS_pl_recovery = {
+	icon = "GFX_modifier_KRAUS_sm_new_offices"
+	enable = { always = yes }
+	state_production_speed_buildings_factor = 0.10
+	local_manpower = 0.05
+}
+
+# 10-27：留用旧官员——熟悉本地的旧官员让矿山与人力的登记更完整
+KRAUS_fed_dm_officials = {
+	icon = "GFX_modifier_KRAUS_sm_old_officials"
+	enable = { always = yes }
+	local_resources_factor = 0.10
+	local_manpower = 0.05
+}
+# 10-27：派遣联邦总督——总督统一审批用地，州里能建的东西更多
+KRAUS_fed_dm_governors = {
+	icon = "GFX_modifier_KRAUS_sm_governors"
+	enable = { always = yes }
+	local_building_slots_factor = 0.10
+	local_manpower = 0.05
+}

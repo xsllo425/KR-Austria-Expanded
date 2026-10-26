@@ -1,0 +1,25 @@
+############################################################
+### 【希腊问题】opinion modifiers —— Kaiserreich 奥地利拓展
+###
+### 供 KRAUS_greece_events.txt 使用。
+###
+### ── 防线说明 ────────────────────────────────────────────
+### KR 声明了 replace_path="common/opinion_modifiers"，
+### 所以【同名文件】会被 KR 覆盖。本文件用新文件名
+### KRAUS_greece_opinion_modifiers.txt，KR 目录里没有，
+### 因此能正常加载并被合并。
+###
+### ── 格式依据 ────────────────────────────────────────────
+### KR 惯例（common/opinion_modifiers/00 Generic_Opinion_Modifiers.txt）：
+###   永久：  NAME = { value = 100 }
+###   限时：  NAME = { value = 100 years = 5 }
+############################################################
+
+opinion_modifiers = {
+
+	# 奥地利雪中送炭，希腊感激（限时 5 年）
+	KRAUS_greece_helped_us = { value = 40 years = 5 }
+
+	# 奥地利冷眼旁观，希腊不满（限时 3 年）
+	KRAUS_greece_snubbed = { value = -30 years = 3 }
+}

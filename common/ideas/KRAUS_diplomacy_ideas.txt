@@ -1,0 +1,73 @@
+############################################################
+### 外交线（2026-10-12）：经济一体化精神
+### 波兰 / 乌克兰：对奥关系；加利西亚：四方之交（随伙伴数升级，加成更强）
+############################################################
+ideas = {
+	country = {
+		KRAUS_pol_aus_integration = {
+			picture = KRAUS_pol_aus_integration
+			allowed = { original_tag = POL }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.05
+				research_speed_factor = 0.03
+				trade_opinion_factor = 0.25
+			}
+		}
+		KRAUS_ukr_aus_integration = {
+			picture = KRAUS_ukr_aus_integration
+			allowed = { original_tag = UKR }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.05
+				research_speed_factor = 0.03
+				trade_opinion_factor = 0.25
+			}
+		}
+		KRAUS_ukr_aus_integration_strong = {
+			picture = KRAUS_ukr_aus_integration
+			allowed = { original_tag = UKR }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.10
+				research_speed_factor = 0.06
+				trade_opinion_factor = 0.50
+				stability_factor = 0.05
+			}
+		}
+		KRAUS_pol_aus_integration_strong = {
+			picture = KRAUS_pol_aus_integration
+			allowed = { original_tag = POL }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.10
+				research_speed_factor = 0.06
+				trade_opinion_factor = 0.50
+				stability_factor = 0.05
+			}
+		}
+		KRAUS_gal_crossroads_1 = {
+			picture = KRAUS_gal_crossroads
+			allowed = { original_tag = GAL }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.10
+				industrial_capacity_factory = 0.05
+				local_resources_factor = 0.10
+				stability_factor = 0.05
+			}
+		}
+		KRAUS_gal_crossroads_2 = {
+			picture = KRAUS_gal_crossroads
+			allowed = { original_tag = GAL }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.15
+				industrial_capacity_factory = 0.10
+				local_resources_factor = 0.15
+				stability_factor = 0.08
+				research_speed_factor = 0.05
+			}
+		}
+	}
+}

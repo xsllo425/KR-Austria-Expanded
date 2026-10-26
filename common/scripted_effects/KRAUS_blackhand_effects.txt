@@ -1,0 +1,11 @@
+# 0.9 V2：塞尔维亚与罗马尼亚傀儡国的分成（各 20% 的军工与民工转给奥地利，并给予两国境内全部资源的使用权）
+KRAUS_blackhand_apply = {
+	set_country_flag = KRAUS_blackhand_done
+	if = { limit = { country_exists = SER } SER = { add_ideas = KRAUS_blackhand_share } }
+	if = { limit = { country_exists = ROM } ROM = { add_ideas = KRAUS_blackhand_share } }
+	hidden_effect = {
+		SER = { every_owned_state = { owner = { give_resource_rights = { receiver = AUS state = PREV } } } }
+		ROM = { every_owned_state = { owner = { give_resource_rights = { receiver = AUS state = PREV } } } }
+	}
+	custom_effect_tooltip = KRAUS_blackhand_apply_tt
+}

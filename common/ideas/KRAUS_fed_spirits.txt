@@ -1,0 +1,248 @@
+############################################################
+### 10-27 国策精神归一化：每组一个逐档升级的精神（各档同名，档位越高修正越大）
+############################################################
+ideas = {
+	country = {
+		KRAUS_fed_mil_1 = {
+			picture = KRAUS_fed_mil
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.03
+				production_speed_bunker_factor = 0.05
+				army_org_regain = 0.015
+				training_time_army_factor = -0.02
+			}
+		}
+		KRAUS_fed_mil_2 = {
+			picture = KRAUS_fed_mil
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.06
+				production_speed_bunker_factor = 0.1
+				army_org_regain = 0.03
+				training_time_army_factor = -0.04
+			}
+		}
+		KRAUS_fed_mil_3 = {
+			picture = KRAUS_fed_mil
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.09
+				production_speed_bunker_factor = 0.15
+				army_org_regain = 0.045
+				training_time_army_factor = -0.06
+			}
+		}
+		KRAUS_fed_mil_4 = {
+			picture = KRAUS_fed_mil
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.12
+				production_speed_bunker_factor = 0.2
+				army_org_regain = 0.06
+				training_time_army_factor = -0.08
+			}
+		}
+		KRAUS_fed_mil_5 = {
+			picture = KRAUS_fed_mil
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.15
+				production_speed_bunker_factor = 0.25
+				army_org_regain = 0.075
+				training_time_army_factor = -0.1
+			}
+		}
+		KRAUS_fed_mil_6 = {
+			picture = KRAUS_fed_mil
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.18
+				production_speed_bunker_factor = 0.3
+				army_org_regain = 0.09
+				training_time_army_factor = -0.12
+			}
+		}
+		KRAUS_fed_war_1 = {
+			picture = KRAUS_fed_war
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.02
+				conscription_factor = 0.005
+				war_support_factor = 0.015
+				consumer_goods_factor = -0.015
+			}
+		}
+		KRAUS_fed_war_2 = {
+			picture = KRAUS_fed_war
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.04
+				conscription_factor = 0.01
+				war_support_factor = 0.03
+				consumer_goods_factor = -0.03
+			}
+		}
+		KRAUS_fed_war_3 = {
+			picture = KRAUS_fed_war
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.06
+				conscription_factor = 0.015
+				war_support_factor = 0.045
+				consumer_goods_factor = -0.045
+			}
+		}
+		KRAUS_fed_war_4 = {
+			picture = KRAUS_fed_war
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.08
+				conscription_factor = 0.02
+				war_support_factor = 0.06
+				consumer_goods_factor = -0.06
+			}
+		}
+		KRAUS_fed_war_5 = {
+			picture = KRAUS_fed_war
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.1
+				conscription_factor = 0.025
+				war_support_factor = 0.075
+				consumer_goods_factor = -0.075
+			}
+		}
+		KRAUS_fed_war_6 = {
+			picture = KRAUS_fed_war
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.12
+				conscription_factor = 0.03
+				war_support_factor = 0.09
+				consumer_goods_factor = -0.09
+			}
+		}
+		KRAUS_fed_war_7 = {
+			picture = KRAUS_fed_war
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.14
+				conscription_factor = 0.035
+				war_support_factor = 0.105
+				consumer_goods_factor = -0.105
+			}
+		}
+		KRAUS_fed_parl_1 = {
+			picture = KRAUS_fed_parl
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.05
+				economy_cost_factor = -0.03
+				production_speed_industrial_complex_factor = 0.03
+			}
+		}
+		KRAUS_fed_parl_2 = {
+			picture = KRAUS_fed_parl
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.1
+				economy_cost_factor = -0.06
+				production_speed_industrial_complex_factor = 0.06
+			}
+		}
+		KRAUS_fed_parl_3 = {
+			picture = KRAUS_fed_parl
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.15
+				economy_cost_factor = -0.09
+				production_speed_industrial_complex_factor = 0.09
+			}
+		}
+		KRAUS_fed_party_sd_1 = {
+			picture = KRAUS_fed_party_sd
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_factory_max_efficiency_factor = -0.05
+			}
+		}
+		KRAUS_fed_party_sd_2 = {
+			picture = KRAUS_fed_party_sd
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_factory_max_efficiency_factor = -0.05
+				consumer_goods_factor = -0.05
+				production_speed_industrial_complex_factor = -0.05
+			}
+		}
+		KRAUS_fed_party_cs_1 = {
+			picture = KRAUS_fed_party_cs
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				line_change_production_efficiency_factor = 0.05
+				political_power_gain = 0.05
+				production_speed_buildings_factor = 0.05
+			}
+		}
+		KRAUS_fed_party_lb_1 = {
+			picture = KRAUS_fed_party_lb
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				trade_laws_cost_factor = -0.25
+				min_export = -0.1
+				production_speed_dockyard_factor = 0.1
+			}
+		}
+		KRAUS_fed_party_lb_2 = {
+			picture = KRAUS_fed_party_lb
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				trade_laws_cost_factor = -0.25
+				min_export = -0.1
+				production_speed_dockyard_factor = 0.1
+				consumer_goods_factor = -0.05
+				production_speed_industrial_complex_factor = 0.1
+			}
+		}
+		KRAUS_fed_party_ml_1 = {
+			picture = KRAUS_fed_party_ml
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.03
+			}
+		}
+		KRAUS_fed_party_ml_2 = {
+			picture = KRAUS_fed_party_ml
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.03
+				local_resources_factor = 0.1
+				production_speed_infrastructure_factor = 0.1
+			}
+		}
+	}
+}

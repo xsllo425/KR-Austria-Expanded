@@ -1,0 +1,619 @@
+############################################################
+### 拥抱多元主义焦点组（0.9 反馈，2026-10-16）：左支整合与安抚的机制效果
+############################################################
+# 奥地利作用域：已完成的左支国策数（0 到 5），同时算出读条与花费的缩减倍率
+KRAUS_pl_recalc = {
+	set_variable = { KRAUS_pl_n = 0 }
+	if = { limit = { has_completed_focus = KRAUS_pl_L2 } add_to_variable = { KRAUS_pl_n = 1 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L3 } add_to_variable = { KRAUS_pl_n = 1 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L4 } add_to_variable = { KRAUS_pl_n = 1 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L5 } add_to_variable = { KRAUS_pl_n = 1 } }
+	# 0.9.1：左支三扇门（L2 / L3 / L3b）与三条第二层（L2b / L3c / L3d）——三选一互斥，一层只走一条
+	if = { limit = { has_completed_focus = KRAUS_pl_L3b } add_to_variable = { KRAUS_pl_n = 1 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L2b } add_to_variable = { KRAUS_pl_n = 1 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L3c } add_to_variable = { KRAUS_pl_n = 1 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L3d } add_to_variable = { KRAUS_pl_n = 1 } }
+	set_variable = { KRAUS_pl_mult = 1 }
+	set_temp_variable = { KRAUS_pl_t = KRAUS_pl_n }
+	multiply_temp_variable = { KRAUS_pl_t = 0.1 }
+	subtract_from_variable = { KRAUS_pl_mult = KRAUS_pl_t }
+	# 整合红利的周期（天）：每完成左支的整合纲要、地块复苏各缩短一档；中支的政治国策各再缩短一档
+	set_variable = { KRAUS_div_days = 180 }
+	if = { limit = { has_completed_focus = KRAUS_pl_L3 } add_to_variable = { KRAUS_div_days = -30 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L2 } add_to_variable = { KRAUS_div_days = -30 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L3b } add_to_variable = { KRAUS_div_days = -30 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_M_diet } add_to_variable = { KRAUS_div_days = -15 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_M_lang } add_to_variable = { KRAUS_div_days = -15 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_M_seat } add_to_variable = { KRAUS_div_days = -15 } }
+	clamp_variable = { var = KRAUS_div_days min = 60 max = 180 }
+	set_variable = { KRAUS_div_days_m1 = KRAUS_div_days }
+	subtract_from_variable = { KRAUS_div_days_m1 = 1 }
+	# 红利的强度：左支第 2 到 5 步各 +1
+	set_variable = { KRAUS_div_power = 0 }
+	if = { limit = { has_completed_focus = KRAUS_pl_L2 } add_to_variable = { KRAUS_div_power = 1 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L3 } add_to_variable = { KRAUS_div_power = 1 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L4 } add_to_variable = { KRAUS_div_power = 1 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L5 } add_to_variable = { KRAUS_div_power = 1 } }
+	# 0.9.1：三扇门与三条第二层同记一档（一层只走一条，总档数仍是 4，buff 天数不变）
+	if = { limit = { has_completed_focus = KRAUS_pl_L3b } add_to_variable = { KRAUS_div_power = 1 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L2b } add_to_variable = { KRAUS_div_power = 1 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L3c } add_to_variable = { KRAUS_div_power = 1 } }
+	if = { limit = { has_completed_focus = KRAUS_pl_L3d } add_to_variable = { KRAUS_div_power = 1 } }
+	set_variable = { KRAUS_div_buff_days = 90 }
+	if = { limit = { check_variable = { KRAUS_div_power > 0 } } set_variable = { KRAUS_div_buff_days = 135 } }
+}
+# 奥地利作用域：左支国策给「王领的怨言」减档
+KRAUS_pl_gov_to2 = {
+	if = {
+		limit = { has_idea = KRAUS_cg_gov_3 }
+		swap_ideas = { remove_idea = KRAUS_cg_gov_3 add_idea = KRAUS_cg_gov_2 }
+	}
+}
+KRAUS_pl_gov_to1 = {
+	if = {
+		limit = { OR = { has_idea = KRAUS_cg_gov_3 has_idea = KRAUS_cg_gov_2 } }
+		remove_ideas = { KRAUS_cg_gov_3 KRAUS_cg_gov_2 }
+		add_ideas = KRAUS_cg_gov_1
+	}
+}
+KRAUS_pl_gov_clear = {
+	# 10-27：三档同名，只移除实际持有的那一档，提示里也只出现这一档
+	if = { limit = { has_idea = KRAUS_cg_gov_3 } remove_ideas = KRAUS_cg_gov_3 }
+	else_if = { limit = { has_idea = KRAUS_cg_gov_2 } remove_ideas = KRAUS_cg_gov_2 }
+	else_if = { limit = { has_idea = KRAUS_cg_gov_1 } remove_ideas = KRAUS_cg_gov_1 }
+}
+# 奥地利作用域：整合时给「王领的怨言」，档位随左支进度；左支终点完成后不再给
+KRAUS_pl_gov_on_integrate = {
+	if = {
+		limit = { has_completed_focus = KRAUS_pl_L5 }
+		custom_effect_tooltip = KRAUS_pl_gov_none_tt
+	}
+	else_if = {
+		limit = { has_completed_focus = KRAUS_pl_L4 NOT = { has_idea = KRAUS_cg_gov_3 has_idea = KRAUS_cg_gov_2 has_idea = KRAUS_cg_gov_1 } }
+		add_ideas = KRAUS_cg_gov_1
+	}
+	else_if = {
+		limit = { has_completed_focus = KRAUS_pl_L2 NOT = { has_idea = KRAUS_cg_gov_3 has_idea = KRAUS_cg_gov_2 has_idea = KRAUS_cg_gov_1 } }
+		add_ideas = KRAUS_cg_gov_2
+	}
+	else_if = {
+		limit = { NOT = { has_idea = KRAUS_cg_gov_3 has_idea = KRAUS_cg_gov_2 has_idea = KRAUS_cg_gov_1 } }
+		add_ideas = KRAUS_cg_gov_3
+	}
+}
+# 奥地利作用域：对由我们占有、核心属于王冠领的非核心州加顺从度并开启整合（写法参照俄国吞并乌克兰）
+KRAUS_pl_comp_15 = {
+	every_state = {
+		limit = {
+			is_owned_and_controlled_by = ROOT
+			NOT = { is_core_of = ROOT }
+			OR = { is_core_of = CZE is_core_of = GAL is_core_of = CRO is_core_of = HUN is_core_of = SLO is_core_of = TRS }
+		}
+		add_compliance = 15
+		enable_state_integration_50_compliance = yes
+	}
+}
+KRAUS_pl_comp_10 = {
+	every_state = {
+		limit = {
+			is_owned_and_controlled_by = ROOT
+			NOT = { is_core_of = ROOT }
+			OR = { is_core_of = CZE is_core_of = GAL is_core_of = CRO is_core_of = HUN is_core_of = SLO is_core_of = TRS }
+		}
+		add_compliance = 10
+		enable_state_integration_50_compliance = yes
+	}
+}
+# 奥地利作用域：左支终点，「哈布斯堡王冠领地大宪章」精神的效果翻倍
+KRAUS_pl_harmony_double = {
+	set_country_flag = KRAUS_harmony_doubled
+	if = {
+		limit = { has_idea = KRAUS_crown_harmony }
+		swap_ideas = { remove_idea = KRAUS_crown_harmony add_idea = KRAUS_crown_harmony_2 }
+	}
+	# 10-27：还没拿到这个精神时，游戏显示不出「以后拿到的是加强版」，补一行提示
+	else_if = {
+		limit = { NOT = { has_idea = KRAUS_crown_harmony_2 } NOT = { has_completed_focus = KRAUS_federal_charter } }
+		custom_effect_tooltip = KRAUS_pl_harmony_later_tt
+	}
+}
+# 奥地利作用域：各王领「官员与军官的不满」决议的花费与读条（随左支进度降低，读条下限 10 天）
+KRAUS_pl_grievance_recalc = {
+	set_variable = { KRAUS_cgc_CZE_3 = 25 }
+	multiply_variable = { KRAUS_cgc_CZE_3 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_CZE_3 = 40 }
+	multiply_variable = { KRAUS_cgd_CZE_3 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_CZE_3 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_CZE_2 = 22 }
+	multiply_variable = { KRAUS_cgc_CZE_2 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_CZE_2 = 35 }
+	multiply_variable = { KRAUS_cgd_CZE_2 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_CZE_2 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_CZE_1 = 19 }
+	multiply_variable = { KRAUS_cgc_CZE_1 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_CZE_1 = 30 }
+	multiply_variable = { KRAUS_cgd_CZE_1 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_CZE_1 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_HUN_3 = 27 }
+	multiply_variable = { KRAUS_cgc_HUN_3 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_HUN_3 = 42 }
+	multiply_variable = { KRAUS_cgd_HUN_3 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_HUN_3 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_HUN_2 = 24 }
+	multiply_variable = { KRAUS_cgc_HUN_2 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_HUN_2 = 37 }
+	multiply_variable = { KRAUS_cgd_HUN_2 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_HUN_2 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_HUN_1 = 21 }
+	multiply_variable = { KRAUS_cgc_HUN_1 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_HUN_1 = 32 }
+	multiply_variable = { KRAUS_cgd_HUN_1 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_HUN_1 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_GAL_3 = 26 }
+	multiply_variable = { KRAUS_cgc_GAL_3 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_GAL_3 = 41 }
+	multiply_variable = { KRAUS_cgd_GAL_3 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_GAL_3 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_GAL_2 = 23 }
+	multiply_variable = { KRAUS_cgc_GAL_2 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_GAL_2 = 36 }
+	multiply_variable = { KRAUS_cgd_GAL_2 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_GAL_2 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_GAL_1 = 20 }
+	multiply_variable = { KRAUS_cgc_GAL_1 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_GAL_1 = 31 }
+	multiply_variable = { KRAUS_cgd_GAL_1 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_GAL_1 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_CRO_3 = 28 }
+	multiply_variable = { KRAUS_cgc_CRO_3 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_CRO_3 = 43 }
+	multiply_variable = { KRAUS_cgd_CRO_3 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_CRO_3 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_CRO_2 = 25 }
+	multiply_variable = { KRAUS_cgc_CRO_2 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_CRO_2 = 38 }
+	multiply_variable = { KRAUS_cgd_CRO_2 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_CRO_2 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_CRO_1 = 22 }
+	multiply_variable = { KRAUS_cgc_CRO_1 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_CRO_1 = 33 }
+	multiply_variable = { KRAUS_cgd_CRO_1 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_CRO_1 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_SLO_3 = 24 }
+	multiply_variable = { KRAUS_cgc_SLO_3 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_SLO_3 = 39 }
+	multiply_variable = { KRAUS_cgd_SLO_3 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_SLO_3 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_SLO_2 = 21 }
+	multiply_variable = { KRAUS_cgc_SLO_2 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_SLO_2 = 34 }
+	multiply_variable = { KRAUS_cgd_SLO_2 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_SLO_2 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_SLO_1 = 18 }
+	multiply_variable = { KRAUS_cgc_SLO_1 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_SLO_1 = 29 }
+	multiply_variable = { KRAUS_cgd_SLO_1 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_SLO_1 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_TRS_3 = 27 }
+	multiply_variable = { KRAUS_cgc_TRS_3 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_TRS_3 = 42 }
+	multiply_variable = { KRAUS_cgd_TRS_3 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_TRS_3 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_TRS_2 = 24 }
+	multiply_variable = { KRAUS_cgc_TRS_2 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_TRS_2 = 37 }
+	multiply_variable = { KRAUS_cgd_TRS_2 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_TRS_2 min = 10 max = 400 }
+	set_variable = { KRAUS_cgc_TRS_1 = 21 }
+	multiply_variable = { KRAUS_cgc_TRS_1 = KRAUS_pl_mult }
+	set_variable = { KRAUS_cgd_TRS_1 = 32 }
+	multiply_variable = { KRAUS_cgd_TRS_1 = KRAUS_pl_mult }
+	clamp_variable = { var = KRAUS_cgd_TRS_1 min = 10 max = 400 }
+}
+############################################################
+### 拥抱多元主义焦点组（0.9 反馈）：红利强化、满编民兵师、合作红利、巴尔干清算
+############################################################
+# 奥地利作用域：给奥地利占有的王冠领核心州加「王冠领地的复苏」地区修正
+KRAUS_pl_recovery_apply = {
+	every_state = {
+		limit = {
+			OR = { is_core_of = CZE is_core_of = GAL is_core_of = CRO is_core_of = HUN is_core_of = SLO is_core_of = TRS }
+			OR = { is_owned_by = ROOT owner = { is_subject_of = ROOT } }
+			NOT = { has_dynamic_modifier = { modifier = KRAUS_pl_recovery } }
+		}
+		add_dynamic_modifier = { modifier = KRAUS_pl_recovery }
+	}
+}
+# 现成部队：9 营、人力装备满、经验最高的山地民兵师
+KRAUS_pl_spawn_militia_1 = {
+	capital_scope = {
+		create_unit = {
+			division = "division_template = \"Alpenjägerdivision\" start_experience_factor = 1 start_equipment_factor = 1"
+			owner = ROOT
+			count = 1
+		}
+	}
+}
+KRAUS_pl_spawn_militia_2 = {
+	capital_scope = {
+		create_unit = {
+			division = "division_template = \"Alpenjägerdivision\" start_experience_factor = 1 start_equipment_factor = 1"
+			owner = ROOT
+			count = 2
+		}
+	}
+}
+KRAUS_pl_spawn_militia_5 = {
+	capital_scope = {
+		create_unit = {
+			division = "division_template = \"Alpenjägerdivision\" start_experience_factor = 1 start_equipment_factor = 1"
+			owner = ROOT
+			count = 5
+		}
+	}
+}
+KRAUS_pl_spawn_militia_10 = {
+	capital_scope = {
+		create_unit = {
+			division = "division_template = \"Alpenjägerdivision\" start_experience_factor = 1 start_equipment_factor = 1"
+			owner = ROOT
+			count = 10
+		}
+	}
+}
+# 右支：巴尔干的清算，撤销罗马尼亚在特兰西瓦尼亚与塞尔维亚针对伊利里亚的行动效果
+KRAUS_pl_balkan_settle = {
+	if = {
+		limit = { country_exists = ROM ROM = { has_idea = ROM_TRS_revolt } }
+		ROM = { remove_ideas = ROM_TRS_revolt }
+	}
+	if = {
+		limit = { country_exists = SER SER = { has_idea = SER_the_dream_of_yugoslavia } }
+		SER = { remove_ideas = SER_the_dream_of_yugoslavia }
+	}
+	if = {
+		limit = { country_exists = SER SER = { has_idea = SER_the_dream_of_yugoslavia_no_AUS } }
+		SER = { remove_ideas = SER_the_dream_of_yugoslavia_no_AUS }
+	}
+	hidden_effect = {
+		if = { limit = { country_exists = ROM } ROM = { clr_country_flag = ROM_TRS_revolt } }
+		set_country_flag = KRAUS_pl_balkan_settled
+	}
+}
+# 奥地利作用域：CZE 的整合红利，一次抽取（红利强度由左支与中支的国策决定）
+KRAUS_div_roll_CZE = {
+	random_list = {
+		20 = {
+			modifier = { factor = 0 check_variable = { KRAUS_integ_offciv_CZE > 2 } }
+			if = { limit = { check_variable = { KRAUS_div_power > 1 } } add_offsite_building = { type = industrial_complex level = 2 } }
+			else = { add_offsite_building = { type = industrial_complex level = 1 } }
+			hidden_effect = { add_to_variable = { KRAUS_integ_offciv_CZE = 1 } }
+		}
+		15 = {
+			modifier = { factor = 0 check_variable = { KRAUS_integ_offmil_CZE > 1 } }
+			if = { limit = { check_variable = { KRAUS_div_power > 1 } } add_offsite_building = { type = arms_factory level = 2 } }
+			else = { add_offsite_building = { type = arms_factory level = 1 } }
+			hidden_effect = { add_to_variable = { KRAUS_integ_offmil_CZE = 1 } }
+		}
+		20 = {
+			if = { limit = { has_completed_focus = KRAUS_pl_M_diet } add_political_power = 50 }
+			else = { add_political_power = 30 }
+		}
+		10 = { add_timed_idea = { idea = KRAUS_integ_boom_industry days = KRAUS_div_buff_days } }
+		10 = { add_timed_idea = { idea = KRAUS_integ_boom_construction days = KRAUS_div_buff_days } }
+		10 = {
+			if = { limit = { has_completed_focus = KRAUS_pl_M_seat } add_manpower = 20000 }
+			else = { add_manpower = 10000 }
+		}
+		15 = { add_tech_bonus = { name = KRAUS_integ_tech_CZE bonus = 0.5 uses = 1 category = armor category = industry } }
+		10 = {
+			modifier = { factor = 0 NOT = { has_completed_focus = KRAUS_pl_M_lang } }
+			add_tech_bonus = { name = KRAUS_integ_tech_CZE bonus = 0.5 uses = 1 category = electronics category = industry }
+		}
+		10 = {
+			modifier = { factor = 0 NOT = { has_completed_focus = KRAUS_pl_M_seat } }
+			KRAUS_pl_spawn_militia_1 = yes
+		}
+	}
+}
+# 奥地利作用域：GAL 的整合红利，一次抽取（红利强度由左支与中支的国策决定）
+KRAUS_div_roll_GAL = {
+	random_list = {
+		20 = {
+			modifier = { factor = 0 check_variable = { KRAUS_integ_offciv_GAL > 2 } }
+			if = { limit = { check_variable = { KRAUS_div_power > 1 } } add_offsite_building = { type = industrial_complex level = 2 } }
+			else = { add_offsite_building = { type = industrial_complex level = 1 } }
+			hidden_effect = { add_to_variable = { KRAUS_integ_offciv_GAL = 1 } }
+		}
+		15 = {
+			modifier = { factor = 0 check_variable = { KRAUS_integ_offmil_GAL > 1 } }
+			if = { limit = { check_variable = { KRAUS_div_power > 1 } } add_offsite_building = { type = arms_factory level = 2 } }
+			else = { add_offsite_building = { type = arms_factory level = 1 } }
+			hidden_effect = { add_to_variable = { KRAUS_integ_offmil_GAL = 1 } }
+		}
+		20 = {
+			if = { limit = { has_completed_focus = KRAUS_pl_M_diet } add_political_power = 50 }
+			else = { add_political_power = 30 }
+		}
+		10 = { add_timed_idea = { idea = KRAUS_integ_boom_industry days = KRAUS_div_buff_days } }
+		10 = { add_timed_idea = { idea = KRAUS_integ_boom_construction days = KRAUS_div_buff_days } }
+		10 = {
+			if = { limit = { has_completed_focus = KRAUS_pl_M_seat } add_manpower = 20000 }
+			else = { add_manpower = 10000 }
+		}
+		15 = { add_tech_bonus = { name = KRAUS_integ_tech_GAL bonus = 0.5 uses = 1 category = synth_resources category = electronics } }
+		10 = {
+			modifier = { factor = 0 NOT = { has_completed_focus = KRAUS_pl_M_lang } }
+			add_tech_bonus = { name = KRAUS_integ_tech_GAL bonus = 0.5 uses = 1 category = electronics category = industry }
+		}
+		10 = {
+			modifier = { factor = 0 NOT = { has_completed_focus = KRAUS_pl_M_seat } }
+			KRAUS_pl_spawn_militia_1 = yes
+		}
+	}
+}
+# 奥地利作用域：CRO 的整合红利，一次抽取（红利强度由左支与中支的国策决定）
+KRAUS_div_roll_CRO = {
+	random_list = {
+		20 = {
+			modifier = { factor = 0 check_variable = { KRAUS_integ_offciv_CRO > 2 } }
+			if = { limit = { check_variable = { KRAUS_div_power > 1 } } add_offsite_building = { type = industrial_complex level = 2 } }
+			else = { add_offsite_building = { type = industrial_complex level = 1 } }
+			hidden_effect = { add_to_variable = { KRAUS_integ_offciv_CRO = 1 } }
+		}
+		15 = {
+			modifier = { factor = 0 check_variable = { KRAUS_integ_offmil_CRO > 1 } }
+			if = { limit = { check_variable = { KRAUS_div_power > 1 } } add_offsite_building = { type = arms_factory level = 2 } }
+			else = { add_offsite_building = { type = arms_factory level = 1 } }
+			hidden_effect = { add_to_variable = { KRAUS_integ_offmil_CRO = 1 } }
+		}
+		20 = {
+			if = { limit = { has_completed_focus = KRAUS_pl_M_diet } add_political_power = 50 }
+			else = { add_political_power = 30 }
+		}
+		10 = { add_timed_idea = { idea = KRAUS_integ_boom_industry days = KRAUS_div_buff_days } }
+		10 = { add_timed_idea = { idea = KRAUS_integ_boom_construction days = KRAUS_div_buff_days } }
+		10 = {
+			if = { limit = { has_completed_focus = KRAUS_pl_M_seat } add_manpower = 20000 }
+			else = { add_manpower = 10000 }
+		}
+		15 = { add_tech_bonus = { name = KRAUS_integ_tech_CRO bonus = 0.5 uses = 1 category = dd_tech category = ss_tech } }
+		10 = {
+			modifier = { factor = 0 NOT = { has_completed_focus = KRAUS_pl_M_lang } }
+			add_tech_bonus = { name = KRAUS_integ_tech_CRO bonus = 0.5 uses = 1 category = electronics category = industry }
+		}
+		10 = {
+			modifier = { factor = 0 NOT = { has_completed_focus = KRAUS_pl_M_seat } }
+			KRAUS_pl_spawn_militia_1 = yes
+		}
+	}
+}
+# 奥地利作用域：HUN 的整合红利，一次抽取（红利强度由左支与中支的国策决定）
+KRAUS_div_roll_HUN = {
+	random_list = {
+		20 = {
+			modifier = { factor = 0 check_variable = { KRAUS_integ_offciv_HUN > 2 } }
+			if = { limit = { check_variable = { KRAUS_div_power > 1 } } add_offsite_building = { type = industrial_complex level = 2 } }
+			else = { add_offsite_building = { type = industrial_complex level = 1 } }
+			hidden_effect = { add_to_variable = { KRAUS_integ_offciv_HUN = 1 } }
+		}
+		15 = {
+			modifier = { factor = 0 check_variable = { KRAUS_integ_offmil_HUN > 1 } }
+			if = { limit = { check_variable = { KRAUS_div_power > 1 } } add_offsite_building = { type = arms_factory level = 2 } }
+			else = { add_offsite_building = { type = arms_factory level = 1 } }
+			hidden_effect = { add_to_variable = { KRAUS_integ_offmil_HUN = 1 } }
+		}
+		20 = {
+			if = { limit = { has_completed_focus = KRAUS_pl_M_diet } add_political_power = 50 }
+			else = { add_political_power = 30 }
+		}
+		10 = { add_timed_idea = { idea = KRAUS_integ_boom_industry days = KRAUS_div_buff_days } }
+		10 = { add_timed_idea = { idea = KRAUS_integ_boom_construction days = KRAUS_div_buff_days } }
+		10 = {
+			if = { limit = { has_completed_focus = KRAUS_pl_M_seat } add_manpower = 20000 }
+			else = { add_manpower = 10000 }
+		}
+		15 = { add_tech_bonus = { name = KRAUS_integ_tech_HUN bonus = 0.5 uses = 1 category = infantry_weapons category = artillery } }
+		10 = {
+			modifier = { factor = 0 NOT = { has_completed_focus = KRAUS_pl_M_lang } }
+			add_tech_bonus = { name = KRAUS_integ_tech_HUN bonus = 0.5 uses = 1 category = electronics category = industry }
+		}
+		10 = {
+			modifier = { factor = 0 NOT = { has_completed_focus = KRAUS_pl_M_seat } }
+			KRAUS_pl_spawn_militia_1 = yes
+		}
+	}
+}
+# 奥地利作用域：SLO 的整合红利，一次抽取（红利强度由左支与中支的国策决定）
+KRAUS_div_roll_SLO = {
+	random_list = {
+		20 = {
+			modifier = { factor = 0 check_variable = { KRAUS_integ_offciv_SLO > 2 } }
+			if = { limit = { check_variable = { KRAUS_div_power > 1 } } add_offsite_building = { type = industrial_complex level = 2 } }
+			else = { add_offsite_building = { type = industrial_complex level = 1 } }
+			hidden_effect = { add_to_variable = { KRAUS_integ_offciv_SLO = 1 } }
+		}
+		15 = {
+			modifier = { factor = 0 check_variable = { KRAUS_integ_offmil_SLO > 1 } }
+			if = { limit = { check_variable = { KRAUS_div_power > 1 } } add_offsite_building = { type = arms_factory level = 2 } }
+			else = { add_offsite_building = { type = arms_factory level = 1 } }
+			hidden_effect = { add_to_variable = { KRAUS_integ_offmil_SLO = 1 } }
+		}
+		20 = {
+			if = { limit = { has_completed_focus = KRAUS_pl_M_diet } add_political_power = 50 }
+			else = { add_political_power = 30 }
+		}
+		10 = { add_timed_idea = { idea = KRAUS_integ_boom_industry days = KRAUS_div_buff_days } }
+		10 = { add_timed_idea = { idea = KRAUS_integ_boom_construction days = KRAUS_div_buff_days } }
+		10 = {
+			if = { limit = { has_completed_focus = KRAUS_pl_M_seat } add_manpower = 20000 }
+			else = { add_manpower = 10000 }
+		}
+		15 = { add_tech_bonus = { name = KRAUS_integ_tech_SLO bonus = 0.5 uses = 1 category = industry category = construction_tech } }
+		10 = {
+			modifier = { factor = 0 NOT = { has_completed_focus = KRAUS_pl_M_lang } }
+			add_tech_bonus = { name = KRAUS_integ_tech_SLO bonus = 0.5 uses = 1 category = electronics category = industry }
+		}
+		10 = {
+			modifier = { factor = 0 NOT = { has_completed_focus = KRAUS_pl_M_seat } }
+			KRAUS_pl_spawn_militia_1 = yes
+		}
+	}
+}
+# 奥地利作用域：TRS 的整合红利，一次抽取（红利强度由左支与中支的国策决定）
+KRAUS_div_roll_TRS = {
+	random_list = {
+		20 = {
+			modifier = { factor = 0 check_variable = { KRAUS_integ_offciv_TRS > 2 } }
+			if = { limit = { check_variable = { KRAUS_div_power > 1 } } add_offsite_building = { type = industrial_complex level = 2 } }
+			else = { add_offsite_building = { type = industrial_complex level = 1 } }
+			hidden_effect = { add_to_variable = { KRAUS_integ_offciv_TRS = 1 } }
+		}
+		15 = {
+			modifier = { factor = 0 check_variable = { KRAUS_integ_offmil_TRS > 1 } }
+			if = { limit = { check_variable = { KRAUS_div_power > 1 } } add_offsite_building = { type = arms_factory level = 2 } }
+			else = { add_offsite_building = { type = arms_factory level = 1 } }
+			hidden_effect = { add_to_variable = { KRAUS_integ_offmil_TRS = 1 } }
+		}
+		20 = {
+			if = { limit = { has_completed_focus = KRAUS_pl_M_diet } add_political_power = 50 }
+			else = { add_political_power = 30 }
+		}
+		10 = { add_timed_idea = { idea = KRAUS_integ_boom_industry days = KRAUS_div_buff_days } }
+		10 = { add_timed_idea = { idea = KRAUS_integ_boom_construction days = KRAUS_div_buff_days } }
+		10 = {
+			if = { limit = { has_completed_focus = KRAUS_pl_M_seat } add_manpower = 20000 }
+			else = { add_manpower = 10000 }
+		}
+		15 = { add_tech_bonus = { name = KRAUS_integ_tech_TRS bonus = 0.5 uses = 1 category = excavation_tech category = industry } }
+		10 = {
+			modifier = { factor = 0 NOT = { has_completed_focus = KRAUS_pl_M_lang } }
+			add_tech_bonus = { name = KRAUS_integ_tech_TRS bonus = 0.5 uses = 1 category = electronics category = industry }
+		}
+		10 = {
+			modifier = { factor = 0 NOT = { has_completed_focus = KRAUS_pl_M_seat } }
+			KRAUS_pl_spawn_militia_1 = yes
+		}
+	}
+}
+# 奥地利作用域：一次整合红利事件的完整结算（强度 3 起每次两抽，强度 4 另有保底奖励）
+KRAUS_div_settle_CZE = {
+	KRAUS_div_roll_CZE = yes
+	if = { limit = { check_variable = { KRAUS_div_power > 2 } } KRAUS_div_roll_CZE = yes }
+	if = {
+		limit = { check_variable = { KRAUS_div_power > 3 } }
+		add_political_power = 30
+		add_manpower = 5000
+		custom_effect_tooltip = KRAUS_div_bonus_tt
+	}
+}
+KRAUS_div_settle_GAL = {
+	KRAUS_div_roll_GAL = yes
+	if = { limit = { check_variable = { KRAUS_div_power > 2 } } KRAUS_div_roll_GAL = yes }
+	if = {
+		limit = { check_variable = { KRAUS_div_power > 3 } }
+		add_political_power = 30
+		add_manpower = 5000
+		custom_effect_tooltip = KRAUS_div_bonus_tt
+	}
+}
+KRAUS_div_settle_CRO = {
+	KRAUS_div_roll_CRO = yes
+	if = { limit = { check_variable = { KRAUS_div_power > 2 } } KRAUS_div_roll_CRO = yes }
+	if = {
+		limit = { check_variable = { KRAUS_div_power > 3 } }
+		add_political_power = 30
+		add_manpower = 5000
+		custom_effect_tooltip = KRAUS_div_bonus_tt
+	}
+}
+KRAUS_div_settle_HUN = {
+	KRAUS_div_roll_HUN = yes
+	if = { limit = { check_variable = { KRAUS_div_power > 2 } } KRAUS_div_roll_HUN = yes }
+	if = {
+		limit = { check_variable = { KRAUS_div_power > 3 } }
+		add_political_power = 30
+		add_manpower = 5000
+		custom_effect_tooltip = KRAUS_div_bonus_tt
+	}
+}
+KRAUS_div_settle_SLO = {
+	KRAUS_div_roll_SLO = yes
+	if = { limit = { check_variable = { KRAUS_div_power > 2 } } KRAUS_div_roll_SLO = yes }
+	if = {
+		limit = { check_variable = { KRAUS_div_power > 3 } }
+		add_political_power = 30
+		add_manpower = 5000
+		custom_effect_tooltip = KRAUS_div_bonus_tt
+	}
+}
+KRAUS_div_settle_TRS = {
+	KRAUS_div_roll_TRS = yes
+	if = { limit = { check_variable = { KRAUS_div_power > 2 } } KRAUS_div_roll_TRS = yes }
+	if = {
+		limit = { check_variable = { KRAUS_div_power > 3 } }
+		add_political_power = 30
+		add_manpower = 5000
+		custom_effect_tooltip = KRAUS_div_bonus_tt
+	}
+}
+# 奥地利作用域：与 波兰 合作红利，一次抽取
+KRAUS_coop_roll_POL = {
+	random_list = {
+		25 = { add_offsite_building = { type = industrial_complex level = 1 } }
+		20 = { add_political_power = 40 }
+		15 = { add_timed_idea = { idea = KRAUS_integ_boom_industry days = KRAUS_div_buff_days } }
+		15 = { add_tech_bonus = { name = KRAUS_coop_tech_POL bonus = 0.5 uses = 1 category = industry category = synth_resources } }
+		15 = { add_manpower = 10000 }
+		10 = { army_experience = 20 }
+	}
+}
+KRAUS_coop_settle_POL = {
+	KRAUS_coop_roll_POL = yes
+	if = { limit = { check_variable = { KRAUS_div_power > 2 } } KRAUS_coop_roll_POL = yes }
+}
+# 奥地利作用域：与 乌克兰 合作红利，一次抽取
+KRAUS_coop_roll_UKR = {
+	random_list = {
+		25 = { add_offsite_building = { type = industrial_complex level = 1 } }
+		20 = { add_political_power = 40 }
+		15 = { add_timed_idea = { idea = KRAUS_integ_boom_industry days = KRAUS_div_buff_days } }
+		15 = { add_tech_bonus = { name = KRAUS_coop_tech_UKR bonus = 0.5 uses = 1 category = infantry_weapons category = industry } }
+		15 = { add_manpower = 10000 }
+		10 = { army_experience = 20 }
+	}
+}
+KRAUS_coop_settle_UKR = {
+	KRAUS_coop_roll_UKR = yes
+	if = { limit = { check_variable = { KRAUS_div_power > 2 } } KRAUS_coop_roll_UKR = yes }
+}
+# 奥地利作用域：与 德国 合作红利，一次抽取
+KRAUS_coop_roll_GER = {
+	random_list = {
+		25 = { add_offsite_building = { type = arms_factory level = 1 } }
+		20 = { add_political_power = 40 }
+		15 = { add_timed_idea = { idea = KRAUS_integ_boom_industry days = KRAUS_div_buff_days } }
+		15 = { add_tech_bonus = { name = KRAUS_coop_tech_GER bonus = 0.5 uses = 1 category = electronics category = armor } }
+		15 = { add_manpower = 10000 }
+		10 = { army_experience = 20 }
+	}
+}
+KRAUS_coop_settle_GER = {
+	KRAUS_coop_roll_GER = yes
+	if = { limit = { check_variable = { KRAUS_div_power > 2 } } KRAUS_coop_roll_GER = yes }
+}
+# 奥地利作用域：与 意大利 合作红利，一次抽取
+KRAUS_coop_roll_ITA = {
+	random_list = {
+		25 = { add_offsite_building = { type = dockyard level = 1 } }
+		20 = { add_political_power = 40 }
+		15 = { add_timed_idea = { idea = KRAUS_integ_boom_industry days = KRAUS_div_buff_days } }
+		15 = { add_tech_bonus = { name = KRAUS_coop_tech_ITA bonus = 0.5 uses = 1 category = naval_equipment category = dd_tech } }
+		15 = { add_manpower = 10000 }
+		10 = { army_experience = 20 }
+	}
+}
+KRAUS_coop_settle_ITA = {
+	KRAUS_coop_roll_ITA = yes
+	if = { limit = { check_variable = { KRAUS_div_power > 2 } } KRAUS_coop_roll_ITA = yes }
+}

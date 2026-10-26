@@ -1,0 +1,18 @@
+KRAUS_golden_danube_open = {
+    if = {
+        limit = { NOT = { has_variable = KRAUS_golden_danube_cost_renner } }
+        set_variable = { KRAUS_golden_danube_cost_renner = 50 }
+    }
+    if = {
+        limit = { NOT = { has_variable = KRAUS_golden_danube_cost_miklas } }
+        set_variable = { KRAUS_golden_danube_cost_miklas = 35 }
+    }
+	set_country_flag = KRAUS_golden_danube_open
+}
+
+
+
+
+
+
+

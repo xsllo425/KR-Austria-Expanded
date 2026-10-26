@@ -1,0 +1,45 @@
+# Reconstruct policy growth from completed focuses; also repairs pre-existing saves.
+# Modifier fields and variable tooltips follow FRA_modernisation_and_cartelisation.
+KRAUS_econ_reconcile = {
+ if = {
+  limit = { OR = { has_completed_focus = KRAUS_renner_economic_program has_completed_focus = KRAUS_miklas_economic_program } }
+  set_variable = { KRAUS_econ_industry = 0.05 }
+  set_variable = { KRAUS_econ_eff = 0 }
+  set_variable = { KRAUS_econ_start = 0 }
+  set_variable = { KRAUS_econ_cspeed = 0 }
+  if = {
+   limit = { OR = {
+    AND = { has_completed_focus = KRAUS_renner_economic_program has_completed_focus = AUS_sdap_4 }
+    AND = { has_completed_focus = KRAUS_miklas_economic_program has_completed_focus = AUS_cs_fill_the_coffers }
+   } }
+   set_variable = { KRAUS_econ_industry = 0.07 }
+  }
+  if = {
+   limit = { has_completed_focus = KRAUS_renner_economic_program has_completed_focus = AUS_sdap_5 }
+   set_variable = { KRAUS_econ_eff = 0.05 }
+  }
+  if = {
+   limit = { has_completed_focus = KRAUS_miklas_economic_program has_completed_focus = AUS_cs_2 }
+   set_variable = { KRAUS_econ_start = 0.05 }
+  }
+  if = {
+   limit = { OR = {
+    AND = { has_completed_focus = KRAUS_renner_economic_program has_completed_focus = AUS_sdap_6 }
+    AND = { has_completed_focus = KRAUS_miklas_economic_program has_completed_focus = AUS_cs_3 }
+   } }
+   set_variable = { KRAUS_econ_cspeed = 0.10 }
+  }
+  if = {
+   limit = { has_completed_focus = KRAUS_bm_accelerator_4 }
+   add_to_variable = { KRAUS_econ_eff = 0.05 }
+  }
+  if = {
+   limit = { has_completed_focus = KRAUS_miklas_recovery_4 }
+   add_to_variable = { KRAUS_econ_start = 0.05 }
+  }
+  if = {
+   limit = { NOT = { has_dynamic_modifier = { modifier = KRAUS_econ_program_dm } } }
+   add_dynamic_modifier = { modifier = KRAUS_econ_program_dm }
+  }
+ }
+}

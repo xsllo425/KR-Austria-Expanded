@@ -1,0 +1,290 @@
+﻿l_english:
+ # ===== KRAUS Political Lines: Renner + Miklas (2026-09-21) =====
+
+ # --- entry focuses ---
+
+
+ # --- Miklas order focuses ---
+ KRAUS_miklas_order_1:0 "Emergency Decree"
+ KRAUS_miklas_order_1_desc:0 "Miklas prepares emergency measures to tidy administration and social bargaining, forcing answers on stalled business. Supporters believe decisive action restores order; critics fear the government stepping past normal consultation. A decree shortens procedure but cannot erase resentment in execution, and may be challenged later. The government must state the limits of its authority and pay the political price now."
+ KRAUS_miklas_order_2:0 "Guarding the Symbol"
+ KRAUS_miklas_order_2_desc:0 "The red-white-red flies over the Hofburg again. In an age when everything is negotiable, the crown insists some symbols will not be surrendered, seeking a foothold for central authority. Holding the flag rallies some loyalties and makes autonomy-seekers warier. Symbols cannot replace budgets and contracts, but they lend public credibility to keeping promises."
+ KRAUS_miklas_order_3:0 "The Price of Reorganization"
+ KRAUS_miklas_order_3_desc:0 "Reorganisation finally reaches a civilian factory. When the closure order arrives, its owners demand reconsideration, workers ask where their next wage will come from, and even parish delegates loyal to the cabinet petition on their behalf. Miklas cannot merely report improved order while leaving others to bear the loss. He must publicly accept responsibility for the decision and face the divisions it will leave in his coalition and the locality."
+
+ # --- Miklas tier spirits ---
+
+ # --- BOP lore ---
+
+ # --- BOP range tooltips ---
+
+ # --- Miklas axis tooltips ---
+
+ # --- Renner events ---
+ KRAUS_renner_events.1.t: "The Greater Tent Holds"
+ KRAUS_renner_events.1.d: "For now, the arrangement is working. The Czech industrialists have their autonomy, the Hungarians have their language rights, and the army still answers to a single staff. Nobody is entirely happy, which is the closest thing to success this Empire has ever managed."
+ KRAUS_renner_events.1.a: "Everyone is inside."
+ KRAUS_renner_events.2.t: "The Crownlands Move Alone"
+ KRAUS_renner_events.2.d: "The balance has swung too far toward the periphery. Prague and Budapest have begun to act as though Vienna need not be consulted — and once that idea takes hold, it is very hard to put back."
+ KRAUS_renner_events.2.a: "We are losing them."
+ KRAUS_renner_events.3.t: "This Is Not a Greater Tent"
+ KRAUS_renner_events.3.d: "The balance has swung too far toward Vienna. The crownlands are still nominally inside the tent, but they are no longer pretending to be content — and a tent nobody wants to stand in is just a roof."
+ KRAUS_renner_events.3.a: "We held it too tightly."
+ KRAUS_renner_events.10.t: "Renner Forms a Government"
+ KRAUS_renner_events.10.d: "Karl Renner accepts the task of government. His first act is to announce that henceforth the Empire will be balanced between the centre and the nations — and that the balance itself is the policy.\n\nHis critics call it indecision. He calls it the only thing that has ever worked."
+ KRAUS_renner_events.10.a: "We will all be in this together."
+
+ # --- Miklas events ---
+ KRAUS_miklas_events.1.t:0 "The Price of Reorganization"
+ KRAUS_miklas_events.1.d:0 "Reorganisation finally reaches a civilian factory. When the closure order arrives, its owners demand reconsideration, workers ask where their next wage will come from, and even parish delegates loyal to the cabinet petition on their behalf. Miklas cannot merely report improved order while leaving others to bear the loss. He must publicly accept responsibility for the decision and face the divisions it will leave in his coalition and the locality."
+ KRAUS_miklas_events.1.a:0 "We answer for this decision."
+ KRAUS_miklas_events.2.t: "Emergency Decrees"
+ KRAUS_miklas_events.2.d: "The government has issued another batch of decrees under the emergency powers. Order improves measurably within the week.\n\nIn the corridors, someone remarks that the Republic is now governed by pen and not by parliament — and that it is working better."
+ KRAUS_miklas_events.2.a: "Order first."
+ KRAUS_miklas_events.3.t: "The Red-White-Red"
+ KRAUS_miklas_events.3.d: "The old banners are hoisted over the Hofburg. There is nothing practical about it; flags do not feed anyone.\n\nBut across the Empire, men who had begun to doubt whether Austria meant anything at all look up at it, and are quiet."
+ KRAUS_miklas_events.3.a: "A flag is not nothing."
+ KRAUS_miklas_events.10.t: "Miklas Takes the Helm"
+ KRAUS_miklas_events.10.d: "Wilhelm Miklas assumes responsibility for the government. His programme is short: the Catholic character of Austria will be preserved, whatever it costs.\n\nThose who know him understand that the second half of that sentence — whatever it costs — is not a figure of speech."
+ KRAUS_miklas_events.10.a: "Whatever it costs."
+ KRAUS_miklas_events.20.t: "The Legitimacy Crisis"
+ KRAUS_miklas_events.20.d: "He succeeded. The Catholic order is secured, and the state has never been steadier.\n\nBut to secure it he governed without the constitution for three years, and the constitution did not survive the experience. The Empire is orderly. The Empire is no longer legitimate. In the salons of Vienna, men who were once fringe have begun to be invited to dinner."
+ KRAUS_miklas_events.20.a: "He saved the order. He lost the Empire."
+
+ # --- dynmod: Miklas dual axis ---
+ # --- tech-bonus labels (referenced by KRAUS_soothe_* focus rewards) ---
+ KRAUS_soothe_czech_industry: "Bohemian Industrial Modernisation"
+ KRAUS_soothe_hungary_art: "Hungarian Artillery Tradition"
+ KRAUS_soothe_slovak_doctrine: "Slovak Officer Corps"
+
+ # --- 1936 election flavour + Renner tent focuses (2026-09-21) ---
+ KRAUS_renner_tent_1:0 "Prague Industrial Roundtable"
+ KRAUS_renner_tent_1_desc:0 "Bohemian industry holds the keys to jobs, orders, and local finances, and to whether the coalition can cross national lines. Renner invites it into governing talks, trading continued investment and steady cooperation for support. Industry will not drop its demands; the government must give it a channel to raise them and hold it responsible for shared plans. A roundtable means consultation, not obedience."
+ KRAUS_renner_tent_2:0 "Soothing Vienna and the Army"
+ KRAUS_renner_tent_2_desc:0 "Officers and officials fear the empire is dissolving around them, while Vienna's wage earners dread bearing the cost of recovery. The government answers both with budget guarantees, army funding, and pledges to civil servants, saying plainly what can be met now and what must wait. Soothing is not bribery; it assures these forces the center still coordinates and has not abandoned order."
+ KRAUS_renner_tent_3:0 "The Big Tent Holds"
+ KRAUS_renner_tent_3_desc:0 "Industry, regional delegates, and the coalition's factions finally find a way to keep working together. The cabinet can turn from mutual probing to the recovery still unfinished, but the disagreements do not vanish. Renner means to keep a coalition that keeps negotiating, not a permanently united camp. The big tent holds for now; budgets and building will keep testing it."
+
+ KRAUS_election_flavor.1.t: "The Streets of the Capital"
+ KRAUS_election_flavor.1.d: "The queues outside the labour exchanges are longer than the year before. In the workers' districts, men who had once been content to grumble are beginning to ask who is responsible."
+ KRAUS_election_flavor.2.t: "A Word from the Pulpit"
+ KRAUS_election_flavor.2.d: "The bishops have made their preference known, delicately. In the countryside and the smaller towns, that word still travels further than any newspaper."
+ KRAUS_election_flavor.3.t: "The Hunting Party"
+ KRAUS_election_flavor.3.d: "The Crown Prince's hunting party was meant to show the Empire's strength. Instead, the papers are full of the damage it caused — and of a hunting party that cost more than a village earns in a year.\n\nThe government must respond."
+ KRAUS_election_flavor.3.a: "Defend the Court"
+ KRAUS_election_flavor.3.b: "Acknowledge the Mishap"
+ KRAUS_election_flavor.4.t: "Renner Speaks"
+ KRAUS_election_flavor.4.d: "Karl Renner addresses the party congress. He speaks of the Empire as a house with many rooms, and of the duty of every room to keep the roof on. The workers listen, and so — carefully — do the shopkeepers."
+ KRAUS_election_flavor.4.a: "Everyone keeps the roof on."
+ KRAUS_election_flavor.5.t: "The Silence"
+ KRAUS_election_flavor.5.d: "A scandal in the outgoing government has left the President with a decision. The politicians would have issued a statement before noon.\n\nMiklas has said nothing, and looks inclined to leave it that way."
+ KRAUS_election_flavor.5.a: "He remains silent."
+ KRAUS_election_flavor.5.b: "He speaks out."
+ # --- election flavour option tooltips (2026-09-21) ---
+ KRAUS_ef3_a_tt: "Social Conservatism support: §G+4.00%§!"
+ KRAUS_ef3_a2_tt: "Social Democracy support: §R-2.00%§!"
+ KRAUS_ef3_b_tt: "Social Democracy support: §G+4.00%§!"
+ KRAUS_ef3_b2_tt: "Social Conservatism support: §R-3.00%§!"
+ KRAUS_ef4_a_tt: "Social Democracy support: §G+5.00%§!"
+ KRAUS_ef5_a_tt: "Social Conservatism support: §R-5.00%§!"
+ KRAUS_ef5_b_tt: "Social Conservatism support: §G+2.00%§!"
+ KRAUS_ef5_b2_tt: "Political Power: §R-25§!"
+ KRAUS_miklas_events.20_a_tt: "§RThe shadow grows.§!"
+ # --- Regime Balance BOP (2026-09-21 third pass) ---
+ KRAUS_regime_balance: "The Emperor's Balance"
+ KRAUS_renner_side: "Renner — Social Democrat"
+ KRAUS_miklas_side: "Miklas — Christian Social"
+ KRAUS_bop_imperial_balance_range: "The Emperor Holds the Centre"
+ KRAUS_bop_renner_tilt_range: "Renner Gains Ground"
+ KRAUS_bop_renner_dominant_range: "Renner Unchecked — the Tent Becomes a Majority"
+ KRAUS_bop_miklas_tilt_range: "Miklas Gains Ground"
+ KRAUS_bop_miklas_dominant_range: "Miklas Unchecked — Order Without Consent"
+ KRAUS_bop_imperial_balance_tt: "§GThe Emperor holds the centre.§! Neither Renner nor Miklas can govern alone — and while that is true, the Empire holds."
+ KRAUS_bop_renner_tilt_tt: "Renner's people are gaining ground. The conservatives in Vienna have begun to look for someone else to speak for them."
+ KRAUS_bop_renner_dominant_tt: "§RRenner stands unchecked.§! The workers and the nations have what they asked for — and the men who were not asked have begun to look elsewhere."
+ KRAUS_bop_miklas_tilt_tt: "Miklas's people are gaining ground. Every decree buys order and spends legitimacy."
+ KRAUS_bop_miklas_dominant_tt: "§RMiklas stands unchecked.§! The Empire is orderly. The Empire is no longer legitimate — and there are men waiting who do not care about either."
+ KRAUS_regime_balance_category: "The Emperor's Balance"
+ KRAUS_regime_balance_category_desc: "The two men who would govern Austria, and the Crown that keeps either from governing alone."
+ # --- third pass: BM appearance event, settlement tooltips, flavour options ---
+ KRAUS_black_monday_events.0.t: "The Black Monday Reaches Austria"
+ KRAUS_black_monday_events.0.d: "When Black Monday struck Germany, it was only a matter of time before the storm crossed the border. Austria is among the first to be dragged under.\n\nThe Chancellery has opened an emergency ledger: §YReorganise the Imperial Economy§! is now available in the Decisions panel. Each stage of the ledger runs §Y110§! days — if its conditions are met and §Y90§! days have passed, it settles early and the crisis eases a stage; otherwise the crisis deepens by a stage when the time runs out."
+ KRAUS_black_monday_events.0.a: "God help us."
+ KRAUS_black_monday_events.3.t: "No Progress"
+ KRAUS_black_monday_events.3.d: "The ledger has come due and nothing was entered in it. The measures that were supposed to soften the crisis were never taken, and the crisis has spread accordingly."
+ KRAUS_black_monday_events.3.a: "We let it slip."
+ KRAUS_bm10_reward_tt: "Stability: §G+3.00%§!"
+ KRAUS_bm10_pp_tt: "Political Power: §G+50§!"
+ KRAUS_bm20_stab_tt: "Stability: §R-3.00%§!"
+ KRAUS_bm20_pp_tt: "Political Power: §R-50§!"
+ KRAUS_ef1_a_tt: "Social Democracy support: §G+3.00%§!"
+ KRAUS_ef2_a_tt: "Social Conservatism support: §G+3.00%§!"
+ KRAUS_election_flavor.1.a: "The mood is turning."
+ KRAUS_election_flavor.2.a: "The word spreads."
+ # ===== Leader introductions (2026-09-21 sixth pass) =====
+ KRAUS_leader_intro.1.t: "Karl Renner"
+ KRAUS_leader_intro.1.d: "The man who is spoken of whenever the Social Democrats need a government formed is Karl Renner.\n\nHe has done this before. In 1918, when the Monarchy came apart and nobody knew what would replace it, it was Renner who held the pieces together — not by force, but by refusing to let any one nation be treated as the enemy. He did not save the Empire then. He saved the possibility of one, and he has spent every year since arguing that the same trick can be worked twice.\n\nHe leads the §YSocial Democratic Workers' Party of Austria§! — the party of the industrial workers, of the trade unions, of the great cities. To the conservatives of Vienna he is a revolutionary biding his time. To the radicals of his own party he is a man who has compromised too often.\n\nHe calls his method the §YGreater Tent§!: hold everyone inside, satisfy no one entirely, and the structure stands."
+ KRAUS_leader_intro.1.a: "A man with a method."
+
+ KRAUS_leader_intro.2.t: "Wilhelm Miklas"
+ KRAUS_leader_intro.2.d: "Where Renner builds, Wilhelm Miklas guards.\n\nThe son of a postman, a schoolmaster by training and the father of twelve, Miklas has one conviction and has never traded it: Catholic Austria must survive the modern age. He is not a man of grand designs. He is a man of one line, drawn once, that he will not cross.\n\nHe leads the §YChristian Social Party§! — the party of the Church, the countryside, the small towns and the Catholic middle class; the party that has governed Austria more often than any other, and that regards the Social Democrats as the standing threat to everything it exists to protect.\n\nHe knows what is being done in his name is not entirely constitutional. He has said so — in his own hand, in his private diary, at length, and late at night. In public he says nothing at all. Those who know him understand that both halves of that are true, and that the second half is the one that matters."
+ KRAUS_leader_intro.2.a: "A man with one line."
+
+ KRAUS_leader_intro.3.t: "The Emperor's Balance"
+ KRAUS_leader_intro.3.d: "Two men, two parties, two entirely different ideas of what Austria is for — and between them, the Emperor.\n\nKarl is not the author of either programme. He is the reason neither programme can be carried out alone. Renner commands the cities and the trade unions; Miklas commands the Church and the countryside. If either were to prevail completely, the Empire would have to become something else entirely — and there is no other thing it could become that would hold.\n\nSo the Crown does what Crowns have always done in Austria: it holds the centre. It gives each side just enough to keep them at the table, and denies each side just enough to keep them from leaving it.\n\nThe 1936 election will decide which of them forms a government. It will not decide which of them is right — and it will not free the Emperor from the work of balancing between them.\n\n§YFrom the next election onward, the Empire's Balance will appear in the Balance of Power panel. Keep the two camps in rough equilibrium and the Empire holds; let either one run unchecked, and the centre will not survive it.§!"
+ KRAUS_leader_intro.3.a: "The centre holds — for now."
+
+ # --- Miklas victory choice ---
+ KRAUS_leader_intro.10.t: "The Christian Social Government"
+ KRAUS_leader_intro.10.d: "Miklas has formed a government, with the Christian Social Party at its head and the authoritarian democrats of the right brought in beside it — order requires allies, and he has taken the ones who will not hinder it.\n\nThere is now an argument within the government about where Austria's future should be anchored. The German connection offers both rifles and factories. It cannot offer both at once."
+ KRAUS_leader_intro.10.a: "Rifles first."
+ KRAUS_leader_intro.10.b: "Factories first."
+ KRAUS_intro10_mil_tt: "§YGerman-Austrian Military Co-operation§! — the military branch of the Berlin-Vienna line has its focus completion time reduced (by up to §G14 days§! per focus)."
+ KRAUS_intro10_eco_tt: "§YGerman-Austrian Economic Co-operation§! — the economic branch of the Berlin-Vienna line has its focus completion time reduced (by up to §G14 days§! per focus)."
+
+ # --- Renner victory ---
+ KRAUS_leader_intro.11.t: "The Greater Tent Government"
+ KRAUS_leader_intro.11.d: "Renner has formed a government, and has done it in the only way he knows: by bringing in more people than strictly necessary. The Social Democrats hold the offices; the radical socialists have been given a hearing rather than a grievance; and enough of the centre has been persuaded that the tent is large enough to stand in.\n\nHe has also turned to the Crown — the part of Austria's politics that is not a party at all. With the Emperor's weight behind the arrangement, the crownlands and the nations of the Empire can be held to a settlement rather than driven to a rupture.\n\n§YThe crown focuses below 'The Weight of the Crown' have their completion time reduced.§!"
+ KRAUS_leader_intro.11.a: "Everyone keeps the roof on."
+ KRAUS_intro11_tt: "§YThe Greater Tent§! — the §YCrown§! branch has its focus completion time reduced (by up to §G14 days§! per focus). A broad governing coalition is formed."
+ # ===== Rewritten KR election events (2026-09-21 sixth pass) =====
+ austria_election_events.1.t: "The Austrian Elections of 1936"
+ austria_election_events.1.d: "Since the Compromise of 1867, the \"Austrian question\" has been settled in the German-speaking half of the Empire — and for most of that time, the answer has been given by one of two parties. The Christian Social Party speaks for the Church, the countryside and the Catholic middle class, and has governed Austria more often than any other. The Social Democratic Workers' Party speaks for the industrial workers, the trade unions and the great cities, and regards the Christian Socials as the standing obstacle to everything it wants.\n\nOn the economy the two parties do not merely differ — they are opposites. The Social Democrats would meet the crisis with unemployment relief, public works and the weight of the state thrown behind the worker. The Christian Socials would meet it with austerity: cuts, a balanced ledger, and the conviction that a state which spends beyond its means is a state which will shortly cease to exist.\n\nThe Emperor has not endorsed either programme. He has, however, made it known that whoever forms the next government will not form it alone. The balance between these two camps is now something the Crown considers its own business.\n\n§YThe election will decide who governs Austria. It will not decide who is right.§!"
+ austria_election_events.1.a: "It is for the people to decide."
+
+ austria_election_events.3.t: "Adler Denounces the SDAP"
+ austria_election_events.3.d: "Friedrich Adler — son of Victor Adler, the founding father of the party — is a Radical Socialist best remembered for having shot the Minister-President in 1916 in protest against the Weltkrieg. He has not mellowed with the years.\n\nBefore the party congress he denounces the SDAP in terms that could have come from the other side of the chamber: that it has become \"the kind of socialism that exists to serve the establishment\" — that it negotiates, and compromises, and tempers, until nothing is left of the idea but the word.\n\nHalf the congress applauds. The other half does not. Adler's following is small, loud, and entirely sincere."
+ austria_election_events.3.a: "Radicals will be radicals."
+ austria_election_events.3.a_tt: "Radical Socialism support: §G+2.50%§! — Adler is left to his own devices."
+ austria_election_events.3.b: "Offer Adler an understanding."
+ austria_election_events.3.b_tt: "Social Democracy support: §G+2.00%§!"
+ austria_election_events.3.b2_tt: "Radical Socialism support: §G+1.00%§! — and they will remember the offer."
+
+ austria_election_events.7.t: "An Understanding on the Left"
+ austria_election_events.7.d: "The talks were quiet, and short, and held in a room with no press outside it.\n\nNothing was conceded in public. What was agreed was this: that Adler's radicals would not spend the election attacking the party from the left, and that if the Social Democrats formed the next government, they would not be formed without a place for the left that had criticized them.\n\nAdler left without shaking hands. He also left without denouncing anyone."
+ austria_election_events.7.a: "A place at the table."
+ austria_election_events.7.a_tt: "Social Democracy support: §G+2.00%§! — the left has been rallied rather than split."
+
+ ### Balance of Power — decisions -------------------------------------------
+ KRAUS_bop_crown_arbitration: "Crown Arbitration"
+ KRAUS_bop_crown_arbitration_desc: "Neither man will come to the Hofburg on his own. Both will come if the Emperor sends for them.\n\nThe Crown does not rule — it holds. Summon the two of them, put them in the same room, and remind them what happens to Austria if either of them wins outright."
+ KRAUS_bop_renner_rally: "A Rally of the Party"
+ KRAUS_bop_renner_rally_desc: "The Social Democratic Workers’ Party can still put a hundred thousand people on the Ringstrasse in an afternoon.\n\nIt costs nothing but order. Vienna will not be quiet for a week — but nobody in the Hofburg will be in any doubt about who speaks for the workers of Austria."
+ KRAUS_bop_miklas_decree: "Governing by Decree"
+ KRAUS_bop_miklas_decree_desc: "The Cabinet can be made to do what the Parliament will not.\n\nIt is legal, in the narrow sense. It is also the exact method Karl Renner spent thirty years arguing the Empire could not survive.\n\n§YOrder for 180 days — and a debt that outlives them.§!"
+ KRAUS_bop_imperial_audience: "An Audience with the Emperor"
+ KRAUS_bop_imperial_audience_desc: "The Emperor has been reading the papers, and has noticed which way the wind is blowing.\n\nHe will receive the leader who has been gaining ground. He will be gracious. He will say almost nothing. And the man will leave having understood that the Crown is watching, and has not yet decided to be pleased."
+ KRAUS_bop_cost_50pp: "£pol_power §H50§!"
+ KRAUS_bop_cost_50pp_blocked: "£pol_power §R50§!"
+ KRAUS_bop_cost_50pp_tooltip: "It costs $KRAUS_bop_cost_50pp_blocked$ to take the decision"
+ KRAUS_bop_cost_60pp: "£pol_power §H60§!"
+ KRAUS_bop_cost_60pp_blocked: "£pol_power §R60§!"
+ KRAUS_bop_cost_60pp_tooltip: "It costs $KRAUS_bop_cost_60pp_blocked$ to take the decision"
+ KRAUS_bop_cost_5stab: "£GFX_stability_texticon §H5%§!"
+ KRAUS_bop_cost_5stab_blocked: "£GFX_stability_texticon §R5%§!"
+ KRAUS_bop_cost_5stab_tooltip: "It costs $KRAUS_bop_cost_5stab_blocked$ to take the decision"
+
+ KRAUS_bop_arbitration_tt: "The Emperor intervenes directly: the balance returns toward the centre."
+ KRAUS_bop_rally_tt: "The party takes to the streets — the balance moves toward Renner."
+ KRAUS_bop_decree_tt: "The Cabinet rules alone — the balance moves toward Miklas."
+ KRAUS_bop_audience_tt: "The Crown has made its displeasure known."
+
+ ### State-scoped modifier TEST ------------------------------------------------
+
+ ### Black Monday - state-level effects ----------------------------------------
+ KRAUS_dm_crisis_deep: "Depression (Severe)"
+ KRAUS_dm_crisis_heavy: "Depression (Hard)"
+ KRAUS_dm_crisis_moderate: "Depression (Easing)"
+ KRAUS_dm_crisis_light: "Depression (Fading)"
+ KRAUS_dm_recovery: "Recovery"
+
+ ### Emperor authority ---------------------------------------------------------
+ KRAUS_imperial_authority_dm: "The Emperor's Authority"
+ KRAUS_imperial_authority_dm_tt: "§YThe Crown's standing, accumulated and spent.§!\n\nAuthority is gathered from holding the balance, from surviving the crisis, and from keeping the Crownlands in the Empire. It is spent on acts only the Emperor can perform.\n\n§GCurrent authority: §Y[?AUS.KRAUS_imperial_authority]§! / 100§!\n\n§GAt 100 authority: +10% stability, +10% political power, +10% war support.§!\n\n§RIt recovers slowly — roughly 5 per quarter, if nothing goes wrong.§!"
+ KRAUS_ia_convoke_diet: "Convoke the Imperial Diet"
+ KRAUS_ia_convoke_diet_desc: "The Emperor does not legislate. He convenes.\n\nBoth chambers, in one room, with the Crown present and listening. Nothing is decided — but a great deal is understood, and the men who were shouting in the corridors come back to the table.\n\n§YCosts 25 authority.§!"
+ KRAUS_ia_convoke_diet_tt: "§G+30§! political power, §G+3%§! stability"
+ KRAUS_ia_imperial_honours: "Imperial Honours"
+ KRAUS_ia_imperial_honours_desc: "Decorations, titles, and the small courtesies that cost the Crown nothing but its attention.\n\nThey are handed out where they will do the most good — and received by men who will remember who gave them.\n\n§YCosts 15 authority.§!"
+ KRAUS_ia_imperial_honours_tt: "§G+2%§! war support, §G+1§! army experience"
+ KRAUS_ia_royal_reserves: "Draw on the Royal Reserves"
+ KRAUS_ia_royal_reserves_desc: "The Habsburg private fortune is not the state's. It is, however, available — for a price that will not be paid in money.\n\n§RIt costs half of everything the Crown has built up.§! Spend it now, and the Crown will be visible as diminished for a very long time.\n\n§YCosts 50 authority.§!"
+ KRAUS_ia_royal_reserves_tt: "§G+50§! political power"
+ KRAUS_dm_renner_victory: "Social Reform Dividend"
+ KRAUS_dm_miklas_victory: "Order Dividend"
+
+
+ ### Crown and Order - rebuilt as a single accumulating value -------------------
+ KRAUS_catholic_order_decisions: "The Crown and Order"
+ KRAUS_catholic_order_decisions_desc: "Decrees only a Catholic order can justify — and only a Catholic order must pay for."
+
+
+ ### Decisions -----------------------------------------------------------------
+ KRAUS_order_decree_in_emergency: "Govern by Emergency Decree"
+ KRAUS_order_decree_in_emergency_desc: "The Cabinet can do what the Parliament will not. It is legal in the narrow sense, and it is the exact method Renner spent thirty years arguing the Empire could not survive.\n\nThe cost is paid in political capital — and paid again, every time we do it."
+ KRAUS_order_suppress_press: "Suppress the Hostile Press"
+ KRAUS_order_suppress_press_desc: "Papers that will not print the truth will not print at all.\n\nThe streets will notice. They always do."
+ KRAUS_order_church_schools: "Expand the Church Schools"
+ KRAUS_order_church_schools_desc: "The parish school is the cheapest instrument of order the Empire has ever possessed.\n\nIt is also slow, and while the schools are being built, the crisis is not."
+ KRAUS_order_seize_industry: "Seize Industrial Capacity"
+ KRAUS_order_seize_industry_desc: "The state takes a plant, and puts it to state purposes.\n\nOne factory will not be there afterwards. That is not a metaphor."
+ KRAUS_order_state_of_emergency: "Declare a State of Emergency"
+ KRAUS_order_state_of_emergency_desc: "Suspend, arrest, requisition, and govern alone — openly, and with the Emperor's signature on it.\n\n§RIt will be expensive, and it will be remembered.§!"
+
+ ### Decision cost / gain tooltips ---------------------------------------------
+ KRAUS_order_cost_25pp_blocked: "£pol_power §R25§!"
+ KRAUS_order_cost_20pp_blocked: "£pol_power §R20§!"
+ KRAUS_order_cost_50pp_blocked: "£pol_power §R50§!"
+ KRAUS_order_cost_3stab_blocked: "£GFX_stability_texticon §R3%§!"
+
+ KRAUS_order_cost_factory_tt: "§ROne civilian factory is seized and lost.§!"
+
+ KRAUS_order_cost_20pp_tt: "§R-20§! political power"
+ KRAUS_bm_present_tt: "Black Monday is in effect"
+ KRAUS_leader_intro.1.a_tt: "§GSocial Democracy: +1.00%§!"
+ KRAUS_leader_intro.2.a_tt: "§GChristian Social: +1.00%§!"
+ KRAUS_leader_intro.3.a_tt: "§GEmperor Authority: +5§!"
+
+
+ ### Coalition loyalties (plan D) -------------------------------------------------
+
+ ### Coalition events ------------------------------------------------------------
+
+ ### Coalition tooltips ----------------------------------------------------------
+
+ ### Coalition council -----------------------------------------------------------
+ KRAUS_coalition_cost_50pp_blocked: "£pol_power §R50§!"
+
+ ### Crisis choices (Black Monday) -----------------------------------------------
+ KRAUS_crisis_left_tt: "§GThe left is satisfied.§! The right will not forget this."
+ KRAUS_crisis_right_tt: "§GThe right is satisfied.§! The left will not forget this."
+ KRAUS_crisis_choices.1.t: "A Run on the Banks"
+ KRAUS_crisis_choices.1.d: "The Kreditanstalt's doors opened to a queue that stretched around the block, and the queue has not shortened since.\n\nThe left demands the state take the banks outright. The right demands the state merely guarantee what is in them. Both will cost money we do not have."
+ KRAUS_crisis_choices.1.a: "Nationalise the banks."
+ KRAUS_crisis_choices.1.b: "Guarantee the deposits."
+ KRAUS_crisis_choices.2.t: "The Unemployed March"
+ KRAUS_crisis_choices.2.d: "They came down the Ringstrasse in their thousands, and they were orderly, and that was somehow worse.\n\nOne wing wants relief widened, whatever it costs. The other wants the budget cut, whatever it costs. Neither of them is wrong about the arithmetic and both of them are wrong about the country."
+ KRAUS_crisis_choices.2.a: "Widen relief."
+ KRAUS_crisis_choices.2.b: "Cut the budget."
+ KRAUS_crisis_choices.3.t: "The Countryside Fails"
+ KRAUS_crisis_choices.3.d: "The harvest was poor, the mortgages were not, and the smallholders have begun to write letters that the Ministry of Agriculture has stopped answering.\n\nLand reform would answer the letters. Subsidies would answer the mortgages. There is money for one."
+ KRAUS_crisis_choices.3.a: "Land reform."
+ KRAUS_crisis_choices.3.b: "Farm subsidies."
+ KRAUS_crisis_choices.4.t: "General Strike"
+ KRAUS_crisis_choices.4.d: "The railways have stopped. The trams have stopped. The printers have stopped, which means that within a day nobody will know what is happening anywhere.\n\nThe government must decide, quickly, what kind of state it is."
+ KRAUS_crisis_choices.4.a: "Recognise the unions."
+ KRAUS_crisis_choices.4.b: "Send in the army."
+
+ ### Repurposed vanilla focuses ---------------------------------------------------
+ KRAUS_focus_bm_speedup_tt: "§GChannels resources into the recovery effort: §Y+25§! political power.§!"
+
+ ### Focus state rewards + economic programme -------------------------------------
+
+ KRAUS_renner_economic_program:0 "The Big-Tent Economic Agreement"
+ KRAUS_renner_economic_program_desc:0 "Renner wants recovery to become the shared business of his coalition. Cooperative credit, public procurement, and local investment go into one agreement that can be debated and audited, so workers, industry, and crownland delegates all see their stake. The Golden Danube Plan starts with home-country pilots and links to imperial construction; how far it goes depends on whether the coalition keeps paying the price."
+ KRAUS_miklas_economic_program:0 "Economy of Order"
+ KRAUS_miklas_economic_program_desc:0 "Miklas would restore production through honorable credit and clear responsibility. Parish networks, bargaining between employers and workers, and imperial endorsement all back the Golden Danube Plan. Order cannot mean mere obedience; contracts must be honored and localities included. Moving from home-country works to imperial construction, the government must prove the method serves more than Vienna."
+ KRAUS_econ_program_dm_tt: "§YThe economic programme.§!\n\nWhat the government has actually built, and what it intends to keep building.\n\n§G+5% political power, and factory output rising with every completed commitment.§!"
+
+
+ KRAUS_econ_program_dm:0 "Golden Danube: Economic Programme"

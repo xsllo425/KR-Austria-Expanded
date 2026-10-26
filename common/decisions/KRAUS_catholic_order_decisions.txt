@@ -1,0 +1,268 @@
+############################################################
+### 皇权与秩序 · 决议（2026-10-11 第三版）
+### 换算基准：皇权与秩序 10 点 ≈ 40 政治点数 ≈ 2% 稳定度
+### 挣：秩序手段（各有代价）、伦纳的改革背书、哈布斯堡外交（花政治点数，给国家长脸）
+### 花：召集议会、颁发嘉奖、动用储备、驾临王冠领（安抚国策完成后才可用）
+############################################################
+KRAUS_catholic_order_decisions = {
+	KRAUS_order_decree_in_emergency = {
+		icon = GFX_decision_oppression
+		visible = {
+			NOT = { has_country_flag = KRAUS_election2_done }
+			has_country_flag = KRAUS_miklas_line_active
+		}
+		cost = 25
+		days_re_enable = 120
+		complete_effect = {
+			custom_effect_tooltip = KRAUS_ia_gain_8_tt
+					hidden_effect = { add_to_variable = { KRAUS_imperial_authority = 8 } KRAUS_imperial_clamp = yes }
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_order_suppress_press = {
+		icon = GFX_decision_bul_ban_media_zveno
+		visible = {
+			NOT = { has_country_flag = KRAUS_election2_done }
+			has_country_flag = KRAUS_miklas_line_active
+		}
+		available = {
+			has_stability > 0.03
+		}
+		cost = 0
+		days_re_enable = 120
+		complete_effect = {
+			add_stability = -0.03
+			custom_effect_tooltip = KRAUS_ia_gain_15_tt
+					hidden_effect = { add_to_variable = { KRAUS_imperial_authority = 15 } KRAUS_imperial_clamp = yes }
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_order_church_schools = {
+		visible = {
+			NOT = { has_country_flag = KRAUS_election2_done }
+		}
+		icon = GFX_decision_eng_propaganda_campaigns
+		cost = 20
+		days_re_enable = 150
+		complete_effect = {
+			if = {
+			limit = { KRAUS_has_black_monday_trigger = yes }
+			add_days_mission_timeout = { mission = KRAUS_black_monday_progress days = 30 }
+			}
+			custom_effect_tooltip = KRAUS_ia_gain_10_tt
+					hidden_effect = { add_to_variable = { KRAUS_imperial_authority = 10 } KRAUS_imperial_clamp = yes }
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_order_seize_industry = {
+		icon = GFX_decision_generic_factory
+		visible = {
+			NOT = { has_country_flag = KRAUS_election2_done }
+			has_country_flag = KRAUS_miklas_line_active
+		}
+		cost = 0
+		days_re_enable = 180
+		complete_effect = {
+			custom_effect_tooltip = KRAUS_order_cost_factory_tt
+			hidden_effect = {
+			random_owned_controlled_state = {
+				limit = { KRAUS_is_austrian_all = yes industrial_complex > 0 }
+				remove_building = { type = industrial_complex level = 1 }
+			}
+			}
+			custom_effect_tooltip = KRAUS_ia_gain_25_tt
+					hidden_effect = { add_to_variable = { KRAUS_imperial_authority = 25 } KRAUS_imperial_clamp = yes }
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_order_state_of_emergency = {
+		icon = GFX_decision_generic_arrest
+		visible = {
+			NOT = { has_country_flag = KRAUS_election2_done }
+			has_country_flag = KRAUS_miklas_line_active
+		}
+		available = {
+			has_stability > 0.05
+		}
+		cost = 50
+		days_re_enable = 240
+		complete_effect = {
+			add_stability = -0.05
+			if = {
+			limit = { KRAUS_has_black_monday_trigger = yes }
+			add_days_mission_timeout = { mission = KRAUS_black_monday_progress days = 60 }
+			}
+			custom_effect_tooltip = KRAUS_ia_gain_35_tt
+					hidden_effect = { add_to_variable = { KRAUS_imperial_authority = 35 } KRAUS_imperial_clamp = yes }
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_ia_reform_endorsement = {
+		icon = generic_political_discourse
+		visible = {
+			has_country_flag = KRAUS_renner_line_active
+		}
+		cost = 50
+		days_re_enable = 150
+		complete_effect = {
+			custom_effect_tooltip = KRAUS_ia_gain_12_tt
+					hidden_effect = { add_to_variable = { KRAUS_imperial_authority = 12 } KRAUS_imperial_clamp = yes }
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_ia_dipl_powers = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				NOT = { has_socialist_government = yes }
+				NOT = { has_war_with = ROOT }
+			}
+		}
+		targets = { GER RUS ENG FRA CAN NFA }
+		cost = 50
+		fire_only_once = yes
+		complete_effect = {
+			FROM = { add_opinion_modifier = { target = ROOT modifier = KR_pleased } }
+			custom_effect_tooltip = KRAUS_ia_gain_5_tt
+			hidden_effect = { add_to_variable = { KRAUS_imperial_authority = 5 } KRAUS_imperial_clamp = yes }
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_ia_dipl_italy = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				NOT = { has_socialist_government = yes }
+				NOT = { has_war_with = ROOT }
+			}
+		}
+		targets = { SRD PAP SIC SRI }
+		cost = 50
+		fire_only_once = yes
+		complete_effect = {
+			FROM = { add_opinion_modifier = { target = ROOT modifier = KR_pleased } }
+			custom_effect_tooltip = KRAUS_ia_gain_5_tt
+			hidden_effect = { add_to_variable = { KRAUS_imperial_authority = 5 } KRAUS_imperial_clamp = yes }
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_ia_dipl_balkans = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				NOT = { has_socialist_government = yes }
+				NOT = { has_war_with = ROOT }
+			}
+		}
+		targets = { BUL GRE TUR ALB }
+		cost = 50
+		fire_only_once = yes
+		complete_effect = {
+			FROM = { add_opinion_modifier = { target = ROOT modifier = KR_pleased } }
+			custom_effect_tooltip = KRAUS_ia_gain_5_tt
+			hidden_effect = { add_to_variable = { KRAUS_imperial_authority = 5 } KRAUS_imperial_clamp = yes }
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_ia_convoke_diet = {
+		icon = generic_political_discourse
+		visible = {
+			check_variable = { var = KRAUS_ia_use_diet value = 3 compare = less_than }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = KRAUS_ia_need_25_tt
+				check_variable = { KRAUS_imperial_authority > 24 }
+			}
+		}
+		cost = 0
+		days_re_enable = 180
+		complete_effect = {
+			hidden_effect = { add_to_variable = { var = KRAUS_ia_use_diet value = 1 } }
+			custom_effect_tooltip = KRAUS_ia_cost_25_tt
+					hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 25 } KRAUS_imperial_clamp = yes }
+			add_political_power = 60
+			add_stability = 0.04
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_ia_imperial_honours = {
+		icon = generic_political_rally
+		visible = {
+			check_variable = { var = KRAUS_ia_use_honours value = 3 compare = less_than }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = KRAUS_ia_need_15_tt
+				check_variable = { KRAUS_imperial_authority > 14 }
+			}
+		}
+		cost = 0
+		days_re_enable = 90
+		complete_effect = {
+			hidden_effect = { add_to_variable = { var = KRAUS_ia_use_honours value = 1 } }
+			custom_effect_tooltip = KRAUS_ia_cost_15_tt
+					hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 15 } KRAUS_imperial_clamp = yes }
+			add_war_support = 0.03
+			army_experience = 25
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_ia_royal_reserves = {
+		icon = GFX_decision_cash_flow
+		visible = {
+			check_variable = { var = KRAUS_ia_use_reserves value = 3 compare = less_than }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = KRAUS_ia_need_50_tt
+				check_variable = { KRAUS_imperial_authority > 49 }
+			}
+		}
+		cost = 0
+		days_re_enable = 730
+		complete_effect = {
+			hidden_effect = { add_to_variable = { var = KRAUS_ia_use_reserves value = 1 } }
+			custom_effect_tooltip = KRAUS_ia_cost_50_tt
+					hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 50 } KRAUS_imperial_clamp = yes }
+			add_political_power = 200
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_ia_visit_prague = {
+		icon = eng_blackshirt_march
+		visible = {
+			has_completed_focus = KRAUS_soothe_czech
+			NOT = { has_country_flag = KRAUS_ia_visit_prague_done }
+			NOT = { has_country_flag = KRAUS_dc_resolved_flag }
+			country_exists = CZE
+			CZE = { OR = { is_subject_of = ROOT has_country_flag = KRAUS_dc_released } }
+		}
+		available = {
+			NOT = { has_country_flag = KRAUS_dc_war_started }
+			custom_trigger_tooltip = {
+				tooltip = KRAUS_ia_need_20_tt
+				check_variable = { KRAUS_imperial_authority > 19 }
+			}
+		}
+		cost = 0
+		complete_effect = {
+			custom_effect_tooltip = KRAUS_ia_cost_20_tt
+					hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 20 } KRAUS_imperial_clamp = yes }
+			CZE = {
+			add_stability = 0.05
+			add_opinion_modifier = { target = ROOT modifier = KR_pleased }
+			}
+			set_country_flag = KRAUS_dc_won_CZE
+			set_country_flag = KRAUS_ia_visit_prague_done
+			custom_effect_tooltip = KRAUS_dc_won_CZE_tt
+		}
+		ai_will_do = { factor = 0 }
+	}
+}

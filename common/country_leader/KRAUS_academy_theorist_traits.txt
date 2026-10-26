@@ -1,0 +1,12 @@
+leader_traits = {
+	# 参考两广「黄埔军校」学院精神的经验增速，作为理论家特质
+	KRAUS_academy_theorist = {
+		random = no
+		sprite = 8
+		land_doctrine_cost_factor = -0.1
+		trait_infantry_leader_xp_gain_factor = 0.15
+		trait_commando_xp_gain_factor = 0.15
+		trait_trickster_xp_gain_factor = 0.15
+		ai_will_do = { factor = 10 }
+	}
+}

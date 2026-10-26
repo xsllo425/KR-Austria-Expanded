@@ -1,0 +1,22 @@
+ideas = {
+	country = {
+		KRAUS_promise_common_defence = {
+			picture = KRAUS_joint_mil
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				army_org_factor = 0.03
+			}
+		}
+		KRAUS_promise_privileges = {
+			picture = KRAUS_joint_econ
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_gain = 0.1
+			}
+		}
+	}
+}

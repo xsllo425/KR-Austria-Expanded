@@ -1,0 +1,51 @@
+# 2026-10-24 小单 J2，国家作用域：执政党变更后刷新国策树布局。
+# mark_focus_tree_layout_dirty 由 h4q syn 核为真实 effect（全库 815 处；MOD 内先例
+# KRAUS_startup_events.txt:25）。KR/VAN 只在换党、和约、选举等节点调用，不在每日无条件调用。
+#
+# 为什么要做：四党要价列用 allow_branch = { has_government = X }，切换执政党后引擎不会自动
+# 重排国策树，新党的两条要价国策会留在旧布局里不可点，需要标记布局脏，让引擎重建。
+#
+# 为什么不能每天无条件刷：mark_focus_tree_layout_dirty 会重建整棵树形，每日调用会掉帧。
+# 故只在"上次记录的党派编码与当前不同"时刷一次（含开局第一次，无副作用）。
+# KRAUS_mult_gov_last 用国家变量长期保存，脚本效果作用域已是国家，无需事件传递。
+KRAUS_mult_gov_recalc = {
+	if = {
+		limit = { has_government = social_democrat }
+		if = {
+			limit = { NOT = { check_variable = { KRAUS_mult_gov_last = 1 } } }
+			set_variable = { KRAUS_mult_gov_last = 1 }
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+	else_if = {
+		limit = { has_government = social_liberal }
+		if = {
+			limit = { NOT = { check_variable = { KRAUS_mult_gov_last = 2 } } }
+			set_variable = { KRAUS_mult_gov_last = 2 }
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+	else_if = {
+		limit = { has_government = market_liberal }
+		if = {
+			limit = { NOT = { check_variable = { KRAUS_mult_gov_last = 3 } } }
+			set_variable = { KRAUS_mult_gov_last = 3 }
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+	else_if = {
+		limit = { has_government = social_conservative }
+		if = {
+			limit = { NOT = { check_variable = { KRAUS_mult_gov_last = 4 } } }
+			set_variable = { KRAUS_mult_gov_last = 4 }
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+	else = {
+		if = {
+			limit = { NOT = { check_variable = { KRAUS_mult_gov_last = 0 } } }
+			set_variable = { KRAUS_mult_gov_last = 0 }
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+}

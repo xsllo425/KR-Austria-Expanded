@@ -1,0 +1,128 @@
+### 0.9 反馈9：斯洛伐克王冠领国策树（精简版）：路径根 + 忠诚与自主两条分支（不互斥），另挂共同经济树、共同军事树。
+focus_tree = {
+	id = KRAUS_SLO_focus
+	country = {
+		factor = 0
+		modifier = { add = 100 original_tag = SLO }
+	}
+	default = no
+	continuous_focus_position = { x = 50 y = 1200 }
+	shared_focus = AUS_eco_council
+	shared_focus = AUS_military_expansion
+
+	focus = {
+		id = KRAUS_SLO_path
+		icon = GFX_goal_generic_national_unity
+		x = 6
+		y = 0
+		cost = 3
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_SLO_path"
+			add_political_power = 150
+		}
+		ai_will_do = { base = 12 }
+	}
+	focus = {
+		id = KRAUS_SLO_loyal_1
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = KRAUS_SLO_path }
+		relative_position_id = KRAUS_SLO_path
+		x = -3
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_SLO_loyal_1"
+			KRAUS_cl_toward_loyal = yes
+			add_political_power = 150
+			custom_effect_tooltip = KRAUS_cl_loyal_step_tt
+		}
+		ai_will_do = { base = 10 }
+	}
+	focus = {
+		id = KRAUS_SLO_loyal_2
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = KRAUS_SLO_loyal_1 }
+		relative_position_id = KRAUS_SLO_loyal_1
+		x = 0
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_SLO_loyal_2"
+			KRAUS_cl_toward_loyal = yes
+			add_political_power = 150
+			custom_effect_tooltip = KRAUS_cl_loyal_step_tt
+		}
+		ai_will_do = { base = 10 }
+	}
+	focus = {
+		id = KRAUS_SLO_loyal_3
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = KRAUS_SLO_loyal_2 }
+		relative_position_id = KRAUS_SLO_loyal_2
+		x = 0
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_SLO_loyal_3"
+			KRAUS_cl_toward_loyal = yes
+			add_political_power = 150
+			custom_effect_tooltip = KRAUS_cl_loyal_step_tt
+		}
+		ai_will_do = { base = 10 }
+	}
+	focus = {
+		id = KRAUS_SLO_auto_1
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = KRAUS_SLO_path }
+		relative_position_id = KRAUS_SLO_path
+		x = 3
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_SLO_auto_1"
+			KRAUS_cl_toward_autonomy = yes
+			add_political_power = 150
+			custom_effect_tooltip = KRAUS_cl_auto_step_tt
+		}
+		ai_will_do = { base = 10 }
+	}
+	focus = {
+		id = KRAUS_SLO_auto_2
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = KRAUS_SLO_auto_1 }
+		relative_position_id = KRAUS_SLO_auto_1
+		x = 0
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_SLO_auto_2"
+			KRAUS_cl_toward_autonomy = yes
+			add_political_power = 150
+			custom_effect_tooltip = KRAUS_cl_auto_step_tt
+		}
+		ai_will_do = { base = 10 }
+	}
+	focus = {
+		id = KRAUS_SLO_auto_3
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = KRAUS_SLO_auto_2 }
+		relative_position_id = KRAUS_SLO_auto_2
+		x = 0
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_SLO_auto_3"
+			KRAUS_cl_toward_autonomy = yes
+			add_political_power = 150
+			custom_effect_tooltip = KRAUS_cl_auto_step_tt
+		}
+		ai_will_do = { base = 10 }
+	}
+}

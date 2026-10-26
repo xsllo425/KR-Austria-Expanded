@@ -1,0 +1,25 @@
+############################################################
+### 合众国路线第 6 批：统一式合众国的一次性决议「平息王领」（2026-10-13）
+### 第三次不满事件之后出现；只有它能去掉减益 KRAUS_usga_unrest。
+############################################################
+KRAUS_route_category = {
+	KRAUS_usga_pacify = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_country_flag = KRAUS_usga_unrest_open
+			NOT = { has_country_flag = KRAUS_usga_unrest_done }
+		}
+		cost = 150
+		complete_effect = {
+			log = "[GetLogRoot]: Decision complete KRAUS_usga_pacify"
+			remove_ideas = KRAUS_usga_unrest
+			set_country_flag = KRAUS_usga_unrest_done
+			clr_country_flag = KRAUS_usga_unrest_open
+			add_stability = 0.03
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+}

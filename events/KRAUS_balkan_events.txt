@@ -1,0 +1,390 @@
+add_namespace = KRAUS_balkan_events
+
+country_event = {
+	id = KRAUS_balkan_events.1
+	title = KRAUS_balkan_events.1.t
+	desc = KRAUS_balkan_events.1.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.1.a
+		add_political_power = 20
+		custom_effect_tooltip = KRAUS_balkan_events.1.a_tt
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_balkan_events.30
+	title = KRAUS_balkan_events.30.t
+	desc = KRAUS_balkan_events.30.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.30.a
+		add_political_power = 20
+		reverse_add_opinion_modifier = {
+			target = FROM
+			modifier = KR_pleased
+		}
+		ai_chance = { base = 100 }
+	}
+
+	option = {
+		name = KRAUS_balkan_events.30.b
+		add_political_power = -10
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+country_event = {
+	id = KRAUS_balkan_events.11
+	title = KRAUS_balkan_events.11.t
+	desc = KRAUS_balkan_events.11.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.11.a
+		add_political_power = 15
+		if = {
+			limit = {
+				country_exists = BUL
+			}
+			BUL = {
+				reverse_add_opinion_modifier = {
+					target = ROOT
+					modifier = KR_pleased
+				}
+			}
+		}
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_balkan_events.12
+	title = KRAUS_balkan_events.12.t
+	desc = KRAUS_balkan_events.12.d
+	picture = GFX_report_event_generic_towar
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.12.a
+		add_war_support = 0.03
+		custom_effect_tooltip = KRAUS_balkan_isolated_tt
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_balkan_events.40
+	title = KRAUS_balkan_events.40.t
+	desc = KRAUS_balkan_events.40.d
+	picture = GFX_report_event_KRAUS_balkan_events_40
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.40.a
+		add_stability = 0.02
+		custom_effect_tooltip = KRAUS_balkan_war_ended_tt
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_balkan_events.31
+	title = KRAUS_balkan_events.31.t
+	desc = KRAUS_balkan_events.31.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.31.a
+		reverse_add_opinion_modifier = {
+			target = AUS
+			modifier = KR_pleased
+		}
+		ai_chance = {
+			base = 75
+		}
+	}
+
+	option = {
+		name = KRAUS_balkan_events.31.b
+		add_political_power = -5
+		ai_chance = {
+			base = 25
+		}
+	}
+}
+
+country_event = {
+	id = KRAUS_balkan_events.21
+	title = KRAUS_balkan_events.21.t
+	desc = KRAUS_balkan_events.21.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.21.a
+		add_political_power = 25
+		custom_effect_tooltip = KRAUS_balkan_let_them_tt
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_balkan_events.20
+	title = KRAUS_balkan_events.20.t
+	desc = KRAUS_balkan_events.20.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.20.a
+		add_stability = 0.03
+		add_political_power = 30
+		custom_effect_tooltip = KRAUS_balkan_abstaining_tt
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_balkan_events.10
+	title = KRAUS_balkan_events.10.t
+	desc = KRAUS_balkan_events.10.d
+	picture = GFX_report_event_generic_army_marching
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.10.a
+		add_war_support = 0.02
+		custom_effect_tooltip = KRAUS_volunteer_act_tt
+		ai_chance = { base = 100 }
+	}
+}
+
+# ============================================================
+# 撤走奥地利资产 —— 选择由谁承担
+#   选项 a：让保加利亚出政治点，分它一个民工厂
+#   选项 b：奥地利自己承担，两个民工厂都归自己
+# ============================================================
+country_event = {
+	id = KRAUS_balkan_events.50
+	title = KRAUS_balkan_events.50.t
+	desc = KRAUS_balkan_events.50.d
+	picture = GFX_report_event_generic_cabinet_meeting
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.50.a
+		log = "[GetLogInfo]: event KRAUS_balkan_events.50 option a"
+		ai_chance = { base = 50 }
+		# 与保加利亚分摊：它出 50 政治点，换走 1 座；帝国留下 1 座。
+		# 保加利亚拿不出政治点、或已经不存在时，两座都归帝国（走 else）。
+		if = {
+			limit = {
+				country_exists = BUL
+				BUL = { has_political_power > 49 }
+			}
+			BUL = {
+				add_political_power = -50
+				add_one_random_civilian_factory = yes
+			}
+			add_one_random_civilian_factory = yes
+		}
+		else = {
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
+		}
+	}
+
+	option = {
+		name = KRAUS_balkan_events.50.b
+		log = "[GetLogInfo]: event KRAUS_balkan_events.50 option b"
+		ai_chance = { base = 50 }
+		# 帝国独吞：两座民工厂全部归自己。
+		# 代价是保加利亚什么也没拿到 —— 关系会变差（见下方好感修正）。
+		add_one_random_civilian_factory = yes
+		add_one_random_civilian_factory = yes
+		if = {
+			limit = { country_exists = BUL }
+			BUL = {
+				reverse_add_opinion_modifier = {
+					target = ROOT
+					modifier = KR_displeased
+				}
+			}
+		}
+	}
+}
+
+# ============================================================
+# 多瑙河的繁荣 —— 巴尔干战事平息后的和平红利
+#   给 2 年「多瑙河的繁荣」；一旦开战立即消失（idea 的 cancel 负责）
+# ============================================================
+country_event = {
+	id = KRAUS_balkan_events.41
+	title = KRAUS_balkan_events.41.t
+	desc = KRAUS_balkan_events.41.d
+	picture = GFX_report_event_generic_diplomacy3
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.41.a
+		log = "[GetLogInfo]: event KRAUS_balkan_events.41 option a"
+		ai_chance = { base = 100 }
+		# 为期 730 日（2 年）的和平红利 —— 开战即消失
+		add_timed_idea = {
+			idea = KRAUS_eco_recovered
+			days = 730
+		}
+	}
+}
+
+# 2026-10-11: Bulgaria lost the Balkan war (fired by KRAUS_balkan_war_ended)
+country_event = {
+	id = KRAUS_balkan_events.42
+	title = KRAUS_balkan_events.42.t
+	desc = KRAUS_balkan_events.42.d
+	picture = GFX_report_event_generic_diplomacy3
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_balkan_events.42.a
+	}
+}
+
+### 志愿军法的期限到了（0.9 实测）
+country_event = {
+	id = KRAUS_balkan_events.60
+	title = KRAUS_balkan_events.60.t
+	desc = KRAUS_balkan_events.60.d
+	picture = GFX_report_event_generic_army
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_balkan_events.60.a
+		log = "[GetLogInfo]: event KRAUS_balkan_events.60 option KRAUS_balkan_events.60.a"
+		custom_effect_tooltip = KRAUS_balkan_events_60_tt
+	}
+}
+
+# ============================================================
+# 巴尔干战争爆发：选定路线（0.9 实测 5）
+#   干涉：之后点干涉路线的国策追加政治点数
+#   观望：之后点不干涉路线的国策追加政治点数
+# ============================================================
+country_event = {
+	id = KRAUS_balkan_events.70
+	title = KRAUS_balkan_events.70.t
+	desc = KRAUS_balkan_events.70.d
+	picture = GFX_report_event_KRAUS_balkan_events_70
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.70.a
+		set_country_flag = KRAUS_balkan_choice_intervene
+		custom_effect_tooltip = KRAUS_balkan_events.70.a_tt
+		ai_chance = { base = 40 }
+	}
+
+	option = {
+		name = KRAUS_balkan_events.70.b
+		set_country_flag = KRAUS_balkan_choice_abstain
+		custom_effect_tooltip = KRAUS_balkan_events.70.b_tt
+		ai_chance = { base = 60 }
+	}
+}
+
+# ============================================================
+# 0.9 V2：「扫清黑手」「再无穿刺公」——塞尔维亚与罗马尼亚被要求屈服
+# ============================================================
+country_event = {
+	id = KRAUS_balkan_events.80
+	title = KRAUS_balkan_events.80.t
+	desc = KRAUS_balkan_events.80.d
+	picture = GFX_report_event_KRAUS_balkan_events_70
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.80.a
+		FROM = { puppet = ROOT }
+		ai_chance = { base = 100 }
+	}
+	option = {
+		name = KRAUS_balkan_events.80.b
+		FROM = { create_wargoal = { type = annex_everything target = ROOT } }
+		ai_chance = { base = 0 }
+	}
+}
+
+country_event = {
+	id = KRAUS_balkan_events.81
+	title = KRAUS_balkan_events.81.t
+	desc = KRAUS_balkan_events.81.d
+	picture = GFX_report_event_KRAUS_balkan_events_70
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.81.a
+		FROM = { puppet = ROOT }
+		ai_chance = { base = 100 }
+	}
+	option = {
+		name = KRAUS_balkan_events.81.b
+		FROM = { create_wargoal = { type = annex_everything target = ROOT } }
+		ai_chance = { base = 0 }
+	}
+}
+
+# 塞尔维亚与罗马尼亚都成为傀儡之后：战略资源与军工民工的分成
+country_event = {
+	id = KRAUS_balkan_events.82
+	title = KRAUS_balkan_events.82.t
+	desc = KRAUS_balkan_events.82.d
+	picture = GFX_report_event_KRAUS_balkan_events_70
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_balkan_events.82.a
+		KRAUS_blackhand_apply = yes
+		ai_chance = { base = 100 }
+	}
+	option = {
+		name = KRAUS_balkan_events.82.b
+		trigger = {
+			KRAUS_bul_won_balkan_war = yes
+			country_exists = BUL
+			NOT = { is_in_faction_with = BUL }
+			has_completed_focus = KRAUS_balkan_volunteer_act
+		}
+		KRAUS_blackhand_apply = yes
+		custom_effect_tooltip = KRAUS_balkan_events.82.b_tt
+		hidden_effect = {
+			SER = { every_owned_state = { owner = { give_resource_rights = { receiver = BUL state = PREV } } } }
+			ROM = { every_owned_state = { owner = { give_resource_rights = { receiver = BUL state = PREV } } } }
+			add_to_faction = BUL
+		}
+		ai_chance = { base = 0 }
+	}
+}

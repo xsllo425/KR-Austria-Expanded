@@ -1,0 +1,94 @@
+﻿l_english:
+ # ===== KRAUS Black Monday read-bar (2026-09-21) =====
+ KRAUS_black_monday: "Black Monday"
+ KRAUS_black_monday_progress: "Reorganise the Imperial Economy"
+ KRAUS_black_monday_progress_desc: "The Black Monday crisis will not resolve itself. Each stage runs §Y110§! days. If the stage's conditions are met and §Y90§! days have passed, it settles at once and the crisis eases a stage early; otherwise it runs the full 110 days and the crisis deepens by a stage."
+
+ # --- condition tooltips (shown on the decision) ---
+ KRAUS_bm_cond_factories_tt: "The domestic industrial base has recovered"
+ KRAUS_bm_cond_stability_tt: "State stability has returned to a safe level"
+ KRAUS_bm_cond_german_line_tt: "The German-Austrian economic line is established"
+ KRAUS_bm_cond_balkan_line_tt: "The Balkan line is settled"
+ KRAUS_bm_cond_political_line_tt: "The political line is settled"
+ KRAUS_bm_cond_accord_tt: "At least one crownland agreement is signed"
+ KRAUS_bm_cond_accelerator_tt: "A focus of the Imperial Economic Council has been completed"
+
+ # --- accelerator focuses ---
+ KRAUS_bm_accelerator_1:0 "Agricultural Credit Bank"
+ KRAUS_bm_accelerator_1_desc:0 "With rural credit dried up, the government founds an agricultural credit body in which local cooperatives share guarantees and review, lending small sums to smallholders. It must link savers to producers and resist big clients' claims to priority. Its reliability rests on open books and local oversight; serving only a few would drain rural trust fast."
+ KRAUS_bm_accelerator_2:0 "Priority Industrial Orders"
+ KRAUS_bm_accelerator_2_desc:0 "The government steadies output with a set of priority industrial orders: locomotives, building materials, and machinery, contracted to keep workers employed and deliver on deadline. Orders restart factories and strain the treasury. Which plants receive contracts first shapes ties to industry and regions. Procurement buys stability, but not every order will be met on time."
+ KRAUS_bm_accelerator_3:0 "Imperial Customs Union"
+ KRAUS_bm_accelerator_3_desc:0 "Vienna needs orders delivered to crownland factories, while local food and raw materials need dependable markets. Renner brings trade procedures, transport charges and procurement arrangements to the negotiating table, seeking common rules for their administration. Industrialists welcome broader markets but will not readily surrender their privileges. Connecting these interests through agreements that can be honoured will provide the foundation for imperial economic coordination."
+ KRAUS_bm_accelerator_4:0 "Imperial Economic Committee"
+ KRAUS_bm_accelerator_4_desc:0 "The government creates a standing body linking political bargaining to economic execution: coordinating credit, orders, works, and regional demands so recovery has a central place to be handled. The committee is no new supreme power but draws existing ministries and delegates onto one agenda. Whether the crisis is met actively turns on whether obligations are actually honored."
+
+ # --- events ---
+ KRAUS_black_monday_events.1.t:0 "Progress Against the Crisis"
+ KRAUS_black_monday_events.1.d:0 "Preparations for this recovery cycle have met their requirements. Credit, employment and local coordination are beginning to improve.\n\nThe depression has not yet eased. Only if recovery conditions still hold at the end of the cycle will these preparations reduce the national crisis and the economic burden on the states."
+ KRAUS_black_monday_events.1.a:0 "Sustain the measures."
+ KRAUS_black_monday_events.2.t: "The Crisis Deepens"
+ KRAUS_black_monday_events.2.d: "The window has closed. Another layer of the Black Monday crisis settles over the Empire, and what little progress had been made is undone.\n\nThe men in the corridors of power are beginning to whisper that the present arrangement is not equal to the task."
+ KRAUS_black_monday_events.2.a: "We have lost ground."
+ KRAUS_black_monday_events.10.t: "Black Monday Is Over"
+ KRAUS_black_monday_events.10.d: "The last layer of the crisis has lifted. Factories turn again, the banks have steadied, and the Empire has come through the worst economic storm in its history.\n\nWhat was nearly the death of the Empire has become proof that it can be governed."
+ KRAUS_black_monday_events.10.a: "The Empire endures."
+ KRAUS_black_monday_events.20.t: "The Economy in Free Fall"
+ KRAUS_black_monday_events.20.d: "The crisis could not be contained. With every avenue exhausted, the Empire's finances are now beyond ordinary repair — and those who promised a way out are being blamed for the way in.\n\nThe shadows are growing longer."
+ KRAUS_black_monday_events.20.a: "God help us."
+
+ # --- dynamic modifier (continuous political-line values) ---
+
+ KRAUS_black_monday_events.4.t:0 "Economic Recovery Takes Hold"
+
+ KRAUS_black_monday_events.4.d:0 "This recovery cycle has been settled. The Black Monday crisis has eased by one stage, and the economic burden on the states has been adjusted accordingly.\n\nRecovery remains unfinished, but this improvement is now more than a promise in a preparation report."
+
+ KRAUS_black_monday_events.4.a:0 "Continue the recovery."
+
+ # ===== 2026-10-23 Black Monday deadline race =====
+
+ # --- the 6 focuses no longer shorten the timer ---
+
+ # --- deadline settlement event .30 ---
+ KRAUS_black_monday_events.30.t: "The Bill Comes Due"
+ KRAUS_black_monday_events.30.d: "The Danube negotiations have opened and the Empire's deadline has arrived. Black Monday still sits on Vienna — the factories are not all running, the banks are not all steady. Now the men who kept asking \"how much longer\" want an answer.\n\nThe Treasury offers two roads: accept the bill, or squeeze one more large sum out of an already strained political purse to buy time."
+ KRAUS_black_monday_events.30.d_poor: "The Danube negotiations have opened and the Empire's deadline has arrived. Black Monday still sits on Vienna — the factories are not all running, the banks are not all steady. Now the men who kept asking \"how much longer\" want an answer.\n\nThe Treasury could have bought the time back with a large sum of political power - 150 points of it - but there is not enough left to draw on. Only one road remains: accept the bill."
+ KRAUS_black_monday_events.30.a: "Accept the bill."
+ KRAUS_black_monday_events.30.b: "Pay the points and buy the time."
+ KRAUS_bm30_need_pp_tt: "§ROne-off payment of §Y150§! political power: the overdue penalty is waived (no drag spirit, no stability loss, no harsher crisis), and Black Monday keeps receding as before.§!\n§YThe cost: for a while, you will not have those points for anything else.§!"
+ KRAUS_bm30_penalty_tt: "§RThe deadline is missed and the bill is settled on the spot:§!\n§Y• Economic drag spirit (365 days): industry, consumer goods, stability and political power all suffer§!\n§Y• If Black Monday was still on its heaviest stage when the deadline arrived AND it has not been cleared by the time you accept the bill: if we are currently at war with Hungary, Hungary receives “Digging In” (365 days), 8,000 infantry equipment and 400 support equipment; otherwise, if we are at war with Croatia, Croatia receives the same reinforcement; if we are at war with neither, we receive “The Empire Adrift in Crisis” instead (365 days), with no extra copy of that spirit applied during either war§!\n§Y• Stability −8%, one-off −100 political power§!\n§Y• Imperial authority falls§!\n§Y• If Black Monday has already receded by now, only the one-off bill is paid and no drag spirit is applied§!"
+
+ # --- event .31 caught up ---
+ KRAUS_black_monday_events.31.t: "Ahead of the Crisis"
+ KRAUS_black_monday_events.31.d: "Word of the Danube has reached Vienna — but this time the Empire comes to the table with something in hand. Black Monday receded before the deadline arrived: the factories are turning, the books balance, and people have started talking about tomorrow again.\n\nWhen the diplomats walk in, they do not walk in behind a country that is sinking."
+ KRAUS_black_monday_events.31.a: "We made it."
+ KRAUS_bm31_relief_tt: "§GBlack Monday receded before the crisis broke:§!\n§Y• \"Breathing Room\" spirit (365 days): stability, political power and industrial output recover slightly§!\n§Y• Political legitimacy rises§!"
+
+ # --- event .32 negotiation opener reminder ---
+ KRAUS_black_monday_events.32.t: "Little Time Left for the Economy"
+ KRAUS_black_monday_events.32.d: "The crownland delegates have arrived in Vienna. The Empire's attention will soon be fixed entirely on the negotiating table — and Black Monday has not fully receded.\n\nThere is not much time left for the economic recovery. The bill falls due when the negotiations end - or when the guns come out."
+ KRAUS_black_monday_events.32.a: "Hurry what can be hurried."
+
+ # --- the three deadline spirits ---
+ KRAUS_bm_overdue: "The Slump Will Not Lift"
+ KRAUS_bm_overdue_desc: "The Danube deadline has come and Black Monday has not receded. Factory output, confidence in the streets and the Treasury's receipts are all paying interest on the delay. The account can only be cleared once the crisis is genuinely resolved."
+ KRAUS_bm_overdue_severe: "The Empire Adrift in Crisis"
+ KRAUS_bm_overdue_severe_desc: "When the crisis broke, the Empire had not even escaped the heaviest layer of economic collapse. Vienna's weight at the negotiating table and its grip at home have both been weakened together."
+ KRAUS_dc_hun_hardline:0 "Digging In"
+ KRAUS_dc_hun_hardline_desc:0 "Fresh weapons and a hardened resolve strengthen the army's attack, defence, organisation and planning speed in the Danube war."
+ KRAUS_bm_relief: "Through Before the Storm"
+ KRAUS_bm_relief_desc: "Black Monday had already receded before the Danube crisis broke. The Empire walks into the negotiations with a still-working economy behind it — and that standing was earned in the past months."
+
+ # --- new country flags (tooltips) ---
+ KRAUS_bm_layer_start:0 "This cycle's timer has started"
+ KRAUS_bm_layer_start_NOT:0 "This cycle's timer has not started"
+ KRAUS_bm_deadline_settled:0 "The deadline has been settled"
+ KRAUS_bm_deadline_settled_NOT:0 "The deadline has not been settled"
+ KRAUS_bm_deadline_reminded:0 "The negotiation reminder has been shown"
+ KRAUS_bm_deadline_reminded_NOT:0 "The negotiation reminder has not been shown"
+
+ # --- 期限系统其余旗标（条件提示会显示，故一并补 _NOT）---
+ KRAUS_bm_dc320_reached:0 "The Danube negotiations have reached their closing event"
+ KRAUS_bm_dc320_reached_NOT:0 "The Danube negotiations have not reached their closing event"
+ KRAUS_bm_worst_snapshot:0 "Black Monday was at its heaviest stage when the deadline arrived"
+ KRAUS_bm_worst_snapshot_NOT:0 "Black Monday was not at its heaviest stage when the deadline arrived"

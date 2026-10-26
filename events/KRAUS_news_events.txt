@@ -1,0 +1,172 @@
+add_namespace = KRAUS_news_events
+
+news_event = {
+	id = KRAUS_news_events.1
+	title = KRAUS_news_events.1.t
+	desc = KRAUS_news_events.1.d
+	picture = GFX_news_event_KRAUS_news_events_1
+
+	trigger = { wants_world_news = yes }
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = KRAUS_news_events.1.a
+		if = {
+			limit = { original_tag = AUS }
+			add_political_power = 5
+		}
+	}
+}
+
+news_event = {
+	id = KRAUS_news_events.2
+	title = KRAUS_news_events.2.t
+	desc = KRAUS_news_events.2.d
+	picture = GFX_news_event_KRAUS_news_events_2
+
+	trigger = { wants_world_news = yes }
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = KRAUS_news_events.2.a
+		if = {
+			limit = { original_tag = AUS }
+			add_political_power = 5
+		}
+	}
+}
+
+news_event = {
+	id = KRAUS_news_events.3
+	title = KRAUS_news_events.3.t
+	desc = KRAUS_news_events.3.d
+	picture = GFX_news_event_KRAUS_news_events_3
+
+	trigger = { wants_world_news = yes }
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = KRAUS_news_events.3.a
+		if = {
+			limit = { original_tag = AUS }
+			add_political_power = 5
+		}
+	}
+}
+
+news_event = {
+	id = KRAUS_news_events.4
+	title = KRAUS_news_events.4.t
+	desc = KRAUS_news_events.4.d
+	picture = GFX_news_event_KRAUS_news_events_4
+
+	trigger = { wants_world_news = yes }
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = KRAUS_news_events.4.a
+		if = {
+			limit = { original_tag = AUS }
+			add_political_power = 5
+		}
+	}
+}
+
+news_event = {
+	id = KRAUS_news_events.5
+	title = KRAUS_news_events.5.t
+	desc = KRAUS_news_events.5.d
+	picture = GFX_news_event_KRAUS_news_events_5
+
+	trigger = { wants_world_news = yes }
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = KRAUS_news_events.5.a
+		if = {
+			limit = { original_tag = AUS }
+			add_political_power = 5
+		}
+	}
+}
+
+news_event = {
+	id = KRAUS_news_events.6
+	title = KRAUS_news_events.6.t
+	desc = KRAUS_news_events.6.d
+	picture = GFX_news_event_KRAUS_news_events_6
+
+	trigger = { wants_world_news = yes }
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = KRAUS_news_events.6.a
+		if = {
+			limit = { original_tag = AUS }
+			add_political_power = 5
+		}
+	}
+}
+
+news_event = {
+	id = KRAUS_news_events.7
+	title = KRAUS_news_events.7.t
+	desc = KRAUS_news_events.7.d
+	picture = GFX_news_event_KRAUS_news_events_7
+
+	trigger = { wants_world_news = yes }
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = KRAUS_news_events.7.a
+		if = {
+			limit = { original_tag = AUS }
+			add_political_power = 5
+		}
+	}
+}
+
+news_event = {
+	id = KRAUS_news_events.8
+	title = KRAUS_news_events.8.t
+	desc = KRAUS_news_events.8.d
+	picture = GFX_news_event_KRAUS_news_events_8
+
+	trigger = { wants_world_news = yes }
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = KRAUS_news_events.8.a
+		if = {
+			limit = { original_tag = AUS }
+			add_political_power = 5
+		}
+	}
+}
+
+news_event = {
+	id = KRAUS_news_events.9
+	title = KRAUS_news_events.9.t
+	desc = KRAUS_news_events.9.d
+	picture = GFX_news_event_KRAUS_news_events_9
+
+	trigger = { wants_world_news = yes }
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = KRAUS_news_events.9.a
+		if = {
+			limit = { original_tag = AUS }
+			add_political_power = 5
+		}
+	}
+}

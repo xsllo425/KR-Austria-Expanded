@@ -1,0 +1,69 @@
+add_namespace = KRAUS_integ_events
+
+# 整合红利：每个被整合的王领一个事件，由各自的 180 天循环任务触发
+country_event = {
+	id = KRAUS_integ_events.1
+	title = KRAUS_integ_events.1.t
+	desc = KRAUS_integ_events.1.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_integ_events.1.a
+		KRAUS_div_settle_CZE = yes
+	}
+}
+country_event = {
+	id = KRAUS_integ_events.2
+	title = KRAUS_integ_events.2.t
+	desc = KRAUS_integ_events.2.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_integ_events.2.a
+		KRAUS_div_settle_GAL = yes
+	}
+}
+country_event = {
+	id = KRAUS_integ_events.3
+	title = KRAUS_integ_events.3.t
+	desc = KRAUS_integ_events.3.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_integ_events.3.a
+		KRAUS_div_settle_CRO = yes
+	}
+}
+country_event = {
+	id = KRAUS_integ_events.4
+	title = KRAUS_integ_events.4.t
+	desc = KRAUS_integ_events.4.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_integ_events.4.a
+		KRAUS_div_settle_HUN = yes
+	}
+}
+country_event = {
+	id = KRAUS_integ_events.5
+	title = KRAUS_integ_events.5.t
+	desc = KRAUS_integ_events.5.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_integ_events.5.a
+		KRAUS_div_settle_SLO = yes
+	}
+}
+country_event = {
+	id = KRAUS_integ_events.6
+	title = KRAUS_integ_events.6.t
+	desc = KRAUS_integ_events.6.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_integ_events.6.a
+		KRAUS_div_settle_TRS = yes
+	}
+}

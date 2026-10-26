@@ -1,0 +1,39 @@
+############################################################
+### 王冠领国策树的小精神（2026-10-12）
+############################################################
+ideas = {
+	country = {
+		KRAUS_CZE_war_school = {
+			picture = KRAUS_CZE_war_school
+			allowed = { original_tag = CZE }
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.09
+			}
+		}
+		KRAUS_CZE_kohout_manual = {
+			picture = KRAUS_CZE_kohout_manual
+			allowed = { original_tag = CZE }
+			removal_cost = -1
+			modifier = {
+				training_time_factor = -0.15
+			}
+		}
+		KRAUS_CRO_mountain_training = {
+			picture = KRAUS_CRO_mountain_training
+			allowed = { original_tag = CRO }
+			removal_cost = -1
+			modifier = {
+				army_defence_factor = 0.09
+			}
+		}
+		KRAUS_GAL_legion_tradition = {
+			picture = KRAUS_GAL_legion_tradition
+			allowed = { original_tag = GAL }
+			removal_cost = -1
+			modifier = {
+				conscription_factor = 0.06
+			}
+		}
+	}
+}

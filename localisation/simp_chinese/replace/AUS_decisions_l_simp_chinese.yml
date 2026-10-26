@@ -1,0 +1,42 @@
+﻿l_simp_chinese:
+ KRAUS_industrial: "帝国工业计划"
+ KRAUS_industrial_desc: "黑色星期一之后，帝国的机器有一半停了。\n\n斯柯达的闲置产能、阿尔卑斯的矿场、多瑙河畔的码头——它们不缺工人，缺的是订单和资本。维也纳的银行不敢放贷，帝国的市场太小，资金太贵。\n\n要撑过下一场危机，就必须让这些机器重新转起来。这不是补贴，是投资：每一座新建的厂房、每一条修复的铁路、每一口重开的矿井，都是在为帝国换取喘息的时间。\n\n§Y工业不是目的。工业是让我们在下一次有人敲门时，还握有选择权的东西。§!"
+ KRAUS_dec_mittelland_canal: "[FROM.GetName]：扩建多瑙河航运"
+ KRAUS_dec_semmering_railway: "[FROM.GetName]：塞默灵铁路电气化"
+ KRAUS_dec_alpine_dams: "[FROM.GetName]：阿尔卑斯水电站群"
+ KRAUS_dec_danube_power: "[FROM.GetName]：多瑙河水电站"
+ KRAUS_dec_alpine_montan: "[FROM.GetName]：阿尔卑斯-蒙塔钢铁联合"
+ KRAUS_dec_vitkovice: "[FROM.GetName]：维特科维采钢铁厂"
+ KRAUS_dec_skoda_works: "[FROM.GetName]：斯柯达工厂扩建"
+ KRAUS_dec_steyr_werke: "[FROM.GetName]：斯泰尔兵工厂"
+ KRAUS_dec_daimler_puch: "[FROM.GetName]：戴姆勒-普赫汽车厂"
+ KRAUS_dec_bosch_austria: "[FROM.GetName]：维也纳电气与博世分厂"
+ KRAUS_dec_tobacco: "[FROM.GetName]：奥地利烟草专卖"
+ KRAUS_dec_breweries: "[FROM.GetName]：维也纳啤酒酿造业"
+ KRAUS_dec_wine: "[FROM.GetName]：布尔根兰葡萄酒产区"
+ KRAUS_dec_textile: "[FROM.GetName]：波希米亚纺织业"
+ KRAUS_dec_furniture: "[FROM.GetName]：默德灵家具工坊"
+ KRAUS_dec_glass: "[FROM.GetName]：波希米亚玻璃工厂"
+ KRAUS_dec_cement: "[FROM.GetName]：维也纳格建材厂"
+ KRAUS_dec_linz_chemical: "[FROM.GetName]：林茨化工厂"
+ KRAUS_dec_synthetics: "[FROM.GetName]：合成燃料工业"
+ KRAUS_dec_peat: "[FROM.GetName]：沼泽泥炭开采"
+ KRAUS_dec_housing: "[FROM.GetName]：维也纳工人住宅计划"
+ KRAUS_dec_apartments: "[FROM.GetName]：卡尔·马克思城扩建"
+ KRAUS_dec_tractor: "[FROM.GetName]：国产拖拉机生产"
+ KRAUS_dec_refrigerator: "[FROM.GetName]：家用电器普及"
+ KRAUS_dec_people_car: "[FROM.GetName]：国民汽车计划"
+ KRAUS_dec_railway_works: "[FROM.GetName]：机车车辆厂"
+ KRAUS_dec_shipyard: "[FROM.GetName]：的里雅斯特造船厂"
+ KRAUS_dec_arsenal: "[FROM.GetName]：帝国兵工总厂"
+
+
+############################################################
+### 全球民主化运动 · 决议与类目（2026-09-24）
+############################################################
+
+KRAUS_global_democratisation: "全球民主化运动"
+KRAUS_global_democratisation_desc: "战争没有随我们的战争一起结束。在某个地方，两个政府还在为一条谁也解释不清的边界花掉他们的孩子。\n\n维也纳从这些事情里得不到一寸土地。而这恰恰是维也纳能走进那个房间的原因。\n\n§Y我们不是世界的警察。我们是世界的见证人——而见证人更难被无视。§!"
+
+KRAUS_mediate_war: "提出奥地利调停"
+KRAUS_mediate_war_desc: "派一个代表团去交战双方那里，只带一个提议：停下，各自留着手上握着的东西。不夺取、不复原、不报仇。枪停下的那条线，就是边界。\n\n这是一个几乎没人在自以为还能赢的时候会接受的提议。\n\n§Y这个提议只花我们一张车票的代价。拒绝它，花掉他们的一切。§!"

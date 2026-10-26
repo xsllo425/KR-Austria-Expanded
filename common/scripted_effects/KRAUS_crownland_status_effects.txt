@@ -1,0 +1,730 @@
+############################################################
+### 王冠领地位与整合（2026-10-12）
+############################################################
+# 王领作用域：地位向忠诚推一档
+KRAUS_cl_toward_loyal = {
+	if = {
+		limit = { has_idea = KRAUS_cl_auto_3 }
+		swap_ideas = { remove_idea = KRAUS_cl_auto_3 add_idea = KRAUS_cl_auto_2 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_cl_auto_2 }
+		swap_ideas = { remove_idea = KRAUS_cl_auto_2 add_idea = KRAUS_cl_auto_1 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_cl_auto_1 }
+		remove_ideas = KRAUS_cl_auto_1
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_cl_loyal_1 }
+		swap_ideas = { remove_idea = KRAUS_cl_loyal_1 add_idea = KRAUS_cl_loyal_2 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_cl_loyal_2 }
+		swap_ideas = { remove_idea = KRAUS_cl_loyal_2 add_idea = KRAUS_cl_loyal_3 }
+	}
+	else_if = {
+		limit = { NOT = { has_idea = KRAUS_cl_loyal_3 } }
+		add_ideas = KRAUS_cl_loyal_1
+	}
+}
+# 王领作用域：地位向自主推一档
+KRAUS_cl_toward_autonomy = {
+	if = {
+		limit = { has_idea = KRAUS_cl_auto_2 }
+		swap_ideas = { remove_idea = KRAUS_cl_auto_2 add_idea = KRAUS_cl_auto_3 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_cl_auto_1 }
+		swap_ideas = { remove_idea = KRAUS_cl_auto_1 add_idea = KRAUS_cl_auto_2 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_cl_loyal_1 }
+		remove_ideas = KRAUS_cl_loyal_1
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_cl_loyal_2 }
+		swap_ideas = { remove_idea = KRAUS_cl_loyal_2 add_idea = KRAUS_cl_loyal_1 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_cl_loyal_3 }
+		swap_ideas = { remove_idea = KRAUS_cl_loyal_3 add_idea = KRAUS_cl_loyal_2 }
+	}
+	else_if = {
+		limit = { NOT = { has_idea = KRAUS_cl_auto_3 } }
+		add_ideas = KRAUS_cl_auto_1
+	}
+}
+# 奥地利作用域（ROOT = 奥地利）：按地位计算成员王领的份数（自主 I/II/III = 1.5/2/2.5 份，其余 1 份）
+KRAUS_joint_count_shares = {
+	set_variable = { KRAUS_joint_members = 0 }
+	set_variable = { KRAUS_joint_shares = 0 }
+	every_subject_country = {
+		limit = { KRAUS_joint_econ_crownland = yes }
+		PREV = { add_to_variable = { KRAUS_joint_members = 1 } }
+		if = {
+			limit = { has_idea = KRAUS_cl_auto_3 }
+			PREV = { add_to_variable = { KRAUS_joint_shares = 2.5 } }
+		}
+		else_if = {
+			limit = { has_idea = KRAUS_cl_auto_2 }
+			PREV = { add_to_variable = { KRAUS_joint_shares = 2 } }
+		}
+		else_if = {
+			limit = { has_idea = KRAUS_cl_auto_1 }
+			PREV = { add_to_variable = { KRAUS_joint_shares = 1.5 } }
+		}
+		else = {
+			PREV = { add_to_variable = { KRAUS_joint_shares = 1 } }
+		}
+	}
+}
+# 奥地利作用域：按各王领当前的地位，重算整合决议的花费与天数
+KRAUS_integ_recalc = {
+	if = {
+		limit = { country_exists = CZE }
+		CZE = {
+			if = {
+				limit = { has_idea = KRAUS_cl_auto_3 }
+				ROOT = { set_variable = { KRAUS_integ_cost_CZE = 400 } set_variable = { KRAUS_integ_days_CZE = 365 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_auto_2 }
+				ROOT = { set_variable = { KRAUS_integ_cost_CZE = 300 } set_variable = { KRAUS_integ_days_CZE = 300 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_auto_1 }
+				ROOT = { set_variable = { KRAUS_integ_cost_CZE = 220 } set_variable = { KRAUS_integ_days_CZE = 240 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_1 }
+				ROOT = { set_variable = { KRAUS_integ_cost_CZE = 110 } set_variable = { KRAUS_integ_days_CZE = 120 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_2 }
+				ROOT = { set_variable = { KRAUS_integ_cost_CZE = 80 } set_variable = { KRAUS_integ_days_CZE = 90 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_3 }
+				ROOT = { set_variable = { KRAUS_integ_cost_CZE = 50 } set_variable = { KRAUS_integ_days_CZE = 60 } }
+			}
+			else = {
+				ROOT = { set_variable = { KRAUS_integ_cost_CZE = 150 } set_variable = { KRAUS_integ_days_CZE = 180 } }
+			}
+		}
+	}
+	if = {
+		limit = { country_exists = GAL }
+		GAL = {
+			if = {
+				limit = { has_idea = KRAUS_cl_auto_3 }
+				ROOT = { set_variable = { KRAUS_integ_cost_GAL = 400 } set_variable = { KRAUS_integ_days_GAL = 365 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_auto_2 }
+				ROOT = { set_variable = { KRAUS_integ_cost_GAL = 300 } set_variable = { KRAUS_integ_days_GAL = 300 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_auto_1 }
+				ROOT = { set_variable = { KRAUS_integ_cost_GAL = 220 } set_variable = { KRAUS_integ_days_GAL = 240 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_1 }
+				ROOT = { set_variable = { KRAUS_integ_cost_GAL = 110 } set_variable = { KRAUS_integ_days_GAL = 120 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_2 }
+				ROOT = { set_variable = { KRAUS_integ_cost_GAL = 80 } set_variable = { KRAUS_integ_days_GAL = 90 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_3 }
+				ROOT = { set_variable = { KRAUS_integ_cost_GAL = 50 } set_variable = { KRAUS_integ_days_GAL = 60 } }
+			}
+			else = {
+				ROOT = { set_variable = { KRAUS_integ_cost_GAL = 150 } set_variable = { KRAUS_integ_days_GAL = 180 } }
+			}
+		}
+	}
+	if = {
+		limit = { country_exists = CRO }
+		CRO = {
+			if = {
+				limit = { has_idea = KRAUS_cl_auto_3 }
+				ROOT = { set_variable = { KRAUS_integ_cost_CRO = 400 } set_variable = { KRAUS_integ_days_CRO = 365 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_auto_2 }
+				ROOT = { set_variable = { KRAUS_integ_cost_CRO = 300 } set_variable = { KRAUS_integ_days_CRO = 300 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_auto_1 }
+				ROOT = { set_variable = { KRAUS_integ_cost_CRO = 220 } set_variable = { KRAUS_integ_days_CRO = 240 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_1 }
+				ROOT = { set_variable = { KRAUS_integ_cost_CRO = 110 } set_variable = { KRAUS_integ_days_CRO = 120 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_2 }
+				ROOT = { set_variable = { KRAUS_integ_cost_CRO = 80 } set_variable = { KRAUS_integ_days_CRO = 90 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_3 }
+				ROOT = { set_variable = { KRAUS_integ_cost_CRO = 50 } set_variable = { KRAUS_integ_days_CRO = 60 } }
+			}
+			else = {
+				ROOT = { set_variable = { KRAUS_integ_cost_CRO = 150 } set_variable = { KRAUS_integ_days_CRO = 180 } }
+			}
+		}
+	}
+	if = {
+		limit = { country_exists = HUN }
+		HUN = {
+			if = {
+				limit = { has_idea = KRAUS_cl_auto_3 }
+				ROOT = { set_variable = { KRAUS_integ_cost_HUN = 400 } set_variable = { KRAUS_integ_days_HUN = 365 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_auto_2 }
+				ROOT = { set_variable = { KRAUS_integ_cost_HUN = 300 } set_variable = { KRAUS_integ_days_HUN = 300 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_auto_1 }
+				ROOT = { set_variable = { KRAUS_integ_cost_HUN = 220 } set_variable = { KRAUS_integ_days_HUN = 240 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_1 }
+				ROOT = { set_variable = { KRAUS_integ_cost_HUN = 110 } set_variable = { KRAUS_integ_days_HUN = 120 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_2 }
+				ROOT = { set_variable = { KRAUS_integ_cost_HUN = 80 } set_variable = { KRAUS_integ_days_HUN = 90 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_3 }
+				ROOT = { set_variable = { KRAUS_integ_cost_HUN = 50 } set_variable = { KRAUS_integ_days_HUN = 60 } }
+			}
+			else = {
+				ROOT = { set_variable = { KRAUS_integ_cost_HUN = 150 } set_variable = { KRAUS_integ_days_HUN = 180 } }
+			}
+		}
+	}
+	if = {
+		limit = { country_exists = SLO }
+		SLO = {
+			if = {
+				limit = { has_idea = KRAUS_cl_auto_3 }
+				ROOT = { set_variable = { KRAUS_integ_cost_SLO = 400 } set_variable = { KRAUS_integ_days_SLO = 365 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_auto_2 }
+				ROOT = { set_variable = { KRAUS_integ_cost_SLO = 300 } set_variable = { KRAUS_integ_days_SLO = 300 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_auto_1 }
+				ROOT = { set_variable = { KRAUS_integ_cost_SLO = 220 } set_variable = { KRAUS_integ_days_SLO = 240 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_1 }
+				ROOT = { set_variable = { KRAUS_integ_cost_SLO = 110 } set_variable = { KRAUS_integ_days_SLO = 120 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_2 }
+				ROOT = { set_variable = { KRAUS_integ_cost_SLO = 80 } set_variable = { KRAUS_integ_days_SLO = 90 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_3 }
+				ROOT = { set_variable = { KRAUS_integ_cost_SLO = 50 } set_variable = { KRAUS_integ_days_SLO = 60 } }
+			}
+			else = {
+				ROOT = { set_variable = { KRAUS_integ_cost_SLO = 150 } set_variable = { KRAUS_integ_days_SLO = 180 } }
+			}
+		}
+	}
+	if = {
+		limit = { country_exists = TRS }
+		TRS = {
+			if = {
+				limit = { has_idea = KRAUS_cl_auto_3 }
+				ROOT = { set_variable = { KRAUS_integ_cost_TRS = 400 } set_variable = { KRAUS_integ_days_TRS = 365 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_auto_2 }
+				ROOT = { set_variable = { KRAUS_integ_cost_TRS = 300 } set_variable = { KRAUS_integ_days_TRS = 300 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_auto_1 }
+				ROOT = { set_variable = { KRAUS_integ_cost_TRS = 220 } set_variable = { KRAUS_integ_days_TRS = 240 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_1 }
+				ROOT = { set_variable = { KRAUS_integ_cost_TRS = 110 } set_variable = { KRAUS_integ_days_TRS = 120 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_2 }
+				ROOT = { set_variable = { KRAUS_integ_cost_TRS = 80 } set_variable = { KRAUS_integ_days_TRS = 90 } }
+			}
+			else_if = {
+				limit = { has_idea = KRAUS_cl_loyal_3 }
+				ROOT = { set_variable = { KRAUS_integ_cost_TRS = 50 } set_variable = { KRAUS_integ_days_TRS = 60 } }
+			}
+			else = {
+				ROOT = { set_variable = { KRAUS_integ_cost_TRS = 150 } set_variable = { KRAUS_integ_days_TRS = 180 } }
+			}
+		}
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_cl_resentful }
+		if = { limit = { country_exists = CZE } multiply_variable = { KRAUS_integ_cost_CZE = 3 } }
+		if = { limit = { country_exists = GAL } multiply_variable = { KRAUS_integ_cost_GAL = 3 } }
+		if = { limit = { country_exists = CRO } multiply_variable = { KRAUS_integ_cost_CRO = 3 } }
+		if = { limit = { country_exists = HUN } multiply_variable = { KRAUS_integ_cost_HUN = 3 } }
+		if = { limit = { country_exists = SLO } multiply_variable = { KRAUS_integ_cost_SLO = 3 } }
+		if = { limit = { country_exists = TRS } multiply_variable = { KRAUS_integ_cost_TRS = 3 } }
+	}
+	# 0.9 反馈：左支国策每完成一个，整合决议的读条与花费各降 10%（读条下限 10 天）
+	KRAUS_pl_recalc = yes
+	KRAUS_pl_grievance_recalc = yes
+	if = { limit = { country_exists = CZE }
+		multiply_variable = { KRAUS_integ_cost_CZE = KRAUS_pl_mult }
+		multiply_variable = { KRAUS_integ_days_CZE = KRAUS_pl_mult }
+		clamp_variable = { var = KRAUS_integ_days_CZE min = 10 max = 400 }
+	}
+	if = { limit = { country_exists = GAL }
+		multiply_variable = { KRAUS_integ_cost_GAL = KRAUS_pl_mult }
+		multiply_variable = { KRAUS_integ_days_GAL = KRAUS_pl_mult }
+		clamp_variable = { var = KRAUS_integ_days_GAL min = 10 max = 400 }
+	}
+	if = { limit = { country_exists = CRO }
+		multiply_variable = { KRAUS_integ_cost_CRO = KRAUS_pl_mult }
+		multiply_variable = { KRAUS_integ_days_CRO = KRAUS_pl_mult }
+		clamp_variable = { var = KRAUS_integ_days_CRO min = 10 max = 400 }
+	}
+	if = { limit = { country_exists = HUN }
+		multiply_variable = { KRAUS_integ_cost_HUN = KRAUS_pl_mult }
+		multiply_variable = { KRAUS_integ_days_HUN = KRAUS_pl_mult }
+		clamp_variable = { var = KRAUS_integ_days_HUN min = 10 max = 400 }
+	}
+	if = { limit = { country_exists = SLO }
+		multiply_variable = { KRAUS_integ_cost_SLO = KRAUS_pl_mult }
+		multiply_variable = { KRAUS_integ_days_SLO = KRAUS_pl_mult }
+		clamp_variable = { var = KRAUS_integ_days_SLO min = 10 max = 400 }
+	}
+	if = { limit = { country_exists = TRS }
+		multiply_variable = { KRAUS_integ_cost_TRS = KRAUS_pl_mult }
+		multiply_variable = { KRAUS_integ_days_TRS = KRAUS_pl_mult }
+		clamp_variable = { var = KRAUS_integ_days_TRS min = 10 max = 400 }
+	}
+	# 0.9 实测 53：整合决议两档——快速（天数×0.7，花费×1.35）、稳妥（天数×1.4，花费×0.7）
+
+	if = { limit = { country_exists = CZE }
+		set_variable = { KRAUS_integ_cost_CZE_f = KRAUS_integ_cost_CZE }
+		multiply_variable = { KRAUS_integ_cost_CZE_f = 1.35 }
+		set_variable = { KRAUS_integ_days_CZE_f = KRAUS_integ_days_CZE }
+		multiply_variable = { KRAUS_integ_days_CZE_f = 0.7 }
+		set_variable = { KRAUS_integ_cost_CZE_s = KRAUS_integ_cost_CZE }
+		multiply_variable = { KRAUS_integ_cost_CZE_s = 0.7 }
+		set_variable = { KRAUS_integ_days_CZE_s = KRAUS_integ_days_CZE }
+		multiply_variable = { KRAUS_integ_days_CZE_s = 1.4 }
+	}
+	if = { limit = { country_exists = HUN }
+		set_variable = { KRAUS_integ_cost_HUN_f = KRAUS_integ_cost_HUN }
+		multiply_variable = { KRAUS_integ_cost_HUN_f = 1.35 }
+		set_variable = { KRAUS_integ_days_HUN_f = KRAUS_integ_days_HUN }
+		multiply_variable = { KRAUS_integ_days_HUN_f = 0.7 }
+		set_variable = { KRAUS_integ_cost_HUN_s = KRAUS_integ_cost_HUN }
+		multiply_variable = { KRAUS_integ_cost_HUN_s = 0.7 }
+		set_variable = { KRAUS_integ_days_HUN_s = KRAUS_integ_days_HUN }
+		multiply_variable = { KRAUS_integ_days_HUN_s = 1.4 }
+	}
+	if = { limit = { country_exists = GAL }
+		set_variable = { KRAUS_integ_cost_GAL_f = KRAUS_integ_cost_GAL }
+		multiply_variable = { KRAUS_integ_cost_GAL_f = 1.35 }
+		set_variable = { KRAUS_integ_days_GAL_f = KRAUS_integ_days_GAL }
+		multiply_variable = { KRAUS_integ_days_GAL_f = 0.7 }
+		set_variable = { KRAUS_integ_cost_GAL_s = KRAUS_integ_cost_GAL }
+		multiply_variable = { KRAUS_integ_cost_GAL_s = 0.7 }
+		set_variable = { KRAUS_integ_days_GAL_s = KRAUS_integ_days_GAL }
+		multiply_variable = { KRAUS_integ_days_GAL_s = 1.4 }
+	}
+	if = { limit = { country_exists = CRO }
+		set_variable = { KRAUS_integ_cost_CRO_f = KRAUS_integ_cost_CRO }
+		multiply_variable = { KRAUS_integ_cost_CRO_f = 1.35 }
+		set_variable = { KRAUS_integ_days_CRO_f = KRAUS_integ_days_CRO }
+		multiply_variable = { KRAUS_integ_days_CRO_f = 0.7 }
+		set_variable = { KRAUS_integ_cost_CRO_s = KRAUS_integ_cost_CRO }
+		multiply_variable = { KRAUS_integ_cost_CRO_s = 0.7 }
+		set_variable = { KRAUS_integ_days_CRO_s = KRAUS_integ_days_CRO }
+		multiply_variable = { KRAUS_integ_days_CRO_s = 1.4 }
+	}
+	if = { limit = { country_exists = SLO }
+		set_variable = { KRAUS_integ_cost_SLO_f = KRAUS_integ_cost_SLO }
+		multiply_variable = { KRAUS_integ_cost_SLO_f = 1.35 }
+		set_variable = { KRAUS_integ_days_SLO_f = KRAUS_integ_days_SLO }
+		multiply_variable = { KRAUS_integ_days_SLO_f = 0.7 }
+		set_variable = { KRAUS_integ_cost_SLO_s = KRAUS_integ_cost_SLO }
+		multiply_variable = { KRAUS_integ_cost_SLO_s = 0.7 }
+		set_variable = { KRAUS_integ_days_SLO_s = KRAUS_integ_days_SLO }
+		multiply_variable = { KRAUS_integ_days_SLO_s = 1.4 }
+	}
+	if = { limit = { country_exists = TRS }
+		set_variable = { KRAUS_integ_cost_TRS_f = KRAUS_integ_cost_TRS }
+		multiply_variable = { KRAUS_integ_cost_TRS_f = 1.35 }
+		set_variable = { KRAUS_integ_days_TRS_f = KRAUS_integ_days_TRS }
+		multiply_variable = { KRAUS_integ_days_TRS_f = 0.7 }
+		set_variable = { KRAUS_integ_cost_TRS_s = KRAUS_integ_cost_TRS }
+		multiply_variable = { KRAUS_integ_cost_TRS_s = 0.7 }
+		set_variable = { KRAUS_integ_days_TRS_s = KRAUS_integ_days_TRS }
+		multiply_variable = { KRAUS_integ_days_TRS_s = 1.4 }
+	}
+}
+# 王领作用域（ROOT = 奥地利）：结算整合红利（共同树精神按级数转给奥地利，忠诚 II/III 额外 +50%）
+KRAUS_integ_collect_dividend = {
+	set_temp_variable = { KRAUS_integ_t_econ = 0 }
+	if = { limit = { OR = { has_idea = KRAUS_joint_econ_spirit_5 has_idea = KRAUS_joint_econ_spirit_6 has_idea = KRAUS_joint_econ_spirit_7 has_idea = KRAUS_joint_econ_spirit_8 has_idea = KRAUS_joint_econ_spirit_9 } } set_temp_variable = { KRAUS_integ_t_econ = 5 } }
+	else_if = { limit = { has_idea = KRAUS_joint_econ_spirit_4 } set_temp_variable = { KRAUS_integ_t_econ = 4 } }
+	else_if = { limit = { has_idea = KRAUS_joint_econ_spirit_3 } set_temp_variable = { KRAUS_integ_t_econ = 3 } }
+	else_if = { limit = { has_idea = KRAUS_joint_econ_spirit_2 } set_temp_variable = { KRAUS_integ_t_econ = 2 } }
+	else_if = { limit = { has_idea = KRAUS_joint_econ_spirit_1 } set_temp_variable = { KRAUS_integ_t_econ = 1 } }
+	set_temp_variable = { KRAUS_integ_t_mil = 0 }
+	if = { limit = { has_idea = KRAUS_jm_land_7 } set_temp_variable = { KRAUS_integ_t_mil = 5 } }
+	else_if = { limit = { has_idea = KRAUS_jm_land_6 } set_temp_variable = { KRAUS_integ_t_mil = 4 } }
+	else_if = { limit = { OR = { has_idea = KRAUS_jm_land_5 has_idea = KRAUS_jm_land_4 } } set_temp_variable = { KRAUS_integ_t_mil = 3 } }
+	else_if = { limit = { OR = { has_idea = KRAUS_jm_land_3 has_idea = KRAUS_jm_land_2 } } set_temp_variable = { KRAUS_integ_t_mil = 2 } }
+	else_if = { limit = { has_idea = KRAUS_jm_land_1 } set_temp_variable = { KRAUS_integ_t_mil = 1 } }
+	if = {
+		limit = { OR = { has_idea = KRAUS_cl_loyal_2 has_idea = KRAUS_cl_loyal_3 } }
+		multiply_temp_variable = { KRAUS_integ_t_econ = 1.5 }
+		multiply_temp_variable = { KRAUS_integ_t_mil = 1.5 }
+	}
+	ROOT = {
+		add_to_variable = { KRAUS_integ_div_econ = KRAUS_integ_t_econ }
+		add_to_variable = { KRAUS_integ_div_mil = KRAUS_integ_t_mil }
+		set_variable = { KRAUS_integ_div_ic = KRAUS_integ_div_econ }
+		multiply_variable = { KRAUS_integ_div_ic = 0.01 }
+		set_variable = { KRAUS_integ_div_rs = KRAUS_integ_div_econ }
+		multiply_variable = { KRAUS_integ_div_rs = 0.005 }
+		set_variable = { KRAUS_integ_div_org = KRAUS_integ_div_mil }
+		multiply_variable = { KRAUS_integ_div_org = 0.01 }
+		set_variable = { KRAUS_integ_div_cons = KRAUS_integ_div_mil }
+		multiply_variable = { KRAUS_integ_div_cons = 0.005 }
+		if = {
+			limit = { NOT = { has_dynamic_modifier = { modifier = KRAUS_integ_dividend_dm } } }
+			add_dynamic_modifier = { modifier = KRAUS_integ_dividend_dm }
+		}
+	}
+}
+# 奥地利作用域：整合波希米亚
+KRAUS_integ_do_CZE = {
+	custom_effect_tooltip = KRAUS_integ_dividend_tt
+	hidden_effect = {
+		CZE = { KRAUS_integ_collect_dividend = yes }
+		set_country_flag = KRAUS_integrated_CZE
+		set_variable = { KRAUS_integ_offciv_CZE = 0 }
+		set_variable = { KRAUS_integ_offmil_CZE = 0 }
+	}
+	# 0.9 反馈：角色按事件的选择分批转入奥地利（将领随「议席并入」，顾问与科学家随对应事件）
+	KRAUS_pl_transfer_chars_CZE = yes
+	annex_country = { target = CZE transfer_troops = yes }
+	hidden_effect = {
+		every_state = {
+			limit = { is_core_of = CZE is_owned_by = ROOT }
+			add_core_of = ROOT
+		}
+	}
+	# 0.9 反馈：怨言档位随左支进度；每个王领自己的「官员与军官的不满」不变
+	KRAUS_pl_gov_on_integrate = yes
+	add_ideas = KRAUS_cg_CZE_3
+	clr_country_flag = KRAUS_integ_running_CZE
+}
+# 奥地利作用域：整合加利西亚
+KRAUS_integ_do_GAL = {
+	custom_effect_tooltip = KRAUS_integ_dividend_tt
+	hidden_effect = {
+		GAL = { KRAUS_integ_collect_dividend = yes }
+		set_country_flag = KRAUS_integrated_GAL
+		set_variable = { KRAUS_integ_offciv_GAL = 0 }
+		set_variable = { KRAUS_integ_offmil_GAL = 0 }
+	}
+	# 0.9 反馈：角色按事件的选择分批转入奥地利（将领随「议席并入」，顾问与科学家随对应事件）
+	KRAUS_pl_transfer_chars_GAL = yes
+	annex_country = { target = GAL transfer_troops = yes }
+	hidden_effect = {
+		every_state = {
+			limit = { is_core_of = GAL is_owned_by = ROOT }
+			add_core_of = ROOT
+		}
+	}
+	# 0.9 反馈：怨言档位随左支进度；每个王领自己的「官员与军官的不满」不变
+	KRAUS_pl_gov_on_integrate = yes
+	add_ideas = KRAUS_cg_GAL_3
+	clr_country_flag = KRAUS_integ_running_GAL
+}
+# 奥地利作用域：整合伊利里亚
+KRAUS_integ_do_CRO = {
+	custom_effect_tooltip = KRAUS_integ_dividend_tt
+	hidden_effect = {
+		CRO = { KRAUS_integ_collect_dividend = yes }
+		set_country_flag = KRAUS_integrated_CRO
+		set_variable = { KRAUS_integ_offciv_CRO = 0 }
+		set_variable = { KRAUS_integ_offmil_CRO = 0 }
+	}
+	# 0.9 反馈：角色按事件的选择分批转入奥地利（将领随「议席并入」，顾问与科学家随对应事件）
+	KRAUS_pl_transfer_chars_CRO = yes
+	annex_country = { target = CRO transfer_troops = yes }
+	hidden_effect = {
+		every_state = {
+			limit = { is_core_of = CRO is_owned_by = ROOT }
+			add_core_of = ROOT
+		}
+	}
+	# 0.9 反馈：怨言档位随左支进度；每个王领自己的「官员与军官的不满」不变
+	KRAUS_pl_gov_on_integrate = yes
+	add_ideas = KRAUS_cg_CRO_3
+	clr_country_flag = KRAUS_integ_running_CRO
+}
+# 奥地利作用域：整合匈牙利
+KRAUS_integ_do_HUN = {
+	custom_effect_tooltip = KRAUS_integ_dividend_tt
+	hidden_effect = {
+		HUN = { KRAUS_integ_collect_dividend = yes }
+		set_country_flag = KRAUS_integrated_HUN
+		set_variable = { KRAUS_integ_offciv_HUN = 0 }
+		set_variable = { KRAUS_integ_offmil_HUN = 0 }
+	}
+	# 0.9 反馈：角色按事件的选择分批转入奥地利（将领随「议席并入」，顾问与科学家随对应事件）
+	KRAUS_pl_transfer_chars_HUN = yes
+	annex_country = { target = HUN transfer_troops = yes }
+	hidden_effect = {
+		every_state = {
+			limit = { is_core_of = HUN is_owned_by = ROOT }
+			add_core_of = ROOT
+		}
+	}
+	# 0.9 反馈：怨言档位随左支进度；每个王领自己的「官员与军官的不满」不变
+	KRAUS_pl_gov_on_integrate = yes
+	add_ideas = KRAUS_cg_HUN_3
+	clr_country_flag = KRAUS_integ_running_HUN
+}
+# 奥地利作用域：整合斯洛伐克
+KRAUS_integ_do_SLO = {
+	custom_effect_tooltip = KRAUS_integ_dividend_tt
+	hidden_effect = {
+		SLO = { KRAUS_integ_collect_dividend = yes }
+		set_country_flag = KRAUS_integrated_SLO
+		set_variable = { KRAUS_integ_offciv_SLO = 0 }
+		set_variable = { KRAUS_integ_offmil_SLO = 0 }
+	}
+	# 0.9 反馈：角色按事件的选择分批转入奥地利（将领随「议席并入」，顾问与科学家随对应事件）
+	KRAUS_pl_transfer_chars_SLO = yes
+	annex_country = { target = SLO transfer_troops = yes }
+	hidden_effect = {
+		every_state = {
+			limit = { is_core_of = SLO is_owned_by = ROOT }
+			add_core_of = ROOT
+		}
+	}
+	# 0.9 反馈：怨言档位随左支进度；每个王领自己的「官员与军官的不满」不变
+	KRAUS_pl_gov_on_integrate = yes
+	add_ideas = KRAUS_cg_SLO_3
+	clr_country_flag = KRAUS_integ_running_SLO
+}
+# 奥地利作用域：整合特兰西瓦尼亚
+KRAUS_integ_do_TRS = {
+	custom_effect_tooltip = KRAUS_integ_dividend_tt
+	hidden_effect = {
+		TRS = { KRAUS_integ_collect_dividend = yes }
+		set_country_flag = KRAUS_integrated_TRS
+		set_variable = { KRAUS_integ_offciv_TRS = 0 }
+		set_variable = { KRAUS_integ_offmil_TRS = 0 }
+	}
+	# 0.9 反馈：角色按事件的选择分批转入奥地利（将领随「议席并入」，顾问与科学家随对应事件）
+	KRAUS_pl_transfer_chars_TRS = yes
+	annex_country = { target = TRS transfer_troops = yes }
+	hidden_effect = {
+		every_state = {
+			limit = { is_core_of = TRS is_owned_by = ROOT }
+			add_core_of = ROOT
+		}
+	}
+	# 0.9 反馈：怨言档位随左支进度；每个王领自己的「官员与军官的不满」不变
+	KRAUS_pl_gov_on_integrate = yes
+	add_ideas = KRAUS_cg_TRS_3
+	clr_country_flag = KRAUS_integ_running_TRS
+}
+# 0.9 反馈13：王领作用域，忠诚直接拉满（忠诚 III）
+KRAUS_cl_set_loyal_max = {
+	remove_ideas = { KRAUS_cl_auto_1 KRAUS_cl_auto_2 KRAUS_cl_auto_3 KRAUS_cl_loyal_1 KRAUS_cl_loyal_2 }
+	if = {
+		limit = { NOT = { has_idea = KRAUS_cl_loyal_3 } }
+		add_ideas = KRAUS_cl_loyal_3
+	}
+}
+# 0.9 反馈12：王领作用域，忠诚不低于忠诚 I；已有更高的忠诚档位则不动
+KRAUS_cl_floor_apply = {
+	if = {
+		limit = { NOT = { OR = { has_idea = KRAUS_cl_loyal_1 has_idea = KRAUS_cl_loyal_2 has_idea = KRAUS_cl_loyal_3 } } }
+		remove_ideas = { KRAUS_cl_auto_1 KRAUS_cl_auto_2 KRAUS_cl_auto_3 }
+		add_ideas = KRAUS_cl_loyal_1
+	}
+}
+# 奥地利作用域：巡幸之后，所有王冠领的忠诚至少保持在忠诚 I
+KRAUS_cl_floor_all = {
+	every_subject_country = {
+		limit = { KRAUS_is_crownland_of_root = yes }
+		KRAUS_cl_floor_apply = yes
+	}
+}
+# 奥地利作用域：由我们占领并控制、带奥地利宣称、尚未成为核心的州，开启按顺从度整合造核（只开一次）
+KRAUS_enable_annex_integration = {
+	hidden_effect = {
+		every_state = {
+			limit = {
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+				is_claimed_by = ROOT
+				NOT = { has_state_flag = KRAUS_annex_integ_on }
+			}
+			set_state_flag = KRAUS_annex_integ_on
+			enable_state_integration_50_compliance = yes
+		}
+	}
+}
+# 奥地利作用域：把已整合的 CZE 的角色按已开启的类别转为奥地利国籍
+KRAUS_pl_transfer_chars_CZE = {
+	hidden_effect = {
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_generals }
+			CZE = {
+				every_unit_leader = { set_nationality = ROOT }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_advisors }
+			CZE = {
+				every_character = { limit = { is_advisor = yes } set_nationality = ROOT }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_scientists }
+			CZE = {
+				every_scientist = { set_nationality = ROOT }
+			}
+		}
+	}
+}
+# 奥地利作用域：把已整合的 GAL 的角色按已开启的类别转为奥地利国籍
+KRAUS_pl_transfer_chars_GAL = {
+	hidden_effect = {
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_generals }
+			GAL = {
+				every_unit_leader = { set_nationality = ROOT }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_advisors }
+			GAL = {
+				every_character = { limit = { is_advisor = yes } set_nationality = ROOT }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_scientists }
+			GAL = {
+				every_scientist = { set_nationality = ROOT }
+			}
+		}
+	}
+}
+# 奥地利作用域：把已整合的 CRO 的角色按已开启的类别转为奥地利国籍
+KRAUS_pl_transfer_chars_CRO = {
+	hidden_effect = {
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_generals }
+			CRO = {
+				every_unit_leader = { set_nationality = ROOT }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_advisors }
+			CRO = {
+				every_character = { limit = { is_advisor = yes } set_nationality = ROOT }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_scientists }
+			CRO = {
+				every_scientist = { set_nationality = ROOT }
+			}
+		}
+	}
+}
+# 奥地利作用域：把已整合的 HUN 的角色按已开启的类别转为奥地利国籍
+KRAUS_pl_transfer_chars_HUN = {
+	hidden_effect = {
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_generals }
+			HUN = {
+				every_unit_leader = { set_nationality = ROOT }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_advisors }
+			HUN = {
+				every_character = { limit = { is_advisor = yes } set_nationality = ROOT }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_scientists }
+			HUN = {
+				every_scientist = { set_nationality = ROOT }
+			}
+		}
+	}
+}
+# 奥地利作用域：把已整合的 SLO 的角色按已开启的类别转为奥地利国籍
+KRAUS_pl_transfer_chars_SLO = {
+	hidden_effect = {
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_generals }
+			SLO = {
+				every_unit_leader = { set_nationality = ROOT }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_advisors }
+			SLO = {
+				every_character = { limit = { is_advisor = yes } set_nationality = ROOT }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_scientists }
+			SLO = {
+				every_scientist = { set_nationality = ROOT }
+			}
+		}
+	}
+}
+# 奥地利作用域：把已整合的 TRS 的角色按已开启的类别转为奥地利国籍
+KRAUS_pl_transfer_chars_TRS = {
+	hidden_effect = {
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_generals }
+			TRS = {
+				every_unit_leader = { set_nationality = ROOT }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_advisors }
+			TRS = {
+				every_character = { limit = { is_advisor = yes } set_nationality = ROOT }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_pl_open_scientists }
+			TRS = {
+				every_scientist = { set_nationality = ROOT }
+			}
+		}
+	}
+}

@@ -1,0 +1,49 @@
+add_namespace = KRAUS_crisis_events
+
+country_event = {
+	id = KRAUS_crisis_events.2
+	title = KRAUS_crisis_events.2.t
+	desc = KRAUS_crisis_events.2.d
+	picture = GFX_report_event_generic_factory
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_crisis_events.2.a
+		custom_effect_tooltip = KRAUS_crisis_events.2.a_tt
+		add_political_power = 10
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_crisis_events.1
+	title = KRAUS_crisis_events.1.t
+	desc = KRAUS_crisis_events.1.d
+	picture = GFX_report_event_generic_army
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_crisis_events.1.a
+		custom_effect_tooltip = KRAUS_crisis_events.1.a_tt
+		add_political_power = 10
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = KRAUS_crisis_events.3
+	title = KRAUS_crisis_events.3.t
+	desc = KRAUS_crisis_events.3.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_crisis_events.3.a
+		custom_effect_tooltip = KRAUS_crisis_events.3.a_tt
+		add_political_power = 10
+		ai_chance = { base = 100 }
+	}
+}

@@ -1,0 +1,182 @@
+# KRAUS_coreworks — homeland works queue, state/permission triggers (fix round 2).
+# Base facts (read from the module source, not guessed):
+#   state 4 / 152 civil sites      : common/decisions/KRAUS_golden_danube_decisions.txt:11,73
+#   state 4 military site          : common/decisions/KRAUS_golden_danube_decisions.txt:137
+#   free_building_slots form       : common/scripted_triggers/KRAUS_golden_danube_triggers.txt:8
+#   owned/controlled + slot form   : common/scripted_triggers/KRAUS_crownworks_triggers.txt:2
+#   rule line / policy flags       : common/scripted_effects/KRAUS_policy_dispatch_effects.txt:48-55
+#   legacy claim flags             : common/scripted_effects/KRAUS_golden_danube_effects.txt:26,56,81
+#   slot allowance of the focuses  : common/national_focus/AUS focus (Austria).txt:1544,1552,1884
+#                                    (3 + 3 + 3 = 9 slots, kept in the focus completion_reward;
+#                                     this queue therefore grants no slots at all)
+#   cost variables                 : common/scripted_effects/KRAUS_golden_danube_effects.txt:4,8
+
+# ── political rule gates (same flags the legacy manual entries used) ──
+KRAUS_coreworks_rule_civil_unlocked = {
+    OR = {
+        AND = {
+            has_government = social_democrat
+            has_country_flag = KRAUS_golden_danube_policy_1_resolved
+            has_country_flag = KRAUS_golden_danube_policy_2_resolved
+        }
+        AND = {
+            has_government = social_conservative
+            has_country_flag = KRAUS_golden_danube_policy_4_resolved
+            has_country_flag = KRAUS_golden_danube_policy_5_resolved
+        }
+    }
+}
+KRAUS_coreworks_rule_line_active = {
+    OR = {
+        has_country_flag = KRAUS_renner_line_active
+        has_country_flag = KRAUS_miklas_line_active
+    }
+}
+
+# ── shared works team ──
+# The team is available when nobody holds it, or when this module already owns it.
+# Holding the team is what lets an entry advance; it is given back by the else branch of
+# KRAUS_coreworks_daily whenever nothing can advance, so a stalled or invalid project can
+# never keep the team away from the pilot.
+# Paused, or no longer an independent Austria: wait, keep every accrued day, hand the team back.
+
+# ── paid batch: site validity (owned + fully controlled + free slot) ──
+KRAUS_coreworks_lower_civil_valid = {
+    4 = {
+        is_owned_by = ROOT
+        is_fully_controlled_by = ROOT
+        free_building_slots = { building = industrial_complex size > 0 include_locked = no }
+    }
+}
+KRAUS_coreworks_upper_civil_valid = {
+    152 = {
+        is_owned_by = ROOT
+        is_fully_controlled_by = ROOT
+        free_building_slots = { building = industrial_complex size > 0 include_locked = no }
+    }
+}
+KRAUS_coreworks_lower_mil_valid = {
+    4 = {
+        is_owned_by = ROOT
+        is_fully_controlled_by = ROOT
+        free_building_slots = { building = arms_factory size > 0 include_locked = no }
+    }
+}
+
+# ── focus entitlements: these deliver a whole 3-level works batch at once, so they require
+#    ownership + full control of the site AND at least 3 free slots of the matching type.
+#    The slots themselves come from the focus (3 + 3 + 3, original one-off reward); with fewer
+#    than 3 free slots the works simply wait and keep their grant flag, so a full site can never
+#    swallow the reward and no slot is ever granted twice by this queue.
+KRAUS_coreworks_eco4_valid = {
+    4 = {
+        is_owned_by = ROOT
+        is_fully_controlled_by = ROOT
+        free_building_slots = { building = industrial_complex size > 2 include_locked = no }
+    }
+}
+KRAUS_coreworks_mil4_valid = {
+    4 = {
+        is_owned_by = ROOT
+        is_fully_controlled_by = ROOT
+        free_building_slots = { building = arms_factory size > 2 include_locked = no }
+    }
+}
+KRAUS_coreworks_mil736_valid = {
+    736 = {
+        is_owned_by = ROOT
+        is_fully_controlled_by = ROOT
+        free_building_slots = { building = arms_factory size > 2 include_locked = no }
+    }
+}
+KRAUS_coreworks_rail775_valid = {
+    775 = {
+        is_owned_by = ROOT
+        is_fully_controlled_by = ROOT
+        free_building_slots = { building = infrastructure size > 0 include_locked = no }
+    }
+}
+KRAUS_coreworks_rail102_valid = {
+    102 = {
+        is_owned_by = ROOT
+        is_fully_controlled_by = ROOT
+        free_building_slots = { building = infrastructure size > 0 include_locked = no }
+    }
+}
+KRAUS_coreworks_rail736_valid = {
+    736 = {
+        is_owned_by = ROOT
+        is_fully_controlled_by = ROOT
+        free_building_slots = { building = infrastructure size > 0 include_locked = no }
+    }
+}
+KRAUS_coreworks_rail488_valid = {
+    488 = {
+        is_owned_by = ROOT
+        is_fully_controlled_by = ROOT
+        free_building_slots = { building = infrastructure size > 0 include_locked = no }
+    }
+}
+
+# ── paid entries still purchasable (unlock holds, not yet built, no legacy claim) ──
+#    The legacy claim flags come from the retained manual callbacks; while one of them is set
+#    the corresponding new entry can neither be quoted nor advance, so a save with a manual
+#    project in progress can never be built a second time by the new queue.
+KRAUS_coreworks_lciv_open = {
+    NOT = { has_country_flag = KRAUS_coreworks_built_lciv }
+    NOT = { has_country_flag = KRAUS_golden_danube_project_built }
+    NOT = { has_country_flag = KRAUS_golden_danube_civil_pending }
+    KRAUS_coreworks_rule_civil_unlocked = yes
+    KRAUS_coreworks_rule_line_active = yes
+}
+KRAUS_coreworks_uciv_open = {
+    NOT = { has_country_flag = KRAUS_coreworks_built_uciv }
+    NOT = { has_country_flag = KRAUS_golden_danube_upper_civil_built }
+    NOT = { has_country_flag = KRAUS_golden_danube_upper_civil_pending }
+    has_country_flag = KRAUS_golden_danube_civil_works_unlocked
+    KRAUS_coreworks_rule_civil_unlocked = yes
+    KRAUS_coreworks_rule_line_active = yes
+}
+KRAUS_coreworks_lmil_open = {
+    NOT = { has_country_flag = KRAUS_coreworks_built_lmil }
+    NOT = { has_country_flag = KRAUS_golden_danube_military_built }
+    NOT = { has_country_flag = KRAUS_golden_danube_military_pending }
+    has_country_flag = KRAUS_golden_danube_military_works_unlocked
+    KRAUS_coreworks_rule_civil_unlocked = yes
+    KRAUS_coreworks_rule_line_active = yes
+}
+
+
+# ── free focus entitlements registered by the three migrated focuses ──
+#    The grant flag is set only by the focus completion_reward and consumed once at delivery
+#    (clr_country_flag), so repeated registration is idempotent.
+KRAUS_coreworks_eco4_open = {
+    has_country_flag = KRAUS_coreworks_grant_eco4
+    NOT = { has_country_flag = KRAUS_coreworks_built_eco4 }
+}
+KRAUS_coreworks_mil4_open = {
+    has_country_flag = KRAUS_coreworks_grant_mil4
+    NOT = { has_country_flag = KRAUS_coreworks_built_mil4 }
+}
+KRAUS_coreworks_mil736_open = {
+    has_country_flag = KRAUS_coreworks_grant_mil736
+    NOT = { has_country_flag = KRAUS_coreworks_built_mil736 }
+}
+KRAUS_coreworks_rail775_open = {
+    has_country_flag = KRAUS_coreworks_grant_rail775
+    NOT = { has_country_flag = KRAUS_coreworks_built_rail775 }
+}
+KRAUS_coreworks_rail102_open = {
+    has_country_flag = KRAUS_coreworks_grant_rail102
+    NOT = { has_country_flag = KRAUS_coreworks_built_rail102 }
+}
+KRAUS_coreworks_rail736_open = {
+    has_country_flag = KRAUS_coreworks_grant_rail736
+    NOT = { has_country_flag = KRAUS_coreworks_built_rail736 }
+}
+KRAUS_coreworks_rail488_open = {
+    has_country_flag = KRAUS_coreworks_grant_rail488
+    NOT = { has_country_flag = KRAUS_coreworks_built_rail488 }
+}
+
+# ── anything for the pause/resume pair to act on ──

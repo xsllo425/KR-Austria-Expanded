@@ -1,0 +1,175 @@
+############################################################
+### KRAUS 政治人物介绍 · 事件组
+###
+### ★★ 2026-09-21 第六轮（用户要求）★★
+###
+### 用户原话：
+###   「在游戏开局不久，比如第 7 天和第 14 天，或者是在第一个
+###     关于大选的事件触发后，应该尽快触发两个事件，介绍伦纳和
+###     米克拉斯，以及他们各自所在的政党，以及与此前奥地利政坛
+###     历史的关系，这是故事背景，不说的话，玩家不知道这俩人是
+###     干嘛的。同时在两个事件中，也应该暗示，皇帝在中间维持着
+###     二者的平衡。」
+###
+### → 本文件提供两个介绍事件：
+###     .1 卡尔·伦纳（社会民主党）
+###     .2 威廉·米克拉斯（基督教社会党）
+###
+### ★ 触发时机：开局第 7 天 / 第 14 天
+###   （由 on_actions 的 on_daily_AUS 调度）
+###
+### ★ 叙事要点
+###   · 两人是谁、代表哪个党、信奉什么
+###   · 与 1918-1933 奥地利政坛历史的关系
+###   · ★ 皇帝（卡尔）在中间维持平衡
+###
+### ★ 不使用 replace_path（三条铁律之二）
+############################################################
+
+add_namespace = KRAUS_leader_intro
+
+############################################################
+### .1 卡尔·伦纳 —— 「大帐篷」的建筑师
+############################################################
+country_event = {
+	id = KRAUS_leader_intro.1
+	title = KRAUS_leader_intro.1.t
+	desc = KRAUS_leader_intro.1.d
+	picture = GFX_report_event_KRAUS_leader_intro_1
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_leader_intro.1.a
+		log = "[GetLogInfo]: KRAUS leader intro .1 - Renner"
+
+		# ★ 2026-09-21 新增：让玩家立刻看懂这人代表哪个党
+		#   小幅度支持度变化（+1%），会轻微影响 1936 大选
+		custom_override_tooltip = {
+			tooltip = KRAUS_leader_intro.1.a_tt
+			add_popularity = {
+				ideology = social_democrat
+				popularity = 0.01
+			}
+		}
+	}
+}
+
+############################################################
+### .2 威廉·米克拉斯 —— 「天主教秩序」的守夜人
+############################################################
+country_event = {
+	id = KRAUS_leader_intro.2
+	title = KRAUS_leader_intro.2.t
+	desc = KRAUS_leader_intro.2.d
+	picture = GFX_report_event_KRAUS_leader_intro_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_leader_intro.2.a
+		log = "[GetLogInfo]: KRAUS leader intro .2 - Miklas"
+
+		# ★ 2026-09-21 新增：同上
+		custom_override_tooltip = {
+			tooltip = KRAUS_leader_intro.2.a_tt
+			add_popularity = {
+				ideology = social_conservative
+				popularity = 0.01
+			}
+		}
+	}
+}
+
+############################################################
+### .3 天平的两端（皇帝居中）
+###
+### 第三个事件：明确告诉玩家「皇帝在维持平衡」这一机制。
+############################################################
+country_event = {
+	id = KRAUS_leader_intro.3
+	title = KRAUS_leader_intro.3.t
+	desc = KRAUS_leader_intro.3.d
+	picture = GFX_report_event_KRAUS_leader_intro_3
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_leader_intro.3.a
+		log = "[GetLogInfo]: KRAUS leader intro .3 - the Emperor holds the balance"
+
+		# ★ 2026-09-21 新增：皇帝正式表态维持平衡 → 权威 +5
+		#   这是「皇帝权威」最早的一次来源，让玩家开局就见到该机制
+		if = {
+			limit = { has_country_flag = KRAUS_imperial_authority_ready }
+			KRAUS_imperial_gain = yes
+			custom_effect_tooltip = KRAUS_leader_intro.3.a_tt
+		}
+	}
+}
+
+############################################################
+### .10 ★ 米克拉斯胜选 · 二选一（军事线 / 经济线 减时）
+###
+### 用户要求：
+###   「如果米克拉斯胜选，那么从柏林到维也纳下面的军事线和经济线，
+###     可以二选一进行减少启动时间（弹一个事件让玩家决定）」
+###
+### ★ 两个选项，各有效果 → 用 custom_override_tooltip 显示
+############################################################
+country_event = {
+	id = KRAUS_leader_intro.10
+	title = KRAUS_leader_intro.10.t
+	desc = KRAUS_leader_intro.10.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_leader_intro.10.a
+		custom_effect_tooltip = KRAUS_dm_miklas_victory_tt
+		log = "[GetLogInfo]: KRAUS Miklas victory - choose military"
+		# 军事线：德奥军事合作系列全部减时
+		custom_override_tooltip = {
+			tooltip = KRAUS_intro10_mil_tt
+			KRAUS_miklas_reduce_military = yes
+		}
+	}
+
+	option = {
+		name = KRAUS_leader_intro.10.b
+		custom_effect_tooltip = KRAUS_dm_miklas_victory_tt
+		log = "[GetLogInfo]: KRAUS Miklas victory - choose economic"
+		# 经济线：德奥经济合作系列全部减时
+		custom_override_tooltip = {
+			tooltip = KRAUS_intro10_eco_tt
+			KRAUS_miklas_reduce_economic = yes
+		}
+	}
+}
+
+############################################################
+### .11 ★ 伦纳胜选 · 单选项（只有一件事可做）
+###
+### 用户要求：
+###   「之前那个伦纳胜选，也可以是弹事件，但是就只有一个选项了」
+############################################################
+country_event = {
+	id = KRAUS_leader_intro.11
+	title = KRAUS_leader_intro.11.t
+	desc = KRAUS_leader_intro.11.d
+	picture = GFX_report_event_AUS_Renner_Speech
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_leader_intro.11.a
+		custom_effect_tooltip = KRAUS_dm_renner_victory_tt
+		log = "[GetLogInfo]: KRAUS Renner victory - tent and crown"
+		# 大帐篷联盟 + 王冠子树减时
+		custom_override_tooltip = {
+			tooltip = KRAUS_intro11_tt
+			KRAUS_renner_victory_effect = yes
+		}
+	}
+}

@@ -1,0 +1,61 @@
+add_namespace = KRAUS_cw_events
+
+# 7 天后：各王领的答复
+country_event = {
+	id = KRAUS_cw_events.1
+	title = KRAUS_cw_events.1.t
+	desc = KRAUS_cw_events.1.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	immediate = { clr_country_flag = KRAUS_cw_awaiting }
+	option = {
+		name = KRAUS_cw_events.1.a
+		trigger = { any_subject_country = { KRAUS_is_crownland_of_root = yes has_country_flag = KRAUS_cw_accepted } }
+		set_country_flag = KRAUS_cw_program_active
+		custom_effect_tooltip = KRAUS_cw_program_start_tt
+	}
+	option = {
+		name = KRAUS_cw_events.1.b
+		trigger = { NOT = { any_subject_country = { KRAUS_is_crownland_of_root = yes has_country_flag = KRAUS_cw_accepted } } }
+	}
+}
+# 多瑙河危机：投资暂停
+country_event = {
+	id = KRAUS_cw_events.2
+	title = KRAUS_cw_events.2.t
+	desc = KRAUS_cw_events.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_cw_events.2.a }
+}
+# 危机结束：投资恢复
+country_event = {
+	id = KRAUS_cw_events.3
+	title = KRAUS_cw_events.3.t
+	desc = KRAUS_cw_events.3.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_cw_events.3.a }
+}
+# 王冠领已不复存在：结算
+country_event = {
+	id = KRAUS_cw_events.4
+	title = KRAUS_cw_events.4.t
+	desc = KRAUS_cw_events.4.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_cw_events.4.a
+		if = {
+			limit = { check_variable = { KRAUS_cw_investments > 11 } }
+			add_ideas = KRAUS_cw_legacy_3
+		}
+		else_if = {
+			limit = { check_variable = { KRAUS_cw_investments > 5 } }
+			add_ideas = KRAUS_cw_legacy_2
+		}
+		else = {
+			add_ideas = KRAUS_cw_legacy_1
+		}
+	}
+}

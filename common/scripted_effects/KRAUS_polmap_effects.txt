@@ -1,0 +1,647 @@
+############################################################
+### 帝国议会的重心（合众国路线第 1 批，2026-10-13）
+### 变量：KRAUS_pm_x 经济（0 国家调节 .. 100 自由市场）
+###       KRAUS_pm_y 帝国构造（0 中央集权 .. 100 王领自治）
+###       限制在 3..97，圆点不越出边框。
+### 四党固定坐标：基社 (20,20)、民族自由党 (80,20)、社民 (20,80)、自由民主联盟 (80,80)
+### 主导党 = 离重心最近（平局时保持原主导党）；入阁 = 距离 <= 半径；主导党总在阁内。
+### 入阁半径随妥协意愿 KRAUS_pm_comp（0..100，初值 40）分三档：<34 → 28，<67 → 36，其余 → 48。
+### 主导党更换：第二次大选（KRAUS_election2_done）之后才换执政党，并发 KRAUS_pm_events.1；
+###   内阁组成变化时同步 KR 的执政联盟。
+### 像素：scripted gui 的 x/y 属性按面板左上角计（不受 orientation 影响，2026-10-13 实测），
+###       底图左上角 (55, 10)，1 单位 = 4 像素；圆点 24x24，入阁圈三张：224 / 288 / 384。
+### HOI4 的脚本效果不支持参数：一律用临时变量传值（KRAUS_pm_in_*）。
+### 本文件由 polmap 生成脚本输出，改规则时改脚本再生成。
+############################################################
+
+KRAUS_pm_recalc = {
+	if = {
+		limit = { NOT = { has_variable = KRAUS_pm_x } }
+		set_variable = { var = KRAUS_pm_x value = 50 }
+	}
+	if = {
+		limit = { NOT = { has_variable = KRAUS_pm_y } }
+		set_variable = { var = KRAUS_pm_y value = 50 }
+	}
+	clamp_variable = { var = KRAUS_pm_x min = 3 max = 97 }
+	clamp_variable = { var = KRAUS_pm_y min = 3 max = 97 }
+
+	# 妥协意愿三档 → 入阁半径（低 28 / 中 36 / 高 48）与入阁圈图
+	if = {
+		limit = { NOT = { has_variable = KRAUS_pm_comp } }
+		set_variable = { var = KRAUS_pm_comp value = 40 }
+	}
+	clamp_variable = { var = KRAUS_pm_comp min = 0 max = 100 }
+	clr_country_flag = KRAUS_pm_comp_low
+	clr_country_flag = KRAUS_pm_comp_mid
+	clr_country_flag = KRAUS_pm_comp_high
+	if = {
+		limit = { check_variable = { var = KRAUS_pm_comp value = 34 compare = less_than } }
+		set_country_flag = KRAUS_pm_comp_low
+		set_temp_variable = { var = KRAUS_pm_r2 value = 784 }
+		set_variable = { var = KRAUS_pm_ring_ox value = -57 }
+		set_variable = { var = KRAUS_pm_ring_oy value = -102 }
+	}
+	else_if = {
+		limit = { check_variable = { var = KRAUS_pm_comp value = 67 compare = less_than } }
+		set_country_flag = KRAUS_pm_comp_mid
+		set_temp_variable = { var = KRAUS_pm_r2 value = 1296 }
+		set_variable = { var = KRAUS_pm_ring_ox value = -89 }
+		set_variable = { var = KRAUS_pm_ring_oy value = -134 }
+	}
+	else = {
+		set_country_flag = KRAUS_pm_comp_high
+		set_temp_variable = { var = KRAUS_pm_r2 value = 2304 }
+		set_variable = { var = KRAUS_pm_ring_ox value = -137 }
+		set_variable = { var = KRAUS_pm_ring_oy value = -182 }
+	}
+
+	# 像素坐标
+	set_variable = { var = KRAUS_pm_dot_px value = KRAUS_pm_x }
+	multiply_variable = { var = KRAUS_pm_dot_px value = 4 }
+	set_variable = { var = KRAUS_pm_ring_px value = KRAUS_pm_dot_px }
+	add_to_variable = { var = KRAUS_pm_dot_px value = 43 }
+	add_to_variable = { var = KRAUS_pm_ring_px value = KRAUS_pm_ring_ox }
+	set_variable = { var = KRAUS_pm_dot_py value = KRAUS_pm_y }
+	multiply_variable = { var = KRAUS_pm_dot_py value = 4 }
+	set_variable = { var = KRAUS_pm_ring_py value = KRAUS_pm_dot_py }
+	add_to_variable = { var = KRAUS_pm_dot_py value = -2 }
+	add_to_variable = { var = KRAUS_pm_ring_py value = KRAUS_pm_ring_oy }
+
+	# 距离、入阁、最近距离
+	set_temp_variable = { var = KRAUS_pm_dmin value = 100000 }
+	set_temp_variable = { var = KRAUS_pm_dx value = KRAUS_pm_x }
+	subtract_from_temp_variable = { var = KRAUS_pm_dx value = 20 }
+	multiply_temp_variable = { var = KRAUS_pm_dx value = KRAUS_pm_dx }
+	set_temp_variable = { var = KRAUS_pm_dy value = KRAUS_pm_y }
+	subtract_from_temp_variable = { var = KRAUS_pm_dy value = 20 }
+	multiply_temp_variable = { var = KRAUS_pm_dy value = KRAUS_pm_dy }
+	set_variable = { var = KRAUS_pm_d_cs value = KRAUS_pm_dx }
+	add_to_variable = { var = KRAUS_pm_d_cs value = KRAUS_pm_dy }
+	clr_country_flag = KRAUS_pm_cab_cs
+	if = {
+		limit = { check_variable = { var = KRAUS_pm_d_cs value = KRAUS_pm_r2 compare = less_than_or_equals } }
+		set_country_flag = KRAUS_pm_cab_cs
+	}
+	if = {
+		limit = { check_variable = { var = KRAUS_pm_d_cs value = KRAUS_pm_dmin compare = less_than } }
+		set_temp_variable = { var = KRAUS_pm_dmin value = KRAUS_pm_d_cs }
+	}
+	set_temp_variable = { var = KRAUS_pm_dx value = KRAUS_pm_x }
+	subtract_from_temp_variable = { var = KRAUS_pm_dx value = 80 }
+	multiply_temp_variable = { var = KRAUS_pm_dx value = KRAUS_pm_dx }
+	set_temp_variable = { var = KRAUS_pm_dy value = KRAUS_pm_y }
+	subtract_from_temp_variable = { var = KRAUS_pm_dy value = 20 }
+	multiply_temp_variable = { var = KRAUS_pm_dy value = KRAUS_pm_dy }
+	set_variable = { var = KRAUS_pm_d_ml value = KRAUS_pm_dx }
+	add_to_variable = { var = KRAUS_pm_d_ml value = KRAUS_pm_dy }
+	clr_country_flag = KRAUS_pm_cab_ml
+	if = {
+		limit = { check_variable = { var = KRAUS_pm_d_ml value = KRAUS_pm_r2 compare = less_than_or_equals } }
+		set_country_flag = KRAUS_pm_cab_ml
+	}
+	if = {
+		limit = { check_variable = { var = KRAUS_pm_d_ml value = KRAUS_pm_dmin compare = less_than } }
+		set_temp_variable = { var = KRAUS_pm_dmin value = KRAUS_pm_d_ml }
+	}
+	set_temp_variable = { var = KRAUS_pm_dx value = KRAUS_pm_x }
+	subtract_from_temp_variable = { var = KRAUS_pm_dx value = 20 }
+	multiply_temp_variable = { var = KRAUS_pm_dx value = KRAUS_pm_dx }
+	set_temp_variable = { var = KRAUS_pm_dy value = KRAUS_pm_y }
+	subtract_from_temp_variable = { var = KRAUS_pm_dy value = 80 }
+	multiply_temp_variable = { var = KRAUS_pm_dy value = KRAUS_pm_dy }
+	set_variable = { var = KRAUS_pm_d_sd value = KRAUS_pm_dx }
+	add_to_variable = { var = KRAUS_pm_d_sd value = KRAUS_pm_dy }
+	clr_country_flag = KRAUS_pm_cab_sd
+	if = {
+		limit = { check_variable = { var = KRAUS_pm_d_sd value = KRAUS_pm_r2 compare = less_than_or_equals } }
+		set_country_flag = KRAUS_pm_cab_sd
+	}
+	if = {
+		limit = { check_variable = { var = KRAUS_pm_d_sd value = KRAUS_pm_dmin compare = less_than } }
+		set_temp_variable = { var = KRAUS_pm_dmin value = KRAUS_pm_d_sd }
+	}
+	set_temp_variable = { var = KRAUS_pm_dx value = KRAUS_pm_x }
+	subtract_from_temp_variable = { var = KRAUS_pm_dx value = 80 }
+	multiply_temp_variable = { var = KRAUS_pm_dx value = KRAUS_pm_dx }
+	set_temp_variable = { var = KRAUS_pm_dy value = KRAUS_pm_y }
+	subtract_from_temp_variable = { var = KRAUS_pm_dy value = 80 }
+	multiply_temp_variable = { var = KRAUS_pm_dy value = KRAUS_pm_dy }
+	set_variable = { var = KRAUS_pm_d_sl value = KRAUS_pm_dx }
+	add_to_variable = { var = KRAUS_pm_d_sl value = KRAUS_pm_dy }
+	clr_country_flag = KRAUS_pm_cab_sl
+	if = {
+		limit = { check_variable = { var = KRAUS_pm_d_sl value = KRAUS_pm_r2 compare = less_than_or_equals } }
+		set_country_flag = KRAUS_pm_cab_sl
+	}
+	if = {
+		limit = { check_variable = { var = KRAUS_pm_d_sl value = KRAUS_pm_dmin compare = less_than } }
+		set_temp_variable = { var = KRAUS_pm_dmin value = KRAUS_pm_d_sl }
+	}
+
+	# 主导党：原主导党仍是最近之一则保持
+	set_temp_variable = { var = KRAUS_pm_kept value = 0 }
+	if = {
+		limit = {
+			has_country_flag = KRAUS_pm_lead_cs
+			check_variable = { var = KRAUS_pm_d_cs value = KRAUS_pm_dmin compare = less_than_or_equals }
+		}
+		set_temp_variable = { var = KRAUS_pm_kept value = 1 }
+	}
+	if = {
+		limit = {
+			has_country_flag = KRAUS_pm_lead_ml
+			check_variable = { var = KRAUS_pm_d_ml value = KRAUS_pm_dmin compare = less_than_or_equals }
+		}
+		set_temp_variable = { var = KRAUS_pm_kept value = 1 }
+	}
+	if = {
+		limit = {
+			has_country_flag = KRAUS_pm_lead_sd
+			check_variable = { var = KRAUS_pm_d_sd value = KRAUS_pm_dmin compare = less_than_or_equals }
+		}
+		set_temp_variable = { var = KRAUS_pm_kept value = 1 }
+	}
+	if = {
+		limit = {
+			has_country_flag = KRAUS_pm_lead_sl
+			check_variable = { var = KRAUS_pm_d_sl value = KRAUS_pm_dmin compare = less_than_or_equals }
+		}
+		set_temp_variable = { var = KRAUS_pm_kept value = 1 }
+	}
+	if = {
+		limit = { check_variable = { var = KRAUS_pm_kept value = 0 compare = equals } }
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = KRAUS_pm_lead_cs
+					has_country_flag = KRAUS_pm_lead_ml
+					has_country_flag = KRAUS_pm_lead_sd
+					has_country_flag = KRAUS_pm_lead_sl
+				}
+			}
+			set_temp_variable = { var = KRAUS_pm_changed value = 1 }
+		}
+		clr_country_flag = KRAUS_pm_lead_cs
+		clr_country_flag = KRAUS_pm_lead_ml
+		clr_country_flag = KRAUS_pm_lead_sd
+		clr_country_flag = KRAUS_pm_lead_sl
+		if = {
+			limit = { check_variable = { var = KRAUS_pm_d_cs value = KRAUS_pm_dmin compare = less_than_or_equals } }
+			set_country_flag = KRAUS_pm_lead_cs
+		}
+		else_if = {
+			limit = { check_variable = { var = KRAUS_pm_d_ml value = KRAUS_pm_dmin compare = less_than_or_equals } }
+			set_country_flag = KRAUS_pm_lead_ml
+		}
+		else_if = {
+			limit = { check_variable = { var = KRAUS_pm_d_sd value = KRAUS_pm_dmin compare = less_than_or_equals } }
+			set_country_flag = KRAUS_pm_lead_sd
+		}
+		else_if = {
+			limit = { check_variable = { var = KRAUS_pm_d_sl value = KRAUS_pm_dmin compare = less_than_or_equals } }
+			set_country_flag = KRAUS_pm_lead_sl
+		}
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pm_lead_cs }
+		set_country_flag = KRAUS_pm_cab_cs
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pm_lead_ml }
+		set_country_flag = KRAUS_pm_cab_ml
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pm_lead_sd }
+		set_country_flag = KRAUS_pm_cab_sd
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pm_lead_sl }
+		set_country_flag = KRAUS_pm_cab_sl
+	}
+	# 内阁组成编码（基社 1、民族自由党 2、社民 4、自由民主联盟 8）；变了就同步执政联盟
+	set_temp_variable = { var = KRAUS_pm_code value = 0 }
+	if = {
+		limit = { has_country_flag = KRAUS_pm_cab_cs }
+		add_to_temp_variable = { var = KRAUS_pm_code value = 1 }
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pm_cab_ml }
+		add_to_temp_variable = { var = KRAUS_pm_code value = 2 }
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pm_cab_sd }
+		add_to_temp_variable = { var = KRAUS_pm_code value = 4 }
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pm_cab_sl }
+		add_to_temp_variable = { var = KRAUS_pm_code value = 8 }
+	}
+	if = {
+		limit = {
+			has_country_flag = KRAUS_election2_done
+			NOT = { has_country_flag = KRAUS_pm_emperor_on }
+			NOT = { has_country_flag = KRAUS_pm_end_emperor }
+			OR = {
+				check_variable = { var = KRAUS_pm_changed value = 1 compare = equals }
+				NOT = { check_variable = { var = KRAUS_pm_cab_code value = KRAUS_pm_code compare = equals } }
+			}
+		}
+		KRAUS_pm_apply_government = yes
+		if = {
+			limit = { check_variable = { var = KRAUS_pm_changed value = 1 compare = equals } }
+			country_event = { id = KRAUS_pm_events.1 days = 1 }
+		}
+	}
+	# 基本法：主导党或内阁组成一变，稳定天数清零（进度暂停）
+	if = {
+		limit = {
+			OR = {
+				check_variable = { var = KRAUS_pm_changed value = 1 compare = equals }
+				NOT = { check_variable = { var = KRAUS_pm_cab_code value = KRAUS_pm_code compare = equals } }
+			}
+		}
+		set_variable = { var = KRAUS_pm_stable_days value = 0 }
+	}
+	set_variable = { var = KRAUS_pm_cab_code value = KRAUS_pm_code }
+	set_temp_variable = { var = KRAUS_pm_changed value = 0 }
+}
+
+### 按主导党换执政党，入阁的其他党进执政联盟（KR 的 end_coalition / add_to_coalition，00_party_popularity_effects.txt）
+# 0.9 反馈14/19：执政党（主导党）换人时，二把手（副手席位）一并换成对应党的党魁
+KRAUS_pm_set_second = {
+	hidden_effect = {
+		if = {
+			limit = { has_country_flag = KRAUS_pm_lead_sd }
+			activate_advisor = AUS_karl_renner_sic
+		}
+		else_if = {
+			limit = { has_country_flag = KRAUS_pm_lead_ml }
+			activate_advisor = AUS_hermann_foppa_sic
+		}
+		else_if = {
+			limit = { has_country_flag = KRAUS_pm_lead_cs }
+			if = {
+				limit = { NOT = { has_country_flag = KRAUS_sic_role_miklas } }
+				set_country_flag = KRAUS_sic_role_miklas
+				add_advisor_role = {
+					character = AUS_wilhelm_miklas
+					advisor = {
+						slot = second_in_command
+						idea_token = KRAUS_wilhelm_miklas_sic
+						traits = { KR_pragmatic_statesman_sic }
+						cost = 0
+						can_be_fired = no
+					}
+					activate = yes
+				}
+			}
+			else = { activate_advisor = KRAUS_wilhelm_miklas_sic }
+		}
+		else_if = {
+			limit = { has_country_flag = KRAUS_pm_lead_sl }
+			if = {
+				limit = { NOT = { has_country_flag = KRAUS_sic_role_stolper } }
+				set_country_flag = KRAUS_sic_role_stolper
+				add_advisor_role = {
+					character = AUS_gustav_stolper
+					advisor = {
+						slot = second_in_command
+						idea_token = KRAUS_gustav_stolper_sic
+						traits = { KR_pragmatic_statesman_sic }
+						cost = 0
+						can_be_fired = no
+					}
+					activate = yes
+				}
+			}
+			else = { activate_advisor = KRAUS_gustav_stolper_sic }
+		}
+	}
+}
+KRAUS_pm_apply_government = {
+	end_coalition = yes
+	KRAUS_pm_set_second = yes
+	if = {
+		limit = { has_country_flag = KRAUS_pm_lead_cs }
+		set_politics = { ruling_party = social_conservative elections_allowed = yes }
+	}
+	else_if = {
+		limit = { has_country_flag = KRAUS_pm_lead_ml }
+		set_politics = { ruling_party = market_liberal elections_allowed = yes }
+	}
+	else_if = {
+		limit = { has_country_flag = KRAUS_pm_lead_sd }
+		set_politics = { ruling_party = social_democrat elections_allowed = yes }
+	}
+	else_if = {
+		limit = { has_country_flag = KRAUS_pm_lead_sl }
+		set_politics = { ruling_party = social_liberal elections_allowed = yes }
+	}
+	if = {
+		limit = {
+			has_country_flag = KRAUS_pm_cab_cs
+			NOT = { has_country_flag = KRAUS_pm_lead_cs }
+		}
+		# 0.9 实测 31：入阁党不再被直接拉进联盟，由 KRAUS_pp_coal.1 事件的选项加入
+		if = {
+			limit = { has_country_flag = KRAUS_pp_joined_cs }
+			set_temp_variable = { coalition_partner_var = token:social_conservative }
+			add_to_coalition = yes
+		}
+		else = {
+			country_event = { id = KRAUS_pp_coal.1 days = 1 }
+		}
+	}
+	else = {
+		clr_country_flag = KRAUS_pp_joined_cs
+	}
+	if = {
+		limit = {
+			has_country_flag = KRAUS_pm_cab_ml
+			NOT = { has_country_flag = KRAUS_pm_lead_ml }
+		}
+		# 0.9 实测 31：入阁党不再被直接拉进联盟，由 KRAUS_pp_coal.2 事件的选项加入
+		if = {
+			limit = { has_country_flag = KRAUS_pp_joined_ml }
+			set_temp_variable = { coalition_partner_var = token:market_liberal }
+			add_to_coalition = yes
+		}
+		else = {
+			country_event = { id = KRAUS_pp_coal.2 days = 1 }
+		}
+	}
+	else = {
+		clr_country_flag = KRAUS_pp_joined_ml
+	}
+	if = {
+		limit = {
+			has_country_flag = KRAUS_pm_cab_sd
+			NOT = { has_country_flag = KRAUS_pm_lead_sd }
+		}
+		# 0.9 实测 31：入阁党不再被直接拉进联盟，由 KRAUS_pp_coal.3 事件的选项加入
+		if = {
+			limit = { has_country_flag = KRAUS_pp_joined_sd }
+			set_temp_variable = { coalition_partner_var = token:social_democrat }
+			add_to_coalition = yes
+		}
+		else = {
+			country_event = { id = KRAUS_pp_coal.3 days = 1 }
+		}
+	}
+	else = {
+		clr_country_flag = KRAUS_pp_joined_sd
+	}
+	if = {
+		limit = {
+			has_country_flag = KRAUS_pm_cab_sl
+			NOT = { has_country_flag = KRAUS_pm_lead_sl }
+		}
+		# 0.9 实测 31：入阁党不再被直接拉进联盟，由 KRAUS_pp_coal.4 事件的选项加入
+		if = {
+			limit = { has_country_flag = KRAUS_pp_joined_sl }
+			set_temp_variable = { coalition_partner_var = token:social_liberal }
+			add_to_coalition = yes
+		}
+		else = {
+			country_event = { id = KRAUS_pp_coal.4 days = 1 }
+		}
+	}
+	else = {
+		clr_country_flag = KRAUS_pp_joined_sl
+	}
+}
+
+### 改变妥协意愿：调用前设临时变量 KRAUS_pm_in_comp（可为负），范围 0..100
+KRAUS_pm_comp_add = {
+	KRAUS_pm_recalc = yes
+	add_to_variable = { var = KRAUS_pm_comp value = KRAUS_pm_in_comp }
+	KRAUS_pm_recalc = yes
+}
+
+### 移动重心：调用前设临时变量 KRAUS_pm_in_dx / KRAUS_pm_in_dy（可为负）
+KRAUS_pm_move = {
+	KRAUS_pm_recalc = yes
+	add_to_variable = { var = KRAUS_pm_x value = KRAUS_pm_in_dx }
+	add_to_variable = { var = KRAUS_pm_y value = KRAUS_pm_in_dy }
+	KRAUS_pm_recalc = yes
+}
+
+### 把重心拉向某点：临时变量 KRAUS_pm_in_tx / KRAUS_pm_in_ty 为目标，KRAUS_pm_in_frac 为比例（0..1）
+KRAUS_pm_pull = {
+	KRAUS_pm_recalc = yes
+	set_temp_variable = { var = KRAUS_pm_in_dx value = KRAUS_pm_in_tx }
+	subtract_from_temp_variable = { var = KRAUS_pm_in_dx value = KRAUS_pm_x }
+	multiply_temp_variable = { var = KRAUS_pm_in_dx value = KRAUS_pm_in_frac }
+	set_temp_variable = { var = KRAUS_pm_in_dy value = KRAUS_pm_in_ty }
+	subtract_from_temp_variable = { var = KRAUS_pm_in_dy value = KRAUS_pm_y }
+	multiply_temp_variable = { var = KRAUS_pm_in_dy value = KRAUS_pm_in_frac }
+	add_to_variable = { var = KRAUS_pm_x value = KRAUS_pm_in_dx }
+	add_to_variable = { var = KRAUS_pm_y value = KRAUS_pm_in_dy }
+	KRAUS_pm_recalc = yes
+}
+
+### 四党团国策的推力：主党拉 3%，辅党拉 1.5%（在 KRAUS_pp_mark_* 之后调用；10-13 实测后调低 5 倍）
+KRAUS_pm_pull_cs = {
+	set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+	set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+	if = {
+		limit = { has_country_flag = KRAUS_pp_main_cs }
+		set_temp_variable = { var = KRAUS_pm_in_frac value = 0.03 }
+	}
+	else = {
+		set_temp_variable = { var = KRAUS_pm_in_frac value = 0.015 }
+	}
+	KRAUS_pm_pull = yes
+}
+KRAUS_pm_pull_ml = {
+	set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+	set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+	if = {
+		limit = { has_country_flag = KRAUS_pp_main_ml }
+		set_temp_variable = { var = KRAUS_pm_in_frac value = 0.03 }
+	}
+	else = {
+		set_temp_variable = { var = KRAUS_pm_in_frac value = 0.015 }
+	}
+	KRAUS_pm_pull = yes
+}
+KRAUS_pm_pull_sd = {
+	set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+	set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+	if = {
+		limit = { has_country_flag = KRAUS_pp_main_sd }
+		set_temp_variable = { var = KRAUS_pm_in_frac value = 0.03 }
+	}
+	else = {
+		set_temp_variable = { var = KRAUS_pm_in_frac value = 0.015 }
+	}
+	KRAUS_pm_pull = yes
+}
+KRAUS_pm_pull_sl = {
+	set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+	set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+	if = {
+		limit = { has_country_flag = KRAUS_pp_main_sl }
+		set_temp_variable = { var = KRAUS_pm_in_frac value = 0.03 }
+	}
+	else = {
+		set_temp_variable = { var = KRAUS_pm_in_frac value = 0.015 }
+	}
+	KRAUS_pm_pull = yes
+}
+KRAUS_pm_pull_fed = {
+	set_temp_variable = { var = KRAUS_pm_in_tx value = 50 }
+	set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+	set_temp_variable = { var = KRAUS_pm_in_frac value = 0.03 }
+	KRAUS_pm_pull = yes
+}
+KRAUS_pm_pull_mkt = {
+	set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+	set_temp_variable = { var = KRAUS_pm_in_ty value = 50 }
+	set_temp_variable = { var = KRAUS_pm_in_frac value = 0.03 }
+	KRAUS_pm_pull = yes
+}
+KRAUS_pm_pull_imp = {
+	set_temp_variable = { var = KRAUS_pm_in_tx value = 50 }
+	set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+	set_temp_variable = { var = KRAUS_pm_in_frac value = 0.03 }
+	KRAUS_pm_pull = yes
+}
+
+
+### 《帝国基本法》进度（每周一次，on_weekly_AUS）。用户 10-13 定案：
+###   入阁圈里只有主导党一个党 → 立刻增长，每周 2.5；
+###   两个以上的党 → 内阁组成保持 30 天不变后才增长，两党每周 2、三党 3、四党 4；
+###   主导党更换或内阁变动时稳定天数清零（KRAUS_pm_recalc），本周不增长。
+###   满 100 → 设 KRAUS_pm_charter_ready 并停止结算，弹 KRAUS_pm_events.2 由皇帝选择（用户 10-13 定案）：
+###     通过 → KRAUS_basic_law_passed（宪政，路线锁定为合众国）；搁置 → KRAUS_basic_law_shelved（僵持，大战时进入战时内阁）。
+###   大战中奥地利参战时停止。
+KRAUS_pm_law_tick = {
+	KRAUS_pm_recalc = yes
+	set_temp_variable = { var = KRAUS_pm_size value = 0 }
+	if = {
+		limit = { has_country_flag = KRAUS_pm_cab_cs }
+		add_to_temp_variable = { var = KRAUS_pm_size value = 1 }
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pm_cab_ml }
+		add_to_temp_variable = { var = KRAUS_pm_size value = 1 }
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pm_cab_sd }
+		add_to_temp_variable = { var = KRAUS_pm_size value = 1 }
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pm_cab_sl }
+		add_to_temp_variable = { var = KRAUS_pm_size value = 1 }
+	}
+	clr_country_flag = KRAUS_pm_law_single
+	clr_country_flag = KRAUS_pm_law_wait
+	clr_country_flag = KRAUS_pm_law_multi
+	clr_country_flag = KRAUS_pm_law_paused
+	if = {
+		limit = { check_variable = { var = KRAUS_pm_stable_days value = 7 compare = less_than } }
+		set_country_flag = KRAUS_pm_law_paused
+	}
+	else_if = {
+		limit = { check_variable = { var = KRAUS_pm_size value = 1 compare = less_than_or_equals } }
+		set_country_flag = KRAUS_pm_law_single
+		add_to_variable = { var = KRAUS_pm_law value = 2.5 }
+	}
+	else_if = {
+		limit = { check_variable = { var = KRAUS_pm_stable_days value = 30 compare = less_than } }
+		set_country_flag = KRAUS_pm_law_wait
+	}
+	else = {
+		set_country_flag = KRAUS_pm_law_multi
+		add_to_variable = { var = KRAUS_pm_law value = KRAUS_pm_size }
+	}
+	add_to_variable = { var = KRAUS_pm_stable_days value = 7 }
+	clamp_variable = { var = KRAUS_pm_law min = 0 max = 100 }
+	KRAUS_pm_law_frame_update = yes
+	if = {
+		limit = {
+			check_variable = { var = KRAUS_pm_law value = 100 compare = greater_than_or_equals }
+			NOT = { has_country_flag = KRAUS_pm_charter_ready }
+		}
+		set_country_flag = KRAUS_pm_charter_ready
+		country_event = { id = KRAUS_pm_events.2 days = 1 }
+	}
+}
+
+### 进度条帧：1..11（0%..100%，每 10% 一帧）
+KRAUS_pm_law_frame_update = {
+	set_variable = { var = KRAUS_pm_law_frame value = KRAUS_pm_law }
+	divide_variable = { var = KRAUS_pm_law_frame value = 10 }
+	round_variable = KRAUS_pm_law_frame
+	add_to_variable = { var = KRAUS_pm_law_frame value = 1 }
+	clamp_variable = { var = KRAUS_pm_law_frame min = 1 max = 11 }
+}
+
+### 拉向皇帝点（50,5）：只在战时帝国内阁（皇帝点在场）时生效。临时变量 KRAUS_pm_in_frac 为比例。
+KRAUS_pm_pull_emperor = {
+	if = {
+		limit = { has_country_flag = KRAUS_pm_emperor_on }
+		set_temp_variable = { var = KRAUS_pm_in_tx value = 50 }
+		set_temp_variable = { var = KRAUS_pm_in_ty value = 5 }
+		KRAUS_pm_pull = yes
+	}
+}
+
+### 战时帝国内阁（第 4 批）：大战爆发、奥地利参战、基本法没写完时由 KRAUS_pm_war.1 调用。
+### 皇帝主持，威权民主执政，四党都派代表进执政联盟；皇帝点出现；共同的敌人让妥协意愿 +15。
+### 主导党变化时不再换执政党（KRAUS_pm_recalc 里排除了 KRAUS_war_cabinet）。
+KRAUS_pm_war_cabinet_form = {
+	set_country_flag = KRAUS_war_cabinet
+	set_country_flag = KRAUS_pm_emperor_on
+	end_coalition = yes
+	set_politics = { ruling_party = authoritarian_democrat elections_allowed = no }
+	set_temp_variable = { coalition_partner_var = token:social_conservative }
+	add_to_coalition = yes
+	set_temp_variable = { coalition_partner_var = token:market_liberal }
+	add_to_coalition = yes
+	set_temp_variable = { coalition_partner_var = token:social_democrat }
+	add_to_coalition = yes
+	set_temp_variable = { coalition_partner_var = token:social_liberal }
+	add_to_coalition = yes
+	set_temp_variable = { var = KRAUS_pm_in_comp value = 15 }
+	KRAUS_pm_comp_add = yes
+}
+
+### 交接：「明天的帝国」读完时调用。天平收起，按天平位置与危机结局给出初始重心。
+KRAUS_pm_activate = {
+	set_variable = { var = KRAUS_pm_x value = 50 }
+	set_variable = { var = KRAUS_pm_y value = 50 }
+	if = {
+		limit = { has_power_balance = { id = KRAUS_regime_balance } }
+		if = {
+			limit = { power_balance_value = { id = KRAUS_regime_balance value < -0.6 } }
+			add_to_variable = { var = KRAUS_pm_x value = -10 }
+			add_to_variable = { var = KRAUS_pm_y value = 15 }
+		}
+		else_if = {
+			limit = { power_balance_value = { id = KRAUS_regime_balance value < -0.2 } }
+			add_to_variable = { var = KRAUS_pm_x value = -5 }
+			add_to_variable = { var = KRAUS_pm_y value = 8 }
+		}
+		else_if = {
+			limit = { power_balance_value = { id = KRAUS_regime_balance value > 0.6 } }
+			add_to_variable = { var = KRAUS_pm_y value = -15 }
+		}
+		else_if = {
+			limit = { power_balance_value = { id = KRAUS_regime_balance value > 0.2 } }
+			add_to_variable = { var = KRAUS_pm_y value = -8 }
+		}
+		remove_power_balance = { id = KRAUS_regime_balance }
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_dc_had_war }
+		add_to_variable = { var = KRAUS_pm_y value = -5 }
+	}
+	else = {
+		add_to_variable = { var = KRAUS_pm_y value = 5 }
+	}
+	set_country_flag = KRAUS_pm_active
+	KRAUS_pm_recalc = yes
+}

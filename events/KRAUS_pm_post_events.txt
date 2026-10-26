@@ -1,0 +1,70 @@
+############################################################
+### 合众国路线第 5 批：战后大选与联合内阁危机（2026-10-13）。本文件由 gen_postwar.py 生成。
+### KRAUS_pm_post.1 战后大选结果（由 KRAUS_pm_postwar_resolve 触发）
+### KRAUS_pm_crisis.1 联合内阁出现裂痕  .2 最后通牒（之后开放两条一次性决议）
+############################################################
+add_namespace = KRAUS_pm_post
+add_namespace = KRAUS_pm_crisis
+
+country_event = {
+	id = KRAUS_pm_post.1
+	title = KRAUS_pm_post.1.t
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_end_emperor }
+		text = KRAUS_pm_post.1.d_emperor
+	}
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_end_1 }
+		text = KRAUS_pm_post.1.d_1
+	}
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_end_2 }
+		text = KRAUS_pm_post.1.d_2
+	}
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_end_3 }
+		text = KRAUS_pm_post.1.d_3
+	}
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_end_4 }
+		text = KRAUS_pm_post.1.d_4
+	}
+	picture = GFX_report_event_KRAUS_pm_post_1
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_pm_post.1.a
+		log = "[GetLogInfo]: event KRAUS_pm_post.1 option KRAUS_pm_post.1.a"
+		custom_effect_tooltip = KRAUS_pm_post_tt
+	}
+}
+
+country_event = {
+	id = KRAUS_pm_crisis.1
+	title = KRAUS_pm_crisis.1.t
+	desc = KRAUS_pm_crisis.1.d
+	picture = GFX_report_event_KRAUS_pm_crisis_1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_pm_crisis.1.a
+		log = "[GetLogInfo]: event KRAUS_pm_crisis.1 option KRAUS_pm_crisis.1.a"
+		add_ideas = KRAUS_pm_crisis_idea
+		hidden_effect = { country_event = { id = KRAUS_pm_crisis.2 days = 30 } }
+	}
+}
+
+country_event = {
+	id = KRAUS_pm_crisis.2
+	title = KRAUS_pm_crisis.2.t
+	desc = KRAUS_pm_crisis.2.d
+	picture = GFX_report_event_KRAUS_pm_crisis_2
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_pm_crisis.2.a
+		log = "[GetLogInfo]: event KRAUS_pm_crisis.2 option KRAUS_pm_crisis.2.a"
+		set_country_flag = KRAUS_pm_crisis_open
+		custom_effect_tooltip = KRAUS_pm_crisis_open_tt
+	}
+}
+

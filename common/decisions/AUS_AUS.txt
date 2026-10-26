@@ -1,0 +1,1069 @@
+KRAUS_industrial = {
+
+	KRAUS_dec_mittelland_canal = {
+		icon = GFX_decision_road
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = infrastructure
+								level = 1
+								instant_build = yes
+							}
+							if = {
+								limit = {
+									energy_infrastructure < 1
+									industrial_infrastructure < 1
+								}
+								add_building_construction = {
+									type = energy_infrastructure
+									level = 1
+									instant_build = yes
+								}
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_semmering_railway = {
+		icon = GFX_decision_road
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = infrastructure
+								level = 1
+								instant_build = yes
+							}
+							if = {
+								limit = {
+									energy_infrastructure < 1
+									industrial_infrastructure < 1
+								}
+								add_building_construction = {
+									type = energy_infrastructure
+									level = 1
+									instant_build = yes
+								}
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_alpine_dams = {
+		icon = GFX_decision_electrify
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 1
+							if = {
+								limit = {
+									energy_infrastructure < 1
+									industrial_infrastructure < 1
+								}
+								add_building_construction = {
+									type = energy_infrastructure
+									level = 1
+									instant_build = yes
+								}
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_danube_power = {
+		icon = GFX_decision_electrify
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 1
+							if = {
+								limit = {
+									energy_infrastructure < 1
+									industrial_infrastructure < 1
+								}
+								add_building_construction = {
+									type = energy_infrastructure
+									level = 1
+									instant_build = yes
+								}
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_alpine_montan = {
+		icon = GFX_decision_steel
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = arms_factory
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_vitkovice = {
+		icon = GFX_decision_steel
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = arms_factory
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_skoda_works = {
+		icon = GFX_decision_ger_military_buildup
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = arms_factory
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_steyr_werke = {
+		icon = GFX_decision_generic_motorized
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = arms_factory
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_daimler_puch = {
+		icon = GFX_decision_generic_motorized
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = arms_factory
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_bosch_austria = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_tobacco = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_breweries = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_wine = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_textile = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_furniture = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_glass = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_cement = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_linz_chemical = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_synthetics = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = synthetic_refinery
+								level = 1
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = fuel_silo
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_peat = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_resource = {
+								type = coal
+								amount = 18
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_housing = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							increase_state_category_by_one_level = yes
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_apartments = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							increase_state_category_by_one_level = yes
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_tractor = {
+		icon = GFX_decision_generic_consumer_goods
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_refrigerator = {
+		icon = GFX_decision_generic_consumer_goods
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_people_car = {
+		icon = GFX_decision_generic_consumer_goods
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = arms_factory
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_railway_works = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_shipyard = {
+		icon = GFX_decision_factories
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = dockyard
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+	KRAUS_dec_arsenal = {
+		icon = GFX_decision_ger_military_buildup
+		allowed = {
+			always = no
+		}
+		available = {
+			FROM = {
+							is_owned_and_controlled_by = ROOT
+						}
+						num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			always = yes
+		}
+		cost = 40
+		fire_only_once = yes
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			FROM = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = arms_factory
+								level = 1
+								instant_build = yes
+							}
+						}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		state_target = yes
+	}
+
+
+	# ============================================================
+	# 撤走奥地利资产
+	#   前提：塞尔维亚尚未完成「维德节演讲」国策
+	#     （该 focus 的 available = always no，只能由事件解锁，
+	#       所以「尚未完成」是个有意义的状态判断）
+	#   花费 100 政治点，从塞尔维亚和罗马尼亚各拆 1 个民工厂。
+	#   拆除范式照抄 KR common/scripted_effects/01_Belgrade Pact effects.txt:206
+	#     belgrade_pact_loot_factory_from_bulgaria
+	
+
+}

@@ -1,0 +1,70 @@
+############################################################
+### 10-27 联邦行政化：各邦「官员与军官的不满」一齐降一档（不包隐藏效果，让游戏原生显示换哪个精神）
+############################################################
+KRAUS_fed_states_down_one = {
+	if = { limit = { has_idea = KRAUS_cg_CZE_3 } swap_ideas = { remove_idea = KRAUS_cg_CZE_3 add_idea = KRAUS_cg_CZE_2 } }
+	else_if = { limit = { has_idea = KRAUS_cg_CZE_2 } swap_ideas = { remove_idea = KRAUS_cg_CZE_2 add_idea = KRAUS_cg_CZE_1 } }
+	else_if = { limit = { has_idea = KRAUS_cg_CZE_1 } remove_ideas = KRAUS_cg_CZE_1 }
+	if = { limit = { has_idea = KRAUS_cg_GAL_3 } swap_ideas = { remove_idea = KRAUS_cg_GAL_3 add_idea = KRAUS_cg_GAL_2 } }
+	else_if = { limit = { has_idea = KRAUS_cg_GAL_2 } swap_ideas = { remove_idea = KRAUS_cg_GAL_2 add_idea = KRAUS_cg_GAL_1 } }
+	else_if = { limit = { has_idea = KRAUS_cg_GAL_1 } remove_ideas = KRAUS_cg_GAL_1 }
+	if = { limit = { has_idea = KRAUS_cg_CRO_3 } swap_ideas = { remove_idea = KRAUS_cg_CRO_3 add_idea = KRAUS_cg_CRO_2 } }
+	else_if = { limit = { has_idea = KRAUS_cg_CRO_2 } swap_ideas = { remove_idea = KRAUS_cg_CRO_2 add_idea = KRAUS_cg_CRO_1 } }
+	else_if = { limit = { has_idea = KRAUS_cg_CRO_1 } remove_ideas = KRAUS_cg_CRO_1 }
+	if = { limit = { has_idea = KRAUS_cg_HUN_3 } swap_ideas = { remove_idea = KRAUS_cg_HUN_3 add_idea = KRAUS_cg_HUN_2 } }
+	else_if = { limit = { has_idea = KRAUS_cg_HUN_2 } swap_ideas = { remove_idea = KRAUS_cg_HUN_2 add_idea = KRAUS_cg_HUN_1 } }
+	else_if = { limit = { has_idea = KRAUS_cg_HUN_1 } remove_ideas = KRAUS_cg_HUN_1 }
+	if = { limit = { has_idea = KRAUS_cg_SLO_3 } swap_ideas = { remove_idea = KRAUS_cg_SLO_3 add_idea = KRAUS_cg_SLO_2 } }
+	else_if = { limit = { has_idea = KRAUS_cg_SLO_2 } swap_ideas = { remove_idea = KRAUS_cg_SLO_2 add_idea = KRAUS_cg_SLO_1 } }
+	else_if = { limit = { has_idea = KRAUS_cg_SLO_1 } remove_ideas = KRAUS_cg_SLO_1 }
+	if = { limit = { has_idea = KRAUS_cg_TRS_3 } swap_ideas = { remove_idea = KRAUS_cg_TRS_3 add_idea = KRAUS_cg_TRS_2 } }
+	else_if = { limit = { has_idea = KRAUS_cg_TRS_2 } swap_ideas = { remove_idea = KRAUS_cg_TRS_2 add_idea = KRAUS_cg_TRS_1 } }
+	else_if = { limit = { has_idea = KRAUS_cg_TRS_1 } remove_ideas = KRAUS_cg_TRS_1 }
+}
+# 10-27：三选一的州动态修正（原王冠领地的州）
+KRAUS_fed_dm_officials_apply = {
+	every_state = {
+		limit = {
+			OR = { is_core_of = CZE is_core_of = GAL is_core_of = CRO is_core_of = HUN is_core_of = SLO is_core_of = TRS }
+			is_owned_by = ROOT
+			NOT = { has_dynamic_modifier = { modifier = KRAUS_fed_dm_officials } }
+		}
+		add_dynamic_modifier = { modifier = KRAUS_fed_dm_officials }
+	}
+}
+# 10-27：三选一的州动态修正（原王冠领地的州）
+KRAUS_fed_dm_governors_apply = {
+	every_state = {
+		limit = {
+			OR = { is_core_of = CZE is_core_of = GAL is_core_of = CRO is_core_of = HUN is_core_of = SLO is_core_of = TRS }
+			is_owned_by = ROOT
+			NOT = { has_dynamic_modifier = { modifier = KRAUS_fed_dm_governors } }
+		}
+		add_dynamic_modifier = { modifier = KRAUS_fed_dm_governors }
+	}
+}
+############################################################
+### 10-27 国策精神归一化：组内每完成一个国策，该组精神升一档（swap_ideas 原生显示）
+############################################################
+KRAUS_fed_mil_up = {
+	if = { limit = { has_idea = KRAUS_fed_mil_5 } swap_ideas = { remove_idea = KRAUS_fed_mil_5 add_idea = KRAUS_fed_mil_6 } }
+	else_if = { limit = { has_idea = KRAUS_fed_mil_4 } swap_ideas = { remove_idea = KRAUS_fed_mil_4 add_idea = KRAUS_fed_mil_5 } }
+	else_if = { limit = { has_idea = KRAUS_fed_mil_3 } swap_ideas = { remove_idea = KRAUS_fed_mil_3 add_idea = KRAUS_fed_mil_4 } }
+	else_if = { limit = { has_idea = KRAUS_fed_mil_2 } swap_ideas = { remove_idea = KRAUS_fed_mil_2 add_idea = KRAUS_fed_mil_3 } }
+	else_if = { limit = { has_idea = KRAUS_fed_mil_1 } swap_ideas = { remove_idea = KRAUS_fed_mil_1 add_idea = KRAUS_fed_mil_2 } }
+	else_if = { limit = { NOT = { has_idea = KRAUS_fed_mil_6 } } add_ideas = KRAUS_fed_mil_1 }
+}
+KRAUS_fed_war_up = {
+	if = { limit = { has_idea = KRAUS_fed_war_6 } swap_ideas = { remove_idea = KRAUS_fed_war_6 add_idea = KRAUS_fed_war_7 } }
+	else_if = { limit = { has_idea = KRAUS_fed_war_5 } swap_ideas = { remove_idea = KRAUS_fed_war_5 add_idea = KRAUS_fed_war_6 } }
+	else_if = { limit = { has_idea = KRAUS_fed_war_4 } swap_ideas = { remove_idea = KRAUS_fed_war_4 add_idea = KRAUS_fed_war_5 } }
+	else_if = { limit = { has_idea = KRAUS_fed_war_3 } swap_ideas = { remove_idea = KRAUS_fed_war_3 add_idea = KRAUS_fed_war_4 } }
+	else_if = { limit = { has_idea = KRAUS_fed_war_2 } swap_ideas = { remove_idea = KRAUS_fed_war_2 add_idea = KRAUS_fed_war_3 } }
+	else_if = { limit = { has_idea = KRAUS_fed_war_1 } swap_ideas = { remove_idea = KRAUS_fed_war_1 add_idea = KRAUS_fed_war_2 } }
+	else_if = { limit = { NOT = { has_idea = KRAUS_fed_war_7 } } add_ideas = KRAUS_fed_war_1 }
+}
+KRAUS_fed_parl_up = {
+	if = { limit = { has_idea = KRAUS_fed_parl_2 } swap_ideas = { remove_idea = KRAUS_fed_parl_2 add_idea = KRAUS_fed_parl_3 } }
+	else_if = { limit = { has_idea = KRAUS_fed_parl_1 } swap_ideas = { remove_idea = KRAUS_fed_parl_1 add_idea = KRAUS_fed_parl_2 } }
+	else_if = { limit = { NOT = { has_idea = KRAUS_fed_parl_3 } } add_ideas = KRAUS_fed_parl_1 }
+}

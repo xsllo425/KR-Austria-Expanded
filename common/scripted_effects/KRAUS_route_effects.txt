@@ -1,0 +1,72 @@
+############################################################
+### 终局路线入口（2026-10-12）：倾向兑现
+###   花费 = 100 − 10 × 倾向（不低于 50）；精神档位：倾向 0~1 → 一档，2~3 → 二档，≥4 → 三档
+############################################################
+KRAUS_usga_recalc = {
+	set_variable = { KRAUS_usga_cost = 100 }
+	set_temp_variable = { KRAUS_t = KRAUS_lean_usga }
+	multiply_temp_variable = { KRAUS_t = 10 }
+	subtract_from_variable = { KRAUS_usga_cost = KRAUS_t }
+	clamp_variable = {
+		var = KRAUS_usga_cost
+		min = 50
+		max = 100
+	}
+}
+
+KRAUS_usga_apply = {
+	# 国家形态标志（v1.3：不再设互斥的路线标志，成立合众国后仍可走大德意志或神罗）
+	set_country_flag = KRAUS_usga_formed
+	# 国名随之改为「大奥地利合众国」（0.9 实测：决议完成后国名没有变）
+	set_cosmetic_tag = AUS_united_states
+	# 联邦式（重心纵坐标 >= 60）／统一式（<= 40）／中间：只给起始精神
+	if = {
+		limit = {
+			has_variable = KRAUS_pm_y
+			check_variable = { var = KRAUS_pm_y value = 60 compare = greater_than_or_equals }
+		}
+		set_country_flag = KRAUS_usga_federal
+		add_ideas = KRAUS_usga_federal
+	}
+	else_if = {
+		limit = {
+			has_variable = KRAUS_pm_y
+			check_variable = { var = KRAUS_pm_y value = 40 compare = less_than_or_equals }
+		}
+		set_country_flag = KRAUS_usga_unitary
+		add_ideas = KRAUS_usga_unitary
+		hidden_effect = { country_event = { id = KRAUS_usga_unrest.1 days = 90 random_days = 30 } }
+	}
+	if = {
+		limit = { check_variable = { KRAUS_lean_usga > 3.5 } }
+		add_ideas = KRAUS_usga_spirit_3
+	}
+	else_if = {
+		limit = { check_variable = { KRAUS_lean_usga > 1.5 } }
+		add_ideas = KRAUS_usga_spirit_2
+	}
+	else = {
+		add_ideas = KRAUS_usga_spirit_1
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pp_main_sd }
+		add_ideas = KRAUS_usga_main_sd
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pp_main_cs }
+		add_ideas = KRAUS_usga_main_cs
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pp_main_sl }
+		add_ideas = KRAUS_usga_main_sl
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pp_main_ml }
+		add_ideas = KRAUS_usga_main_ml
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_usa_contact country_exists = USA }
+		USA = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship } }
+		add_political_power = 25
+	}
+}

@@ -1,0 +1,31 @@
+add_namespace = KRAUS_fix16
+
+# 保加利亚的胜利与奥地利的志愿军团：巴尔干火药桶就此熄灭
+country_event = {
+	id = KRAUS_fix16.1
+	title = KRAUS_fix16.1.t
+	desc = KRAUS_fix16.1.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_fix16.1.a
+		log = "[GetLogInfo]: event KRAUS_fix16.1 option KRAUS_fix16.1.a"
+		custom_effect_tooltip = KRAUS_fix16_keg_cleared_tt
+	}
+}
+
+# 战争爆发时火药桶还在：只剩最后九十天
+country_event = {
+	id = KRAUS_fix16.2
+	title = KRAUS_fix16.2.t
+	desc = KRAUS_fix16.2.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_fix16.2.a
+		log = "[GetLogInfo]: event KRAUS_fix16.2 option KRAUS_fix16.2.a"
+		custom_effect_tooltip = KRAUS_fix16_keg_timed_tt
+	}
+}

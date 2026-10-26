@@ -1,0 +1,113 @@
+add_namespace = KRAUS_pp_coal
+
+# 0.9 实测 31：入阁党的加入由事件决定（基社党团）
+country_event = {
+	id = KRAUS_pp_coal.1
+	title = KRAUS_pp_coal.1.t
+	desc = KRAUS_pp_coal.1.d
+	picture = GFX_report_event_KRAUS_pp_coal_1
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = KRAUS_pm_cab_cs
+		NOT = { has_country_flag = KRAUS_pm_lead_cs }
+		NOT = { has_country_flag = KRAUS_pp_joined_cs }
+		NOT = { has_country_flag = KRAUS_war_cabinet }
+	}
+	option = {
+		name = KRAUS_pp_coal.1.a
+		log = "[GetLogInfo]: event KRAUS_pp_coal.1 option KRAUS_pp_coal.1.a"
+		set_country_flag = KRAUS_pp_joined_cs
+		set_temp_variable = { coalition_partner_var = token:social_conservative }
+		add_to_coalition = yes
+		custom_effect_tooltip = KRAUS_pp_coal_join_cs_tt
+		add_political_power = 15
+	}
+	option = {
+		name = KRAUS_pp_coal.1.b
+		log = "[GetLogInfo]: event KRAUS_pp_coal.1 option KRAUS_pp_coal.1.b"
+	}
+}
+
+# 0.9 实测 31：入阁党的加入由事件决定（民族自由党团）
+country_event = {
+	id = KRAUS_pp_coal.2
+	title = KRAUS_pp_coal.2.t
+	desc = KRAUS_pp_coal.2.d
+	picture = GFX_report_event_KRAUS_pp_coal_2
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = KRAUS_pm_cab_ml
+		NOT = { has_country_flag = KRAUS_pm_lead_ml }
+		NOT = { has_country_flag = KRAUS_pp_joined_ml }
+		NOT = { has_country_flag = KRAUS_war_cabinet }
+	}
+	option = {
+		name = KRAUS_pp_coal.2.a
+		log = "[GetLogInfo]: event KRAUS_pp_coal.2 option KRAUS_pp_coal.2.a"
+		set_country_flag = KRAUS_pp_joined_ml
+		set_temp_variable = { coalition_partner_var = token:market_liberal }
+		add_to_coalition = yes
+		custom_effect_tooltip = KRAUS_pp_coal_join_ml_tt
+		add_political_power = 15
+	}
+	option = {
+		name = KRAUS_pp_coal.2.b
+		log = "[GetLogInfo]: event KRAUS_pp_coal.2 option KRAUS_pp_coal.2.b"
+	}
+}
+
+# 0.9 实测 31：入阁党的加入由事件决定（社民党团）
+country_event = {
+	id = KRAUS_pp_coal.3
+	title = KRAUS_pp_coal.3.t
+	desc = KRAUS_pp_coal.3.d
+	picture = GFX_report_event_KRAUS_pp_coal_3
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = KRAUS_pm_cab_sd
+		NOT = { has_country_flag = KRAUS_pm_lead_sd }
+		NOT = { has_country_flag = KRAUS_pp_joined_sd }
+		NOT = { has_country_flag = KRAUS_war_cabinet }
+	}
+	option = {
+		name = KRAUS_pp_coal.3.a
+		log = "[GetLogInfo]: event KRAUS_pp_coal.3 option KRAUS_pp_coal.3.a"
+		set_country_flag = KRAUS_pp_joined_sd
+		set_temp_variable = { coalition_partner_var = token:social_democrat }
+		add_to_coalition = yes
+		custom_effect_tooltip = KRAUS_pp_coal_join_sd_tt
+		add_political_power = 15
+	}
+	option = {
+		name = KRAUS_pp_coal.3.b
+		log = "[GetLogInfo]: event KRAUS_pp_coal.3 option KRAUS_pp_coal.3.b"
+	}
+}
+
+# 0.9 实测 31：入阁党的加入由事件决定（自由民主联盟）
+country_event = {
+	id = KRAUS_pp_coal.4
+	title = KRAUS_pp_coal.4.t
+	desc = KRAUS_pp_coal.4.d
+	picture = GFX_report_event_KRAUS_pp_coal_4
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = KRAUS_pm_cab_sl
+		NOT = { has_country_flag = KRAUS_pm_lead_sl }
+		NOT = { has_country_flag = KRAUS_pp_joined_sl }
+		NOT = { has_country_flag = KRAUS_war_cabinet }
+	}
+	option = {
+		name = KRAUS_pp_coal.4.a
+		log = "[GetLogInfo]: event KRAUS_pp_coal.4 option KRAUS_pp_coal.4.a"
+		set_country_flag = KRAUS_pp_joined_sl
+		set_temp_variable = { coalition_partner_var = token:social_liberal }
+		add_to_coalition = yes
+		custom_effect_tooltip = KRAUS_pp_coal_join_sl_tt
+		add_political_power = 15
+	}
+	option = {
+		name = KRAUS_pp_coal.4.b
+		log = "[GetLogInfo]: event KRAUS_pp_coal.4 option KRAUS_pp_coal.4.b"
+	}
+}

@@ -1,0 +1,1241 @@
+############################################################
+### 【剧情启动】on_action 钩子 —— Kaiserreich 奥地利拓展
+###
+### 开局第一天弹一次「奥地利的抉择」（KRAUS_startup_events.1），
+### 靠 country_flag 防重。
+### 范本：KR common/on_actions/on_actions_Balkans.txt:226 的 on_daily_SER
+###
+### 注：这里原本还有一段「三危机变量检查」，是死代码
+###     （KRAUS_crisis_* 三思想从未定义、国策从不调用 KRAUS_cut_*），
+###     已移除。配套的 KRAUS_crisis_effects.txt 也已移出加载路径，
+###     见 _deprecated_20260917/。
+############################################################
+
+on_actions = {
+	on_daily_AUS = {
+		effect = {
+            KRAUS_policy_reconcile = yes
+            KRAUS_econ_reconcile = yes
+            KRAUS_crown_crisis_daily = yes
+            KRAUS_root_problems_update = yes
+            KRAUS_integ_recalc = yes
+            if = {
+                limit = { has_country_flag = KRAUS_cl_loyalty_floor }
+                KRAUS_cl_floor_all = yes
+            }
+            # 0.9 反馈2：大选结果公布一周后，按执政党自动完成对应的委员会国策
+            if = {
+                limit = {
+                    has_country_flag = KRAUS_comm_armed
+                    NOT = { has_country_flag = KRAUS_comm_wait }
+                }
+                clr_country_flag = KRAUS_comm_armed
+                if = {
+                    limit = {
+                        NOT = { has_completed_focus = AUS_sdap_industrial_workers_council }
+                        NOT = { has_completed_focus = AUS_cs_national_austerity_council }
+                    }
+                    if = {
+                        limit = { has_government = social_democrat }
+                        complete_national_focus = AUS_sdap_industrial_workers_council
+                    }
+                    else = {
+                        complete_national_focus = AUS_cs_national_austerity_council
+                    }
+                }
+            }
+            # 0.9 反馈23：保加利亚在第四次巴尔干战争中获胜，奥地利已通过志愿军团法并与其同盟，半岛上没有社会主义国家：火药桶一次清掉
+            if = {
+                limit = {
+                    KRAUS_has_powder_keg = yes
+                    has_global_flag = balkan_war_ended
+                    country_exists = BUL
+                    NOT = { BUL = { has_country_flag = BUL_balkan_peace_loss } }
+                    has_completed_focus = KRAUS_balkan_volunteer_act
+                    is_in_faction_with = BUL
+                    KRAUS_balkan_no_socialist = yes
+                }
+                KRAUS_clear_powder_keg = yes
+                country_event = { id = KRAUS_fix16.1 days = 1 }
+            }
+            # 二战爆发后火药桶仍未消除：转成 90 天的限时负面
+            if = {
+                limit = {
+                    KRAUS_has_powder_keg = yes
+                    has_global_flag = second_weltkrieg_has_started
+                }
+                KRAUS_powder_keg_timed = yes
+                country_event = { id = KRAUS_fix16.2 days = 1 }
+            }
+            KRAUS_trs_bust_check = yes
+            if = {
+                limit = { has_completed_focus = AUS_eco_council }
+                KRAUS_joint_econ_recalc = yes
+            }
+            if = {
+                limit = { has_completed_focus = AUS_military_expansion }
+                KRAUS_joint_mil_recalc = yes
+            }
+            # Danube crisis war over -> crisis resolved
+            if = {
+                limit = {
+                    has_country_flag = KRAUS_dc_war_started
+                    NOT = { has_war_with = HUN }
+                }
+                clr_country_flag = KRAUS_dc_war_started
+                set_country_flag = KRAUS_dc_resolved_flag
+                if = {
+                    limit = { country_exists = HUN }
+                    HUN = { clear_rule = { can_not_declare_war = yes } }
+                }
+            }
+            # 危机了结且奥地利获胜：没来得及做的「争取王领」决议自动完成，只给少量政治点数（2026-10-12）
+            if = {
+                limit = {
+                    has_country_flag = KRAUS_dc_resolved_flag
+                    KRAUS_dc_victory = yes
+                    NOT = { has_country_flag = KRAUS_dc_autofill_done }
+                }
+                set_country_flag = KRAUS_dc_autofill_done
+                if = { limit = { NOT = { has_country_flag = KRAUS_dc_won_CZE } } add_political_power = 10 }
+                if = { limit = { NOT = { has_country_flag = KRAUS_dc_won_GAL } } add_political_power = 10 }
+                if = { limit = { NOT = { has_country_flag = KRAUS_dc_won_CRO } } add_political_power = 10 }
+            }
+            # Danube crisis over: released crownlands come back (and are punished if they sat out a war)
+            if = {
+                limit = {
+                    has_country_flag = KRAUS_dc_resolved_flag
+                    NOT = { has_country_flag = KRAUS_dc_reckoning_done }
+                    NOT = { has_country_flag = KRAUS_dc_war_started }
+                    # lost the war = the Empire dissolves (future line), no reckoning
+                    OR = {
+                        NOT = { has_country_flag = KRAUS_dc_had_war }
+                        KRAUS_dc_victory = yes
+                    }
+                    OR = { CZE = { has_country_flag = KRAUS_dc_released } GAL = { has_country_flag = KRAUS_dc_released } CRO = { has_country_flag = KRAUS_dc_released } SLO = { has_country_flag = KRAUS_dc_released } TRS = { has_country_flag = KRAUS_dc_released } }
+                }
+                set_country_flag = KRAUS_dc_reckoning_done
+                country_event = { id = KRAUS_danube_crisis.2 days = 0 }
+            }
+            # Crownland investment resumes after the Danube crisis
+            if = {
+                limit = {
+                    has_country_flag = KRAUS_cw_paused
+                    NOT = { KRAUS_dc_ongoing = yes }
+                }
+                clr_country_flag = KRAUS_cw_paused
+                country_event = { id = KRAUS_cw_events.3 days = 0 }
+            }
+            # No crownlands left: settle all investments into a permanent spirit
+            if = {
+                limit = {
+                    has_country_flag = KRAUS_cw_program_active
+                    NOT = { has_country_flag = KRAUS_cw_settled }
+                    NOT = { KRAUS_has_crownland = yes }
+                    check_variable = { KRAUS_cw_investments > 0 }
+                    NOT = { KRAUS_dc_ongoing = yes }
+                    NOT = { OR = { CZE = { has_country_flag = KRAUS_dc_released } GAL = { has_country_flag = KRAUS_dc_released } CRO = { has_country_flag = KRAUS_dc_released } SLO = { has_country_flag = KRAUS_dc_released } TRS = { has_country_flag = KRAUS_dc_released } } }
+                }
+                set_country_flag = KRAUS_cw_settled
+                country_event = { id = KRAUS_cw_events.4 days = 0 }
+            }
+            # 0.9 V2：塞尔维亚与罗马尼亚都成了奥地利的傀儡后，触发资源与工厂分成事件
+            if = {
+                limit = {
+                    has_country_flag = KRAUS_new_way_chosen
+                    NOT = { has_country_flag = KRAUS_blackhand_done }
+                    NOT = { has_country_flag = KRAUS_blackhand_fired }
+                    country_exists = SER
+                    country_exists = ROM
+                    SER = { is_subject_of = ROOT }
+                    ROM = { is_subject_of = ROOT }
+                }
+                set_country_flag = KRAUS_blackhand_fired
+                country_event = { id = KRAUS_balkan_events.82 days = 1 }
+            }
+            # 0.9 V2：西班牙成了奥地利的傀儡后，由哈布斯堡家族成员出任元首（只触发一次）
+            if = {
+                limit = {
+                    has_country_flag = KRAUS_new_way_chosen
+                    NOT = { has_country_flag = KRAUS_spain_monarch_fired }
+                    any_subject_country = {
+                        OR = {
+                            original_tag = SPA
+                            original_tag = SPK
+                            original_tag = SPR
+                        }
+                    }
+                }
+                set_country_flag = KRAUS_spain_monarch_fired
+                country_event = { id = KRAUS_war_order_events.22 days = 3 }
+            }
+            # 0.9 V2：继承的王领承诺（大德意志线签下，大战结束后在本线兑现）
+            if = {
+                limit = {
+                    has_global_flag = second_weltkrieg_has_ended
+                    has_country_flag = KRAUS_gg_promise_hun_indep
+                    NOT = { has_country_flag = KRAUS_promise_hun_done }
+                    NOT = { has_country_flag = KRAUS_promise_hun_fired }
+                }
+                set_country_flag = KRAUS_promise_hun_fired
+                country_event = { id = KRAUS_promise.1 days = 3 }
+            }
+            if = {
+                limit = {
+                    has_global_flag = second_weltkrieg_has_ended
+                    OR = {
+                        has_country_flag = KRAUS_gg_promise_cze_priv
+                        has_country_flag = KRAUS_gg_promise_gal_priv
+                        has_country_flag = KRAUS_gg_promise_cro_priv
+                        has_country_flag = KRAUS_gg_promise_hun_priv
+                        has_country_flag = KRAUS_gg_promise_slo_priv
+                        has_country_flag = KRAUS_gg_promise_trs_priv
+                    }
+                    NOT = { has_country_flag = KRAUS_promise_priv_done }
+                    NOT = { has_country_flag = KRAUS_promise_priv_fired }
+                }
+                set_country_flag = KRAUS_promise_priv_fired
+                country_event = { id = KRAUS_promise.2 days = 5 }
+            }
+            # 0.9 实测：巴尔干战争爆发时让玩家选定路线（干涉或观望），之后点对应路线国策才追加政治点数
+            if = {
+                limit = {
+                    has_country_flag = KRAUS_new_way_chosen
+                    has_global_flag = balkan_war_started
+                    NOT = { has_global_flag = balkan_war_ended }
+                    NOT = { has_country_flag = KRAUS_balkan_choice_asked }
+                }
+                set_country_flag = KRAUS_balkan_choice_asked
+                country_event = { id = KRAUS_balkan_events.70 days = 1 }
+            }
+            # The Balkans' Guardian completes itself once the Belgrade Pact is formed
+            if = {
+                limit = {
+                    has_country_flag = KRAUS_new_way_chosen
+                    NOT = { has_completed_focus = KRAUS_balkan_anchor }
+                    country_exists = SER
+                    SER = { is_in_faction_with = BPL }
+                }
+                complete_national_focus = KRAUS_balkan_anchor
+            }
+            # The day the guns fell silent completes itself once the Balkan war is over
+            if = {
+                limit = {
+                    has_completed_focus = KRAUS_balkan_anchor
+                    NOT = { has_completed_focus = KRAUS_balkan_war_ended }
+                    # 0.9 实测：奥地利仍在战争中时，推迟到战争结束才触发
+                    has_war = no
+                    OR = {
+                        has_global_flag = balkan_war_ended
+                        BUL = { has_country_flag = BUL_balkan_peace_loss }
+                    }
+                }
+                complete_national_focus = KRAUS_balkan_war_ended
+            }
+            # Echoes of 1848 completes itself once the Danube crisis is settled
+            if = {
+                limit = {
+                    has_completed_focus = KRAUS_plot
+                    NOT = { has_completed_focus = KRAUS_echo_1848 }
+                    KRAUS_dc_resolved = yes
+                }
+                complete_national_focus = KRAUS_echo_1848
+            }
+            # German aid during Black Monday (temporary, removed when Black Monday ends)
+            if = {
+                limit = {
+                    KRAUS_has_black_monday_trigger = yes
+                    has_completed_focus = KRAUS_german_economic_coop
+                    NOT = { has_idea = KRAUS_german_bm_aid_1 }
+                    NOT = { has_idea = KRAUS_german_bm_aid_2 }
+                }
+                country_event = { id = KRAUS_root_events.30 days = 0 }
+            }
+            else_if = {
+                limit = {
+                    KRAUS_has_black_monday_trigger = yes
+                    has_idea = KRAUS_german_bm_aid_1
+                    has_completed_focus = KRAUS_german_central_european_prosperity
+                }
+                country_event = { id = KRAUS_root_events.31 days = 0 }
+            }
+            else_if = {
+                limit = {
+                    NOT = { KRAUS_has_black_monday_trigger = yes }
+                    OR = {
+                        has_idea = KRAUS_german_bm_aid_1
+                        has_idea = KRAUS_german_bm_aid_2
+                    }
+                }
+                country_event = { id = KRAUS_root_events.32 days = 0 }
+            }
+            # Crown and Order < 25: a crown crisis every 90 days
+            if = {
+                limit = {
+                    has_country_flag = KRAUS_imperial_authority_ready
+                    check_variable = { KRAUS_imperial_authority < 25 }
+                    NOT = { has_country_flag = KRAUS_crown_crisis_cooldown }
+                }
+                set_country_flag = { flag = KRAUS_crown_crisis_cooldown days = 90 value = 1 }
+                country_event = { id = KRAUS_root_events.20 days = 1 }
+            }
+			# ══════════════════════════════════════════════════════
+			# 【明暗双线 · 初始化】（2026-09-21 新增）
+			#
+			# 只跑一次：建立 KRAUS_regime_legitimacy / _dhofers_shadow
+			# 等变量，折算 5 档，并挂上 dynmod 精神。
+			#
+			# ★ 顺序铁律：先 set_variable 再 add_dynamic_modifier
+			#   （钢之工坊实测：否则第一天修正值为空，
+			#     且 has_variable 为假会让判断走错分支）
+			# ══════════════════════════════════════════════════════
+			if = {
+				limit = {
+					NOT = { has_country_flag = KRAUS_political_vars_ready }
+				}
+				set_country_flag = KRAUS_political_vars_ready
+				KRAUS_political_vars_init = yes
+			}
+
+			# ★ 每日重算明暗双线 → 修正值
+			#   保证国策/事件改过变量后，精神数值次日跟上；
+			#   跨档位时也能正确切换。
+			KRAUS_recalc_political_edge = yes
+
+			# ══════════════════════════════════════════════════════
+			# 【★ 皇帝权威 · 初始化】（2026-09-21 第五轮第 3 批新增）
+			#
+			# 用户要求：「皇帝权威可以可见，加一个民族精神，
+			#           里面有动态数值，从 0 开始，
+			#           然后可以使用决议消耗数值获得好处。」
+			#
+			# ★ 顺序铁律：先 set_variable，再 add_dynamic_modifier
+			#   （钢之工坊实测：否则第一天修正值为空）
+			# ══════════════════════════════════════════════════════
+			if = {
+				limit = {
+					NOT = { has_country_flag = KRAUS_imperial_authority_ready }
+					NOT = { has_country_flag = KRAUS_crown_order_intro_sent }
+				}
+				set_country_flag = KRAUS_crown_order_intro_sent
+				country_event = { id = KRAUS_root_events.10 days = 3 }
+			}
+
+			# ══════════════════════════════════════════════════════
+			# 【★ 皇帝权威 · 每季度自然恢复】（+5 / 90 天）
+			#
+			# ★ 用 KR 原生的「flag 计时」写法：
+			#     has_country_flag = { flag = X days > 90 }
+			#   —— 这是 KR 全库标准做法，不需要自己维护天数计数器。
+			#   实证：has_global_flag = { flag = USA_civil_war_begun_flag days > 90 }
+			#
+			# ★ 逻辑：计时 flag 已存在且满 90 天 → 清掉它；
+			#         下一次执行时 flag 不存在 → 重新设 flag 并给 +5。
+			#         两句合起来 = 每 90 天恰好 +5 一次。
+			#
+			# ★ 为什么权威必须有稳定来源：它会被四个决议消耗，
+			#   只减不增会枯竭。
+			# ══════════════════════════════════════════════════════
+			if = {
+				limit = {
+					has_country_flag = KRAUS_imperial_authority_ready
+					has_country_flag = { flag = KRAUS_ia_recovery_tick days > 90 }
+				}
+				clr_country_flag = KRAUS_ia_recovery_tick
+			}
+			else_if = {
+				limit = {
+					has_country_flag = KRAUS_imperial_authority_ready
+					NOT = { has_country_flag = KRAUS_ia_recovery_tick }
+				}
+				set_country_flag = KRAUS_ia_recovery_tick
+				KRAUS_imperial_gain = yes
+			}
+
+			# ══════════════════════════════════════════════════════
+			# 【★ 皇帝权威 · 帝国层面来源】（第五轮第 5 批 · 缝合）
+			#
+			# 第五轮方案 §3.3 的权威来源表里，「帝国」类权重最大：
+			#   王领交易完成  +10
+			#   王领叛离      −15
+			#
+			# ★ 为什么不写在 KR 的 ausgleich 事件里：
+			#   铁律一/三 —— 不碰 KR 原版文件。
+			#   改为在这里【读取】原版设下的 global flag，
+			#   用「首次见到该 flag」判断并给权威。
+			#
+			# ★ 13 个 ausgleich flag（已核实存在于 KR）：
+			#   absent_demands / austrian_payments / backa / boycott /
+			#   hungary_only / illyrian_payments / kingdoms / peoples /
+			#   secret_deal / slovakia / transcarpathia / transylvania /
+			#   transylvania_full
+			#
+			# ★ 实现：用一个「已结算」flag 记录本局是否已发放过，
+			#   避免每日重复给。
+			# ══════════════════════════════════════════════════════
+			if = {
+				limit = {
+					has_country_flag = KRAUS_imperial_authority_ready
+					NOT = { has_country_flag = KRAUS_ia_ausgleich_settled }
+					OR = {
+						has_global_flag = AUS_ausgleich_kingdoms
+						has_global_flag = AUS_ausgleich_peoples
+						has_global_flag = AUS_ausgleich_hungary_only
+						has_global_flag = AUS_ausgleich_secret_deal
+					}
+				}
+				set_country_flag = KRAUS_ia_ausgleich_settled
+				# ★ 皇权 +10：王领安排达成，皇帝的仲裁有效
+				KRAUS_imperial_gain_10 = yes
+			}
+
+			# ══════════════════════════════════════════════════════
+			# 【★ 皇帝权威 · 王领叛离】（−15）
+			#
+			# KR 原版的王领叛乱 idea（AUS_crownland_revolt）。
+			# 王领反了 = 皇帝最直接的失败。
+			# ══════════════════════════════════════════════════════
+			if = {
+				limit = {
+					has_country_flag = KRAUS_imperial_authority_ready
+					NOT = { has_country_flag = KRAUS_ia_revolt_penalised }
+					OR = {
+						has_idea = AUS_crownland_revolt
+						has_idea = AUS_crownland_revolt_2
+					}
+				}
+				set_country_flag = KRAUS_ia_revolt_penalised
+				KRAUS_imperial_loss_15 = yes
+			}
+
+			# ★ 叛乱平息 → 允许下次再罚（可反复）
+			if = {
+				limit = {
+					has_country_flag = KRAUS_ia_revolt_penalised
+					NOT = { has_idea = AUS_crownland_revolt }
+					NOT = { has_idea = AUS_crownland_revolt_2 }
+				}
+				clr_country_flag = KRAUS_ia_revolt_penalised
+			}
+
+
+			# ══════════════════════════════════════════════════════
+			# 【黑一出现 · 启动读条决议】（2026-09-21 第三轮新增）
+			#
+			# 用户要求：开局不能有黑一；读条决议要在黑一出现后才出现，
+			#           并有一个事件提示玩家去关注。
+			#
+			# 黑一由 KR 原版 austria_events.2 加上
+			#   （immediate: add_ideas = AUS_black_monday）
+			#
+			# 这里检测「刚获得黑一」，弹一次前置事件，
+			# 事件里设 flag + 提示玩家。
+			# ══════════════════════════════════════════════════════
+			if = {
+				limit = {
+					KRAUS_has_black_monday_trigger = yes
+					NOT = { has_country_flag = KRAUS_bm_readbar_open }
+				}
+				set_country_flag = KRAUS_bm_readbar_open
+			}
+
+			# ══════════════════════════════════════════════════════
+			# 【★ 黑一州级效果 · 首次挂载】（2026-09-21 第六轮新增）
+			#
+			# 黑一刚出现时，把 A 档（最重）挂到本部州上。
+			# 之后每次读条成功/失败，KRAUS_bm_apply_state_tier
+			# 会自动换成对应档位。
+			#
+			# ★ 为什么用 flag 而不是每日无条件重挂：
+			#   州级 dynmod 挂上后是【持久】的，每天重挂纯属浪费。
+			#   只在「首次出现」时挂一次，之后由换档 effect 接管。
+			#
+			# ★ 消除后若再次出现黑一（理论上不会，但防御性写法），
+			#   flag 已被清掉，会重新挂上。
+			# ══════════════════════════════════════════════════════
+			if = {
+				limit = {
+					KRAUS_has_black_monday_trigger = yes
+					NOT = { has_country_flag = KRAUS_bm_state_tier_applied }
+				}
+				set_country_flag = KRAUS_bm_state_tier_applied
+				KRAUS_bm_apply_state_tier = yes
+			}
+			# ★ 黑一消除 → 清掉 flag，并挂上复苏红利
+			if = {
+				limit = {
+					NOT = { KRAUS_has_black_monday_trigger = yes }
+					has_country_flag = KRAUS_bm_state_tier_applied
+				}
+				clr_country_flag = KRAUS_bm_state_tier_applied
+				KRAUS_bm_apply_state_tier = yes
+			}
+
+			# ══════════════════════════════════════════════════════
+			# 【★ 黑一限期自救 · 读条任务生命周期】（2026-10-23 新增）
+			#
+			# 【为什么需要这一段】
+			#   mission 到期（timeout_effect 跑完）后引擎【不会自动重开】，
+			#   必须显式 activate_mission。所以「首次出现 / 到期后 /
+			#   提前结算后」三种情况统一在这里补开一轮。
+			#
+			# 【为什么计时用 flag】
+			#   has_country_flag = { flag = X days > N } 可以问「这个旗标
+			#   挂上多久了」，正好当「本层已过几天」的计时器用。
+			#   N 只能是常量，所以门槛写死 90 天（days > 89）。
+			# ══════════════════════════════════════════════════════
+
+			# ① 黑一仍在、当前没有读条任务 → 开一轮（幂等）
+			if = {
+				limit = {
+					KRAUS_has_black_monday_trigger = yes
+					NOT = { has_active_mission = KRAUS_black_monday_progress }
+				}
+				activate_mission = KRAUS_black_monday_progress
+				set_country_flag = KRAUS_bm_layer_start
+			}
+
+			# ② 本层已过 90 天 + 本层条件凑够 → 当天提前结算升层
+			#    （条件没凑够就照常读满 110 天，由 timeout_effect 判失败）
+			if = {
+				limit = {
+					has_active_mission = KRAUS_black_monday_progress
+					has_country_flag = { flag = KRAUS_bm_layer_start days > 89 }
+					KRAUS_bm_layer_passed_trigger = yes
+				}
+				remove_mission = KRAUS_black_monday_progress
+				KRAUS_bm_success_effect = yes
+				# 黑一还在 → 立刻开下一层（计时旗标随 success_effect 清零后重设）
+				if = {
+					limit = { KRAUS_has_black_monday_trigger = yes }
+					activate_mission = KRAUS_black_monday_progress
+					set_country_flag = KRAUS_bm_layer_start
+				}
+			}
+
+			# ③ 期限结算（2026-10-23 · 参数 4）
+			#   终点 = 多瑙河战争打响，或谈判收尾/和平收场。
+			#   ★ 每条走法恰好一次：防重写在 KRAUS_bm_deadline_settle 自身
+			#     （最外层同时要求 readbar_open 且 NOT deadline_settled）。
+			#   ★ 必须有「黑一读条开过」这道门槛：否则黑一全程没出现的
+			#     存档（走了别的路线）也会在战争打响时白拿「赶上了」奖励。
+			if = {
+				limit = {
+					has_country_flag = KRAUS_bm_readbar_open
+					NOT = { has_country_flag = KRAUS_bm_deadline_settled }
+					OR = {
+						has_country_flag = KRAUS_dc_war_started
+						has_country_flag = KRAUS_dc_resolved_flag
+					}
+				}
+				KRAUS_bm_deadline_settle = yes
+			}
+
+			# ③-b 兜底（任务单第一轮审查后第 4 条）
+			#   事件 320（谈判收尾）已发生满 60 天还没结算 → 直接结算。
+			#   有些和平终点在 KR 本体里没有对应旗标可挂，靠这条保证不漏。
+			if = {
+				limit = {
+					has_country_flag = KRAUS_bm_readbar_open
+					NOT = { has_country_flag = KRAUS_bm_deadline_settled }
+					has_country_flag = { flag = KRAUS_bm_dc320_reached days > 59 }
+				}
+				KRAUS_bm_deadline_settle = yes
+			}
+
+			# ④ 第 470 天谈判开场提示（任务单要求：提示里不写死剩余天数）
+			#   谈判由 KR 本体 ausgleich_events.100（AUS - Austria.txt:126，days = 470）开场，
+			#   这里用「黑一读条已开 + 日期已过 470 天」判断，只弹一次。
+			#   ★ 黑一已经消完就不必再提示（否则文案「留给经济自救的时间不多了」会误导）。
+			#   ★ 已经结算过也不再提示。
+			if = {
+				limit = {
+					has_country_flag = KRAUS_bm_readbar_open
+					NOT = { has_country_flag = KRAUS_bm_deadline_reminded }
+					NOT = { has_country_flag = KRAUS_bm_deadline_settled }
+					KRAUS_has_black_monday_trigger = yes
+					date > 1937.4.14
+				}
+				set_country_flag = KRAUS_bm_deadline_reminded
+				country_event = { id = KRAUS_black_monday_events.32 days = 1 }
+			}
+
+			# ══════════════════════════════════════════════════════
+			# 【★ 天主教秩序 · 每日被动增长】（第九轮新增）
+			#
+			# 用户定案：来源包括「决议 + 事件 + 国策 + 每日被动」。
+			#
+			# ★ 本段就是那条「每日被动」：每 5 天 +1 秩序
+			#   （满值需 500 天）。主动来源每条给 8~15，
+			#   所以主动推进比被动快 3~5 倍 —— 被动只是地板。
+			#
+			# ★ effect 内部已自带条件判断：
+			#     · 必须已激活米克拉斯线
+			#     · 秩序 < 100
+			#     · 稳定度 > 40%
+			# ══════════════════════════════════════════════════════
+			KRAUS_order_daily_tick = yes
+
+			# ══════════════════════════════════════════════════════
+			# 【★ 执政联盟 · 脱翼检查】（方案 D，每日）
+			#
+			# 任一翼忠诚度 < 25 → 触发脱离事件（单向，永久）
+			# 两翼都走 / 稳固度 < 10 → 联盟瓦解
+			#
+			# ★ effect 内部自带 flag 防重，只会触发一次
+			# ══════════════════════════════════════════════════════
+
+			# ══════════════════════════════════════════════════════
+			# 【★ 黑一 · 危机选边调度】（第 2 批，每 60 天一次）
+			#
+			# 用户定案：「黑一不该只是 debuff，而是联盟撕裂的催化剂」
+			#
+			# ★ 只在黑一存续期 + 联盟已成立时投放
+			#   （没有联盟就没有"内部撕裂"可言）
+			# ★ 四个危机事件按顺序轮发，不重复
+			# ★ 计时用 KR 原生 flag 写法
+			# ══════════════════════════════════════════════════════
+			if = {
+				limit = {
+					KRAUS_has_black_monday_trigger = yes
+					has_power_balance = { id = KRAUS_regime_balance }
+				}
+				if = {
+					limit = {
+						has_country_flag = { flag = KRAUS_crisis_tick days > 60 }
+					}
+					clr_country_flag = KRAUS_crisis_tick
+				}
+				else_if = {
+					limit = { NOT = { has_country_flag = KRAUS_crisis_tick } }
+					set_country_flag = KRAUS_crisis_tick
+					# ★ 按已投放次数依次取下一个危机事件
+					if = {
+						limit = { NOT = { has_country_flag = KRAUS_crisis_fired_1 } }
+						set_country_flag = KRAUS_crisis_fired_1
+						country_event = { id = KRAUS_crisis_choices.1 days = 0 }
+					}
+					else_if = {
+						limit = { NOT = { has_country_flag = KRAUS_crisis_fired_2 } }
+						set_country_flag = KRAUS_crisis_fired_2
+						country_event = { id = KRAUS_crisis_choices.2 days = 0 }
+					}
+					else_if = {
+						limit = { NOT = { has_country_flag = KRAUS_crisis_fired_3 } }
+						set_country_flag = KRAUS_crisis_fired_3
+						country_event = { id = KRAUS_crisis_choices.3 days = 0 }
+					}
+					else_if = {
+						limit = { NOT = { has_country_flag = KRAUS_crisis_fired_4 } }
+						set_country_flag = KRAUS_crisis_fired_4
+						country_event = { id = KRAUS_crisis_choices.4 days = 0 }
+					}
+				}
+			}
+
+			# ══════════════════════════════════════════════════════
+			# 【★ 黑一 · 读条达标反馈】（2026-09-21 第八轮新增）
+			#
+			# 用户反馈：「危机中的进展事件既无法对黑色星期一的余波
+			#           BUFF 造成影响，也无法对地块的大萧条 BUFF
+			#           造成影响」
+			#
+			# 根因：我上一轮删掉了 complete_effect（它会导致任务
+			#   立即结算），而 .1 事件原本【只由那个 complete_effect
+			#   触发】，于是 .1 成了孤儿 —— 永不触发、且无任何效果。
+			#
+			# ★ 本段负责：黑一存续期内，一旦「达标条件」变为满足，
+			#   就触发 .1 一次（每轮读条只报一次，用 flag 防重）。
+			#
+			# ★ 重要：这里【不做层级结算】。
+			#   层级变更只在倒计时结束时由 timeout_effect 执行。
+			#   本段只给玩家反馈 + 刷新州级显示。
+			# ══════════════════════════════════════════════════════
+			if = {
+				limit = {
+					KRAUS_has_black_monday_trigger = yes
+					NOT = { has_country_flag = KRAUS_bm_reported_this_cycle }
+					KRAUS_bm_layer_passed_trigger = yes
+				}
+				set_country_flag = KRAUS_bm_reported_this_cycle
+				country_event = { id = KRAUS_black_monday_events.1 days = 0 }
+			}
+			# ★ 结算后（黑一层级变了 / 黑一消失了）清掉本轮的报重 flag，
+			#   让下一轮读条可以再报一次。
+			if = {
+				limit = {
+					has_country_flag = KRAUS_bm_reported_this_cycle
+					KRAUS_has_black_monday_trigger = yes
+					NOT = { KRAUS_bm_layer_passed_trigger = yes }
+				}
+				clr_country_flag = KRAUS_bm_reported_this_cycle
+			}
+			if = {
+				limit = {
+					has_country_flag = KRAUS_bm_reported_this_cycle
+					NOT = { KRAUS_has_black_monday_trigger = yes }
+				}
+				clr_country_flag = KRAUS_bm_reported_this_cycle
+			}
+
+			# ══════════════════════════════════════════════════════
+            if = {
+                limit = { NOT = { KRAUS_has_black_monday_trigger = yes } }
+                clr_country_flag = KRAUS_bm_accelerated
+                clr_country_flag = KRAUS_bm_reported_this_cycle
+                clr_country_flag = KRAUS_bm_prepared_this_cycle
+            }
+
+			# 【政治人物介绍 · 第 7 / 14 天】（2026-09-21 第六轮新增）
+			#
+			# 用户要求：开局不久介绍伦纳与米克拉斯 —— 他们是谁、
+			#           哪个党、与 1918-1933 奥地利政坛的关系，
+			#           并暗示皇帝在中间维持平衡。
+			#
+			# 时间点：第 7 天 / 第 14 天（用 date 判断，不依赖天数计数）
+			# 开局日约 1936.1.1 → 第7天≈1.8，第14天≈1.15
+			# ══════════════════════════════════════════════════════
+			# 第 7 天：伦纳
+			if = {
+				limit = {
+					NOT = { has_country_flag = KRAUS_intro_renner }
+					date > 1936.1.7
+				}
+				set_country_flag = KRAUS_intro_renner
+				country_event = { id = KRAUS_leader_intro.1 days = 0 }
+			}
+			# 第 14 天：米克拉斯
+			if = {
+				limit = {
+					NOT = { has_country_flag = KRAUS_intro_miklas }
+					date > 1936.1.14
+				}
+				set_country_flag = KRAUS_intro_miklas
+				country_event = { id = KRAUS_leader_intro.2 days = 0 }
+			}
+			# 第 21 天：天平的两端（皇帝居中）
+			if = {
+				limit = {
+					NOT = { has_country_flag = KRAUS_intro_balance }
+					date > 1936.1.21
+				}
+				set_country_flag = KRAUS_intro_balance
+				country_event = { id = KRAUS_leader_intro.3 days = 0 }
+			}
+
+			# ══════════════════════════════════════════════════════
+			# 【1936 大选 · 风味事件调度】（2026-09-21 新增）
+			#
+			# 用户要求：选举前新增多个风味事件影响两党支持度，
+			#           由支持度决定最终上台的政党。
+			#
+			# KR 原版机制：history 里 days=41 触发 austria_election_events.1
+			#   → .2/.3/.4 自然触发（演讲 / 阿德勒 / 奥托打猎）
+			#   → .100 统计支持度：social_conservative > social_democrat
+			#        则 .101 保守派胜，否则 .102 社民党胜
+			#
+			# 我们【不覆盖】原版链，而是按日期投放自己的风味事件，
+			# 与原版事件叠加，共同塑造最终支持度。
+			# ══════════════════════════════════════════════════════
+
+			# 大选前的时间窗（1936.2.11 为大选日）
+			if = {
+				limit = {
+					NOT = { has_country_flag = KRAUS_election_flavor_done }
+					date > 1936.1.8
+					date < 1936.2.10
+					NOT = { has_completed_focus = AUS_elections }
+				}
+				# .1 危机中工人转向社民党（隐藏，直接生效）
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_ef1 } }
+					set_country_flag = KRAUS_ef1
+					country_event = { id = KRAUS_election_flavor.1 days = 0 }
+				}
+				# .4 伦纳演说（有选项，玩家可感知）
+				if = {
+					limit = {
+						date > 1936.1.20
+						NOT = { has_country_flag = KRAUS_ef4 }
+					}
+					set_country_flag = KRAUS_ef4
+					country_event = { id = KRAUS_election_flavor.4 days = 1 }
+				}
+				# .2 教会为米克拉斯背书
+				if = {
+					limit = {
+						date > 1936.1.24
+						NOT = { has_country_flag = KRAUS_ef2 }
+					}
+					set_country_flag = KRAUS_ef2
+					country_event = { id = KRAUS_election_flavor.2 days = 0 }
+				}
+				# .3 奥托王子打猎（玩家选择）
+				if = {
+					limit = {
+						date > 1936.1.30
+						NOT = { has_country_flag = KRAUS_ef3 }
+					}
+					set_country_flag = KRAUS_ef3
+					country_event = { id = KRAUS_election_flavor.3 days = 1 }
+				}
+				# .5 米克拉斯的沉默（玩家选择）
+				if = {
+					limit = {
+						date > 1936.2.4
+						NOT = { has_country_flag = KRAUS_ef5 }
+					}
+					set_country_flag = KRAUS_ef5
+					country_event = { id = KRAUS_election_flavor.5 days = 1 }
+				}
+			}
+
+			# 开局第一天：弹出“奥地利的抉择”，只触发一次
+			if = {
+				limit = {
+					NOT = { has_country_flag = KRAUS_startup_asked }
+				}
+				set_country_flag = KRAUS_startup_asked
+				country_event = { id = KRAUS_startup_events.1 days = 0 }
+			}
+
+			# ══════════════════════════════════════════════════════
+			# 【希腊问题 · 两个监听】
+			#
+			# 监听 1：希腊是否没收了德奥资产？
+			#   KR 的 greece_events.7 让希腊三选一；选了没收（a/b）
+			#   才会给 AUS/GER 发 greece_events.8/.11 并设 GRE_stole_industry。
+			#   注意选项 c「Leave them be」什么都不设 —— 所以
+			#   【没有 GRE_stole_industry】= 希腊没没收。
+			#
+			# 监听 2：希腊是否加入了贝尔格莱德条约（阵营 BPL）？
+			#   希腊入约 = is_in_faction_with = BPL。
+			#   仅当我们已完成 KRAUS_greek_question 时才弹「派使者」事件。
+			# ══════════════════════════════════════════════════════
+
+			# 监听 1：希腊没没收资产 → 触发「缓和还是疏远」
+			# 只在黑一之后、且希腊事件链已走完时判断
+			if = {
+				limit = {
+					country_exists = GRE
+					has_country_flag = KRAUS_new_way_chosen
+					date > 1936.3.1                                  # 黑一(1936.2.4)之后
+					NOT = { has_country_flag = KRAUS_greece_checked }  # 只判一次
+				}
+				set_country_flag = KRAUS_greece_checked
+				# 希腊没没收 → 我们有机会缓和关系
+				if = {
+					limit = {
+						NOT = { GRE = { has_country_flag = GRE_stole_industry } }
+					}
+					country_event = { id = KRAUS_greece_events.1 days = 3 }
+				}
+			}
+
+			# ══════════════════════════════════════════════════════
+			# 【战序兑现 · 触发器】（2026-10-07 补完）
+			#
+			# 二战结束后判定协约国与俄国的状态，派发解锁事件。
+			# 原本 2026-09-24 调试期把三个战序国策的门控全摘了
+			# （britain/france 写成 available = { always = yes }），
+			# 因为解锁事件当时还没写。这里把事件补上，门控随之恢复。
+			#
+			# ★ 判据全部读 KR 自己的全局旗标，本 MOD 一个都不设：
+			#   · ENT_had_halifax_agreement —— 哈利法克斯会议达成协议
+			#     （KR: CAN_HALIFAX 游戏规则，Reichspakt 与 Entente
+			#       在与第三国际交战时触发）
+			#   · GER_stay_out_france_uk —— 德国不干预英法
+			#     （KR 注释原文："Germany shouldn't abandon Entente
+			#       if Halifax has succeeded and Canada is okay"）
+			#   · 奥地利自己的 has_cosmetic_tag —— AUS_empire 帝制 / AUS_united_states 共和
+			#     （开局 RUS_kirill_romanov 为君主，帝制路线设此 tag）
+			#
+			# ★ 只判一次，由 KRAUS_war_order_scanned 守卫。
+			# ══════════════════════════════════════════════════════
+			if = {
+				limit = {
+					has_global_flag = second_weltkrieg_has_ended
+					has_country_flag = KRAUS_new_way_chosen
+					NOT = { has_country_flag = KRAUS_war_order_scanned }
+				}
+				set_country_flag = KRAUS_war_order_scanned
+
+				# ── 不列颠 / 法兰西：哈利法克斯达成且德国不干预 ──
+				if = {
+					limit = {
+						has_global_flag = ENT_had_halifax_agreement
+						has_global_flag = GER_stay_out_france_uk
+					}
+					country_event = { id = KRAUS_war_order_events.6 days = 7 }
+					country_event = { id = KRAUS_war_order_events.7 days = 14 }
+				}
+
+				# ── 俄国：取决于【奥地利自己】是不是君主制 ──
+				#   AUS_empire        = 奥地利帝国，皇帝在位 → 帝制/共和 两条路都可走
+				#   AUS_united_states = 大奥地利合众国     → 只剩共和一条路
+				#   （用户 2026-10-07 澄清：这条看的是奥地利，不是俄国）
+				if = {
+					limit = { country_exists = RUS }
+					if = {
+						limit = { has_cosmetic_tag = AUS_empire }
+						country_event = { id = KRAUS_war_order_events.8 days = 21 }
+					}
+					else = {
+						country_event = { id = KRAUS_war_order_events.9 days = 21 }
+					}
+				}
+			}
+
+			# 监听 2：希腊加入了贝尔格莱德条约 → 若我们已完成希腊国策，一周后希腊自己重新评估并退约
+			#   2026-10-12：不再由维也纳派使者要求退约，改为希腊一周后自行退出
+			if = {
+				limit = {
+					country_exists = GRE
+					has_country_flag = KRAUS_greek_question_done   # 已完成希腊国策
+					NOT = { has_country_flag = KRAUS_greece_envoy_sent }  # 只弹一次
+					GRE = { is_in_faction_with = BPL }
+				}
+				set_country_flag = KRAUS_greece_envoy_sent
+				GRE = { country_event = { id = KRAUS_greece_events.12 days = 7 } }
+			}
+
+			# 监听 3（2026-10-12）：哥本哈根会议开启时，若奥地利已接触协约国，则收到调停事件（只弹一次）
+			#   KR 的会议在 pre_war_events.55 里保存全局事件目标 escalation_treaty_location。
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_pwr_entente
+					NOT = { has_country_flag = KRAUS_cph_notified }
+					has_event_target = escalation_treaty_location
+				}
+				set_country_flag = KRAUS_cph_notified
+				country_event = { id = KRAUS_pwr_events.10 days = 2 }
+			}
+
+			# 哈布斯堡外交遗产每日重算；乌克兰邀请（国策合并后由监听发出，条件满足即发）
+			if = {
+				limit = { has_country_flag = KRAUS_hd_active }
+				KRAUS_hd_recalc = yes
+			}
+			if = {
+				limit = { has_completed_focus = KRAUS_dip_beyond_danube }
+				KRAUS_hd_sub_recalc = yes
+			}
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_dip_ukraine_republicans
+					NOT = { has_country_flag = KRAUS_dip_ukr_invited }
+					is_faction_leader = yes
+					country_exists = UKR
+					UKR = {
+						is_subject = no
+						is_in_faction = no
+						has_socialist_government = no
+						NOT = { has_war_with = ROOT }
+					}
+				}
+				set_country_flag = KRAUS_dip_ukr_invited
+				UKR = { country_event = { id = KRAUS_dip_events.4 days = 3 } }
+			}
+
+			# 匈牙利被吞并后的释放期（2026-10-12）：一年内放完斯洛伐克、特兰西瓦尼亚与匈牙利
+			if = {
+				limit = {
+					KRAUS_dc_resolved = yes
+					KRAUS_dc_victory = yes
+					NOT = { country_exists = HUN }
+					NOT = { has_country_flag = KRAUS_release_window_started }
+					NOT = { has_country_flag = KRAUS_release_settled }
+				}
+				set_country_flag = KRAUS_release_window_started
+				set_country_flag = { flag = KRAUS_release_window days = 365 value = 1 }
+			}
+			if = {
+				limit = {
+					has_country_flag = KRAUS_release_window_started
+					NOT = { has_country_flag = KRAUS_release_settled }
+					country_exists = SLO
+					country_exists = TRS
+					country_exists = HUN
+				}
+				set_country_flag = KRAUS_release_settled
+			}
+			if = {
+				limit = {
+					has_country_flag = KRAUS_release_window_started
+					NOT = { has_country_flag = KRAUS_release_window }
+					NOT = { has_country_flag = KRAUS_release_settled }
+					NOT = { has_country_flag = KRAUS_cl_resentful }
+				}
+				set_country_flag = KRAUS_release_settled
+				country_event = { id = KRAUS_rel_events.1 days = 0 }
+			}
+			# 二战中同时与德、法、俄任意两国开战，而王冠领仍心怀不满：叛乱
+			if = {
+				limit = {
+					has_country_flag = KRAUS_cl_resentful
+					NOT = { has_country_flag = KRAUS_cl_revolt_done }
+					# 0.9 实测：成立合众国后战时王冠领不再叛乱；已整合的王冠领本来就不会叛乱
+					NOT = { has_country_flag = KRAUS_usga_formed }
+					has_global_flag = second_weltkrieg_has_started
+					KRAUS_has_crownland = yes
+					OR = {
+						AND = { has_war_with = GER has_war_with = FRA }
+						AND = { has_war_with = GER has_war_with = RUS }
+						AND = { has_war_with = FRA has_war_with = RUS }
+					}
+				}
+				set_country_flag = KRAUS_cl_revolt_done
+				country_event = { id = KRAUS_rel_events.2 days = 0 }
+			}
+
+			# 终局路线入口的花费每日重算（倾向越高越便宜）
+			KRAUS_usga_recalc = yes
+
+			# 内战自适应（2026-10-12）：爆发时通知一次；已结束且胜者是社会主义政府则自动完成，不给奖励
+			if = {
+				limit = { KRAUS_acw_war_ongoing = yes NOT = { has_country_flag = KRAUS_acw_noticed } }
+				set_country_flag = KRAUS_acw_noticed
+				country_event = { id = KRAUS_civwar_events.3 days = 2 }
+			}
+			if = {
+				limit = { KRAUS_spa_war_ongoing = yes NOT = { has_country_flag = KRAUS_spa_noticed } }
+				set_country_flag = KRAUS_spa_noticed
+				country_event = { id = KRAUS_civwar_events.4 days = 2 }
+			}
+			# 0.9 实测 54：意大利线
+			#   意大利已统一，或米兰与威尼斯由社会主义政府控制：「重返多瑙亚得里亚」自动跳过（无奖励）
+			#   意大利是奥地利的傀儡：两个国策都自动完成（无奖励）
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_dip_beyond_danube
+					NOT = { has_completed_focus = KRAUS_dip_italy_return }
+					OR = {
+						KRAUS_ita_unified = yes
+						KRAUS_ita_socialist_north = yes
+						KRAUS_ita_is_puppet = yes
+					}
+				}
+				set_country_flag = KRAUS_ita_skip_return
+				complete_national_focus = KRAUS_dip_italy_return
+			}
+			# 0.9 反馈25：意大利已经统一，且与奥地利同阵营：两个国策都直接跳过
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_dip_beyond_danube
+					NOT = { has_completed_focus = KRAUS_dip_italy_return }
+					any_country = { has_country_flag = italian_unifier is_in_faction_with = ROOT }
+				}
+				set_country_flag = KRAUS_ita_skip_return
+				complete_national_focus = KRAUS_dip_italy_return
+			}
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_dip_italy_return
+					NOT = { has_completed_focus = KRAUS_dip_italy_others }
+					any_country = { has_country_flag = italian_unifier is_in_faction_with = ROOT }
+				}
+				set_country_flag = KRAUS_ita_skip_others
+				complete_national_focus = KRAUS_dip_italy_others
+			}
+			# 0.9 反馈21：波兰、乌克兰已经是奥地利的盟友时，对应国策跳过并自动获得奖励
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_balkan_war_ended
+					has_country_flag = KRAUS_pol_line_open
+					NOT = { has_completed_focus = KRAUS_dip_poland_hand }
+					country_exists = POL
+					POL = { is_in_faction_with = ROOT }
+				}
+				complete_national_focus = KRAUS_dip_poland_hand
+			}
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_balkan_war_ended
+					has_country_flag = KRAUS_ukr_line_open
+					NOT = { has_completed_focus = KRAUS_dip_ukraine_republicans }
+					country_exists = UKR
+					UKR = { is_in_faction_with = ROOT }
+				}
+				complete_national_focus = KRAUS_dip_ukraine_republicans
+			}
+			# 0.9 反馈17：保加利亚已与奥地利同阵营：「索非亚的位置」跳过并获得奖励
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_dip_beyond_danube
+					NOT = { has_completed_focus = KRAUS_dip_bul_hand }
+					country_exists = BUL
+					BUL = { is_in_faction_with = ROOT }
+					has_global_flag = balkan_war_ended
+				}
+				set_country_flag = KRAUS_bul_skip
+				complete_national_focus = KRAUS_dip_bul_hand
+			}
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_dip_italy_return
+					NOT = { has_completed_focus = KRAUS_dip_italy_others }
+					KRAUS_ita_is_puppet = yes
+				}
+				set_country_flag = KRAUS_ita_skip_others
+				complete_national_focus = KRAUS_dip_italy_others
+			}
+			# 0.9 实测 1：奥地利相关新闻事件（世界新闻，每条只通知一次）
+			if = {
+				limit = { has_country_flag = KRAUS_election2_done NOT = { has_country_flag = KRAUS_news_1_seen } }
+				set_country_flag = KRAUS_news_1_seen
+				news_event = { id = KRAUS_news_events.1 days = 2 }
+			}
+			if = {
+				limit = { has_country_flag = KRAUS_usga_federal NOT = { has_country_flag = KRAUS_news_2_seen } }
+				set_country_flag = KRAUS_news_2_seen
+				news_event = { id = KRAUS_news_events.2 days = 2 }
+			}
+			if = {
+				limit = { has_country_flag = KRAUS_usga_unitary NOT = { has_country_flag = KRAUS_news_3_seen } }
+				set_country_flag = KRAUS_news_3_seen
+				news_event = { id = KRAUS_news_events.3 days = 2 }
+			}
+			if = {
+				limit = { KRAUS_dc_resolved = yes NOT = { has_country_flag = KRAUS_news_4_seen } }
+				set_country_flag = KRAUS_news_4_seen
+				news_event = { id = KRAUS_news_events.4 days = 2 }
+			}
+			if = {
+				limit = { has_country_flag = KRAUS_echo_lenient NOT = { has_country_flag = KRAUS_news_5_seen } }
+				set_country_flag = KRAUS_news_5_seen
+				news_event = { id = KRAUS_news_events.5 days = 2 }
+			}
+			if = {
+				limit = { has_country_flag = KRAUS_echo_harsh NOT = { has_country_flag = KRAUS_news_6_seen } }
+				set_country_flag = KRAUS_news_6_seen
+				news_event = { id = KRAUS_news_events.6 days = 2 }
+			}
+			if = {
+				limit = { has_country_flag = KRAUS_echo_split NOT = { has_country_flag = KRAUS_news_7_seen } }
+				set_country_flag = KRAUS_news_7_seen
+				news_event = { id = KRAUS_news_events.7 days = 2 }
+			}
+			if = {
+				limit = { has_completed_focus = KRAUS_federal_charter NOT = { has_country_flag = KRAUS_news_8_seen } }
+				set_country_flag = KRAUS_news_8_seen
+				news_event = { id = KRAUS_news_events.8 days = 2 }
+			}
+			if = {
+				limit = { has_completed_focus = KRAUS_habsburg_world_empire NOT = { has_country_flag = KRAUS_news_9_seen } }
+				set_country_flag = KRAUS_news_9_seen
+				news_event = { id = KRAUS_news_events.9 days = 2 }
+			}
+			# 0.9 实测 68：拥抱多元满足条件时自动完成；合并后的国策完成时，旧的「国家中的民族」桩国策随之完成（保持 KR 引用有效）
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_echo_1848
+					NOT = { has_completed_focus = AUS_embrace_pluralism }
+					has_country_flag = KRAUS_usga_formed
+					KRAUS_dc_resolved = yes
+					check_variable = { var = KRAUS_imperial_authority value = 95 compare = greater_than_or_equals }
+					OR = {
+						has_completed_focus = KRAUS_pp_sd_3
+						has_completed_focus = KRAUS_pp_sl_3
+						has_completed_focus = KRAUS_pp_ml_3
+						has_completed_focus = KRAUS_pp_cs_3
+					}
+					has_civil_war = no
+					is_subject = no
+				}
+				complete_national_focus = AUS_embrace_pluralism
+			}
+			# 国策先于内战完成时：战争爆发自动弹出选择，战争结束自动接触
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_pwr_usa
+					KRAUS_acw_war_ongoing = yes
+					NOT = { has_country_flag = KRAUS_acw_support_done }
+				}
+				set_country_flag = KRAUS_acw_support_done
+				country_event = { id = KRAUS_civwar_events.1 days = 3 }
+			}
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_pwr_usa
+					KRAUS_acw_winner_contactable = yes
+					NOT = { has_country_flag = KRAUS_acw_contact_done }
+				}
+				KRAUS_acw_contact_effect = yes
+			}
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_dip_spain
+					KRAUS_spa_war_ongoing = yes
+					NOT = { has_country_flag = KRAUS_spa_support_done }
+				}
+				set_country_flag = KRAUS_spa_support_done
+				country_event = { id = KRAUS_civwar_events.2 days = 3 }
+			}
+			if = {
+				limit = {
+					has_completed_focus = KRAUS_dip_spain
+					KRAUS_spa_winner_contactable = yes
+					NOT = { has_country_flag = KRAUS_spa_contact_done }
+				}
+				KRAUS_spa_contact_effect = yes
+			}
+			if = {
+				limit = {
+					KRAUS_acw_war_over = yes
+					KRAUS_acw_winner_contactable = no
+					NOT = { has_country_flag = KRAUS_acw_contact_done }
+				}
+				set_country_flag = KRAUS_acw_contact_done
+			}
+			if = {
+				limit = {
+					KRAUS_spa_war_over = yes
+					KRAUS_spa_winner_contactable = no
+					NOT = { has_country_flag = KRAUS_spa_contact_done }
+				}
+				set_country_flag = KRAUS_spa_contact_done
+			}
+			# 10-27 拥抱多元主义合并：委托两个委员会后，每 90 天替玩家完成一个联合经济 / 军事国策
+			if = {
+				limit = { has_completed_focus = aus_mult_auth_prague }
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_mult_econ_clock } }
+					set_country_flag = KRAUS_mult_econ_clock
+				}
+				else_if = {
+					limit = { has_country_flag = { flag = KRAUS_mult_econ_clock days > 89 } }
+					hidden_effect = { KRAUS_mult_autopick_econ = yes }
+					clr_country_flag = KRAUS_mult_econ_clock
+					set_country_flag = KRAUS_mult_econ_clock
+				}
+			}
+			if = {
+				limit = { has_completed_focus = aus_mult_auth_ludovika_fiume }
+				if = {
+					limit = { NOT = { has_country_flag = KRAUS_mult_mil_clock } }
+					set_country_flag = KRAUS_mult_mil_clock
+				}
+				else_if = {
+					limit = { has_country_flag = { flag = KRAUS_mult_mil_clock days > 89 } }
+					hidden_effect = { KRAUS_mult_autopick_mil = yes }
+					clr_country_flag = KRAUS_mult_mil_clock
+					set_country_flag = KRAUS_mult_mil_clock
+				}
+			}
+			# 换执政党后刷新国策树，让新执政党的两条要价显示出来
+			if = {
+				limit = { has_completed_focus = AUS_embrace_pluralism }
+				hidden_effect = { KRAUS_mult_gov_recalc = yes }
+			}
+			# 二战爆发时自动完成「战时状态」，打开战时那一列
+			if = {
+				limit = {
+					has_completed_focus = AUS_embrace_pluralism
+					has_global_flag = second_weltkrieg_has_started
+					NOT = { has_completed_focus = aus_war_entry }
+				}
+				complete_national_focus = aus_war_entry
+			}
+		}
+	}
+}

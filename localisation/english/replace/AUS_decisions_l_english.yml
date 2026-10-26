@@ -1,0 +1,42 @@
+﻿l_english:
+ KRAUS_industrial: "Imperial Industrial Programme"
+ KRAUS_industrial_desc: "After Black Monday, half the Empire's machines fell silent. Skoda, the Alpine mines and the Danube wharves lack not workers but orders and capital.\n\n§YIndustry is not the goal. It keeps us holding a choice when someone knocks.§!"
+ KRAUS_dec_mittelland_canal: "[FROM.GetName]: Danube Navigation Works"
+ KRAUS_dec_semmering_railway: "[FROM.GetName]: Semmering Railway Electrification"
+ KRAUS_dec_alpine_dams: "[FROM.GetName]: Alpine Hydroelectric Works"
+ KRAUS_dec_danube_power: "[FROM.GetName]: Danube Power Station"
+ KRAUS_dec_alpine_montan: "[FROM.GetName]: Alpine-Montan Steel Combine"
+ KRAUS_dec_vitkovice: "[FROM.GetName]: Vitkovice Steelworks"
+ KRAUS_dec_skoda_works: "[FROM.GetName]: Skoda Works Expansion"
+ KRAUS_dec_steyr_werke: "[FROM.GetName]: Steyr Arms Works"
+ KRAUS_dec_daimler_puch: "[FROM.GetName]: Daimler-Puch Motor Works"
+ KRAUS_dec_bosch_austria: "[FROM.GetName]: Vienna Electric & Bosch Works"
+ KRAUS_dec_tobacco: "[FROM.GetName]: Austrian Tobacco Monopoly"
+ KRAUS_dec_breweries: "[FROM.GetName]: Viennese Breweries"
+ KRAUS_dec_wine: "[FROM.GetName]: Burgenland Wine Country"
+ KRAUS_dec_textile: "[FROM.GetName]: Bohemian Textiles"
+ KRAUS_dec_furniture: "[FROM.GetName]: Mödling Furniture Works"
+ KRAUS_dec_glass: "[FROM.GetName]: Bohemian Glassworks"
+ KRAUS_dec_cement: "[FROM.GetName]: Vienna Cement Works"
+ KRAUS_dec_linz_chemical: "[FROM.GetName]: Linz Chemical Works"
+ KRAUS_dec_synthetics: "[FROM.GetName]: Synthetic Fuel Industry"
+ KRAUS_dec_peat: "[FROM.GetName]: Peat Extraction"
+ KRAUS_dec_housing: "[FROM.GetName]: Workers' Housing Programme"
+ KRAUS_dec_apartments: "[FROM.GetName]: Karl-Marx-Hof Expansion"
+ KRAUS_dec_tractor: "[FROM.GetName]: Domestic Tractor Production"
+ KRAUS_dec_refrigerator: "[FROM.GetName]: Household Appliances"
+ KRAUS_dec_people_car: "[FROM.GetName]: People's Car Programme"
+ KRAUS_dec_railway_works: "[FROM.GetName]: Rolling Stock Works"
+ KRAUS_dec_shipyard: "[FROM.GetName]: Trieste Shipyard"
+ KRAUS_dec_arsenal: "[FROM.GetName]: Imperial Arsenal"
+
+
+############################################################
+### 全球民主化运动 · 决议与类目（2026-09-24）
+############################################################
+
+KRAUS_global_democratisation: "Global Democratisation"
+KRAUS_global_democratisation_desc: "The wars did not end when ours did. Somewhere out there, two governments are still spending their children on a border neither of them can explain.\n\nVienna has no territory to gain from any of it. That is precisely why Vienna can be the one to walk into the room.\n\n§YWe are not the world's policeman. We are the world's witness - and witnesses are harder to ignore.§!"
+
+KRAUS_mediate_war: "Offer Austrian Mediation"
+KRAUS_mediate_war_desc: "Send a delegation to the warring parties with a single proposal: stop, and keep what you hold. Nothing is taken, nothing is restored, nothing is avenged. The line where the guns stopped becomes the border.\n\nIt is a proposal almost no one accepts while they still believe they can win.\n\n§YThe offer costs us only the price of a train ticket. The refusal costs them everything.§!"

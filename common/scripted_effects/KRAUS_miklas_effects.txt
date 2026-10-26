@@ -1,0 +1,36 @@
+############################################################
+### 米克拉斯线 · 秩序效果（2026-10-11 重构）
+###
+### 「天主教秩序」已并入「皇权与秩序」（KRAUS_imperial_authority）。
+### 本文件保留原有效果名作为兼容入口，全部转发到皇权与秩序。
+### 旧实现见 git 提交 1b021967 之前的版本。
+############################################################
+
+KRAUS_miklas_order_push = {
+	KRAUS_imperial_gain_10 = yes
+}
+# 米克拉斯掌权：不再挂单独的秩序精神
+KRAUS_miklas_init = {
+	KRAUS_imperial_clamp = yes
+}
+# 米克拉斯执政且稳定度 > 40% 时，每 10 天 +1 皇权与秩序
+KRAUS_order_daily_tick = {
+	if = {
+		limit = {
+			has_country_flag = KRAUS_miklas_line_active
+			has_country_flag = KRAUS_imperial_authority_ready
+			check_variable = { KRAUS_imperial_authority < 100 }
+			has_stability > 0.40
+		}
+		if = {
+			limit = { has_country_flag = { flag = KRAUS_order_tick days > 9 } }
+			clr_country_flag = KRAUS_order_tick
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = KRAUS_order_tick } }
+			set_country_flag = KRAUS_order_tick
+			add_to_variable = { KRAUS_imperial_authority = 1 }
+			KRAUS_imperial_clamp = yes
+		}
+	}
+}

@@ -1,0 +1,13 @@
+﻿l_simp_chinese:
+ KRAUS_route_category:0 "帝国的明天"
+ KRAUS_route_category_desc:0 "帝国的未来不在一次选择里，而在许多次选择的总和里。"
+ KRAUS_route_usga:0 "大奥地利合众国"
+ KRAUS_route_usga_desc:0 "所有的王冠领都已融入帝国，剩下的只是一个名字。把帝国改成各民族平等结成的合众国，是对这个事实的承认。\n\n花费随「合众国倾向」下降；倾向越高，起始的精神越强。"
+ KRAUS_all_crownlands_integrated_tt:0 "所有王冠领都已整合"
+ KRAUS_usga_spirit_1:0 "大奥地利合众国"
+ KRAUS_usga_spirit:0 "大奥地利合众国"
+ KRAUS_usga_spirit_2:0 "大奥地利合众国"
+ KRAUS_usga_spirit_3:0 "大奥地利合众国"
+ KRAUS_route_events.1.t:0 "大奥地利合众国"
+ KRAUS_route_events.1.d:0 "议会大厦的屋顶上升起了新的旗帜：不是一个民族的，也不是一个王朝的，而是所有民族的。\n\n帝国没有消失，它换了一个名字，换了一种更接近事实的说法。维也纳的皇帝依旧在霍夫堡，只是现在，他是一个联邦的皇帝。"
+ KRAUS_route_events.1.a:0 "多民族的合众国。"

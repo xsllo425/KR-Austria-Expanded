@@ -1,0 +1,56 @@
+KRAUS_policy_queue_1 = {
+    if = {
+        limit = { original_tag = AUS has_government = social_democrat NOT = { has_country_flag = KRAUS_golden_danube_policy_1_queued } NOT = { has_country_flag = KRAUS_golden_danube_policy_1_resolved }  }
+        set_country_flag = KRAUS_golden_danube_policy_1_queued
+        country_event = { id = KRAUS_golden_danube_policy.1 days = 1 }
+    }
+}
+KRAUS_policy_queue_2 = {
+    if = {
+        limit = { original_tag = AUS has_government = social_democrat NOT = { has_country_flag = KRAUS_golden_danube_policy_2_queued } NOT = { has_country_flag = KRAUS_golden_danube_policy_2_resolved } has_country_flag = KRAUS_golden_danube_policy_1_resolved }
+        set_country_flag = KRAUS_golden_danube_policy_2_queued
+        country_event = { id = KRAUS_golden_danube_policy.2 days = 1 }
+    }
+}
+KRAUS_policy_queue_3 = {
+    if = {
+        limit = { original_tag = AUS has_government = social_democrat NOT = { has_country_flag = KRAUS_golden_danube_policy_3_queued } NOT = { has_country_flag = KRAUS_golden_danube_policy_3_resolved }  }
+        set_country_flag = KRAUS_golden_danube_policy_3_queued
+        country_event = { id = KRAUS_golden_danube_policy.3 days = 1 }
+    }
+}
+KRAUS_policy_queue_4 = {
+    if = {
+        limit = { original_tag = AUS has_government = social_conservative NOT = { has_country_flag = KRAUS_golden_danube_policy_4_queued } NOT = { has_country_flag = KRAUS_golden_danube_policy_4_resolved }  }
+        set_country_flag = KRAUS_golden_danube_policy_4_queued
+        country_event = { id = KRAUS_golden_danube_policy.4 days = 1 }
+    }
+}
+KRAUS_policy_queue_5 = {
+    if = {
+        limit = { original_tag = AUS has_government = social_conservative NOT = { has_country_flag = KRAUS_golden_danube_policy_5_queued } NOT = { has_country_flag = KRAUS_golden_danube_policy_5_resolved } has_country_flag = KRAUS_golden_danube_policy_4_resolved }
+        set_country_flag = KRAUS_golden_danube_policy_5_queued
+        country_event = { id = KRAUS_golden_danube_policy.5 days = 1 }
+    }
+}
+KRAUS_policy_queue_6 = {
+    if = {
+        limit = { original_tag = AUS has_government = social_conservative NOT = { has_country_flag = KRAUS_golden_danube_policy_6_queued } NOT = { has_country_flag = KRAUS_golden_danube_policy_6_resolved }  }
+        set_country_flag = KRAUS_golden_danube_policy_6_queued
+        country_event = { id = KRAUS_golden_danube_policy.6 days = 1 }
+    }
+}
+KRAUS_policy_reconcile = {
+    if = {
+        limit = { original_tag = AUS OR = { has_completed_focus = AUS_eco_council has_completed_focus = KRAUS_renner_economic_program has_completed_focus = KRAUS_miklas_economic_program } NOT = { has_country_flag = KRAUS_golden_danube_open } }
+        KRAUS_golden_danube_open = yes
+    }
+    if = { limit = { has_country_flag = KRAUS_golden_danube_open has_completed_focus = KRAUS_bm_accelerator_1 } KRAUS_policy_queue_1 = yes }
+    if = { limit = { has_country_flag = KRAUS_golden_danube_open has_completed_focus = KRAUS_bm_accelerator_2 } KRAUS_policy_queue_2 = yes }
+    if = { limit = { has_country_flag = KRAUS_golden_danube_open has_completed_focus = KRAUS_renner_tent_2 } KRAUS_policy_queue_3 = yes }
+    if = { limit = { has_country_flag = KRAUS_golden_danube_open has_completed_focus = KRAUS_miklas_recovery_1 } KRAUS_policy_queue_4 = yes }
+    if = { limit = { has_country_flag = KRAUS_golden_danube_open has_completed_focus = KRAUS_miklas_recovery_2 } KRAUS_policy_queue_5 = yes }
+    if = { limit = { has_country_flag = KRAUS_golden_danube_open has_completed_focus = KRAUS_miklas_recovery_4 } KRAUS_policy_queue_6 = yes }
+    if = { limit = { OR = { has_completed_focus = KRAUS_bm_accelerator_3 has_completed_focus = KRAUS_miklas_recovery_3 } NOT = { has_country_flag = KRAUS_golden_danube_civil_works_unlocked } } set_country_flag = KRAUS_golden_danube_civil_works_unlocked }
+    if = { limit = { OR = { has_completed_focus = KRAUS_bm_accelerator_4 has_completed_focus = KRAUS_miklas_recovery_4 } NOT = { has_country_flag = KRAUS_golden_danube_military_works_unlocked } } set_country_flag = KRAUS_golden_danube_military_works_unlocked }
+}

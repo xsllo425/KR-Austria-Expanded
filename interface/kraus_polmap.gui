@@ -1,0 +1,72 @@
+############################################################
+### 帝国议会的重心：决议栏面板（2026-10-13 样板）
+### 所有元素以面板左上角为锚点；底图左上角在 (55, 10)。scripted gui 的 x/y 属性也按左上角计（2026-10-13 实测）。
+### 圆点与入阁圈的坐标由 scripted gui 的 properties 按变量覆盖。
+############################################################
+guiTypes = {
+	containerWindowType = {
+		name = "KRAUS_polmap_window"
+		position = { x = 0 y = 0 }
+		size = { width = 100% height = 530 }
+
+		iconType = {
+			name = "KRAUS_polmap_bg"
+			position = { x = 55 y = 10 }
+			spriteType = "GFX_KRAUS_polmap_bg"
+			pdx_tooltip = "KRAUS_pm_bg_tt"
+		}
+		iconType = {
+			name = "KRAUS_polmap_ring_s"
+			position = { x = 143 y = 98 }
+			spriteType = "GFX_KRAUS_polmap_ring_s"
+		}
+		iconType = {
+			name = "KRAUS_polmap_ring_m"
+			position = { x = 111 y = 66 }
+			spriteType = "GFX_KRAUS_polmap_ring_m"
+		}
+		iconType = {
+			name = "KRAUS_polmap_ring_l"
+			position = { x = 63 y = 18 }
+			spriteType = "GFX_KRAUS_polmap_ring_l"
+		}
+		iconType = {
+			name = "KRAUS_polmap_emperor"
+			position = { x = 241 y = 16 }
+			spriteType = "GFX_KRAUS_polmap_emperor"
+			pdx_tooltip = "KRAUS_pm_emperor_tt"
+		}
+		iconType = {
+			name = "KRAUS_polmap_dot"
+			position = { x = 243 y = 198 }
+			spriteType = "GFX_KRAUS_polmap_dot"
+			pdx_tooltip = "KRAUS_pm_dot_tt"
+		}
+		instantTextBoxType = {
+			name = "KRAUS_polmap_readout"
+			position = { x = 15 y = 420 }
+			font = "hoi_16mbs"
+			text = "KRAUS_pm_readout"
+			format = center
+			maxWidth = 480
+			maxHeight = 44
+			fixedsize = yes
+		}
+		iconType = {
+			name = "KRAUS_polmap_law"
+			position = { x = 55 y = 472 }
+			spriteType = "GFX_KRAUS_polmap_law"
+			pdx_tooltip = "KRAUS_pm_law_tt"
+		}
+		instantTextBoxType = {
+			name = "KRAUS_polmap_law_text"
+			position = { x = 15 y = 494 }
+			font = "hoi_16mbs"
+			text = "KRAUS_pm_law_text"
+			format = center
+			maxWidth = 480
+			maxHeight = 24
+			fixedsize = yes
+		}
+	}
+}

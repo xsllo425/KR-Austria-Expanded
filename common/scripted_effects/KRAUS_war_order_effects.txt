@@ -1,0 +1,62 @@
+############################################################
+### KRAUS 战后秩序 · 脚本化效果（2026-09-24）
+###
+### ★ 本文件两部分：
+###   1) KRAUS_check_decolonisation —— 三国重建完成后发起去殖民化浪潮
+###   2) KRAUS_peace_on_current_lines —— ★「按当前控制线和平」
+###
+### ★ 不使用 replace_path（工程铁律）
+############################################################
+
+############################################################
+### 1) 去殖民化浪潮的触发判定
+###
+### 三个战后秩序国策（英 / 法 / 俄）完成后，
+### 统一走这里判断「是否该发起全球去殖民化浪潮」。
+############################################################
+KRAUS_check_decolonisation = {
+	# ★ 条件全满足 → 弹奥地利事件 .1（去殖民化浪潮）
+	if = {
+		limit = {
+			has_global_flag = second_weltkrieg_has_ended
+			has_completed_focus = KRAUS_war_order_britain
+			has_completed_focus = KRAUS_war_order_france
+			has_completed_focus = KRAUS_war_order_russia
+			NOT = { has_country_flag = KRAUS_decolonisation_launched }
+		}
+		country_event = { id = KRAUS_war_order_events.1 days = 14 }
+	}
+}
+
+
+############################################################
+### 2) ★★ 按当前控制线和平
+###
+### ★ 用户定案：
+###   「如果双方接受，则无条件和平，双方按照当前控制领土和平。」
+###
+### ★ 为什么不能只用 white_peace：
+###   官方文档 effects_documentation.md 明确 ——
+###     white_peace = "Makes a white peace between the two countries"（不转移领土）
+###     transfer_state_to = "Set owner and controller of a state to a given country"
+###   → 【谁控制的地归谁】必须自己转移，white_peace 只负责结束战争。
+###
+### ★ 已核实的 state 作用域 effect（原版文档）：
+###   · set_state_owner_to            Scopes: STATE  "Set owner of a state to a given country"
+###   · set_state_province_controller Scopes: STATE  "sets the controller of provinces belong to a state"
+###   · transfer_state_to             Scopes: STATE  "Set owner and controller of a state to a given country"
+###   · is_fully_controlled_by        Scopes: STATE  "Checks if state is fully controlled by specified tag"
+###     （可对 OWNER 检查）
+###   · is_owned_by / is_controlled_by  州作用域常用触发器
+###
+### ★ KR 的同类实现参考（00_useful_scripted_effects.txt:1667）：
+###     transfer_state_during_war = {
+###         if = { limit = { is_fully_controlled_by = owner }  transfer_state_to = var:target }
+###         else = { set_state_owner_to = var:target
+###                  set_state_province_controller = { controller = owner  limit = { ... } } }
+###     }
+###     —— 注释写明「use in state scope / requires a temp_variable target」
+###
+### ⚠️ 本效果用 event_target:KRAUS_mediation_target 接收「接收国」这一侧。
+###    调用方必须先 save_global_event_target_as = KRAUS_mediation_target。
+############################################################

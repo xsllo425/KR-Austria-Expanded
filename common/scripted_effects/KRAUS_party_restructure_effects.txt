@@ -1,0 +1,38 @@
+############################################################
+### 危机后新阶段：奥地利政党改名（2026-10-12）
+### 王领的政党与奥地利本部的政党合并或结盟，对外表现为各党改名。
+### KR 的"党"是 9 个意识形态槽位的显示名，set_party_name 只改显示名，不动人气与领袖。
+############################################################
+KRAUS_party_restructure = {
+	set_party_name = {
+		ideology = social_democrat
+		name = KRAUS_party_social_democrat
+		long_name = KRAUS_party_social_democrat_long
+	}
+	set_party_name = {
+		ideology = social_conservative
+		name = KRAUS_party_social_conservative
+		long_name = KRAUS_party_social_conservative_long
+	}
+	set_party_name = {
+		ideology = authoritarian_democrat
+		name = KRAUS_party_authoritarian_democrat
+		long_name = KRAUS_party_authoritarian_democrat_long
+	}
+	set_party_name = {
+		ideology = social_liberal
+		name = KRAUS_party_social_liberal
+		long_name = KRAUS_party_social_liberal_long
+	}
+	set_party_name = {
+		ideology = paternal_autocrat
+		name = KRAUS_party_paternal_autocrat
+		long_name = KRAUS_party_paternal_autocrat_long
+	}
+	set_party_name = {
+		ideology = national_populist
+		name = KRAUS_party_national_populist
+		long_name = KRAUS_party_national_populist_long
+	}
+	set_country_flag = KRAUS_parties_restructured
+}

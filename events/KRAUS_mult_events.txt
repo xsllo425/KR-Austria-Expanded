@@ -1,0 +1,79 @@
+add_namespace = KRAUS_mult
+
+############################################################
+### 拥抱多元主义：4 个叙事事件（小单 G，2026-10-24）
+### 文本来源：叙事单_G事件.md（@叙事与玩家体验），键名 KRAUS_mult.<n>.t/.d/.a/.b
+### 数值来源：数值表.md §7（85-95 行）与 §二 事件选项（408-418 行）
+### 触发点不在本文件：由各国策的 completion_reward 发 country_event
+###   .3 ← aus_mult_first_verdict 完成时
+###   .4 ← KRAUS_pl_M0「重启金色多瑙河计划」完成时
+###
+### 引用已逐项核实（2026-10-24，见 写手笔记_G事件.md）：
+###   配图 cabinet_meeting / trial_big / economy_growth = KR interface/kaiserreich/event_pictures.gfx
+###        generic_train = vanilla interface/eventpictures.gfx
+###   临时精神 KRAUS_mult_evt_hub_a 等 6 个 = 本单新增
+###        candidate/G事件/common/ideas/KRAUS_mult_evt_ideas.txt
+###   州 id：GAL 名下 88/89/91/80/713；AUS 首都 4；波希米亚 9（CZE）
+###   师模板 Infanteriedivision = KR history/units/AUS.txt:2
+############################################################
+
+
+
+# 第一合议庭的终审裁决
+country_event = {
+	id = KRAUS_mult.3
+	title = KRAUS_mult.3.t
+	desc = KRAUS_mult.3.d
+	picture = GFX_report_event_generic_trial_big
+	is_triggered_only = yes
+	fire_only_once = yes
+	# 唯一选项：稳定 +5%、顺从增长 +0.01、经济/贸易/动员三类法案花费各 -5%
+	option = {
+		name = KRAUS_mult.3.a
+		log = "[GetLogInfo]: event KRAUS_mult.3 option KRAUS_mult.3.a"
+		set_country_flag = KRAUS_mult_verdict_done
+		add_stability = 0.05
+		add_timed_idea = { idea = KRAUS_mult_evt_verdict days = 3650 }
+		ai_chance = { base = 100 }
+	}
+}
+
+# 金色多瑙河：联合内河航运全面贯通
+country_event = {
+	id = KRAUS_mult.4
+	title = KRAUS_mult.4.t
+	desc = KRAUS_mult.4.d
+	picture = GFX_report_event_generic_economy_growth
+	is_triggered_only = yes
+	fire_only_once = yes
+	# 唯一选项：全境工厂产出 +5%、贸易法案花费 -10%
+	option = {
+		name = KRAUS_mult.4.a
+		log = "[GetLogInfo]: event KRAUS_mult.4 option KRAUS_mult.4.a"
+		set_country_flag = KRAUS_mult_danube_open
+		add_timed_idea = { idea = KRAUS_mult_evt_danube days = 3650 }
+		ai_chance = { base = 100 }
+	}
+}
+
+# 10-27：组建邦议会之后，邦议会用哪种语言记录
+country_event = {
+	id = KRAUS_mult.5
+	title = KRAUS_mult.5.t
+	desc = KRAUS_mult.5.d
+	picture = GFX_report_event_generic_cabinet_meeting
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_mult.5.a
+		log = "[GetLogInfo]: event KRAUS_mult.5 option KRAUS_mult.5.a"
+		add_timed_idea = { idea = KRAUS_fed_lang_german days = 365 }
+		ai_chance = { base = 40 }
+	}
+	option = {
+		name = KRAUS_mult.5.b
+		log = "[GetLogInfo]: event KRAUS_mult.5 option KRAUS_mult.5.b"
+		add_timed_idea = { idea = KRAUS_fed_lang_many days = 365 }
+		ai_chance = { base = 60 }
+	}
+}

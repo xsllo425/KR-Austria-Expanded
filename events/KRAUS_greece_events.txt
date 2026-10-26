@@ -1,0 +1,141 @@
+############################################################
+### 【希腊问题】事件链 —— Kaiserreich 奥地利拓展
+###
+### 本文件实现「希腊与贝尔格莱德条约」的联动，共三个事件：
+###
+###   KRAUS_greece_events.1  「爱琴海边的账本」
+###     · 触发：黑一之后，希腊【没有】没收德奥资产
+###     · 作用：让我们选择「缓和」或「疏远」希腊
+###     · 缓  和 → 希腊得政治点 + 对奥好感上升
+###     · 疏  远 → 希腊对奥好感下降
+###
+###   KRAUS_greece_events.12 「雅典的重新评估」
+###     · 触发：我们已完成 KRAUS_greek_question，且希腊已加入 BPL，一周后希腊自己收到
+###     · 作用：希腊退出贝尔格莱德条约（leave_faction = yes），保持中立
+###
+###   KRAUS_greece_events.13 「雅典退约」
+###     · 奥地利收到的通知，小额政治点数
+###
+### ── 机制依据（全部来自 KR 本体，已核实）──────────────────
+### · KR 的 greece_events.7 让希腊三选一：
+###     a 全部没收 (AI 75%) → 给 AUS 发 greece_events.8
+###     b 只处理最糟 (AI 20%) → 给 AUS 发 greece_events.11
+###     c 自己补贴投资    → 【不碰德奥资产，且不设任何 flag】
+###   所以「希腊没没收」= 没有 GRE_stole_industry flag。
+###   GRE_stole_industry 由 KR 用 set_country_flag days=1095/540 设置，
+###   是个【限时】flag，故判断时只需 NOT 存在即可。
+### · KR 的贝尔格莱德条约就是一个阵营，tag = BPL
+###   （见 KR common/decisions/01 Belgrade Pact decisions.txt:138
+###      「is_in_faction_with = BPL」）
+### · 希腊会被邀请入约：同文件 :34 「targets = { GRE ROM }」
+### · 退约用 leave_faction = yes（当前 scope 自己离开阵营），
+###
+### ── 防线说明 ────────────────────────────────────────────
+### · 本文件是【新文件名】，KR 的 events/ 目录里没有同名文件，
+###   所以能正常加载（KR 声明了 replace_path="events"，
+###   同名文件会被 KR 覆盖，新名字不受影响）。
+### · 两个监听都靠 country_flag 保证只触发一次。
+### · ⚠️ 新增事件文件必须【重启游戏】才会加载，热重载无效。
+############################################################
+
+add_namespace = KRAUS_greece_events
+
+# ══════════════════════════════════════════════════════════
+# .1  希腊没有没收德奥资产 → 我们决定缓和还是疏远
+# ══════════════════════════════════════════════════════════
+country_event = {
+	id = KRAUS_greece_events.1
+	title = KRAUS_greece_events.1.t
+	desc = KRAUS_greece_events.1.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	is_triggered_only = yes
+
+	# 选项一：伸出橄榄枝 —— 共渡难关
+	option = {
+		name = KRAUS_greece_events.1.a
+
+		add_political_power = -10
+		if = {
+			limit = { country_exists = GRE }
+			GRE = {
+				add_political_power = 50
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = KRAUS_greece_helped_us
+				}
+			}
+		}
+		custom_effect_tooltip = KRAUS_greece_events.1.a_tt
+		ai_chance = { base = 60 }
+	}
+
+	# 选项二：各扫门前雪 —— 疏远
+	option = {
+		name = KRAUS_greece_events.1.b
+
+		add_political_power = 10
+		if = {
+			limit = { country_exists = GRE }
+			GRE = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = KRAUS_greece_snubbed
+				}
+			}
+		}
+		ai_chance = { base = 40 }
+	}
+}
+
+# ══════════════════════════════════════════════════════════
+# .12  希腊加入贝尔格莱德条约一周后，自己重新评估并退约
+#      （仅当我们已完成 KRAUS_greek_question，由 KRAUS_on_actions 监听 2 触发）
+#      2026-10-12：原来的「维也纳派使者」(.10/.11) 已删除，退约是希腊自己的决定
+# ══════════════════════════════════════════════════════════
+country_event = {
+	id = KRAUS_greece_events.12
+	title = KRAUS_greece_events.12.t
+	desc = KRAUS_greece_events.12.d
+	picture = GFX_report_event_generic_diplomacy4
+
+	is_triggered_only = yes
+
+	trigger = {
+		is_in_faction_with = BPL
+		is_faction_leader = no
+	}
+
+	option = {
+		name = KRAUS_greece_events.12.a
+		ai_chance = { base = 100 }
+		leave_faction = yes
+		add_opinion_modifier = {
+			target = AUS
+			modifier = KRAUS_greece_helped_us
+		}
+		AUS = { country_event = { id = KRAUS_greece_events.13 days = 1 } }
+	}
+
+	option = {
+		name = KRAUS_greece_events.12.b
+		ai_chance = { base = 0 }
+	}
+}
+
+# ══════════════════════════════════════════════════════════
+# .13  奥地利收到通知：希腊退出了贝尔格莱德条约
+# ══════════════════════════════════════════════════════════
+country_event = {
+	id = KRAUS_greece_events.13
+	title = KRAUS_greece_events.13.t
+	desc = KRAUS_greece_events.13.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_greece_events.13.a
+		add_political_power = 25
+	}
+}

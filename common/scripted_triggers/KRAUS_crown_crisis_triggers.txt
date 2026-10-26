@@ -1,0 +1,9 @@
+KRAUS_crown_crisis_state_eligible = {
+    OR = {
+        is_owned_by = AUS
+        AND = {
+            OR = { is_owned_by = CZE is_owned_by = CRO is_owned_by = GAL is_owned_by = HUN is_owned_by = SLO is_owned_by = TRS }
+            owner = { is_subject_of = AUS }
+        }
+    }
+}

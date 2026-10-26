@@ -1,0 +1,1091 @@
+############################################################
+### 0.9 实测 30：第二次大选后按执政党换国策名字与描述（由 gen_focusren.py 生成）
+############################################################
+defined_text = {
+	name = KRAUS_fr_AUS_cs_national_austerity_council_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_national_austerity_council_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_national_austerity_council_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_national_austerity_council_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_national_austerity_council_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_national_austerity_council_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_national_austerity_council_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_national_austerity_council_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_national_austerity_council_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_national_austerity_council_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_national_austerity_council_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_national_austerity_council_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_2_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_2_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_2_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_2_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_2_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_2_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_2_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_2_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_2_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_2_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_2_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_2_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_3_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_3_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_3_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_3_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_3_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_3_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_3_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_3_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_3_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_3_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_3_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_3_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_4_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_4_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_4_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_4_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_4_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_4_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_4_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_4_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_4_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_4_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_4_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_4_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_5_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_5_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_5_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_5_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_5_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_5_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_5_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_5_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_5_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_5_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_5_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_5_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_6_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_6_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_6_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_6_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_6_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_6_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_6_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_6_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_6_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_6_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_6_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_6_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_7_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_7_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_7_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_7_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_7_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_7_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_7_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_7_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_7_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_7_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_7_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_7_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_fill_the_coffers_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_fill_the_coffers_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_fill_the_coffers_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_fill_the_coffers_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_fill_the_coffers_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_fill_the_coffers_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_cs_fill_the_coffers_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_cs_fill_the_coffers_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_cs_fill_the_coffers_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_cs_fill_the_coffers_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_cs_fill_the_coffers_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_cs_fill_the_coffers_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_industrial_workers_council_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_industrial_workers_council_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_industrial_workers_council_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_industrial_workers_council_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_industrial_workers_council_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_industrial_workers_council_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_industrial_workers_council_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_industrial_workers_council_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_industrial_workers_council_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_industrial_workers_council_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_industrial_workers_council_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_industrial_workers_council_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_1_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_1_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_1_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_1_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_1_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_1_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_1_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_1_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_1_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_1_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_1_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_1_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_2_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_2_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_2_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_2_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_2_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_2_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_2_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_2_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_2_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_2_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_2_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_2_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_3_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_3_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_3_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_3_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_3_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_3_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_3_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_3_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_3_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_3_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_3_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_3_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_4_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_4_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_4_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_4_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_4_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_4_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_4_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_4_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_4_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_4_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_4_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_4_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_5_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_5_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_5_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_5_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_5_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_5_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_5_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_5_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_5_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_5_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_5_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_5_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_6_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_6_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_6_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_6_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_6_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_6_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_6_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_6_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_6_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_6_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_6_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_6_d_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_7_n
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_7_n_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_7_n_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_7_n_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_7_n_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_7_n_p1
+	}
+}
+defined_text = {
+	name = KRAUS_fr_AUS_sdap_7_d
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_cs
+		}
+		localization_key = KRAUS_fr_AUS_sdap_7_d_cs
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sd
+		}
+		localization_key = KRAUS_fr_AUS_sdap_7_d_sd
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_ml
+		}
+		localization_key = KRAUS_fr_AUS_sdap_7_d_ml
+	}
+	text = {
+		trigger = {
+			has_country_flag = KRAUS_election2_done
+			has_country_flag = KRAUS_pm_lead_sl
+		}
+		localization_key = KRAUS_fr_AUS_sdap_7_d_sl
+	}
+	text = {
+		localization_key = KRAUS_fr_AUS_sdap_7_d_p1
+	}
+}

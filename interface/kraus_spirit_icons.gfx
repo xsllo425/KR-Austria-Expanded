@@ -1,0 +1,502 @@
+# KRAUS ???????AI ????60x68 PNG???? GFX_idea_<id>?common/ideas ?? picture = <id>
+
+spriteTypes = {
+
+	spriteType = {
+		name = "GFX_idea_KRAUS_CRO_mountain_training"
+		texturefile = "gfx/interface/ideas/KRAUS_CRO_mountain_training.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_CZE_kohout_manual"
+		texturefile = "gfx/interface/ideas/KRAUS_CZE_kohout_manual.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_CZE_war_school"
+		texturefile = "gfx/interface/ideas/KRAUS_CZE_war_school.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_GAL_legion_tradition"
+		texturefile = "gfx/interface/ideas/KRAUS_GAL_legion_tradition.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_arms_trade_profits"
+		texturefile = "gfx/interface/ideas/KRAUS_arms_trade_profits.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_aus_economic_crisis"
+		texturefile = "gfx/interface/ideas/KRAUS_aus_economic_crisis.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_aus_military_weakness"
+		texturefile = "gfx/interface/ideas/KRAUS_aus_military_weakness.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_aus_political_instability"
+		texturefile = "gfx/interface/ideas/KRAUS_aus_political_instability.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_austria_montage"
+		texturefile = "gfx/interface/ideas/KRAUS_austria_montage.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_austria_montage_2"
+		texturefile = "gfx/interface/ideas/KRAUS_austria_montage_2.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_bata_industrial_cooperation"
+		texturefile = "gfx/interface/ideas/KRAUS_bata_industrial_cooperation.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_blackhand_share"
+		texturefile = "gfx/interface/ideas/KRAUS_blackhand_share.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_bm_recovered"
+		texturefile = "gfx/interface/ideas/KRAUS_bm_recovered.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_catholic_order"
+		texturefile = "gfx/interface/ideas/KRAUS_catholic_order.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cep_heavy"
+		texturefile = "gfx/interface/ideas/KRAUS_cep_heavy.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cep_infra"
+		texturefile = "gfx/interface/ideas/KRAUS_cep_infra.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cep_light"
+		texturefile = "gfx/interface/ideas/KRAUS_cep_light.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cg_CRO"
+		texturefile = "gfx/interface/ideas/KRAUS_cg_CRO.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cg_CZE"
+		texturefile = "gfx/interface/ideas/KRAUS_cg_CZE.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cg_GAL"
+		texturefile = "gfx/interface/ideas/KRAUS_cg_GAL.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cg_HUN"
+		texturefile = "gfx/interface/ideas/KRAUS_cg_HUN.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cg_SLO"
+		texturefile = "gfx/interface/ideas/KRAUS_cg_SLO.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cg_TRS"
+		texturefile = "gfx/interface/ideas/KRAUS_cg_TRS.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cg_gov"
+		texturefile = "gfx/interface/ideas/KRAUS_cg_gov.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cl_auto"
+		texturefile = "gfx/interface/ideas/KRAUS_cl_auto.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cl_loyal"
+		texturefile = "gfx/interface/ideas/KRAUS_cl_loyal.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_common_army_people"
+		texturefile = "gfx/interface/ideas/KRAUS_common_army_people.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_common_army_reborn"
+		texturefile = "gfx/interface/ideas/KRAUS_common_army_reborn.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_common_prosperity_CRO"
+		texturefile = "gfx/interface/ideas/KRAUS_common_prosperity_CRO.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_common_prosperity_CZE"
+		texturefile = "gfx/interface/ideas/KRAUS_common_prosperity_CZE.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_common_prosperity_GAL"
+		texturefile = "gfx/interface/ideas/KRAUS_common_prosperity_GAL.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_common_prosperity_HUN"
+		texturefile = "gfx/interface/ideas/KRAUS_common_prosperity_HUN.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cr_CRO"
+		texturefile = "gfx/interface/ideas/KRAUS_cr_CRO.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cr_CZE"
+		texturefile = "gfx/interface/ideas/KRAUS_cr_CZE.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cr_GAL"
+		texturefile = "gfx/interface/ideas/KRAUS_cr_GAL.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cr_HUN"
+		texturefile = "gfx/interface/ideas/KRAUS_cr_HUN.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cr_SLO"
+		texturefile = "gfx/interface/ideas/KRAUS_cr_SLO.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cr_TRS"
+		texturefile = "gfx/interface/ideas/KRAUS_cr_TRS.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_crown_eclipse"
+		texturefile = "gfx/interface/ideas/KRAUS_crown_eclipse.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_crown_harmony"
+		texturefile = "gfx/interface/ideas/KRAUS_crown_harmony.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_cw_legacy"
+		texturefile = "gfx/interface/ideas/KRAUS_cw_legacy.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_eco_recovered"
+		texturefile = "gfx/interface/ideas/KRAUS_eco_recovered.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_fed_lang_german"
+		texturefile = "gfx/interface/ideas/KRAUS_fed_lang_german.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_fed_lang_many"
+		texturefile = "gfx/interface/ideas/KRAUS_fed_lang_many.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_fed_mil"
+		texturefile = "gfx/interface/ideas/KRAUS_fed_mil.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_fed_parl"
+		texturefile = "gfx/interface/ideas/KRAUS_fed_parl.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_fed_party_cs"
+		texturefile = "gfx/interface/ideas/KRAUS_fed_party_cs.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_fed_party_lb"
+		texturefile = "gfx/interface/ideas/KRAUS_fed_party_lb.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_fed_party_ml"
+		texturefile = "gfx/interface/ideas/KRAUS_fed_party_ml.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_fed_party_sd"
+		texturefile = "gfx/interface/ideas/KRAUS_fed_party_sd.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_fed_war"
+		texturefile = "gfx/interface/ideas/KRAUS_fed_war.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_french_reconstruction_aid"
+		texturefile = "gfx/interface/ideas/KRAUS_french_reconstruction_aid.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_gal_crossroads"
+		texturefile = "gfx/interface/ideas/KRAUS_gal_crossroads.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_german_bm_aid"
+		texturefile = "gfx/interface/ideas/KRAUS_german_bm_aid.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_german_brotherhood"
+		texturefile = "gfx/interface/ideas/KRAUS_german_brotherhood.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_german_capital_inflow"
+		texturefile = "gfx/interface/ideas/KRAUS_german_capital_inflow.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_german_economic_heavy"
+		texturefile = "gfx/interface/ideas/KRAUS_german_economic_heavy.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_german_economic_infrastructure"
+		texturefile = "gfx/interface/ideas/KRAUS_german_economic_infrastructure.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_german_economic_light"
+		texturefile = "gfx/interface/ideas/KRAUS_german_economic_light.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_german_industrial_standard"
+		texturefile = "gfx/interface/ideas/KRAUS_german_industrial_standard.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_german_military_armor"
+		texturefile = "gfx/interface/ideas/KRAUS_german_military_armor.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_german_military_combined"
+		texturefile = "gfx/interface/ideas/KRAUS_german_military_combined.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_german_military_equipment"
+		texturefile = "gfx/interface/ideas/KRAUS_german_military_equipment.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_german_military_infantry"
+		texturefile = "gfx/interface/ideas/KRAUS_german_military_infantry.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_german_military_mission"
+		texturefile = "gfx/interface/ideas/KRAUS_german_military_mission.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_hd_legacy"
+		texturefile = "gfx/interface/ideas/KRAUS_hd_legacy.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_imperial_authority"
+		texturefile = "gfx/interface/ideas/KRAUS_imperial_authority.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_integ_boom_construction"
+		texturefile = "gfx/interface/ideas/KRAUS_integ_boom_construction.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_integ_boom_industry"
+		texturefile = "gfx/interface/ideas/KRAUS_integ_boom_industry.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_integ_dividend"
+		texturefile = "gfx/interface/ideas/KRAUS_integ_dividend.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_joint_econ"
+		texturefile = "gfx/interface/ideas/KRAUS_joint_econ.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_joint_mil"
+		texturefile = "gfx/interface/ideas/KRAUS_joint_mil.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_miklas_hegemony"
+		texturefile = "gfx/interface/ideas/KRAUS_miklas_hegemony.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_modern_army_hickmann"
+		texturefile = "gfx/interface/ideas/KRAUS_modern_army_hickmann.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_modern_army_hubicki"
+		texturefile = "gfx/interface/ideas/KRAUS_modern_army_hubicki.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_modern_army_jansa"
+		texturefile = "gfx/interface/ideas/KRAUS_modern_army_jansa.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_mult_dec_bohemia_boom_spirit"
+		texturefile = "gfx/interface/ideas/KRAUS_mult_dec_bohemia_boom_spirit.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_mult_dec_iron_gate_spirit"
+		texturefile = "gfx/interface/ideas/KRAUS_mult_dec_iron_gate_spirit.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_party_buff_1"
+		texturefile = "gfx/interface/ideas/KRAUS_party_buff_1.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_party_buff_2"
+		texturefile = "gfx/interface/ideas/KRAUS_party_buff_2.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_party_buff_3"
+		texturefile = "gfx/interface/ideas/KRAUS_party_buff_3.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_party_buff_4"
+		texturefile = "gfx/interface/ideas/KRAUS_party_buff_4.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_party_buff_5"
+		texturefile = "gfx/interface/ideas/KRAUS_party_buff_5.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_party_buff_6"
+		texturefile = "gfx/interface/ideas/KRAUS_party_buff_6.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pc_boom_fed"
+		texturefile = "gfx/interface/ideas/KRAUS_pc_boom_fed.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pc_boom_imp"
+		texturefile = "gfx/interface/ideas/KRAUS_pc_boom_imp.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pc_boom_mkt"
+		texturefile = "gfx/interface/ideas/KRAUS_pc_boom_mkt.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pc_boom_soc"
+		texturefile = "gfx/interface/ideas/KRAUS_pc_boom_soc.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pm_crisis_idea"
+		texturefile = "gfx/interface/ideas/KRAUS_pm_crisis_idea.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pm_end"
+		texturefile = "gfx/interface/ideas/KRAUS_pm_end.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pm_end_emperor"
+		texturefile = "gfx/interface/ideas/KRAUS_pm_end_emperor.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pm_warpol_cs"
+		texturefile = "gfx/interface/ideas/KRAUS_pm_warpol_cs.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pm_warpol_emp"
+		texturefile = "gfx/interface/ideas/KRAUS_pm_warpol_emp.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pm_warpol_ml"
+		texturefile = "gfx/interface/ideas/KRAUS_pm_warpol_ml.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pm_warpol_sd"
+		texturefile = "gfx/interface/ideas/KRAUS_pm_warpol_sd.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pm_warpol_sl"
+		texturefile = "gfx/interface/ideas/KRAUS_pm_warpol_sl.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pol_aus_integration"
+		texturefile = "gfx/interface/ideas/KRAUS_pol_aus_integration.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pp_boom_cs"
+		texturefile = "gfx/interface/ideas/KRAUS_pp_boom_cs.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pp_boom_ml"
+		texturefile = "gfx/interface/ideas/KRAUS_pp_boom_ml.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pp_boom_sd"
+		texturefile = "gfx/interface/ideas/KRAUS_pp_boom_sd.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pp_boom_sl"
+		texturefile = "gfx/interface/ideas/KRAUS_pp_boom_sl.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pps_cs"
+		texturefile = "gfx/interface/ideas/KRAUS_pps_cs.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pps_ml"
+		texturefile = "gfx/interface/ideas/KRAUS_pps_ml.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pps_sd"
+		texturefile = "gfx/interface/ideas/KRAUS_pps_sd.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pps_sl"
+		texturefile = "gfx/interface/ideas/KRAUS_pps_sl.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pwr_entente_contact"
+		texturefile = "gfx/interface/ideas/KRAUS_pwr_entente_contact.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pwr_ger_trade"
+		texturefile = "gfx/interface/ideas/KRAUS_pwr_ger_trade.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pwr_internationale_contact"
+		texturefile = "gfx/interface/ideas/KRAUS_pwr_internationale_contact.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pwr_moscow_pact"
+		texturefile = "gfx/interface/ideas/KRAUS_pwr_moscow_pact.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_pwr_usa_trade"
+		texturefile = "gfx/interface/ideas/KRAUS_pwr_usa_trade.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_refugee_labour"
+		texturefile = "gfx/interface/ideas/KRAUS_refugee_labour.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_renner_hegemony"
+		texturefile = "gfx/interface/ideas/KRAUS_renner_hegemony.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_sanctioned_by_austria"
+		texturefile = "gfx/interface/ideas/KRAUS_sanctioned_by_austria.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_trs_magyarization"
+		texturefile = "gfx/interface/ideas/KRAUS_trs_magyarization.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_ukr_aus_integration"
+		texturefile = "gfx/interface/ideas/KRAUS_ukr_aus_integration.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_usga_federal"
+		texturefile = "gfx/interface/ideas/KRAUS_usga_federal.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_usga_main_cs"
+		texturefile = "gfx/interface/ideas/KRAUS_usga_main_cs.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_usga_main_ml"
+		texturefile = "gfx/interface/ideas/KRAUS_usga_main_ml.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_usga_main_sd"
+		texturefile = "gfx/interface/ideas/KRAUS_usga_main_sd.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_usga_main_sl"
+		texturefile = "gfx/interface/ideas/KRAUS_usga_main_sl.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_usga_spirit"
+		texturefile = "gfx/interface/ideas/KRAUS_usga_spirit.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_usga_unitary"
+		texturefile = "gfx/interface/ideas/KRAUS_usga_unitary.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_volunteer_act"
+		texturefile = "gfx/interface/ideas/KRAUS_volunteer_act.png"
+	}
+	spriteType = {
+		name = "GFX_idea_KRAUS_wartime_joint_prod"
+		texturefile = "gfx/interface/ideas/KRAUS_wartime_joint_prod.png"
+	}
+
+}

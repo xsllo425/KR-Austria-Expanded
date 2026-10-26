@@ -1,0 +1,75 @@
+############################################################
+### 匈牙利被吞并之后，释放斯洛伐克 / 特兰西瓦尼亚 / 匈牙利为新的王冠领（2026-10-12 实测反馈）
+### 州已经在奥地利手里，所以直接用 KR 的 release_targeted_tag（不需要先从匈牙利划州）。
+### 先放斯洛伐克与特兰西瓦尼亚，最后放匈牙利本部，否则匈牙利会把带匈牙利核心的所有州一起带走。
+############################################################
+KRAUS_release_do_SLO = {
+	hidden_effect = {
+		# 释放脚本不会转移奥地利自己拥有核心或宣称的州，先去掉
+		every_owned_state = {
+			limit = { is_core_of = SLO }
+			remove_core_of = ROOT
+			remove_claim_by = ROOT
+		}
+		set_temp_variable = { tag_to_release = SLO }
+		release_targeted_tag = yes
+		SLO = {
+			set_cosmetic_tag = SLO_habsburg
+			AUS_refresh_crownland_army_ideas = yes
+		}
+	}
+	set_autonomy = { target = SLO autonomy_state = crownland end_wars = no }
+	hidden_effect = { KRAUS_integ_recalc = yes }
+}
+KRAUS_release_do_TRS = {
+	hidden_effect = {
+		# 释放脚本不会转移奥地利自己拥有核心或宣称的州，先去掉
+		every_owned_state = {
+			limit = { is_core_of = TRS }
+			remove_core_of = ROOT
+			remove_claim_by = ROOT
+		}
+		set_temp_variable = { tag_to_release = TRS }
+		release_targeted_tag = yes
+		TRS = {
+			set_cosmetic_tag = TRS_habsburg
+			AUS_refresh_crownland_army_ideas = yes
+		}
+	}
+	set_autonomy = { target = TRS autonomy_state = crownland end_wars = no }
+	hidden_effect = { KRAUS_integ_recalc = yes }
+}
+KRAUS_release_do_HUN = {
+	hidden_effect = {
+		# 释放脚本不会转移奥地利自己拥有核心或宣称的州，先去掉
+		every_owned_state = {
+			limit = { is_core_of = HUN }
+			remove_core_of = ROOT
+			remove_claim_by = ROOT
+		}
+		set_temp_variable = { tag_to_release = HUN }
+		release_targeted_tag = yes
+		HUN = {
+			set_cosmetic_tag = HUN_habsburg
+			AUS_refresh_crownland_army_ideas = yes
+		}
+	}
+	set_autonomy = { target = HUN autonomy_state = crownland end_wars = no }
+	hidden_effect = { KRAUS_integ_recalc = yes }
+}
+# 一年之内没有释放完：王冠领的不满。全部自主拉满，整合代价 ×3（在 KRAUS_integ_recalc 末尾读标志）
+KRAUS_release_resentment = {
+	set_country_flag = KRAUS_cl_resentful
+	hidden_effect = {
+		every_subject_country = {
+			limit = { OR = { tag = CZE tag = GAL tag = CRO tag = HUN tag = SLO tag = TRS } }
+			if = { limit = { has_idea = KRAUS_cl_loyal_3 } remove_ideas = KRAUS_cl_loyal_3 }
+			if = { limit = { has_idea = KRAUS_cl_loyal_2 } remove_ideas = KRAUS_cl_loyal_2 }
+			if = { limit = { has_idea = KRAUS_cl_loyal_1 } remove_ideas = KRAUS_cl_loyal_1 }
+			if = { limit = { has_idea = KRAUS_cl_auto_2 } remove_ideas = KRAUS_cl_auto_2 }
+			if = { limit = { has_idea = KRAUS_cl_auto_1 } remove_ideas = KRAUS_cl_auto_1 }
+			if = { limit = { NOT = { has_idea = KRAUS_cl_auto_3 } } add_ideas = KRAUS_cl_auto_3 }
+		}
+		KRAUS_integ_recalc = yes
+	}
+}

@@ -1,0 +1,55 @@
+# KRAUS state modifier icons (32x32)
+spriteTypes = {
+	spriteType = {
+		name = "GFX_modifier_KRAUS_crown_recovery"
+		texturefile = "gfx/interface/state_modifiers/KRAUS_crown_recovery.png"
+	}
+	spriteType = {
+		name = "GFX_modifier_KRAUS_magyarization"
+		texturefile = "gfx/interface/state_modifiers/KRAUS_magyarization.png"
+	}
+	spriteType = {
+		name = "GFX_modifier_KRAUS_sez"
+		texturefile = "gfx/interface/state_modifiers/KRAUS_sez.png"
+	}
+	spriteType = {
+		name = "GFX_modifier_KRAUS_sm_crown_crisis"
+		texturefile = "gfx/interface/state_modifiers/KRAUS_sm_crown_crisis.png"
+	}
+	spriteType = {
+		name = "GFX_modifier_KRAUS_sm_galicia_works"
+		texturefile = "gfx/interface/state_modifiers/KRAUS_sm_galicia_works.png"
+	}
+	spriteType = {
+		name = "GFX_modifier_KRAUS_sm_governors"
+		texturefile = "gfx/interface/state_modifiers/KRAUS_sm_governors.png"
+	}
+	spriteType = {
+		name = "GFX_modifier_KRAUS_sm_great_crisis"
+		texturefile = "gfx/interface/state_modifiers/KRAUS_sm_great_crisis.png"
+	}
+	spriteType = {
+		name = "GFX_modifier_KRAUS_sm_new_offices"
+		texturefile = "gfx/interface/state_modifiers/KRAUS_sm_new_offices.png"
+	}
+	spriteType = {
+		name = "GFX_modifier_KRAUS_sm_old_officials"
+		texturefile = "gfx/interface/state_modifiers/KRAUS_sm_old_officials.png"
+	}
+	spriteType = {
+		name = "GFX_modifier_KRAUS_sm_order_gains"
+		texturefile = "gfx/interface/state_modifiers/KRAUS_sm_order_gains.png"
+	}
+	spriteType = {
+		name = "GFX_modifier_KRAUS_sm_recovery"
+		texturefile = "gfx/interface/state_modifiers/KRAUS_sm_recovery.png"
+	}
+	spriteType = {
+		name = "GFX_modifier_KRAUS_sm_wachau"
+		texturefile = "gfx/interface/state_modifiers/KRAUS_sm_wachau.png"
+	}
+	spriteType = {
+		name = "GFX_modifier_KRAUS_social_reform"
+		texturefile = "gfx/interface/state_modifiers/KRAUS_social_reform.png"
+	}
+}

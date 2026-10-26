@@ -1,0 +1,93 @@
+add_namespace = KRAUS_integ53
+
+### 0.9 实测 53：某王领的怨言平息之后，发放该领的「王冠领地」精神（稳妥推进的给强化版）。
+country_event = { # 波西米亚
+	id = KRAUS_integ53.21
+	title = KRAUS_integ53.21.t
+	desc = KRAUS_integ53.21.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_integ53.21.a
+		log = "[GetLogInfo]: event KRAUS_integ53.21 option KRAUS_integ53.21.a"
+		if = { limit = { has_country_flag = KRAUS_integ_slow_CZE } add_ideas = KRAUS_cr_CZE_s }
+		else = { add_ideas = KRAUS_cr_CZE }
+		custom_effect_tooltip = KRAUS_integ53_CZE_tt
+	}
+}
+country_event = { # 匈牙利
+	id = KRAUS_integ53.22
+	title = KRAUS_integ53.22.t
+	desc = KRAUS_integ53.22.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_integ53.22.a
+		log = "[GetLogInfo]: event KRAUS_integ53.22 option KRAUS_integ53.22.a"
+		if = { limit = { has_country_flag = KRAUS_integ_slow_HUN } add_ideas = KRAUS_cr_HUN_s }
+		else = { add_ideas = KRAUS_cr_HUN }
+		custom_effect_tooltip = KRAUS_integ53_HUN_tt
+	}
+}
+country_event = { # 加利西亚
+	id = KRAUS_integ53.23
+	title = KRAUS_integ53.23.t
+	desc = KRAUS_integ53.23.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_integ53.23.a
+		log = "[GetLogInfo]: event KRAUS_integ53.23 option KRAUS_integ53.23.a"
+		if = { limit = { has_country_flag = KRAUS_integ_slow_GAL } add_ideas = KRAUS_cr_GAL_s }
+		else = { add_ideas = KRAUS_cr_GAL }
+		custom_effect_tooltip = KRAUS_integ53_GAL_tt
+	}
+}
+country_event = { # 伊利里亚
+	id = KRAUS_integ53.24
+	title = KRAUS_integ53.24.t
+	desc = KRAUS_integ53.24.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_integ53.24.a
+		log = "[GetLogInfo]: event KRAUS_integ53.24 option KRAUS_integ53.24.a"
+		if = { limit = { has_country_flag = KRAUS_integ_slow_CRO } add_ideas = KRAUS_cr_CRO_s }
+		else = { add_ideas = KRAUS_cr_CRO }
+		custom_effect_tooltip = KRAUS_integ53_CRO_tt
+	}
+}
+country_event = { # 斯洛伐克
+	id = KRAUS_integ53.25
+	title = KRAUS_integ53.25.t
+	desc = KRAUS_integ53.25.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_integ53.25.a
+		log = "[GetLogInfo]: event KRAUS_integ53.25 option KRAUS_integ53.25.a"
+		if = { limit = { has_country_flag = KRAUS_integ_slow_SLO } add_ideas = KRAUS_cr_SLO_s }
+		else = { add_ideas = KRAUS_cr_SLO }
+		custom_effect_tooltip = KRAUS_integ53_SLO_tt
+	}
+}
+country_event = { # 特兰西瓦尼亚
+	id = KRAUS_integ53.26
+	title = KRAUS_integ53.26.t
+	desc = KRAUS_integ53.26.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_integ53.26.a
+		log = "[GetLogInfo]: event KRAUS_integ53.26 option KRAUS_integ53.26.a"
+		if = { limit = { has_country_flag = KRAUS_integ_slow_TRS } add_ideas = KRAUS_cr_TRS_s }
+		else = { add_ideas = KRAUS_cr_TRS }
+		custom_effect_tooltip = KRAUS_integ53_TRS_tt
+	}
+}

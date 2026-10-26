@@ -1,0 +1,67 @@
+############################################################
+### 多瑙河危机（2026-10-11 重做）
+###
+### .341 选「拖延」→ 7 天读条。期间可花政治点数争取各王领；
+### 到期匈牙利拒绝最后通牒（直接进入 .344 开战），只有被争取的王领参战。
+### .341 选「立即最后通牒」→ 走 KR 原链，奥地利单独对付匈牙利。
+############################################################
+KRAUS_dc_category = {
+	KRAUS_dc_stall = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		activation = { has_country_flag = KRAUS_dc_stalling }
+		days_mission_timeout = 7
+		is_good = no
+		selectable_mission = no
+		available = {
+			hidden_trigger = { always = no }
+		}
+		timeout_effect = {
+			clr_country_flag = KRAUS_dc_stalling
+			country_event = { id = ausgleich_events.344 days = 0 }
+		}
+		cancel_trigger = { NOT = { country_exists = HUN } }
+		cancel_effect = { clr_country_flag = KRAUS_dc_stalling }
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_dc_win_GAL = {
+		icon = generic_political_discourse
+		visible = {
+			NOT = { has_country_flag = KRAUS_dc_resolved_flag }
+			has_country_flag = KRAUS_dc_stalling
+			NOT = { has_country_flag = KRAUS_dc_won_GAL }
+		}
+		available = {
+			NOT = { has_country_flag = KRAUS_dc_war_started }
+			country_exists = GAL
+			GAL = { OR = { is_subject_of = ROOT has_country_flag = KRAUS_dc_released } }
+		}
+		cost = 50
+		complete_effect = {
+			set_country_flag = KRAUS_dc_won_GAL
+			custom_effect_tooltip = KRAUS_dc_won_GAL_tt
+			GAL = { add_opinion_modifier = { target = ROOT modifier = KR_pleased } }
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_dc_win_CRO = {
+		icon = generic_political_discourse
+		visible = {
+			NOT = { has_country_flag = KRAUS_dc_resolved_flag }
+			has_country_flag = KRAUS_dc_stalling
+			NOT = { has_country_flag = KRAUS_dc_won_CRO }
+		}
+		available = {
+			NOT = { has_country_flag = KRAUS_dc_war_started }
+			country_exists = CRO
+			CRO = { OR = { is_subject_of = ROOT has_country_flag = KRAUS_dc_released } }
+		}
+		cost = 50
+		complete_effect = {
+			set_country_flag = KRAUS_dc_won_CRO
+			custom_effect_tooltip = KRAUS_dc_won_CRO_tt
+			CRO = { add_opinion_modifier = { target = ROOT modifier = KR_pleased } }
+		}
+		ai_will_do = { factor = 0 }
+	}
+}

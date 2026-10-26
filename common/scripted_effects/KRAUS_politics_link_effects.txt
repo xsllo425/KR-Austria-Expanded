@@ -1,0 +1,316 @@
+############################################################
+### 0.1 国策树 ↔ 政治线 联动效果（2026-10-11）
+### 天平只在大选后存在，推动前先判断。
+############################################################
+KRAUS_bop_push_miklas_05 = {
+	# 0.9 V2 实测：第二次多瑙河危机了结后，不再推动第一阶段的权力平衡
+	if = {
+		limit = { NOT = { KRAUS_dc_resolved = yes } }
+		if = {
+			limit = { has_power_balance = { id = KRAUS_regime_balance } }
+			add_power_balance_value = { id = KRAUS_regime_balance value = 0.05 tooltip_side = KRAUS_miklas_side }
+		}
+		else = {
+			custom_effect_tooltip = KRAUS_bop_pending_miklas_05_tt
+			hidden_effect = { add_to_variable = { KRAUS_bop_pending = 0.05 } }
+		}
+
+	}
+}
+KRAUS_bop_push_miklas_10 = {
+	# 0.9 V2 实测：第二次多瑙河危机了结后，不再推动第一阶段的权力平衡
+	if = {
+		limit = { NOT = { KRAUS_dc_resolved = yes } }
+		if = {
+			limit = { has_power_balance = { id = KRAUS_regime_balance } }
+			add_power_balance_value = { id = KRAUS_regime_balance value = 0.10 tooltip_side = KRAUS_miklas_side }
+		}
+		else = {
+			custom_effect_tooltip = KRAUS_bop_pending_miklas_10_tt
+			hidden_effect = { add_to_variable = { KRAUS_bop_pending = 0.10 } }
+		}
+
+	}
+}
+KRAUS_bop_push_renner_05 = {
+	# 0.9 V2 实测：第二次多瑙河危机了结后，不再推动第一阶段的权力平衡
+	if = {
+		limit = { NOT = { KRAUS_dc_resolved = yes } }
+		if = {
+			limit = { has_power_balance = { id = KRAUS_regime_balance } }
+			add_power_balance_value = { id = KRAUS_regime_balance value = -0.05 tooltip_side = KRAUS_renner_side }
+		}
+		else = {
+			custom_effect_tooltip = KRAUS_bop_pending_renner_05_tt
+			hidden_effect = { add_to_variable = { KRAUS_bop_pending = -0.05 } }
+		}
+
+	}
+}
+KRAUS_bop_push_renner_10 = {
+	# 0.9 V2 实测：第二次多瑙河危机了结后，不再推动第一阶段的权力平衡
+	if = {
+		limit = { NOT = { KRAUS_dc_resolved = yes } }
+		if = {
+			limit = { has_power_balance = { id = KRAUS_regime_balance } }
+			add_power_balance_value = { id = KRAUS_regime_balance value = -0.10 tooltip_side = KRAUS_renner_side }
+		}
+		else = {
+			custom_effect_tooltip = KRAUS_bop_pending_renner_10_tt
+			hidden_effect = { add_to_variable = { KRAUS_bop_pending = -0.10 } }
+		}
+
+	}
+}
+# 新增一座民用工厂（与 0.1 国策同一写法）
+KRAUS_link_civ_factory = {
+	random_owned_controlled_state = {
+		limit = {
+			is_core_of = ROOT
+			free_building_slots = { building = industrial_complex size > 0 include_locked = yes }
+		}
+		add_extra_state_shared_building_slots = 1
+		add_building_construction = { type = industrial_complex level = 1 }
+	}
+}
+# 大选设立天平后，兑现大选前积累的倾向
+KRAUS_bop_apply_pending = {
+	while_loop_effect = {
+		limit = { check_variable = { KRAUS_bop_pending > 0.04 } }
+		add_power_balance_value = { id = KRAUS_regime_balance value = 0.05 }
+		subtract_from_variable = { KRAUS_bop_pending = 0.05 }
+	}
+	while_loop_effect = {
+		limit = { check_variable = { KRAUS_bop_pending < -0.04 } }
+		add_power_balance_value = { id = KRAUS_regime_balance value = -0.05 }
+		add_to_variable = { KRAUS_bop_pending = 0.05 }
+	}
+}
+# 多瑙河危机开始：各王冠领（匈牙利除外）独立并退出阵营，只有被争取的王领会在开战时回归
+KRAUS_dc_release_crownlands = {
+	custom_effect_tooltip = KRAUS_dc_release_tt
+	hidden_effect = {
+		if = {
+			limit = { country_exists = CZE CZE = { is_subject_of = ROOT } }
+			CZE = {
+				set_country_flag = KRAUS_dc_released
+				remove_puppet_and_leave_faction = yes
+			}
+		}
+		if = {
+			limit = { country_exists = GAL GAL = { is_subject_of = ROOT } }
+			GAL = {
+				set_country_flag = KRAUS_dc_released
+				remove_puppet_and_leave_faction = yes
+			}
+		}
+		if = {
+			limit = { country_exists = CRO CRO = { is_subject_of = ROOT } }
+			CRO = {
+				set_country_flag = KRAUS_dc_released
+				remove_puppet_and_leave_faction = yes
+				# 2026-10-12：不在忠诚档的伊利里亚，危机中会被塞尔维亚盯上（KR 的「对伊利里亚的最后通牒」，前提条件由 KR 决议自己判断）
+				if = {
+					limit = {
+						country_exists = SER
+						NOT = { has_idea = KRAUS_cl_loyal_1 }
+						NOT = { has_idea = KRAUS_cl_loyal_2 }
+						NOT = { has_idea = KRAUS_cl_loyal_3 }
+					}
+					SER = { activate_targeted_decision = { target = CRO decision = SER_Ultimatum_To_Illyria } }
+				}
+			}
+		}
+		if = {
+			limit = { country_exists = SLO SLO = { is_subject_of = ROOT } }
+			SLO = {
+				set_country_flag = KRAUS_dc_released
+				remove_puppet_and_leave_faction = yes
+			}
+		}
+		if = {
+			limit = { country_exists = TRS TRS = { is_subject_of = ROOT } }
+			TRS = {
+				set_country_flag = KRAUS_dc_released
+				remove_puppet_and_leave_faction = yes
+			}
+		}
+	}
+}
+# 清算未参战的王领：拆走 2 座民用工厂、1 座军用工厂，搬往奥地利与参战的王领；稳定度 -10%
+KRAUS_dc_punish_crownland = {
+	add_stability = -0.10
+	set_country_flag = KRAUS_dc_punished
+	if = {
+		limit = { any_owned_state = { industrial_complex > 0 } }
+		random_owned_controlled_state = {
+		limit = { industrial_complex > 0 }
+		remove_building = { type = industrial_complex level = 1 }
+	}
+		ROOT = {
+		random_owned_controlled_state = {
+			limit = {
+				is_core_of = ROOT
+				free_building_slots = { building = industrial_complex size > 0 include_locked = no }
+			}
+			add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+		}
+	}
+	}
+	if = {
+		limit = { any_owned_state = { industrial_complex > 0 } }
+		random_owned_controlled_state = {
+		limit = { industrial_complex > 0 }
+		remove_building = { type = industrial_complex level = 1 }
+	}
+		if = {
+		limit = { ROOT = { has_country_flag = KRAUS_dc_won_CZE } country_exists = CZE CZE = { is_subject_of = ROOT } }
+		CZE = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = no } }
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_flag = KRAUS_dc_won_GAL } country_exists = GAL GAL = { is_subject_of = ROOT } }
+		GAL = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = no } }
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_flag = KRAUS_dc_won_CRO } country_exists = CRO CRO = { is_subject_of = ROOT } }
+		CRO = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = no } }
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	else = {
+		ROOT = {
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = { building = industrial_complex size > 0 include_locked = no }
+				}
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	}
+	if = {
+		limit = { any_owned_state = { arms_factory > 0 } }
+		random_owned_controlled_state = {
+		limit = { arms_factory > 0 }
+		remove_building = { type = arms_factory level = 1 }
+	}
+		ROOT = {
+		random_owned_controlled_state = {
+			limit = {
+				is_core_of = ROOT
+				free_building_slots = { building = arms_factory size > 0 include_locked = no }
+			}
+			add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+		}
+	}
+	}
+}
+# 退让 = 无事发生：独立出去的王领当场恢复原状，不弹清算事件
+KRAUS_dc_restore_crownlands = {
+	hidden_effect = {
+		if = {
+			limit = { country_exists = CZE CZE = { has_country_flag = KRAUS_dc_released } }
+			set_autonomy = { target = CZE autonomy_state = crownland end_wars = no }
+			if = { limit = { is_faction_leader = yes } add_to_faction = CZE }
+			CZE = { clr_country_flag = KRAUS_dc_released }
+		}
+		if = {
+			limit = { country_exists = GAL GAL = { has_country_flag = KRAUS_dc_released } }
+			set_autonomy = { target = GAL autonomy_state = crownland end_wars = no }
+			if = { limit = { is_faction_leader = yes } add_to_faction = GAL }
+			GAL = { clr_country_flag = KRAUS_dc_released }
+		}
+		if = {
+			limit = { country_exists = CRO CRO = { has_country_flag = KRAUS_dc_released } }
+			set_autonomy = { target = CRO autonomy_state = crownland end_wars = no }
+			if = { limit = { is_faction_leader = yes } add_to_faction = CRO }
+			CRO = { clr_country_flag = KRAUS_dc_released }
+		}
+		if = {
+			limit = { country_exists = SLO SLO = { has_country_flag = KRAUS_dc_released } }
+			set_autonomy = { target = SLO autonomy_state = crownland end_wars = no }
+			if = { limit = { is_faction_leader = yes } add_to_faction = SLO }
+			SLO = { clr_country_flag = KRAUS_dc_released }
+		}
+		if = {
+			limit = { country_exists = TRS TRS = { has_country_flag = KRAUS_dc_released } }
+			set_autonomy = { target = TRS autonomy_state = crownland end_wars = no }
+			if = { limit = { is_faction_leader = yes } add_to_faction = TRS }
+			TRS = { clr_country_flag = KRAUS_dc_released }
+		}
+	}
+	set_country_flag = KRAUS_dc_reckoning_done
+}
+# 伊利里亚危机：波希米亚、加利西亚直接参战，代价由伊利里亚承担
+# （每个王领：伊利里亚 -75 政治点数，并转一座民用工厂给该王领）
+KRAUS_dc_illyria_rally = {
+	custom_effect_tooltip = KRAUS_dc_illyria_rally_tt
+	hidden_effect = {
+		if = {
+			limit = { country_exists = CZE CZE = { is_subject_of = ROOT } }
+			CZE = {
+				add_to_war = { targeted_alliance = ROOT enemy = HUN }
+				add_civil_war_target = HUN
+			}
+			if = {
+				limit = { country_exists = CRO }
+				CRO = {
+					add_political_power = -75
+					if = {
+						limit = { any_owned_state = { industrial_complex > 0 } }
+						random_owned_controlled_state = {
+							limit = { industrial_complex > 0 }
+							remove_building = { type = industrial_complex level = 1 }
+						}
+						CZE = {
+							random_owned_controlled_state = {
+								limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = no } }
+								add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+							}
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = { country_exists = GAL GAL = { is_subject_of = ROOT } }
+			GAL = {
+				add_to_war = { targeted_alliance = ROOT enemy = HUN }
+				add_civil_war_target = HUN
+			}
+			if = {
+				limit = { country_exists = CRO }
+				CRO = {
+					add_political_power = -75
+					if = {
+						limit = { any_owned_state = { industrial_complex > 0 } }
+						random_owned_controlled_state = {
+							limit = { industrial_complex > 0 }
+							remove_building = { type = industrial_complex level = 1 }
+						}
+						GAL = {
+							random_owned_controlled_state = {
+								limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = no } }
+								add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

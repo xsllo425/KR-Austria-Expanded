@@ -1,0 +1,549 @@
+############################################################
+### 第二次大选的竞选事件链（0.9 实测 22，2026-10-14）。本文件由 gen_el2c.py 生成。
+### 首个党团国策完成后（或「明天的帝国」读完 150 天后）开始，16 个事件，每个选项把议会重心向对应的党拉近。
+### 事件链走完后进入 KRAUS_election2.2，按重心决定执政党；重心落在正中（四党等距）则为僵局，进入基本法进度。
+############################################################
+add_namespace = KRAUS_el2c
+
+country_event = {
+	id = KRAUS_el2c.0
+	title = KRAUS_el2c.0.t
+	desc = KRAUS_el2c.0.d
+	picture = GFX_report_event_KRAUS_el2c_0
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { NOT = { has_country_flag = KRAUS_el2c_started } }
+	immediate = {
+		hidden_effect = { set_country_flag = KRAUS_el2c_started }
+	}
+	option = {
+		name = KRAUS_el2c.0.a
+		log = "[GetLogInfo]: event KRAUS_el2c.0 option KRAUS_el2c.0.a"
+		if = {
+			limit = { has_idea = AUS_divided_society }
+			remove_ideas = AUS_divided_society
+		}
+		hidden_effect = { country_event = { id = KRAUS_el2c.1 days = 7 } }
+	}
+}
+
+country_event = {
+	id = KRAUS_el2c.1
+	title = KRAUS_el2c.1.t
+	desc = KRAUS_el2c.1.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_el2c.1.cs
+		log = "[GetLogInfo]: event KRAUS_el2c.1 option KRAUS_el2c.1.cs"
+		add_popularity = { ideology = social_conservative popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_cs_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.2 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.1.ml
+		log = "[GetLogInfo]: event KRAUS_el2c.1 option KRAUS_el2c.1.ml"
+		add_popularity = { ideology = market_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_ml_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.2 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.1.sd
+		log = "[GetLogInfo]: event KRAUS_el2c.1 option KRAUS_el2c.1.sd"
+		add_popularity = { ideology = social_democrat popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sd_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.2 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.1.sl
+		log = "[GetLogInfo]: event KRAUS_el2c.1 option KRAUS_el2c.1.sl"
+		add_popularity = { ideology = social_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sl_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.2 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+}
+
+country_event = {
+	id = KRAUS_el2c.2
+	title = KRAUS_el2c.2.t
+	desc = KRAUS_el2c.2.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_el2c.2.cs
+		log = "[GetLogInfo]: event KRAUS_el2c.2 option KRAUS_el2c.2.cs"
+		add_popularity = { ideology = social_conservative popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_cs_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.3 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.2.ml
+		log = "[GetLogInfo]: event KRAUS_el2c.2 option KRAUS_el2c.2.ml"
+		add_popularity = { ideology = market_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_ml_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.3 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.2.sd
+		log = "[GetLogInfo]: event KRAUS_el2c.2 option KRAUS_el2c.2.sd"
+		add_popularity = { ideology = social_democrat popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sd_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.3 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.2.sl
+		log = "[GetLogInfo]: event KRAUS_el2c.2 option KRAUS_el2c.2.sl"
+		add_popularity = { ideology = social_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sl_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.3 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+}
+
+country_event = {
+	id = KRAUS_el2c.3
+	title = KRAUS_el2c.3.t
+	desc = KRAUS_el2c.3.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_el2c.3.cs
+		log = "[GetLogInfo]: event KRAUS_el2c.3 option KRAUS_el2c.3.cs"
+		add_popularity = { ideology = social_conservative popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_cs_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.4 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.3.ml
+		log = "[GetLogInfo]: event KRAUS_el2c.3 option KRAUS_el2c.3.ml"
+		add_popularity = { ideology = market_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_ml_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.4 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.3.sd
+		log = "[GetLogInfo]: event KRAUS_el2c.3 option KRAUS_el2c.3.sd"
+		add_popularity = { ideology = social_democrat popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sd_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.4 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.3.sl
+		log = "[GetLogInfo]: event KRAUS_el2c.3 option KRAUS_el2c.3.sl"
+		add_popularity = { ideology = social_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sl_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.4 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+}
+
+country_event = {
+	id = KRAUS_el2c.4
+	title = KRAUS_el2c.4.t
+	desc = KRAUS_el2c.4.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_el2c.4.cs
+		log = "[GetLogInfo]: event KRAUS_el2c.4 option KRAUS_el2c.4.cs"
+		add_popularity = { ideology = social_conservative popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_cs_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.5 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.4.ml
+		log = "[GetLogInfo]: event KRAUS_el2c.4 option KRAUS_el2c.4.ml"
+		add_popularity = { ideology = market_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_ml_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.5 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.4.sd
+		log = "[GetLogInfo]: event KRAUS_el2c.4 option KRAUS_el2c.4.sd"
+		add_popularity = { ideology = social_democrat popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sd_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.5 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.4.sl
+		log = "[GetLogInfo]: event KRAUS_el2c.4 option KRAUS_el2c.4.sl"
+		add_popularity = { ideology = social_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sl_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.5 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+}
+
+country_event = {
+	id = KRAUS_el2c.5
+	title = KRAUS_el2c.5.t
+	desc = KRAUS_el2c.5.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_el2c.5.cs
+		log = "[GetLogInfo]: event KRAUS_el2c.5 option KRAUS_el2c.5.cs"
+		add_popularity = { ideology = social_conservative popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_cs_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.6 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.5.ml
+		log = "[GetLogInfo]: event KRAUS_el2c.5 option KRAUS_el2c.5.ml"
+		add_popularity = { ideology = market_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_ml_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.6 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.5.sd
+		log = "[GetLogInfo]: event KRAUS_el2c.5 option KRAUS_el2c.5.sd"
+		add_popularity = { ideology = social_democrat popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sd_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.6 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.5.sl
+		log = "[GetLogInfo]: event KRAUS_el2c.5 option KRAUS_el2c.5.sl"
+		add_popularity = { ideology = social_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sl_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.6 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+}
+
+country_event = {
+	id = KRAUS_el2c.6
+	title = KRAUS_el2c.6.t
+	desc = KRAUS_el2c.6.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_el2c.6.cs
+		log = "[GetLogInfo]: event KRAUS_el2c.6 option KRAUS_el2c.6.cs"
+		add_popularity = { ideology = social_conservative popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_cs_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.7 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.6.ml
+		log = "[GetLogInfo]: event KRAUS_el2c.6 option KRAUS_el2c.6.ml"
+		add_popularity = { ideology = market_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_ml_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.7 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.6.sd
+		log = "[GetLogInfo]: event KRAUS_el2c.6 option KRAUS_el2c.6.sd"
+		add_popularity = { ideology = social_democrat popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sd_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.7 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.6.sl
+		log = "[GetLogInfo]: event KRAUS_el2c.6 option KRAUS_el2c.6.sl"
+		add_popularity = { ideology = social_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sl_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.7 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+}
+
+country_event = {
+	id = KRAUS_el2c.7
+	title = KRAUS_el2c.7.t
+	desc = KRAUS_el2c.7.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_el2c.7.cs
+		log = "[GetLogInfo]: event KRAUS_el2c.7 option KRAUS_el2c.7.cs"
+		add_popularity = { ideology = social_conservative popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_cs_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.8 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.7.ml
+		log = "[GetLogInfo]: event KRAUS_el2c.7 option KRAUS_el2c.7.ml"
+		add_popularity = { ideology = market_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_ml_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.8 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.7.sd
+		log = "[GetLogInfo]: event KRAUS_el2c.7 option KRAUS_el2c.7.sd"
+		add_popularity = { ideology = social_democrat popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sd_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.8 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.7.sl
+		log = "[GetLogInfo]: event KRAUS_el2c.7 option KRAUS_el2c.7.sl"
+		add_popularity = { ideology = social_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sl_el_tt
+		hidden_effect = { country_event = { id = KRAUS_el2c.8 days = 9 random_days = 6 } }
+		ai_chance = { base = 25 }
+	}
+}
+
+country_event = {
+	id = KRAUS_el2c.8
+	title = KRAUS_el2c.8.t
+	desc = KRAUS_el2c.8.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_el2c.8.cs
+		log = "[GetLogInfo]: event KRAUS_el2c.8 option KRAUS_el2c.8.cs"
+		add_popularity = { ideology = social_conservative popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_cs_el_tt
+		hidden_effect = { country_event = { id = KRAUS_election2.2 days = 14 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.8.ml
+		log = "[GetLogInfo]: event KRAUS_el2c.8 option KRAUS_el2c.8.ml"
+		add_popularity = { ideology = market_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_ml_el_tt
+		hidden_effect = { country_event = { id = KRAUS_election2.2 days = 14 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.8.sd
+		log = "[GetLogInfo]: event KRAUS_el2c.8 option KRAUS_el2c.8.sd"
+		add_popularity = { ideology = social_democrat popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sd_el_tt
+		hidden_effect = { country_event = { id = KRAUS_election2.2 days = 14 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = KRAUS_el2c.8.sl
+		log = "[GetLogInfo]: event KRAUS_el2c.8 option KRAUS_el2c.8.sl"
+		add_popularity = { ideology = social_liberal popularity = 0.01 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+			set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+			KRAUS_pm_pull = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_pullto_sl_el_tt
+		hidden_effect = { country_event = { id = KRAUS_election2.2 days = 14 } }
+		ai_chance = { base = 25 }
+	}
+}
+

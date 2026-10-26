@@ -1,0 +1,158 @@
+############################################################
+### 帝国议会的重心：每周结算（合众国路线第 3、4 批，2026-10-13）
+### · 《帝国基本法》进度：草案上桌后、写成之前、大战爆发之前结算。
+### · 大战爆发（不论奥地利是否参战，设计稿 v1.3）：基本法已通过 → KRAUS_pm_war.2（宪政战时政府）；
+###   否则（没写完或被搁置）→ KRAUS_pm_war.1（战时帝国内阁，设 KRAUS_war_cabinet，两条德意志路线由此可进入）。
+############################################################
+on_actions = {
+	on_weekly_AUS = {
+		effect = {
+			# 0.9 反馈30：吞并后选择「整合进我们的领土」得到的宣称，改按顺从度造核（地图上显示为可整合领土）
+			KRAUS_enable_annex_integration = yes
+			if = {
+				limit = {
+					has_country_flag = KRAUS_pm_charter_open
+					NOT = { has_country_flag = KRAUS_pm_charter_ready }
+					NOT = { has_country_flag = KRAUS_pm_war_begun }
+				}
+				KRAUS_pm_law_tick = yes
+			}
+			if = {
+				limit = {
+					has_country_flag = KRAUS_pm_active
+					NOT = { has_country_flag = KRAUS_pm_war_begun }
+					has_global_flag = second_weltkrieg_has_started
+					NOT = { has_global_flag = second_weltkrieg_has_ended }
+					NOT = { has_country_flag = KRAUS_route_greater_germany }
+					NOT = { has_country_flag = KRAUS_route_hre }
+				}
+				set_country_flag = KRAUS_pm_war_begun
+				if = {
+					limit = { has_country_flag = KRAUS_basic_law_passed }
+					country_event = { id = KRAUS_pm_war.2 days = 1 }
+				}
+				else = {
+					country_event = { id = KRAUS_pm_war.1 days = 1 }
+				}
+			}
+			# 博斯普鲁斯的橄榄枝：奥斯曼接受（加入我们的同盟）后修维也纳—索菲亚铁路，只修一次
+			if = {
+				limit = {
+					has_country_flag = KRAUS_ott_olive_sent
+					NOT = { has_country_flag = KRAUS_ott_rail_done }
+					country_exists = TUR
+					TUR = { is_in_faction_with = ROOT }
+				}
+				set_country_flag = KRAUS_ott_rail_done
+				build_railway = { start_province = 11666 target_province = 949 level = 2 }
+			}
+			# 大洋彼岸：与美国开战，奥美贸易协定消失
+			if = {
+				limit = {
+					has_idea = KRAUS_pwr_usa_trade
+					OR = {
+						country_exists = USA
+						always = no
+					}
+					USA = { has_war_with = ROOT }
+				}
+				remove_ideas = KRAUS_pwr_usa_trade
+			}
+			# 我们所需的：社会主义者的承诺随之消失
+			if = {
+				limit = {
+					has_completed_focus = AUS_cs_7
+					has_idea = AUS_socialist_promises
+				}
+				remove_ideas = AUS_socialist_promises
+			}
+			# 志愿军法：巴尔干战争结束后 buff 消失，并有事件提醒
+			if = {
+				limit = {
+					has_idea = KRAUS_volunteer_act_idea
+					OR = {
+						has_global_flag = balkan_war_ended
+						BUL = { has_country_flag = BUL_balkan_peace_loss }
+					}
+				}
+				remove_ideas = KRAUS_volunteer_act_idea
+				country_event = { id = KRAUS_balkan_events.60 days = 1 }
+			}
+			# 乌克兰内战爆发：哈布斯堡援助共和派（0.9 实测）
+			if = {
+				limit = {
+					NOT = { has_country_flag = KRAUS_ukr_aid_started }
+					country_exists = UKR
+					UKR = {
+						has_country_flag = UKR_revolt_started
+						NOT = { has_country_flag = UKR_revolt_over }
+					}
+				}
+				set_country_flag = KRAUS_ukr_aid_started
+				country_event = { id = KRAUS_ukr_aid.1 days = 3 }
+			}
+			# 经加利西亚援助波兰共和派（0.9 实测）：只看时局，不要求完成加利西亚的走廊
+			#   （点到那个国策时波兰的政局往往早已定局）
+			if = {
+				limit = {
+					NOT = { has_country_flag = KRAUS_pol_aid_started }
+					date > 1936.3.1
+					country_exists = POL
+					NOT = { POL = { has_country_flag = POL_election_happened } }
+				}
+				set_country_flag = KRAUS_pol_aid_started
+				country_event = { id = KRAUS_pol_aid.1 days = 3 }
+			}
+			# 波兰、乌克兰线的解锁保底：事件已经错过（波兰大选已结束、乌克兰内战已结束）也要放开
+			if = {
+				limit = {
+					NOT = { has_country_flag = KRAUS_pol_line_open }
+					country_exists = POL
+					POL = { has_country_flag = POL_election_happened }
+				}
+				set_country_flag = KRAUS_pol_line_open
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = KRAUS_ukr_line_open }
+					OR = {
+						NOT = { country_exists = UKR }
+						UKR = { has_country_flag = UKR_revolt_over }
+					}
+				}
+				set_country_flag = KRAUS_ukr_line_open
+			}
+			# 战后大选（第 5 批）：大战结束后累计 90 天，且没有进行中或已成的德意志路线
+			if = {
+				limit = {
+					has_country_flag = KRAUS_pm_war_begun
+					has_global_flag = second_weltkrieg_has_ended
+					NOT = { has_country_flag = KRAUS_pm_postwar_done }
+					NOT = { has_country_flag = KRAUS_route_gg_active }
+					NOT = { has_country_flag = KRAUS_route_hre_active }
+					NOT = { has_country_flag = KRAUS_route_greater_germany }
+					NOT = { has_country_flag = KRAUS_route_hre }
+				}
+				add_to_variable = { var = KRAUS_pm_postwar_days value = 7 }
+				if = {
+					limit = { check_variable = { var = KRAUS_pm_postwar_days value = 90 compare = greater_than_or_equals } }
+					KRAUS_pm_postwar_resolve = yes
+				}
+			}
+			# 联合内阁危机：三党、四党内阁的妥协意愿第一次跌出高档，只触发一次
+			if = {
+				limit = {
+					has_country_flag = KRAUS_pm_postwar_done
+					OR = {
+						has_country_flag = KRAUS_pm_end_3
+						has_country_flag = KRAUS_pm_end_4
+					}
+					NOT = { has_country_flag = KRAUS_pm_comp_high }
+					NOT = { has_country_flag = KRAUS_pm_crisis_started }
+				}
+				set_country_flag = KRAUS_pm_crisis_started
+				country_event = { id = KRAUS_pm_crisis.1 days = 1 }
+			}
+		}
+	}
+}

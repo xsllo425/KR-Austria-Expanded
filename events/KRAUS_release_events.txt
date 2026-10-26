@@ -1,0 +1,52 @@
+add_namespace = KRAUS_rel_events
+
+# 一年的释放期结束，王冠领不满
+country_event = {
+	id = KRAUS_rel_events.1
+	title = KRAUS_rel_events.1.t
+	desc = KRAUS_rel_events.1.d
+	picture = GFX_report_event_KRAUS_rel_events_1
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_rel_events.1.a
+		log = "[GetLogInfo]: event KRAUS_rel_events.1 option KRAUS_rel_events.1.a"
+		KRAUS_release_resentment = yes
+	}
+}
+
+# 二战中同时与德、法、俄任意两国开战：未整合的王冠领叛乱
+country_event = {
+	id = KRAUS_rel_events.2
+	title = KRAUS_rel_events.2.t
+	desc = KRAUS_rel_events.2.d
+	picture = GFX_report_event_KRAUS_rel_events_2
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_rel_events.2.a
+		log = "[GetLogInfo]: event KRAUS_rel_events.2 option KRAUS_rel_events.2.a"
+		hidden_effect = {
+			every_subject_country = {
+				limit = { OR = { tag = CZE tag = GAL tag = CRO tag = HUN tag = SLO tag = TRS } }
+				set_country_flag = KRAUS_cl_in_revolt
+				remove_puppet_and_leave_faction = yes
+				country_event = { id = KRAUS_rel_events.3 days = 1 }
+			}
+		}
+	}
+}
+# ROOT = 叛乱的王冠领
+country_event = {
+	id = KRAUS_rel_events.3
+	title = KRAUS_rel_events.3.t
+	desc = KRAUS_rel_events.3.d
+	picture = GFX_report_event_KRAUS_rel_events_3
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_rel_events.3.a
+		log = "[GetLogInfo]: event KRAUS_rel_events.3 option KRAUS_rel_events.3.a"
+		if = {
+			limit = { country_exists = AUS NOT = { has_war_with = AUS } }
+			declare_war_on = { target = AUS type = annex_everything }
+		}
+	}
+}

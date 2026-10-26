@@ -1,0 +1,103 @@
+############################################################
+### 覆盖 KR 的 AUS_remove_army_ideas / AUS_refresh_crownland_army_ideas（0.9 实测 37、48）
+###   本 mod 的「共同陆军现代化」变体令牌是 KRAUS_modern_army_*，KR 原效果按 AUS_modern_army_* 查找，会找不到。
+###   这里补上 KRAUS 变体，其余与 KR 原文一致。
+############################################################
+AUS_remove_army_ideas = {
+	hidden_effect = {
+		remove_ideas = {
+			AUS_modern_army
+			AUS_modern_army_jansa
+			AUS_modern_army_jansa_2
+			AUS_modern_army_jansa_3
+			AUS_modern_army_von_hubicki
+			AUS_modern_army_von_hubicki_2
+			AUS_modern_army_von_hubicki_3
+			AUS_modern_army_hickmann
+			AUS_modern_army_hickmann_2
+			AUS_artillery_production
+			KRAUS_modern_army_jansa
+			KRAUS_modern_army_jansa_2
+			KRAUS_modern_army_jansa_3
+			KRAUS_modern_army_hubicki
+			KRAUS_modern_army_hubicki_2
+			KRAUS_modern_army_hubicki_3
+		}
+	}
+}
+
+AUS_refresh_crownland_army_ideas = { # Ensure Crownlands released later inherit current army ideas
+	hidden_effect = {
+		if = {
+			limit = { AUS = { has_completed_focus = AUS_reform_AOK } }
+			AUS_remove_army_ideas = yes
+			AUS = {
+				if = {
+					limit = { has_idea = AUS_modern_army }
+					set_temp_variable = { AUS_shared_army_idea = token:AUS_modern_army }
+				}
+				else_if = {
+					limit = { has_idea = AUS_modern_army_jansa }
+					set_temp_variable = { AUS_shared_army_idea = token:AUS_modern_army_jansa }
+				}
+				else_if = {
+					limit = { has_idea = AUS_modern_army_jansa_2 }
+					set_temp_variable = { AUS_shared_army_idea = token:AUS_modern_army_jansa_2 }
+				}
+				else_if = {
+					limit = { has_idea = AUS_modern_army_jansa_3 }
+					set_temp_variable = { AUS_shared_army_idea = token:AUS_modern_army_jansa_3 }
+				}
+				else_if = {
+					limit = { has_idea = AUS_modern_army_von_hubicki }
+					set_temp_variable = { AUS_shared_army_idea = token:AUS_modern_army_von_hubicki }
+				}
+				else_if = {
+					limit = { has_idea = AUS_modern_army_von_hubicki_2 }
+					set_temp_variable = { AUS_shared_army_idea = token:AUS_modern_army_von_hubicki_2 }
+				}
+				else_if = {
+					limit = { has_idea = AUS_modern_army_von_hubicki_3 }
+					set_temp_variable = { AUS_shared_army_idea = token:AUS_modern_army_von_hubicki_3 }
+				}
+				else_if = {
+					limit = { has_idea = AUS_modern_army_hickmann }
+					set_temp_variable = { AUS_shared_army_idea = token:AUS_modern_army_hickmann }
+				}
+				else_if = {
+					limit = { has_idea = AUS_modern_army_hickmann_2 }
+					set_temp_variable = { AUS_shared_army_idea = token:AUS_modern_army_hickmann_2 }
+				}
+				else_if = {
+					limit = { has_idea = KRAUS_modern_army_jansa }
+					set_temp_variable = { AUS_shared_army_idea = token:KRAUS_modern_army_jansa }
+				}
+				else_if = {
+					limit = { has_idea = KRAUS_modern_army_jansa_2 }
+					set_temp_variable = { AUS_shared_army_idea = token:KRAUS_modern_army_jansa_2 }
+				}
+				else_if = {
+					limit = { has_idea = KRAUS_modern_army_jansa_3 }
+					set_temp_variable = { AUS_shared_army_idea = token:KRAUS_modern_army_jansa_3 }
+				}
+				else_if = {
+					limit = { has_idea = KRAUS_modern_army_hubicki }
+					set_temp_variable = { AUS_shared_army_idea = token:KRAUS_modern_army_hubicki }
+				}
+				else_if = {
+					limit = { has_idea = KRAUS_modern_army_hubicki_2 }
+					set_temp_variable = { AUS_shared_army_idea = token:KRAUS_modern_army_hubicki_2 }
+				}
+				else_if = {
+					limit = { has_idea = KRAUS_modern_army_hubicki_3 }
+					set_temp_variable = { AUS_shared_army_idea = token:KRAUS_modern_army_hubicki_3 }
+				}
+			}
+			add_ideas = var:AUS_shared_army_idea
+			if = {
+				limit = { AUS = { has_idea = AUS_artillery_production } }
+				add_ideas = AUS_artillery_production
+			}
+		}
+	}
+}

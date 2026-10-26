@@ -1,0 +1,39 @@
+############################################################
+### 合众国路线第 6 批：联邦式／统一式合众国的民族精神，与统一式的王领不满减益（2026-10-13）
+### 联邦式：王领保留议会，稳定度高、整合红利略低。
+### 统一式：中央直辖，工厂与人力加成高，但会引出三次王领不满，之后带着减益，只有一次性决议「平息王领」能去掉。
+############################################################
+ideas = {
+	country = {
+		KRAUS_usga_federal = {
+			picture = KRAUS_usga_federal
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.08
+				research_speed_factor = 0.05
+				political_power_gain = 0.05
+			}
+		}
+		KRAUS_usga_unitary = {
+			picture = KRAUS_usga_unitary
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.10
+				conscription_factor = 0.15
+				production_speed_buildings_factor = 0.10
+			}
+		}
+		KRAUS_usga_unrest = {
+			picture = KRAUS_cg_gov
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.08
+				political_power_gain = -0.10
+				conscription_factor = -0.05
+			}
+		}
+	}
+}

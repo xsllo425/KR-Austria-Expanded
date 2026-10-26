@@ -1,0 +1,59 @@
+############################################################
+### 列强的邀请（2026-10-12）：新阶段外交关系带来的国家精神
+############################################################
+ideas = {
+	country = {
+		KRAUS_pwr_ger_trade = {
+			picture = KRAUS_pwr_ger_trade
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.15
+			}
+		}
+		KRAUS_pwr_usa_trade = {
+			picture = KRAUS_pwr_usa_trade
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.15
+			}
+		}
+		KRAUS_wartime_joint_prod = {
+			picture = KRAUS_wartime_joint_prod
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_factory_efficiency_gain_factor = 0.15
+				army_org_factor = 0.05
+				supply_consumption_factor = -0.05
+			}
+		}
+		KRAUS_pwr_entente_contact = {
+			picture = KRAUS_pwr_entente_contact
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.05
+			}
+		}
+		KRAUS_pwr_internationale_contact = {
+			picture = KRAUS_pwr_internationale_contact
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.05
+				stability_factor = 0.03
+			}
+		}
+		KRAUS_pwr_moscow_pact = {
+			picture = KRAUS_pwr_moscow_pact
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				consumer_goods_factor = -0.03
+			}
+		}
+	}
+}

@@ -1,0 +1,85 @@
+############################################################
+### 终局路线入口：合众国的起始精神三档（2026-10-12）+ 主党在合众国中的大加强
+############################################################
+ideas = {
+	country = {
+		KRAUS_usga_spirit_1 = {
+			picture = KRAUS_usga_spirit
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.08
+				production_speed_buildings_factor = 0.08
+			}
+		}
+		KRAUS_usga_spirit_2 = {
+			picture = KRAUS_usga_spirit
+			name = KRAUS_usga_spirit
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.08
+				production_speed_buildings_factor = 0.12
+				political_power_gain = 0.15
+				research_speed_factor = 0.08
+			}
+		}
+		KRAUS_usga_spirit_3 = {
+			picture = KRAUS_usga_spirit
+			name = KRAUS_usga_spirit
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.1
+				production_speed_buildings_factor = 0.15
+				political_power_gain = 0.2
+				research_speed_factor = 0.1
+				industrial_capacity_factory = 0.08
+			}
+		}
+		KRAUS_usga_main_sd = {
+			picture = KRAUS_usga_main_sd
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.08
+				production_speed_buildings_factor = 0.15
+				political_power_gain = 0.15
+				consumer_goods_factor = -0.08
+			}
+		}
+		KRAUS_usga_main_cs = {
+			picture = KRAUS_usga_main_cs
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.08
+				war_support_factor = 0.1
+				conscription_factor = 0.1
+				army_org_factor = 0.1
+			}
+		}
+		KRAUS_usga_main_sl = {
+			picture = KRAUS_usga_main_sl
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.15
+				political_power_gain = 0.2
+				stability_factor = 0.08
+				trade_opinion_factor = 0.25
+			}
+		}
+		KRAUS_usga_main_ml = {
+			picture = KRAUS_usga_main_ml
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.2
+				industrial_capacity_factory = 0.1
+				consumer_goods_factor = -0.1
+				local_resources_factor = 0.1
+			}
+		}
+	}
+}

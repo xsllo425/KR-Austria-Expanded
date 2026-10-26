@@ -1,0 +1,99 @@
+############################################################
+### KRAUS 伦纳线 · 事件
+###
+### 设计依据：_work/三条政治线_独特政治机制.md §一
+### 用途：BOP 段落切换的叙事反馈 + 大帐篷的里程碑
+###
+### ★ BOP 的 on_activate 会调用本文件的事件
+### ★ 不使用 replace_path（三条铁律之二）
+############################################################
+
+add_namespace = KRAUS_renner_events
+
+############################################################
+### .1 「大帐篷」稳固（进入中段）
+############################################################
+country_event = {
+	id = KRAUS_renner_events.1
+	title = KRAUS_renner_events.1.t
+	desc = KRAUS_renner_events.1.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_renner_events.1.a
+		log = "[GetLogInfo]: KRAUS Renner event .1 - big tent holding"
+	}
+}
+
+############################################################
+### .2 离心失控（各王领先行一步）
+############################################################
+country_event = {
+	id = KRAUS_renner_events.2
+	title = KRAUS_renner_events.2.t
+	desc = KRAUS_renner_events.2.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRAUS_renner_events.2.a
+		add_ideas = KRAUS_renner_hegemony
+		remove_power_balance = { id = KRAUS_regime_balance }
+		custom_effect_tooltip = KRAUS_bop_locked_tt
+		log = "[GetLogInfo]: KRAUS Renner event .2 - centrifugal dominant"
+	}
+}
+
+############################################################
+### .3 中央独裁（维也纳抓得太紧）
+############################################################
+country_event = {
+	id = KRAUS_renner_events.3
+	title = KRAUS_renner_events.3.t
+	desc = KRAUS_renner_events.3.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRAUS_renner_events.3.a
+		add_ideas = KRAUS_miklas_hegemony
+		remove_power_balance = { id = KRAUS_regime_balance }
+		custom_effect_tooltip = KRAUS_bop_locked_tt
+		log = "[GetLogInfo]: KRAUS Renner event .3 - central dominant"
+	}
+}
+
+############################################################
+### .10 ★ 伦纳就任：激活平衡条（BOP 的接线点）
+###
+### ★★ 工坊明示：只定义 BOP 文件是不够的，必须 set_power_balance。
+###     这是 #1「为什么看不见」的原因。
+############################################################
+country_event = {
+	id = KRAUS_renner_events.10
+	title = KRAUS_renner_events.10.t
+	desc = KRAUS_renner_events.10.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_renner_events.10.a
+		log = "[GetLogInfo]: KRAUS Renner - power balance activated"
+
+		# ★ 激活帝国平衡条
+		set_power_balance = {
+			id = KRAUS_regime_balance
+			left_side = KRAUS_renner_side
+			right_side = KRAUS_miklas_side
+		}
+		set_country_flag = KRAUS_renner_line_active
+		add_political_power = 50
+	}
+}

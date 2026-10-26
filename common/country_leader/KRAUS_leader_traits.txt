@@ -1,0 +1,31 @@
+############################################################
+### 卡尔皇帝的领导人特质（2026-10-12）：由「明天的帝国」与各党纲领的宪制主张授予
+############################################################
+leader_traits = {
+	KRAUS_karl_tomorrow = {
+		random = no
+		stability_factor = 0.05
+		political_power_gain = 0.10
+	}
+	KRAUS_karl_federal_monarch = {
+		random = no
+		stability_factor = 0.03
+		production_speed_buildings_factor = 0.05
+	}
+	KRAUS_karl_apostolic_monarch = {
+		random = no
+		stability_factor = 0.03
+		war_support_factor = 0.05
+		conscription_factor = 0.05
+	}
+	KRAUS_karl_pan_european = {
+		random = no
+		research_speed_factor = 0.05
+		political_power_gain = 0.10
+	}
+	KRAUS_karl_merchant_emperor = {
+		random = no
+		production_speed_buildings_factor = 0.08
+		industrial_capacity_factory = 0.03
+	}
+}

@@ -1,0 +1,123 @@
+############################################################
+### 共同陆军现代化（0.9 实测 37、48）：同一时间只保留一个，按路线与等级取代
+###   路线标志：KRAUS_ma_line_hickmann / _hubicki / _jansa，最近选定的路线生效
+###   等级变量：KRAUS_ma_level（0 无学说、1 学说、2 任务式战术、3 联合军队扩编）
+############################################################
+KRAUS_ma_refresh = {
+	if = { limit = { has_idea = AUS_modern_army } remove_ideas = AUS_modern_army }
+	if = { limit = { has_idea = AUS_modern_army_hickmann } remove_ideas = AUS_modern_army_hickmann }
+	if = { limit = { has_idea = AUS_modern_army_hickmann_2 } remove_ideas = AUS_modern_army_hickmann_2 }
+	if = { limit = { has_idea = KRAUS_modern_army_hickmann_mid } remove_ideas = KRAUS_modern_army_hickmann_mid }
+	if = { limit = { has_idea = KRAUS_modern_army_hubicki } remove_ideas = KRAUS_modern_army_hubicki }
+	if = { limit = { has_idea = KRAUS_modern_army_hubicki_2 } remove_ideas = KRAUS_modern_army_hubicki_2 }
+	if = { limit = { has_idea = KRAUS_modern_army_hubicki_3 } remove_ideas = KRAUS_modern_army_hubicki_3 }
+	if = { limit = { has_idea = KRAUS_modern_army_jansa } remove_ideas = KRAUS_modern_army_jansa }
+	if = { limit = { has_idea = KRAUS_modern_army_jansa_2 } remove_ideas = KRAUS_modern_army_jansa_2 }
+	if = { limit = { has_idea = KRAUS_modern_army_jansa_3 } remove_ideas = KRAUS_modern_army_jansa_3 }
+	if = {
+		limit = { has_country_flag = KRAUS_ma_line_hickmann }
+		if = {
+			limit = { check_variable = { KRAUS_ma_level > 2 } }
+			add_ideas = AUS_modern_army_hickmann_2
+		}
+		else_if = {
+			limit = { check_variable = { KRAUS_ma_level > 1 } }
+			add_ideas = KRAUS_modern_army_hickmann_mid
+		}
+		else = { add_ideas = AUS_modern_army_hickmann }
+	}
+	else_if = {
+		limit = { has_country_flag = KRAUS_ma_line_hubicki }
+		if = {
+			limit = { check_variable = { KRAUS_ma_level > 2 } }
+			add_ideas = KRAUS_modern_army_hubicki_3
+		}
+		else_if = {
+			limit = { check_variable = { KRAUS_ma_level > 1 } }
+			add_ideas = KRAUS_modern_army_hubicki_2
+		}
+		else = { add_ideas = KRAUS_modern_army_hubicki }
+	}
+	else_if = {
+		limit = { has_country_flag = KRAUS_ma_line_jansa }
+		if = {
+			limit = { check_variable = { KRAUS_ma_level > 2 } }
+			add_ideas = KRAUS_modern_army_jansa_3
+		}
+		else_if = {
+			limit = { check_variable = { KRAUS_ma_level > 1 } }
+			add_ideas = KRAUS_modern_army_jansa_2
+		}
+		else = { add_ideas = KRAUS_modern_army_jansa }
+	}
+	else = { add_ideas = AUS_modern_army }
+}
+KRAUS_ma_clear_line = {
+	clr_country_flag = KRAUS_ma_line_hickmann
+	clr_country_flag = KRAUS_ma_line_hubicki
+	clr_country_flag = KRAUS_ma_line_jansa
+}
+# 0.9 反馈33：三条学说互斥——第一个被选定的学说锁定，另外两条不再给学说精神，也不再追加效果。
+# 学说精神在各学说的第一个国策出现，沿自己直属的一列国策强化，最后由「帝国共同陆军」收尾。
+KRAUS_ma_pick_hubicki = {
+	if = {
+		limit = { NOT = { has_country_flag = KRAUS_ma_locked } }
+		set_country_flag = KRAUS_ma_locked
+		KRAUS_ma_clear_line = yes
+		set_country_flag = KRAUS_ma_line_hubicki
+		set_variable = { KRAUS_ma_level = 1 }
+		KRAUS_ma_refresh = yes
+		custom_effect_tooltip = KRAUS_ma_picked_tt
+	}
+}
+KRAUS_ma_pick_jansa = {
+	if = {
+		limit = { NOT = { has_country_flag = KRAUS_ma_locked } }
+		set_country_flag = KRAUS_ma_locked
+		KRAUS_ma_clear_line = yes
+		set_country_flag = KRAUS_ma_line_jansa
+		set_variable = { KRAUS_ma_level = 1 }
+		KRAUS_ma_refresh = yes
+		custom_effect_tooltip = KRAUS_ma_picked_tt
+	}
+}
+KRAUS_ma_pick_hickmann = {
+	if = {
+		limit = { NOT = { has_country_flag = KRAUS_ma_locked } }
+		set_country_flag = KRAUS_ma_locked
+		KRAUS_ma_clear_line = yes
+		set_country_flag = KRAUS_ma_line_hickmann
+		set_variable = { KRAUS_ma_level = 1 }
+		KRAUS_ma_refresh = yes
+		custom_effect_tooltip = KRAUS_ma_picked_tt
+	}
+}
+# 直属一列的第二个国策：只对已选定的这条学说生效，学说精神升到第二档
+KRAUS_ma_step_hubicki = {
+	if = {
+		limit = { has_country_flag = KRAUS_ma_line_hubicki check_variable = { KRAUS_ma_level < 2 } }
+		set_variable = { KRAUS_ma_level = 2 }
+		KRAUS_ma_refresh = yes
+		custom_effect_tooltip = KRAUS_ma_stepped_tt
+	}
+}
+KRAUS_ma_step_jansa = {
+	if = {
+		limit = { has_country_flag = KRAUS_ma_line_jansa check_variable = { KRAUS_ma_level < 2 } }
+		set_variable = { KRAUS_ma_level = 2 }
+		KRAUS_ma_refresh = yes
+		custom_effect_tooltip = KRAUS_ma_stepped_tt
+	}
+}
+KRAUS_ma_step_hickmann = {
+	if = {
+		limit = { has_country_flag = KRAUS_ma_line_hickmann check_variable = { KRAUS_ma_level < 2 } }
+		set_variable = { KRAUS_ma_level = 2 }
+		KRAUS_ma_refresh = yes
+		custom_effect_tooltip = KRAUS_ma_stepped_tt
+	}
+}
+KRAUS_ma_level_3 = {
+	set_variable = { KRAUS_ma_level = 3 }
+	KRAUS_ma_refresh = yes
+}

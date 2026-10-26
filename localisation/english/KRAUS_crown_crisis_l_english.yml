@@ -1,0 +1,11 @@
+﻿l_english:
+ KRAUS_crown_crisis_deep:0 "Crownland Depression: Severe"
+ KRAUS_crown_crisis_deep_desc:0 "Credit and construction in this region follow the Empire’s recovery stage. Administrative integration does not reset its recovery progress."
+ KRAUS_crown_crisis_heavy:0 "Crownland Depression: Heavy"
+ KRAUS_crown_crisis_heavy_desc:0 "Credit and construction in this region follow the Empire’s recovery stage. Administrative integration does not reset its recovery progress."
+ KRAUS_crown_crisis_moderate:0 "Crownland Depression: Easing"
+ KRAUS_crown_crisis_moderate_desc:0 "Credit and construction in this region follow the Empire’s recovery stage. Administrative integration does not reset its recovery progress."
+ KRAUS_crown_crisis_light:0 "Crownland Depression: Aftermath"
+ KRAUS_crown_crisis_light_desc:0 "Credit and construction in this region follow the Empire’s recovery stage. Administrative integration does not reset its recovery progress."
+ KRAUS_crown_crisis_recovery:0 "Crownland Recovery"
+ KRAUS_crown_crisis_recovery_desc:0 "Common recovery is complete and this region benefits from it while remaining within Austria or its participating crownlands."

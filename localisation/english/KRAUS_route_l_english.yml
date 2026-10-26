@@ -1,0 +1,13 @@
+﻿l_english:
+ KRAUS_route_category:0 "Tomorrow's Empire"
+ KRAUS_route_category_desc:0 "The Empire's future lies not in one choice but in the sum of many."
+ KRAUS_route_usga:0 "United States of Greater Austria"
+ KRAUS_route_usga_desc:0 "Every crownland has been merged into the Empire and only a name is left. Turning the Empire into a union of equal peoples acknowledges that fact.\n\nThe cost falls with the \"United States leaning\"; the higher the leaning, the stronger the starting spirit."
+ KRAUS_all_crownlands_integrated_tt:0 "All crownlands have been integrated"
+ KRAUS_usga_spirit_1:0 "United States of Greater Austria"
+ KRAUS_usga_spirit:0 "United States of Greater Austria"
+ KRAUS_usga_spirit_2:0 "United States of Greater Austria"
+ KRAUS_usga_spirit_3:0 "United States of Greater Austria"
+ KRAUS_route_events.1.t:0 "United States of Greater Austria"
+ KRAUS_route_events.1.d:0 "New flags rise over the roof of the parliament building: not those of one nation or of one dynasty, but of all the peoples.\n\nThe Empire has not vanished. It has taken a new name, a way of speaking closer to the truth. The Emperor still sits in the Hofburg, but now he is the Emperor of a federation."
+ KRAUS_route_events.1.a:0 "A multinational union."

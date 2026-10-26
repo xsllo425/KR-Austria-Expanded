@@ -1,0 +1,11 @@
+﻿l_simp_chinese:
+ KRAUS_crown_crisis_deep:0 "王领萧条：最重"
+ KRAUS_crown_crisis_deep_desc:0 "本地区的信用与建设受到帝国经济危机影响，负担随共同治理的恢复档位调整；行政整合不重置恢复进度。"
+ KRAUS_crown_crisis_heavy:0 "王领萧条：稍缓"
+ KRAUS_crown_crisis_heavy_desc:0 "本地区的信用与建设受到帝国经济危机影响，负担随共同治理的恢复档位调整；行政整合不重置恢复进度。"
+ KRAUS_crown_crisis_moderate:0 "王领萧条：缓解"
+ KRAUS_crown_crisis_moderate_desc:0 "本地区的信用与建设受到帝国经济危机影响，负担随共同治理的恢复档位调整；行政整合不重置恢复进度。"
+ KRAUS_crown_crisis_light:0 "王领萧条：余波"
+ KRAUS_crown_crisis_light_desc:0 "本地区的信用与建设受到帝国经济危机影响，负担随共同治理的恢复档位调整；行政整合不重置恢复进度。"
+ KRAUS_crown_crisis_recovery:0 "王领经济复苏"
+ KRAUS_crown_crisis_recovery_desc:0 "共同恢复已经完成，本地区获得复苏的利益；适用范围仍须属于奥地利或参与的王冠领地。"

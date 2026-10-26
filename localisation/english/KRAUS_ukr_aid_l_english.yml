@@ -1,0 +1,12 @@
+﻿l_english:
+ KRAUS_ukr_aid.1.t:0 "Gunfire in Kiev"
+ KRAUS_ukr_aid.1.d:0 "The Ukrainian civil war has broken out. A Ukrainian society in Lemberg sends a letter to Vienna overnight: they are willing to give money and men, and lack only someone willing to come forward.\n\nIn the study at Schönbrunn, a Habsburg archduke is looking at a map. Kiev is only a few stations' journey from him."
+ KRAUS_ukr_aid.1.a:0 "Fund the Republicans through the Ukrainian society in Lemberg."
+ KRAUS_ukr_aid.1.b:0 "Let the archduke go to Kiev in person and join the uprising."
+ KRAUS_ukr_aid.1.c:0 "This is their own affair."
+ KRAUS_ukr_aid.2.t:0 "A Second Round of Aid"
+ KRAUS_ukr_aid.2.d:0 "Two months have passed and the war is deadlocked. The society in Lemberg sends accounts and a request again: a little more, and the Republicans can push the front across the Dnieper."
+ KRAUS_ukr_aid.2.a:0 "Give another batch."
+ KRAUS_ukr_aid.2.b:0 "That is enough."
+ KRAUS_ukr_aid_a_tt:0 "The §YUkrainian Republicans§! receive political power and command power, and their strength in the civil war increases."
+ KRAUS_ukr_aid_b_tt:0 "A Habsburg archduke goes to the uprising in person: the §YUkrainian Republicans§! receive more political power and command power and their strength increases greatly; Austria's stability falls slightly."

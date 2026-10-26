@@ -1,0 +1,348 @@
+############################################################
+### 合众国路线第 2 批：战前议题链（2026-10-13，用户定序）
+### 语言 → 财政 → 行政 → 军队 → 基本法开篇；第二次大选后 60 天开始，每 60~90 天一个。
+### 每个选项：实际效果 + 重心移动（KRAUS_pm_move）+ 妥协意愿（KRAUS_pm_comp_add）+ 受益党的支持率。
+### 本文件由 gen_issues.py 生成。
+############################################################
+add_namespace = KRAUS_pm_issue
+
+country_event = {
+	id = KRAUS_pm_issue.1
+	title = KRAUS_pm_issue.1.t
+	desc = KRAUS_pm_issue.1.d0
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_pm_issue.1.a
+		log = "[GetLogInfo]: event KRAUS_pm_issue.1 option KRAUS_pm_issue.1.a"
+		set_country_flag = KRAUS_pm_iss1_a
+		add_political_power = 40
+		random_subject_country = {
+				limit = { OR = { tag = CZE tag = GAL tag = CRO tag = HUN tag = SLO tag = TRS } }
+				KRAUS_cl_toward_autonomy = yes
+			}
+		add_popularity = { ideology = social_conservative popularity = 0.02 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = 0 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = -8 }
+			KRAUS_pm_move = yes
+			set_temp_variable = { var = KRAUS_pm_in_comp value = -5 }
+			KRAUS_pm_comp_add = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_mv_ym_tt
+		custom_effect_tooltip = KRAUS_pm_comp_m5_tt
+		hidden_effect = { country_event = { id = KRAUS_pm_issue.2 days = 60 random_days = 30 } }
+		ai_chance = { base = 30 }
+	}
+	option = {
+		name = KRAUS_pm_issue.1.b
+		log = "[GetLogInfo]: event KRAUS_pm_issue.1 option KRAUS_pm_issue.1.b"
+		set_country_flag = KRAUS_pm_iss1_b
+		add_stability = 0.03
+		random_subject_country = {
+				limit = { OR = { tag = CZE tag = GAL tag = CRO tag = HUN tag = SLO tag = TRS } }
+				KRAUS_cl_toward_loyal = yes
+			}
+		add_popularity = { ideology = social_liberal popularity = 0.02 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = 0 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = 8 }
+			KRAUS_pm_move = yes
+			set_temp_variable = { var = KRAUS_pm_in_comp value = -5 }
+			KRAUS_pm_comp_add = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_mv_yp_tt
+		custom_effect_tooltip = KRAUS_pm_comp_m5_tt
+		hidden_effect = { country_event = { id = KRAUS_pm_issue.2 days = 60 random_days = 30 } }
+		ai_chance = { base = 30 }
+	}
+	option = {
+		name = KRAUS_pm_issue.1.c
+		log = "[GetLogInfo]: event KRAUS_pm_issue.1 option KRAUS_pm_issue.1.c"
+		set_country_flag = KRAUS_pm_iss1_c
+		add_political_power = -30
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = 0 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = 0 }
+			KRAUS_pm_move = yes
+			set_temp_variable = { var = KRAUS_pm_in_comp value = 10 }
+			KRAUS_pm_comp_add = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_comp_p10_tt
+		hidden_effect = { country_event = { id = KRAUS_pm_issue.2 days = 60 random_days = 30 } }
+		ai_chance = { base = 40 }
+	}
+}
+
+country_event = {
+	id = KRAUS_pm_issue.2
+	title = KRAUS_pm_issue.2.t
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_iss1_a }
+		text = KRAUS_pm_issue.2.d0
+	}
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_iss1_b }
+		text = KRAUS_pm_issue.2.d1
+	}
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_iss1_c }
+		text = KRAUS_pm_issue.2.d2
+	}
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_pm_issue.2.a
+		log = "[GetLogInfo]: event KRAUS_pm_issue.2 option KRAUS_pm_issue.2.a"
+		set_country_flag = KRAUS_pm_iss2_a
+		add_offsite_building = { type = industrial_complex level = 1 }
+		add_popularity = { ideology = social_conservative popularity = 0.02 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = -3 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = -6 }
+			KRAUS_pm_move = yes
+			set_temp_variable = { var = KRAUS_pm_in_comp value = -5 }
+			KRAUS_pm_comp_add = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_mv_xmym_tt
+		custom_effect_tooltip = KRAUS_pm_comp_m5_tt
+		hidden_effect = { country_event = { id = KRAUS_pm_issue.3 days = 60 random_days = 30 } }
+		ai_chance = { base = 30 }
+	}
+	option = {
+		name = KRAUS_pm_issue.2.b
+		log = "[GetLogInfo]: event KRAUS_pm_issue.2 option KRAUS_pm_issue.2.b"
+		set_country_flag = KRAUS_pm_iss2_b
+		add_stability = 0.03
+		random_subject_country = {
+				limit = { OR = { tag = CZE tag = GAL tag = CRO tag = HUN tag = SLO tag = TRS } }
+				KRAUS_cl_toward_loyal = yes
+			}
+		add_popularity = { ideology = social_democrat popularity = 0.02 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = 0 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = 7 }
+			KRAUS_pm_move = yes
+			set_temp_variable = { var = KRAUS_pm_in_comp value = -5 }
+			KRAUS_pm_comp_add = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_mv_yp_tt
+		custom_effect_tooltip = KRAUS_pm_comp_m5_tt
+		hidden_effect = { country_event = { id = KRAUS_pm_issue.3 days = 60 random_days = 30 } }
+		ai_chance = { base = 30 }
+	}
+	option = {
+		name = KRAUS_pm_issue.2.c
+		log = "[GetLogInfo]: event KRAUS_pm_issue.2 option KRAUS_pm_issue.2.c"
+		set_country_flag = KRAUS_pm_iss2_c
+		add_timed_idea = { days = 180 idea = KRAUS_pc_boom_mkt }
+		add_popularity = { ideology = market_liberal popularity = 0.02 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = 8 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = -3 }
+			KRAUS_pm_move = yes
+			set_temp_variable = { var = KRAUS_pm_in_comp value = -3 }
+			KRAUS_pm_comp_add = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_mv_xpym_tt
+		custom_effect_tooltip = KRAUS_pm_comp_m3_tt
+		hidden_effect = { country_event = { id = KRAUS_pm_issue.3 days = 60 random_days = 30 } }
+		ai_chance = { base = 30 }
+	}
+	option = {
+		name = KRAUS_pm_issue.2.d
+		log = "[GetLogInfo]: event KRAUS_pm_issue.2 option KRAUS_pm_issue.2.d"
+		set_country_flag = KRAUS_pm_iss2_d
+		random_owned_controlled_state = {
+				limit = { is_core_of = AUS }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+		add_popularity = { ideology = social_democrat popularity = 0.02 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = -8 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = 0 }
+			KRAUS_pm_move = yes
+			set_temp_variable = { var = KRAUS_pm_in_comp value = -3 }
+			KRAUS_pm_comp_add = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_mv_xm_tt
+		custom_effect_tooltip = KRAUS_pm_comp_m3_tt
+		hidden_effect = { country_event = { id = KRAUS_pm_issue.3 days = 60 random_days = 30 } }
+		ai_chance = { base = 30 }
+	}
+}
+
+country_event = {
+	id = KRAUS_pm_issue.3
+	title = KRAUS_pm_issue.3.t
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_iss2_b }
+		text = KRAUS_pm_issue.3.d0
+	}
+	desc = {
+		trigger = { NOT = { has_country_flag = KRAUS_pm_iss2_b } }
+		text = KRAUS_pm_issue.3.d1
+	}
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_pm_issue.3.a
+		log = "[GetLogInfo]: event KRAUS_pm_issue.3 option KRAUS_pm_issue.3.a"
+		set_country_flag = KRAUS_pm_iss3_a
+		add_political_power = 50
+		random_subject_country = {
+				limit = { OR = { tag = CZE tag = GAL tag = CRO tag = HUN tag = SLO tag = TRS } }
+				KRAUS_cl_toward_autonomy = yes
+			}
+		add_popularity = { ideology = social_conservative popularity = 0.02 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = 0 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = -8 }
+			KRAUS_pm_move = yes
+			set_temp_variable = { var = KRAUS_pm_in_comp value = -5 }
+			KRAUS_pm_comp_add = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_mv_ym_tt
+		custom_effect_tooltip = KRAUS_pm_comp_m5_tt
+		hidden_effect = { country_event = { id = KRAUS_pm_issue.4 days = 60 random_days = 30 } }
+		ai_chance = { base = 30 }
+	}
+	option = {
+		name = KRAUS_pm_issue.3.b
+		log = "[GetLogInfo]: event KRAUS_pm_issue.3 option KRAUS_pm_issue.3.b"
+		set_country_flag = KRAUS_pm_iss3_b
+		add_stability = 0.03
+		random_subject_country = {
+				limit = { OR = { tag = CZE tag = GAL tag = CRO tag = HUN tag = SLO tag = TRS } }
+				KRAUS_cl_toward_loyal = yes
+			}
+		add_popularity = { ideology = social_liberal popularity = 0.02 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = 0 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = 8 }
+			KRAUS_pm_move = yes
+			set_temp_variable = { var = KRAUS_pm_in_comp value = -5 }
+			KRAUS_pm_comp_add = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_mv_yp_tt
+		custom_effect_tooltip = KRAUS_pm_comp_m5_tt
+		hidden_effect = { country_event = { id = KRAUS_pm_issue.4 days = 60 random_days = 30 } }
+		ai_chance = { base = 30 }
+	}
+	option = {
+		name = KRAUS_pm_issue.3.c
+		log = "[GetLogInfo]: event KRAUS_pm_issue.3 option KRAUS_pm_issue.3.c"
+		set_country_flag = KRAUS_pm_iss3_c
+		add_political_power = -25
+		add_stability = 0.02
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = 2 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = 0 }
+			KRAUS_pm_move = yes
+			set_temp_variable = { var = KRAUS_pm_in_comp value = 10 }
+			KRAUS_pm_comp_add = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_mv_xp_tt
+		custom_effect_tooltip = KRAUS_pm_comp_p10_tt
+		hidden_effect = { country_event = { id = KRAUS_pm_issue.4 days = 60 random_days = 30 } }
+		ai_chance = { base = 40 }
+	}
+}
+
+country_event = {
+	id = KRAUS_pm_issue.4
+	title = KRAUS_pm_issue.4.t
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_iss3_a }
+		text = KRAUS_pm_issue.4.d0
+	}
+	desc = {
+		trigger = { NOT = { has_country_flag = KRAUS_pm_iss3_a } }
+		text = KRAUS_pm_issue.4.d1
+	}
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_pm_issue.4.a
+		log = "[GetLogInfo]: event KRAUS_pm_issue.4 option KRAUS_pm_issue.4.a"
+		set_country_flag = KRAUS_pm_iss4_a
+		army_experience = 25
+		add_popularity = { ideology = social_conservative popularity = 0.02 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = 0 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = -8 }
+			KRAUS_pm_move = yes
+			set_temp_variable = { var = KRAUS_pm_in_comp value = -5 }
+			KRAUS_pm_comp_add = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_mv_ym_tt
+		custom_effect_tooltip = KRAUS_pm_comp_m5_tt
+		hidden_effect = { country_event = { id = KRAUS_pm_issue.5 days = 60 random_days = 30 } }
+		ai_chance = { base = 30 }
+	}
+	option = {
+		name = KRAUS_pm_issue.4.b
+		log = "[GetLogInfo]: event KRAUS_pm_issue.4 option KRAUS_pm_issue.4.b"
+		set_country_flag = KRAUS_pm_iss4_b
+		add_manpower = 15000
+		add_popularity = { ideology = social_democrat popularity = 0.02 }
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = 0 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = 8 }
+			KRAUS_pm_move = yes
+			set_temp_variable = { var = KRAUS_pm_in_comp value = -5 }
+			KRAUS_pm_comp_add = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_mv_yp_tt
+		custom_effect_tooltip = KRAUS_pm_comp_m5_tt
+		hidden_effect = { country_event = { id = KRAUS_pm_issue.5 days = 60 random_days = 30 } }
+		ai_chance = { base = 30 }
+	}
+	option = {
+		name = KRAUS_pm_issue.4.c
+		log = "[GetLogInfo]: event KRAUS_pm_issue.4 option KRAUS_pm_issue.4.c"
+		set_country_flag = KRAUS_pm_iss4_c
+		army_experience = 15
+		hidden_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = -4 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = 0 }
+			KRAUS_pm_move = yes
+			set_temp_variable = { var = KRAUS_pm_in_comp value = 5 }
+			KRAUS_pm_comp_add = yes
+		}
+		custom_effect_tooltip = KRAUS_pm_mv_xm_tt
+		custom_effect_tooltip = KRAUS_pm_comp_p5_tt
+		hidden_effect = { country_event = { id = KRAUS_pm_issue.5 days = 60 random_days = 30 } }
+		ai_chance = { base = 40 }
+	}
+}
+
+country_event = {
+	id = KRAUS_pm_issue.5
+	title = KRAUS_pm_issue.5.t
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_comp_high }
+		text = KRAUS_pm_issue.5.d0
+	}
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_comp_low }
+		text = KRAUS_pm_issue.5.d1
+	}
+	desc = {
+		trigger = { NOT = { has_country_flag = KRAUS_pm_comp_high } NOT = { has_country_flag = KRAUS_pm_comp_low } }
+		text = KRAUS_pm_issue.5.d2
+	}
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_pm_issue.5.a
+		log = "[GetLogInfo]: event KRAUS_pm_issue.5 option KRAUS_pm_issue.5.a"
+		set_country_flag = KRAUS_pm_charter_open
+		custom_effect_tooltip = KRAUS_pm_charter_open_tt
+	}
+}

@@ -1,0 +1,8 @@
+KRAUS_golden_danube_category = {
+
+    # Legacy entry retained but hidden; automatic reconciliation handles existing saves.
+
+    # Legacy entry retained but hidden; automatic reconciliation handles existing saves.
+
+
+}

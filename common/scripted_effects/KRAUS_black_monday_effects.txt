@@ -1,0 +1,590 @@
+############################################################
+### KRAUS 黑色星期一 · 脚本化效果
+###
+### 用途：层次升降（成功消一层 / 失败退一层），
+###       以及明暗双线数值的加减与钳制。
+###
+### 设计依据：_work/第1步_黑一读条决议_落地方案.md
+### 用户定案：成功消一层 + 小奖励；失败退一层
+###
+### ★ 层级结构（KR 原版，我们只读不写定义）
+###     第1层 AUS_black_monday      （无分叉）
+###     第2层 _cs-1 / _sdap-1
+###     第3层 _cs-2 / _sdap-2
+###     第4层 _cs-3 / _sdap-3
+###
+### ★ 成功 = 层数 -1（3→2→1→消除）
+### ★ 失败 = 层数 +1（1→2→3，封顶）
+###
+### ★★ 关键技术修正（2026-09-21）
+###
+### 修正 1：本文件【不用 scripted_effects = { } 包裹】。
+###   实测 KR 全库 182 个 scripted_effect 文件【全部是裸写法】。
+###
+### ★ 修正 2：换用【swap_ideas】而不是裸 add_idea/remove_ideas。
+###   实测：KR 全库 `swap_ideas = { remove_idea = X  add_idea = Y }` 用了 7,922 次，
+###   是本项目（以及 KR 原版黑一）的标准写法，也是我们今天能跑通的写法。
+###   我们的 AUS focus 文件里就是这么写的（如 L3198-3201）：
+###       swap_ideas = {
+###           remove_idea = AUS_black_monday
+###           add_idea = AUS_black_monday_cs-1
+###       }
+###   ★ 注意 add_idea / remove_idea 是【单数】形式，只在 swap_ideas 块内使用。
+############################################################
+
+############################################################
+### ★★ 成功：缓解一层 + 小奖励
+###
+### ★★★ 2026-09-21 第三轮【重大纠正】★★★
+###
+### 用户反馈：「完成读条决议，对黑一的 DEBUFF 并没有实际的数值效果影响。」
+###
+### ★ 根因：我把层级语义搞反了。
+###   实测 KR 原版 7 层的数值：
+###       AUS_black_monday      工厂产能 -0.50   ← 最重（初始）
+###       _cs-1                 -0.30
+###       _cs-2                 -0.15
+###       _cs-3                 -0.10            ← 最轻
+###       【消除】              + AUS_tuned_economy（正面 BUFF）
+###
+###   → ★ 层数越【大】，惩罚越【轻】，越接近消除。
+###   → 这条链是「缓解」过程，不是「恶化」过程。
+###
+### ★ 所以正确方向是：
+###       成功 = 层数 +1（_cs-1 → _cs-2 → _cs-3 → 消除）
+###       失败 = 层数 −1（_cs-3 → _cs-2 → _cs-1 → 回 AUS_black_monday）
+###
+### ★ 我原来的写法（cs-3 → cs-2）是【倒退】，越成功惩罚越重。
+############################################################
+KRAUS_bm_success_effect = {
+
+	# ★ 清掉「本层已达成」标记（供下一轮 timeout 判定用）
+	clr_country_flag = KRAUS_bm_accelerated
+    clr_country_flag = KRAUS_bm_reported_this_cycle
+    clr_country_flag = KRAUS_bm_prepared_this_cycle
+	# ★ 2026-10-23 限期自救：升层后重置本层计时与「本层已加速」标记，
+	#   下一轮的 90 天提前结算门槛从今天重新算。
+	clr_country_flag = KRAUS_bm_layer_start
+
+	# ══════════════════════════════════════════════════════
+	# ★★★ 2026-09-21 第八轮修复：补上【第一跳】
+	#
+	# 【bug】用户实测「完成决议后 DEBUFF 没变化」。
+	#
+	# 【根因】我漏了链条的第一跳：
+	#     AUS_black_monday（基准档）→ _cs-1 / _sdap-1
+	#   分支从 _cs-1 开始写，于是【初始状态】下
+	#   has_idea = AUS_black_monday 匹配不到任何分支，
+	#   整个 success_effect 空转 —— 消不掉任何东西。
+	#
+	# 【KR 原版实证】common/national_focus/AUS focus (Austria).txt:2145
+	#     swap_ideas = {
+	#         remove_idea = AUS_black_monday        ← ★ 第一跳在这里
+	#         add_idea = AUS_black_monday_cs-1
+	#     }
+	#
+	# 【正确链条】base → cs-1 → cs-2 → cs-3 → 消除
+	#   实证同文件 :2174（cs-1→cs-2）、以及 sdap 分支
+	# ══════════════════════════════════════════════════════
+
+	# ===== ★ 第一跳：基准档 → 第 1 层 =====
+	#   ★ 保守派 / 社民派在「消除链」里走不同的分支名称，
+	#     但两条都从 AUS_black_monday 起步。
+	if = {
+		limit = { has_idea = AUS_black_monday }
+		# ★ 按当前执政党决定走哪条支线
+		#   （社会保守主义 → cs 线；社会民主主义 → sdap 线）
+		if = {
+			limit = { has_government = social_conservative }
+			swap_ideas = {
+				remove_idea = AUS_black_monday
+				add_idea = AUS_black_monday_cs-1
+			}
+		}
+		else_if = {
+			limit = { has_government = social_democrat }
+			swap_ideas = {
+				remove_idea = AUS_black_monday
+				add_idea = AUS_black_monday_sdap-1
+			}
+		}
+		else = {
+			# 其它政体（含大选前）→ 默认走保守线
+			swap_ideas = {
+				remove_idea = AUS_black_monday
+				add_idea = AUS_black_monday_cs-1
+			}
+		}
+	}
+	# ===== 第 1 层 → 第 2 层 =====
+	else_if = {
+		limit = { has_idea = AUS_black_monday_cs-1 }
+		swap_ideas = {
+			remove_idea = AUS_black_monday_cs-1
+			add_idea = AUS_black_monday_cs-2
+		}
+	}
+	else_if = {
+		limit = { has_idea = AUS_black_monday_sdap-1 }
+		swap_ideas = {
+			remove_idea = AUS_black_monday_sdap-1
+			add_idea = AUS_black_monday_sdap-2
+		}
+	}
+	# ===== 中间层 → 更深一层 =====
+	else_if = {
+		limit = { has_idea = AUS_black_monday_cs-2 }
+		swap_ideas = {
+			remove_idea = AUS_black_monday_cs-2
+			add_idea = AUS_black_monday_cs-3
+		}
+	}
+	else_if = {
+		limit = { has_idea = AUS_black_monday_sdap-2 }
+		swap_ideas = {
+			remove_idea = AUS_black_monday_sdap-2
+			add_idea = AUS_black_monday_sdap-3
+		}
+	}
+	# ===== 最深（_cs-3 / _sdap-3）→ ★ 完全消除 =====
+	else_if = {
+		limit = { has_idea = AUS_black_monday_cs-3 }
+		remove_ideas = AUS_black_monday_cs-3
+		add_timed_idea = {
+			idea = KRAUS_bm_recovered
+			days = 365
+		}
+	}
+	else_if = {
+		limit = { has_idea = AUS_black_monday_sdap-3 }
+		remove_ideas = AUS_black_monday_sdap-3
+		add_timed_idea = {
+			idea = KRAUS_bm_recovered
+			days = 365
+		}
+	}
+
+	# ===== ★ 小奖励（占位数值，待用户调参）=====
+	add_political_power = 30
+	add_stability = 0.02
+
+	# ===== ★ 明线 +8（黑一成功降级）=====
+	add_to_variable = { KRAUS_regime_legitimacy = 8 }
+
+	# ===== ★★ 州级效果换档（2026-09-21 第六轮新增）=====
+	#
+	# 用户要求「定向给奥地利本部的地块加 BUFF，那样就更精准」。
+	# 读条每成功一层，本部州上的州级修正就轻一档 ——
+	# 【玩家能在地图上直接看到自己的成果】。
+	#
+	# ★ 本调用放在 idea swap 之后，因为 KRAUS_bm_apply_state_tier
+	#   要靠 has_idea 反推当前层级。
+	KRAUS_bm_apply_state_tier = yes
+
+	# ===== ★ 皇帝权威 +8（黑一成功降级 → 皇权受益）=====
+	#   第五轮方案 §3.3：经济危机的缓解是皇帝的政绩。
+	if = {
+		limit = { has_country_flag = KRAUS_imperial_authority_ready }
+		KRAUS_imperial_gain_8 = yes
+	}
+
+	# ===== 是否已完全消除？=====
+	if = {
+		limit = { NOT = { KRAUS_has_black_monday_trigger = yes } }
+		# ★ 黑一完全消除：明线再 +15，触发事件，给永久名声
+		add_to_variable = { KRAUS_regime_legitimacy = 15 }
+		# ★ 2026-10-23 限期自救：逾期拖累在「后来补救成功」时解除
+		#   （内容方案 A 形态「消除黑一后解除」；
+		#     removal_cost = -1 只挡玩家手动移除，effect 移除不受影响）
+		remove_ideas = KRAUS_bm_overdue
+		remove_ideas = KRAUS_bm_overdue_severe
+		KRAUS_clamp_political_vars = yes
+		country_event = { id = KRAUS_black_monday_events.10 days = 1 }
+	}
+	else = {
+		KRAUS_clamp_political_vars = yes
+		country_event = { id = KRAUS_black_monday_events.4 days = 1 }
+	}
+
+	log = "[GetLogRoot]: KRAUS BM success effect fired"
+}
+
+############################################################
+### ★ 失败：恶化一层（层数 −1）+ 恶果
+###
+### ★★ 第三轮纠正：方向与「成功」相反
+###   成功 = 层数 +1（缓解）
+###   失败 = 层数 −1（恶化）→ 最终退回 AUS_black_monday（最重）
+###
+###   顺序：_cs-3 → _cs-2 → _cs-1 → AUS_black_monday
+############################################################
+KRAUS_bm_fail_effect = {
+
+	# ★ 清掉「本层已达成」标记
+	clr_country_flag = KRAUS_bm_accelerated
+    clr_country_flag = KRAUS_bm_reported_this_cycle
+    clr_country_flag = KRAUS_bm_prepared_this_cycle
+	# ★ 2026-10-23 限期自救：降层后同样重置本层计时与「本层已加速」标记。
+	clr_country_flag = KRAUS_bm_layer_start
+
+	# ===== 最深 → 浅一层 =====
+	if = {
+		limit = { has_idea = AUS_black_monday_cs-3 }
+		swap_ideas = {
+			remove_idea = AUS_black_monday_cs-3
+			add_idea = AUS_black_monday_cs-2
+		}
+	}
+	else_if = {
+		limit = { has_idea = AUS_black_monday_sdap-3 }
+		swap_ideas = {
+			remove_idea = AUS_black_monday_sdap-3
+			add_idea = AUS_black_monday_sdap-2
+		}
+	}
+	# ===== 中间层 → 浅一层 =====
+	else_if = {
+		limit = { has_idea = AUS_black_monday_cs-2 }
+		swap_ideas = {
+			remove_idea = AUS_black_monday_cs-2
+			add_idea = AUS_black_monday_cs-1
+		}
+	}
+	else_if = {
+		limit = { has_idea = AUS_black_monday_sdap-2 }
+		swap_ideas = {
+			remove_idea = AUS_black_monday_sdap-2
+			add_idea = AUS_black_monday_sdap-1
+		}
+	}
+	# ===== 最浅 → ★ 退回初始最重层 =====
+	else_if = {
+		limit = { has_idea = AUS_black_monday_cs-1 }
+		swap_ideas = {
+			remove_idea = AUS_black_monday_cs-1
+			add_idea = AUS_black_monday
+		}
+	}
+	else_if = {
+		limit = { has_idea = AUS_black_monday_sdap-1 }
+		swap_ideas = {
+			remove_idea = AUS_black_monday_sdap-1
+			add_idea = AUS_black_monday
+		}
+	}
+
+	# ===== ★ 恶果（占位数值，待用户调参）=====
+	add_stability = -0.03
+
+	# ===== ★ 暗线 +8（读条失败）=====
+	add_to_variable = { KRAUS_dhofers_shadow = 8 }
+	KRAUS_clamp_political_vars = yes
+
+	# ===== ★★ 州级效果换档（同 success，见那里的详细说明）=====
+	#   失败一层 → 本部州上的惩罚【加重】一档。
+	#   玩家在地图上能直接看到「日子更难过了」。
+	KRAUS_bm_apply_state_tier = yes
+
+	# ===== ★ 皇帝权威 −5（黑一失败 → 皇权受损）=====
+	#   第五轮方案 §3.3：危机处理失败削弱皇帝威望。
+	if = {
+		limit = { has_country_flag = KRAUS_imperial_authority_ready }
+		KRAUS_imperial_loss_5 = yes
+	}
+
+	# ===== 已在最重层（AUS_black_monday）再失败 → 恶果事件 =====
+	if = {
+		limit = { has_idea = AUS_black_monday }
+		country_event = { id = KRAUS_black_monday_events.20 days = 1 }
+	}
+	else = {
+		country_event = { id = KRAUS_black_monday_events.2 days = 1 }
+	}
+
+	log = "[GetLogRoot]: KRAUS BM fail effect fired"
+}
+
+############################################################
+### ★ 明暗双线变量钳制（0~100）+ 净值重算 + dynmod 刷新
+############################################################
+KRAUS_clamp_political_vars = {
+	clamp_variable = { var = KRAUS_regime_legitimacy min = 0 max = 100 }
+	clamp_variable = { var = KRAUS_dhofers_shadow min = 0 max = 100 }
+
+	# 净值 = 明线 - 暗线
+	set_variable = { KRAUS_political_edge = KRAUS_regime_legitimacy }
+	subtract_from_variable = { KRAUS_political_edge = KRAUS_dhofers_shadow }
+
+	force_update_dynamic_modifier = yes
+}
+
+############################################################
+### ★★ 每日重算：明暗双线 → 修正值（5 档）
+###
+### 权威依据：_ref/hagane-skills/guides/dynamic-spirit-from-variables.zh.md
+###   第七节「折算方式不是『每有一个就加』的」
+###   —— 阶梯就在最后折算那几行里改。
+###
+### ★ 为什么单独一个 effect：
+###   国策/事件只改 KRAUS_regime_legitimacy / KRAUS_dhofers_shadow，
+###   「折算成修正值」这件事集中在这里，改档位只动一处。
+###
+### ★ 5 档（用户定案：五档临界值 +80/+30/−30/−80）
+###     净值    档位            稳定度     政治点    叙事
+###     > +80   温和派大胜      +8%       +15%     温和派掌控
+###     +30~80  温和派占优      +4%       +8%      温和派主导
+###     −30~30  ★ 势均力敌      +2%       +3%      ★ 斗争最激烈（见下）
+###     −80~−30 丁霍费尔占优    −4%       −8%      玩家处处受限
+###     < −80   丁霍费尔大胜    −8%       −15%     阴影已在掌权
+###
+### ★★ 中间档调整说明（2026-09-21，用户实测反馈后）★★
+###   原设计中间档是「0 / 0」，理由是「互有修正」。
+###   但实测发现：引擎【总数=0 时不渲染那一行】，
+###   于是精神看上去「只有说明、没有任何效果」—— 玩家以为坏了。
+###
+###   → 改为给一个【小幅正面】：+2% 稳定 / +3% 政治点。
+###     理由：势均力敌本身也是一种稳定（谁也没能压倒谁），
+###     且让玩家任何时候都能看到数字，确认机制在工作。
+###     设计意图「斗争最激烈」由【事件与暗线累积】表达，不靠 0 值。
+############################################################
+KRAUS_recalc_political_edge = {
+
+	# ---- 先钳制两个来源变量 ----
+	clamp_variable = { var = KRAUS_regime_legitimacy min = 0 max = 100 }
+	clamp_variable = { var = KRAUS_dhofers_shadow min = 0 max = 100 }
+
+	# ---- 净值 = 明 − 暗 ----
+	set_variable = { KRAUS_political_edge = KRAUS_regime_legitimacy }
+	subtract_from_variable = { KRAUS_political_edge = KRAUS_dhofers_shadow }
+
+	# ---- ★ 5 档折算（先给中间档的兜底值，再逐档覆盖）----
+	set_variable = { KRAUS_edge_stab = 0.02 }
+	set_variable = { KRAUS_edge_pp = 0.03 }
+
+	if = {
+		limit = { check_variable = { KRAUS_political_edge > 80 } }
+		set_variable = { KRAUS_edge_stab = 0.08 }
+		set_variable = { KRAUS_edge_pp = 0.15 }
+	}
+	else_if = {
+		limit = { check_variable = { KRAUS_political_edge > 30 } }
+		set_variable = { KRAUS_edge_stab = 0.04 }
+		set_variable = { KRAUS_edge_pp = 0.08 }
+	}
+	else_if = {
+		limit = { check_variable = { KRAUS_political_edge < -80 } }
+		set_variable = { KRAUS_edge_stab = -0.08 }
+		set_variable = { KRAUS_edge_pp = -0.15 }
+	}
+	else_if = {
+		limit = { check_variable = { KRAUS_political_edge < -30 } }
+		set_variable = { KRAUS_edge_stab = -0.04 }
+		set_variable = { KRAUS_edge_pp = -0.08 }
+	}
+
+	# ---- ★ 刷新修正显示（立即生效）----
+	force_update_dynamic_modifier = yes
+}
+
+############################################################
+### ★ 初始化（开局调用一次）
+###
+### ★★ 2026-09-21 第三轮修订
+###   政局天平的 dynmod（KRAUS_political_edge_dm）已【删除】，
+###   改为 BOP（common/bop/KRAUS_regime_balance_bop.txt）。
+###   → 本 effect 不再挂载 dynmod，只负责建立与钳制变量。
+###
+### ★ 明暗双线变量仍然保留：BOP 各 range 的 on_activate
+###   会用 add_to_variable 改动它们（明线+/暗线+）。
+###
+### ★ 顺序铁律（钢之工坊实测）：【先 set_variable 再挂修正】。
+############################################################
+KRAUS_political_vars_init = {
+	set_variable = { KRAUS_regime_legitimacy = 30 }
+	set_variable = { KRAUS_dhofers_shadow = 10 }
+	set_variable = { KRAUS_political_edge = 20 }
+
+	# 折算一次（保持变量一致）
+	KRAUS_recalc_political_edge = yes
+
+	force_update_dynamic_modifier = yes
+}
+
+############################################################
+### ★★ 多瑙河危机期限结算（2026-10-23 限期自救 · 参数 4）
+###
+### 【触发点】on_daily_AUS 检测到
+###     KRAUS_dc_war_started   （多瑙河战争打响 · 参数 4 主终点）
+###   或 KRAUS_dc_resolved_flag（谈判收尾 / 和平收场 · 兜底终点）
+###   且 KRAUS_bm_deadline_settled 还没挂上。
+###
+### 【恰好一次】防重写在效果自身（不靠调用者）：
+###   limit 里同时要求 readbar_open 与 NOT deadline_settled，
+###   进得去就立刻落 KRAUS_bm_deadline_settled。
+###   —— 8 处事件直接调用 + 每日兜底都走这里，重复调用一律无效。
+###
+### 【两种结局】
+###   赶上了（黑一已完全消除）→ KRAUS_bm_relief + 事件 .31
+###   没赶上（黑一还在）    → 事件 .30（认罚 / 急刹车）
+############################################################
+KRAUS_bm_deadline_settle = {
+
+	# ★ 门槛：黑一读条从没开过（存档走了别的路线）→ 什么都不做。
+	#   多瑙河事件链对所有奥地利存档都会跑，没有这道门槛就会白送奖励。
+	# ★ 防重：已结算过就直接不进（重复入口、每日兜底都会走到这里）。
+	if = {
+		limit = {
+			has_country_flag = KRAUS_bm_readbar_open
+			NOT = { has_country_flag = KRAUS_bm_deadline_settled }
+		}
+
+		# ★ 先落「已结算」标记：任何分支都不会再进第二次
+		set_country_flag = KRAUS_bm_deadline_settled
+
+		# ★ 期限那一刻的层级快照：逾期惩罚的「再加重一档」按这里判，
+		#   不按玩家几天后点事件时黑一还在不在（玩家可能拖到全消再点）。
+		if = {
+			limit = { has_idea = AUS_black_monday }
+			set_country_flag = KRAUS_bm_worst_snapshot
+		}
+
+		if = {
+			limit = { KRAUS_has_black_monday_trigger = yes }
+			# ---- 没赶上：惩罚交给事件选项决定（认罚 / 急刹车）----
+			country_event = { id = KRAUS_black_monday_events.30 days = 1 }
+		}
+		else = {
+			# ---- 赶上了：小幅正面 + 叙事事件（内容方案 六 a+b）----
+			add_timed_idea = {
+				idea = KRAUS_bm_relief
+				days = 365
+			}
+			# ★ 明线 +10（赶在危机前解决 = 政绩）
+			add_to_variable = { KRAUS_regime_legitimacy = 10 }
+			KRAUS_clamp_political_vars = yes
+			country_event = { id = KRAUS_black_monday_events.31 days = 1 }
+		}
+
+		log = "[GetLogRoot]: KRAUS BM deadline settled"
+	}
+}
+
+############################################################
+### ★★ 逾期惩罚（事件 .30 选项 A · 认罚）
+###
+### 内容方案 A+C：
+###   持续拖累 = KRAUS_bm_overdue（365 天）
+###   最惨的   = 期限时还停在最重一层 AUS_black_monday
+###              → 再加 KRAUS_bm_overdue_severe（危机加硬）
+###   一次性   = 扣稳定度 + 扣政治点 + 暗线 +
+############################################################
+KRAUS_bm_overdue_penalty = {
+
+	# ---- 黑一在期限那一刻已经全消 → 只扣一次性账款，不挂持续拖累 ----
+	#   （玩家可能拖到黑一消完才点这个事件；持续精神要留到那时候
+	#     没有后续成功跳层负责移除，会一直挂着。）
+	if = {
+		limit = { NOT = { KRAUS_has_black_monday_trigger = yes } }
+		add_stability = -0.08
+		add_political_power = -100
+		add_to_variable = { KRAUS_dhofers_shadow = 12 }
+		KRAUS_clamp_political_vars = yes
+		if = {
+			limit = { has_country_flag = KRAUS_imperial_authority_ready }
+			KRAUS_imperial_loss_5 = yes
+		}
+		log = "[GetLogRoot]: KRAUS BM overdue penalty (one-off only, BM already cleared)"
+	}
+	else = {
+		# ---- 持续拖累 ----
+		add_timed_idea = {
+			idea = KRAUS_bm_overdue
+			days = 365
+		}
+
+		# ---- 最惨的一档：期限那一刻还停在最重层 → 危机再加硬 ----
+		#   ★ 按期限时的快照判，不按玩家点事件时的层级
+		if = {
+			limit = { has_country_flag = KRAUS_bm_worst_snapshot }
+			# 2026-10-23 AUS 作用域：交战对手加强，HUN 优先；和平保留原罚。
+			if = {
+				limit = {
+					country_exists = HUN
+					has_war_with = HUN
+				}
+				HUN = {
+					add_timed_idea = { idea = KRAUS_dc_hun_hardline days = 365 }
+					add_equipment_to_stockpile = {
+						type = infantry_equipment_1
+						amount = 8000
+						producer = HUN
+					}
+					add_equipment_to_stockpile = {
+						type = support_equipment
+						amount = 400
+						producer = HUN
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					country_exists = CRO
+					has_war_with = CRO
+				}
+				CRO = {
+					add_timed_idea = { idea = KRAUS_dc_hun_hardline days = 365 }
+					add_equipment_to_stockpile = {
+						type = infantry_equipment_1
+						amount = 8000
+						producer = CRO
+					}
+					add_equipment_to_stockpile = {
+						type = support_equipment
+						amount = 400
+						producer = CRO
+					}
+				}
+			}
+			else = {
+				add_timed_idea = {
+					idea = KRAUS_bm_overdue_severe
+					days = 365
+				}
+			}
+		}
+
+		# ---- 一次性重击 ----
+		add_stability = -0.08
+		add_political_power = -100
+
+		# ---- 暗线 +12（危机处理失败，丁霍费尔得势）----
+		add_to_variable = { KRAUS_dhofers_shadow = 12 }
+		KRAUS_clamp_political_vars = yes
+
+		# ---- 皇帝权威 −5 ----
+		if = {
+			limit = { has_country_flag = KRAUS_imperial_authority_ready }
+			KRAUS_imperial_loss_5 = yes
+		}
+
+		log = "[GetLogRoot]: KRAUS BM overdue penalty applied"
+	}
+}
+
+############################################################
+### ★★ 急刹车（事件 .30 选项 B · 用户追加机制）
+###
+### 用户原话：
+###   「付出点数虽然阻止了黑一恶化，但是也意味着接下来
+###     没有政治点数去做其他事情了。」
+###
+### ★ 只扣 150 政治点：
+###   不挂拖累精神、不扣稳定度、不加硬危机、不动黑一层级。
+###   黑一照常继续消。
+############################################################
+KRAUS_bm_emergency_brake = {
+
+	add_political_power = -150
+
+	log = "[GetLogRoot]: KRAUS BM emergency brake paid"
+}

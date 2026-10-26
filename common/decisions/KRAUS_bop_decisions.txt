@@ -1,0 +1,342 @@
+############################################################
+### KRAUS 「皇帝的天平」· 平衡决议（BOP decisions）
+###
+### ★★ 2026-09-21 第八轮新增 ★★
+###
+### 用户要求：
+###   「在权力平衡界面中，可以写一些能够影响平衡的小决议，
+###     类似意大利这种」
+###
+### ★ 参考实例（KR 原版，已逐条读过）
+###   · common/decisions/01 Italy decisions.txt
+###       SRI_balance_of_power_category = { ... }   ← 决议直接放进 BOP 类别
+###       SRI_abuse_the_presidency_bop_decision
+###       SRI_launch_strike_bop_decision
+###       SRI_let_blackshirts_loose_bop_decision
+###       SRI_negotiate_with_factory_cooperatives
+###     四个结构各不相同，正好各学一件事（见下）
+###   · common/decisions/AFG decisions (Afghanistan).txt
+###       AFG_bribe_tribal_leaders — ★ custom_cost_text + custom_cost_trigger 的用法
+###   · common/decisions/FER decisions (Far Eastern Army).txt
+###       FER_take_chita — 带限定的 add_power_balance_value（按执政党分支）
+###
+### ★★ 为什么决议要挂在 BOP 的 decision_category 里
+###   BOP 根块的 decision_category = KRAUS_regime_balance_category
+###   ★ 官方文档（_ref/hagane-skills/field-reference/balance-of-power.md）：
+###       「decision_category moves, not copies. The category's decisions
+###         disappear from the normal decisions list and render inside
+###         the BoP view only.」
+###   → 所以这些决议【只会出现在天平界面里】，不会污染普通决议栏。
+###   → 这也解释了用户截图里意大利那种「天平界面里一列决议」的效果。
+###
+### ★★ 四种决议形态（各学一个）
+###
+###   ① KRAUS_bop_crown_arbitration（皇帝仲裁）
+###      学到：complete_effect 里 add_power_balance_value
+###      形态：cost = 政治点，直接拉回中段
+###      SRI_abuse_the_presidency_bop_decision 的同构
+###
+###   ② KRAUS_bop_renner_rally（社民大集会）
+###      学到：custom_cost_text + custom_cost_trigger
+###      → 代价是【稳定度】而不是政治点（AFG_bribe_tribal_leaders 用法）
+###
+###   ③ KRAUS_bop_miklas_decree（紧急法令）
+###      学到：days_remove = 180 + modifier = { ... } + set_country_flag 防叠加
+###      → 限时 BUFF 决议（SRI_let_blackshirts_loose_bop_decision 用法）
+###
+###   ④ KRAUS_bop_imperial_audience（御前听政）
+###      学到：available = { is_power_balance_in_range / power_balance_value }
+###      → 只有天平偏离中段时才可用（把 BOP 状态当条件用）
+###
+### ★ 铁律遵守
+###   · 不写 replace_path
+###   · 不碰 KR 原版任何 KRAUS_* 之外的结构
+###   · 不覆盖 KR 原有的 01 Italy decisions.txt / AFG / FER / SRI 文件
+###   · 全部为【新增文件】，零冲突
+############################################################
+
+KRAUS_regime_balance_category = {
+
+	########################################################
+	### ① 皇帝仲裁 —— 把天平拉回中段
+	###
+	### 叙事：皇帝直接出面，召两派领袖入宫，各让一步。
+	### ★ 这是唯一能【同时】压住两端的动作，代价是政治点。
+	########################################################
+	KRAUS_bop_crown_arbitration = {
+		icon = generic_political_discourse
+		allowed = { always = no }
+
+		# ★ 只在已经偏离中段时才需要仲裁
+		#   power_balance_value = { id = X value > 0.20 } 的写法
+		#   见 AFG decisions:86 与官方 BOP field-reference
+		available = {
+			hidden_trigger = {
+				OR = {
+					power_balance_value = {
+						id = KRAUS_regime_balance
+						value > 0.20
+					}
+					power_balance_value = {
+						id = KRAUS_regime_balance
+						value < -0.20
+					}
+				}
+			}
+		}
+
+		# ★ 代价：政治点（SRI 用 custom_cost_text + custom_cost_trigger）
+		cost = 50
+		custom_cost_text = KRAUS_bop_cost_50pp
+		custom_cost_trigger = {
+			NOT = { has_political_power < 50 }
+		}
+
+		# ★ 冷却：半年只能仲裁一次
+		days_re_enable = 180
+
+		complete_effect = {
+			log = "[GetLogRoot]: Decision complete KRAUS_bop_crown_arbitration"
+			# ★ 朝中段推：value 的符号决定推向哪一侧，
+			#   我们要的是「回到 0」，所以按当前偏离方向反向推。
+			if = {
+				limit = {
+					power_balance_value = {
+						id = KRAUS_regime_balance
+						value > 0.20
+					}
+				}
+				# 右偏（米克拉斯得势）→ 往左推
+				add_power_balance_value = {
+					id = KRAUS_regime_balance
+					value = -0.20
+					tooltip_side = KRAUS_renner_side
+				}
+			}
+			else = {
+				# 左偏（伦纳得势）→ 往右推
+				add_power_balance_value = {
+					id = KRAUS_regime_balance
+					value = 0.20
+					tooltip_side = KRAUS_miklas_side
+				}
+			}
+			# ★ 皇帝亲自出面 → 明线 +（合法性提升）
+			custom_effect_tooltip = KRAUS_bop_arbitration_tt
+			add_to_variable = { KRAUS_regime_legitimacy = 5 }
+			KRAUS_clamp_political_vars = yes
+			# ★ 两派都不满（暗线 +）
+			add_to_variable = { KRAUS_dhofers_shadow = 3 }
+			KRAUS_clamp_political_vars = yes
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	########################################################
+	### ② 社民大集会 —— 伦纳侧发力
+	###
+	### 叙事：社民党在维也纳组织大规模集会，工人上街。
+	### ★ 代价是【稳定度】—— 街头政治必然带来动荡。
+	###   （AFG_bribe_tribal_leaders 的 custom_cost_text 形态）
+	########################################################
+	KRAUS_bop_renner_rally = {
+		icon = generic_political_rally
+
+		allowed = { always = no }
+
+		# ★ 代价：5% 稳定度（用 custom_cost_text 让玩家在按钮上看到）
+		custom_cost_text = KRAUS_bop_cost_5stab
+		custom_cost_trigger = {
+			has_stability > 0.05
+		}
+
+		days_re_enable = 90
+
+		complete_effect = {
+			log = "[GetLogRoot]: Decision complete KRAUS_bop_renner_rally"
+			hidden_effect = {
+				add_stability = -0.05
+			}
+			# ★ 往伦纳一侧推
+			custom_effect_tooltip = KRAUS_bop_rally_tt
+			add_power_balance_value = {
+				id = KRAUS_regime_balance
+				value = -0.15
+				tooltip_side = KRAUS_renner_side
+			}
+			# ★ 明线 +
+			add_to_variable = { KRAUS_regime_legitimacy = 4 }
+			KRAUS_clamp_political_vars = yes
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	########################################################
+	### ③ 紧急法令 —— 米克拉斯侧发力（限时 BUFF）
+	###
+	### 叙事：米克拉斯以内阁法令绕开议会，直接推行秩序。
+	### ★ 学 SRI_let_blackshirts_loose_bop_decision：
+	###   days_remove + modifier + set_country_flag 防止重复叠加。
+	### ★ 代价是政治点（每次 −60），换来 180 天的强势与右移。
+	########################################################
+	KRAUS_bop_miklas_decree = {
+		icon = eng_blackshirt_march
+
+		allowed = { always = no }
+
+		# ★ 不能与「御前听政」的 BUFF 叠加
+		available = {
+			hidden_trigger = {
+				NOT = { has_country_flag = KRAUS_bop_doing_bonus }
+			}
+		}
+
+		cost = 60
+		custom_cost_text = KRAUS_bop_cost_60pp
+		custom_cost_trigger = {
+			NOT = { has_political_power < 60 }
+		}
+
+		days_remove = 180
+
+		# ★ 限时修正（学 SRI 的 modifier 块）
+		modifier = {
+			stability_factor = 0.10
+			political_power_factor = -0.10
+			army_core_defence_factor = 0.05
+		}
+
+		complete_effect = {
+			log = "[GetLogRoot]: Decision complete KRAUS_bop_miklas_decree"
+			set_country_flag = KRAUS_bop_doing_bonus
+			# ★ 往米克拉斯一侧推
+			custom_effect_tooltip = KRAUS_bop_decree_tt
+			add_power_balance_value = {
+				id = KRAUS_regime_balance
+				value = 0.20
+				tooltip_side = KRAUS_miklas_side
+			}
+			# ★ 暗线 +（合法性受损）
+			add_to_variable = { KRAUS_dhofers_shadow = 5 }
+			KRAUS_clamp_political_vars = yes
+		}
+
+		remove_effect = {
+			log = "[GetLogRoot]: Decision remove KRAUS_bop_miklas_decree"
+			clr_country_flag = KRAUS_bop_doing_bonus
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	########################################################
+	### ④ 御前听政 —— 只有天平偏离时才可用
+	###
+	### 叙事：皇帝召见偏离一方的领袖，公开表示「朕在看着」。
+	### ★ 学 available 里用 is_power_balance_in_range / power_balance_value
+	###   把 BOP 状态当作决议的准入条件（SRI 的 ai_will_do 里就这么用，
+	###   我们把它提到 available，让【玩家】也能感受到）。
+	########################################################
+	KRAUS_bop_imperial_audience = {
+		icon = GFX_decision_generic_political_discourse
+
+		allowed = { always = no }
+
+		# ★ 天平在中段（皇帝居中）时【不可用】——
+		#   既然已经平衡，就没什么可训诫的。
+		available = {
+			hidden_trigger = {
+				NOT = {
+					is_power_balance_in_range = {
+						id = KRAUS_regime_balance
+						range = KRAUS_bop_imperial_balance_range
+					}
+				}
+			}
+		}
+
+		cost = 25
+		days_re_enable = 120
+
+		complete_effect = {
+			log = "[GetLogRoot]: Decision complete KRAUS_bop_imperial_audience"
+			# ★ 偏离越大，校正越强：分档处理
+			if = {
+				limit = {
+					OR = {
+						power_balance_value = {
+							id = KRAUS_regime_balance
+							value > 0.60
+						}
+						power_balance_value = {
+							id = KRAUS_regime_balance
+							value < -0.60
+						}
+					}
+				}
+				# 严重偏离：一脚踩回去
+				if = {
+					limit = {
+						power_balance_value = {
+							id = KRAUS_regime_balance
+							value > 0.60
+						}
+					}
+					add_power_balance_value = {
+						id = KRAUS_regime_balance
+						value = -0.30
+						tooltip_side = KRAUS_renner_side
+					}
+				}
+				else = {
+					add_power_balance_value = {
+						id = KRAUS_regime_balance
+						value = 0.30
+						tooltip_side = KRAUS_miklas_side
+					}
+				}
+				# ★ 皇帝的威严被消耗（暗线 +）
+				add_to_variable = { KRAUS_dhofers_shadow = 4 }
+			}
+			else = {
+				# 轻微偏离：温和提醒
+				if = {
+					limit = {
+						power_balance_value = {
+							id = KRAUS_regime_balance
+							value > 0
+						}
+					}
+					add_power_balance_value = {
+						id = KRAUS_regime_balance
+						value = -0.10
+						tooltip_side = KRAUS_renner_side
+					}
+				}
+				else = {
+					add_power_balance_value = {
+						id = KRAUS_regime_balance
+						value = 0.10
+						tooltip_side = KRAUS_miklas_side
+					}
+				}
+			}
+			# ★ 皇帝出手维持平衡 → 明线 +
+			custom_effect_tooltip = KRAUS_bop_audience_tt
+			add_to_variable = { KRAUS_regime_legitimacy = 3 }
+			KRAUS_clamp_political_vars = yes
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

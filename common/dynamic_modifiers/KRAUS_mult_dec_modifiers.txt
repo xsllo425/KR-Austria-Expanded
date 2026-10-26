@@ -1,0 +1,32 @@
+############################################################
+### 拥抱多元主义 · 小单 H：决议用州级动态修正（2026-10-24）
+###
+### 州级 add_dynamic_modifier 在本模组已实测可用
+### （common\dynamic_modifiers\KRAUS_bm_state_modifiers.txt:19-33：
+###   州级能挂 / 能读变量 / remove_dynamic_modifier 干净清除）。
+### 州级只认 local_ / state_ 前缀字段；stability_factor /
+### political_power_factor / consumer_goods_factor 在州级无效。
+### 带 days 的写法在 KR 本体有先例（NFA decisions (NatFrance).txt:1495
+### 的 add_dynamic_modifier = { modifier = NFA_sabotage_modifier days = 35 }）。
+############################################################
+KRAUS_mult_dm_wachau = {
+	icon = "GFX_modifier_KRAUS_sm_wachau"
+
+	remove_trigger = {
+		NOT = { is_owned_by = AUS }
+	}
+
+	# 瓦豪河谷梯级电站扩建：下奥地利建造速度 +5%（永久，随州易手自动失效）
+	state_production_speed_buildings_factor = 0.05
+}
+
+KRAUS_mult_dm_galicia = {
+	icon = "GFX_modifier_KRAUS_sm_galicia_works"
+
+	remove_trigger = {
+		NOT = { is_owned_by = AUS }
+	}
+
+	# 加利西亚基建热潮：加利西亚各州建造速度 +15%（180 天）
+	state_production_speed_buildings_factor = 0.15
+}

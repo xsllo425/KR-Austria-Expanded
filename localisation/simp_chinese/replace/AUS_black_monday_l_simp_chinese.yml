@@ -1,0 +1,96 @@
+﻿l_simp_chinese:
+ # ===== KRAUS 黑色星期一 · 读条决议（2026-09-21）=====
+ KRAUS_black_monday: "黑色星期一"
+ KRAUS_black_monday_progress: "重整帝国经济"
+ KRAUS_black_monday_progress_desc: "黑色星期一不会自行消退。每 §Y110§! 天为一轮：条件凑得越齐，需要达成得越多（2/2/3/4 项）。若本轮条件已经凑够、且本轮已过 §Y90§! 天，读条会当场结算——危机提前缓解一层；条件没凑够就只能熬满 110 天，届时危机将加深一层。"
+
+ # --- 条件说明（显示在决议上）---
+ KRAUS_bm_cond_factories_tt: "自有工业产能已经恢复"
+ KRAUS_bm_cond_stability_tt: "国家稳定度重回可控"
+ KRAUS_bm_cond_german_line_tt: "德奥经济线已经建立"
+ KRAUS_bm_cond_balkan_line_tt: "巴尔干线已经了结"
+ KRAUS_bm_cond_political_line_tt: "政治线已经走通"
+ KRAUS_bm_cond_accord_tt: "至少与一个王领签订协定"
+ KRAUS_bm_cond_accelerator_tt: "已完成帝国经济委员会的一项国策"
+
+ # --- 加速器国策 ---
+ KRAUS_bm_accelerator_1:0 "农业信贷银行"
+ KRAUS_bm_accelerator_1_desc:0 "乡村在危机中借款无门，政府设立农业信贷机构，由地方合作社参与担保与监督，向小农提供低额贷款。机构要连接储户与生产者，也要顶住大客户的优先要求。它的可靠性取决于账目公开与地方监督，若只服务少数人，乡村的信任很快就会耗尽。"
+ KRAUS_bm_accelerator_2:0 "关键工业订单"
+ KRAUS_bm_accelerator_2_desc:0 "政府以一批关键工业订单稳住产量：机车、建材与机械的采购写进合同，要求企业维持用工并在指定期限内交货。订单让工厂重新运转，也让财政承担压力。哪些厂先拿到合同，会牵动地方与产业界的关系。政府以采购换取稳定，却不能保证每笔订单都按期兑现。"
+ KRAUS_bm_accelerator_3:0 "帝国关税同盟"
+ KRAUS_bm_accelerator_3_desc:0 "维也纳的订单要送到王冠领的工厂，地方的粮食与原料也需要稳定的销路。伦纳将内部贸易的手续、运输费用和采购安排带到协商桌前，希望各方按共同规则处理这些事务。产业界愿意扩大市场，却不肯轻易让出自己的优惠。帝国经济委员会需要的基础，正是把这些分散利益接入可以兑现的合作。"
+ KRAUS_bm_accelerator_4:0 "帝国经济委员会"
+ KRAUS_bm_accelerator_4_desc:0 "政府设立一个常设机构，把政治协商与经济执行接上：协调信贷、订单、工程与地方诉求，让恢复工作有集中处理的场所。委员会不是新的最高权力，而是把已经存在的部门与代表纳入同一议程。危机能否被主动应对，取决于各方的义务是否真正被履行。"
+
+ # --- 事件 ---
+ KRAUS_black_monday_events.1.t:0 "危机中的进展"
+ KRAUS_black_monday_events.1.d:0 "本轮的治理准备已经达到要求，信用、就业与地方协调正在显露成效。\n\n萧条的压力尚未消退。只有在治理周期结束时仍满足恢复条件，本轮成果才会转化为民族精神和各州经济负担的实际减轻。"
+ KRAUS_black_monday_events.1.a:0 "把措施坚持下去。"
+ KRAUS_black_monday_events.2.t: "危机加深"
+ KRAUS_black_monday_events.2.d: "机会已经错失。黑色星期一又在帝国身上结了一层，此前那点进展尽数作废。\n\n权力走廊里的人开始低声议论：眼下的这套安排，恐怕不足以成事。"
+ KRAUS_black_monday_events.2.a: "我们失了先手。"
+ KRAUS_black_monday_events.10.t: "黑色星期一结束了"
+ KRAUS_black_monday_events.10.d: "危机的最后一层已经褪去。工厂重新开工，银行已经稳住，帝国熬过了立国以来最凶险的一场经济风暴。\n\n这场几乎要了帝国性命的风暴，反而成了它能够被治理的证明。"
+ KRAUS_black_monday_events.10.a: "帝国挺住了。"
+ KRAUS_black_monday_events.20.t: "经济自由落体"
+ KRAUS_black_monday_events.20.d: "危机终究未能控制住。所有手段用尽之后，帝国的财政已非寻常修补所能挽回——而当初许诺出路的人，正在为这条死路担责。\n\n阴影正在拉长。"
+ KRAUS_black_monday_events.20.a: "愿上帝帮助我们。"
+
+ # --- 动态修正（政治线连续数值）---
+
+ KRAUS_black_monday_events.4.t:0 "经济重整取得成果"
+
+ KRAUS_black_monday_events.4.d:0 "本轮经济重整已经结算，黑色星期一的压力减轻了一档，各州的经济负担也随之调整。\n\n恢复尚未完成，但这次改善已不只是准备报告上的承诺。"
+
+ KRAUS_black_monday_events.4.a:0 "继续下一轮恢复。"
+
+ # ===== 2026-10-23 黑一限期自救 =====
+
+ # --- 决议说明已在上面第 5 行改为 110 天 + 90 天提前结算 ---
+
+ # --- 国策不再缩短读条，改为注入资源 ---
+
+ # --- 逾期结算事件 .30 ---
+ KRAUS_black_monday_events.30.t: "账到期了"
+ KRAUS_black_monday_events.30.d: "多瑙河的谈判桌已经摆开，帝国的期限到了。黑色星期一还压在维也纳头上——工厂没有全开，银行没有全稳。现在，那些一直在问「还要多久」的人，要一个答案。\n\n财政部提出两条路：认下这笔账，或者从已经很紧的政治资本里再挪出一大笔，硬把这口气续上。"
+ KRAUS_black_monday_events.30.d_poor: "多瑙河的谈判桌已经摆开，帝国的期限到了。黑色星期一还压在维也纳头上——工厂没有全开，银行没有全稳。现在，那些一直在问「还要多久」的人，要一个答案。\n\n财政部本可以提出「花一大笔政治点数硬把这口气续上」——那需要 150 政治点数，而国库现在不够周转。眼下只剩认下这笔账这一条路。"
+ KRAUS_black_monday_events.30.a: "认下这笔账。"
+ KRAUS_black_monday_events.30.b: "挪出这笔点数，把时间买下来。"
+ KRAUS_bm30_need_pp_tt: "§R一次性支付 §Y150§! 政治点数：免掉这次的逾期惩罚（不挂拖累精神、不扣稳定度、不加硬危机），黑色星期一照常继续消退。§!\n§Y代价：接下来的日子里，你没有这笔点数去做别的事。§!"
+ KRAUS_bm30_penalty_tt: "§R逾期未解决，账当场结清：§!\n§Y· 经济拖累精神（365 天）：工业产出、消费、稳定、政治点数受损§!\n§Y· 若期限到来时黑色星期一仍压在最重一层、且认罚之时仍未全消：若此刻正与匈牙利交战，匈牙利获得「强硬到底」精神（365 天）及 8000 件步兵装备和 400 件支援装备；否则若正与克罗地亚交战，克罗地亚获得同样加强；若两国均未与我们交战，则改为给我们挂「危机加硬」精神（365 天），交战时不额外挂此精神§!\n§Y· 稳定度 −8%，一次性政治点数 −100§!\n§Y· 皇帝权威下降§!\n§Y· 若此刻黑色星期一已经消退，则只结一次性账款，不挂拖累精神§!"
+
+ # --- 赶上了事件 .31 ---
+ KRAUS_black_monday_events.31.t: "赶在危机之前"
+ KRAUS_black_monday_events.31.d: "多瑙河的风声已经传进维也纳，但这一次，帝国手里有东西可拿。黑色星期一在期限到来之前就已经退去——工厂在转，账目在平，街上的人重新开始谈论明天。\n\n外交官们走进会场时，身后不是一个正在下沉的国家。"
+ KRAUS_black_monday_events.31.a: "我们赶上了。"
+ KRAUS_bm31_relief_tt: "§G黑色星期一在危机爆发之前就已消退：§!\n§Y· 「喘息」精神（365 天）：稳定度、政治点数、工业产出小幅回升§!\n§Y· 明线政治威望上升§!"
+
+ # --- 谈判开场提示 .32 ---
+ KRAUS_black_monday_events.32.t: "留给经济的时间不多了"
+ KRAUS_black_monday_events.32.d: "多瑙河的王领代表已经抵达维也纳。帝国的注意力很快就会全部转向谈判桌——而黑色星期一还没有完全退去。\n\n留给经济自救的时间不多了。谈判、乃至之后可能兵戎相见的那一刻，就是结账的时候。"
+ KRAUS_black_monday_events.32.a: "加快手上的事。"
+
+ # --- 三个期限结算精神 ---
+ KRAUS_bm_overdue: "经济萧条未止"
+ KRAUS_bm_overdue_desc: "多瑙河的期限到了，黑色星期一却没有退去。工厂的产能、街面上的信心、国库的进项，都在为这场拖延付利息。等到危机真正被解决，这笔账才能清掉。"
+ KRAUS_bm_overdue_severe: "帝国在危机中失据"
+ KRAUS_bm_overdue_severe_desc: "危机来临时，帝国连最重的那一层经济崩溃都没能摆脱。维也纳在谈判桌上说话的分量，和它在国内控局的能力，一起被削弱了。"
+ KRAUS_dc_hun_hardline:0 "强硬到底"
+ KRAUS_dc_hun_hardline_desc:0 "新到的武器与强硬的决心，让军队在多瑙河战事中的攻击、防御、组织度和计划速度得到加强。"
+ KRAUS_bm_relief: "危机前夜已过关"
+ KRAUS_bm_relief_desc: "多瑙河危机爆发之前，黑色星期一就已经退去。帝国带着一个还在运转的经济走进谈判——这份底气，是过去这些日子里赶出来的。"
+
+ # --- 新增国家旗标（tooltip 用）---
+ KRAUS_bm_layer_start:0 "本轮读条已开始计时"
+ KRAUS_bm_layer_start_NOT:0 "本轮读条尚未开始计时"
+ KRAUS_bm_deadline_settled:0 "期限已结算"
+ KRAUS_bm_deadline_settled_NOT:0 "期限尚未结算"
+ KRAUS_bm_deadline_reminded:0 "已提示过谈判开场"
+ KRAUS_bm_deadline_reminded_NOT:0 "尚未提示过谈判开场"
+
+ # --- 期限系统其余旗标（条件提示会显示）---
+ KRAUS_bm_dc320_reached:0 "多瑙河谈判已走到收尾事件"
+ KRAUS_bm_dc320_reached_NOT:0 "多瑙河谈判尚未走到收尾事件"
+ KRAUS_bm_worst_snapshot:0 "期限到来时黑色星期一仍在最重一层"
+ KRAUS_bm_worst_snapshot_NOT:0 "期限到来时黑色星期一不在最重一层"

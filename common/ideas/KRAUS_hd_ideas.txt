@@ -1,0 +1,16 @@
+############################################################
+### 哈布斯堡外交遗产（2026-10-12）：每个附庸多贡献 1% 的民用与军用工业（挂在附庸身上）
+############################################################
+ideas = {
+	country = {
+		KRAUS_hd_subject = {
+			picture = KRAUS_hd_legacy
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				cic_to_overlord_factor = 0.01
+				mic_to_overlord_factor = 0.01
+			}
+		}
+	}
+}

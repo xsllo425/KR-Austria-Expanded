@@ -1,0 +1,234 @@
+############################################################
+### 拥抱多元主义 · 小单 H：2 组共 6 条决议（2026-10-24）
+###
+### 数值一律照 数值表.md:425-436，写在决议本体的 cost / days_remove，
+### 不写 political_power_cost、不写任何 _cost_factor（旧口径已作废）。
+### 分类复用 KRAUS_golden_danube_category，不另建分类。
+###
+### ★ 效果落点（2026-10-24 修正）：
+###   带 days_remove 的决议，complete_effect 在【点击瞬间】执行，
+###   remove_effect 才在【读条结束】执行。工程类奖励必须写 remove_effect，
+###   否则玩家点了即刻拿到奖励、60 天只剩冷却。
+###   依据：本模组 KRAUS_coreworks_decisions.txt:37-42 —— 文件头 :4 写
+###   「玩家点击后读条，完成时自动建造」，建造效果正落在 remove_effect。
+###   KR 全库统计：带 days_remove 的决议里 1812 处两者都有、1126 处只有
+###   remove_effect、267 处只有 complete_effect（多数是即时政治动作）。
+###   取消时按 KRAUS_coreworks_decisions.txt:43-46 的惯例退还一半政治点。
+###
+### 一城一工程：州级缓建/永久加成走 state 级 dynamic_modifier，
+### 国级产出与动员走 idea（add_timed_idea 带天数）。
+############################################################
+KRAUS_golden_danube_category = {
+
+	########################################################
+	### 第一组 · 金色多瑙河梯级开发（一次性工程）
+	########################################################
+	KRAUS_mult_dec_wachau = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		visible = {
+			has_country_flag = KRAUS_golden_danube_open
+		}
+		available = {
+			4 = { is_owned_and_controlled_by = ROOT }
+		}
+		cost = 40
+		days_remove = 60
+		fire_only_once = yes
+		cancel_trigger = { NOT = { 4 = { is_owned_and_controlled_by = ROOT } } }
+		complete_effect = {
+			log = "[GetLogRoot]: Decision taken KRAUS_mult_dec_wachau"
+		}
+		remove_effect = {
+			custom_effect_tooltip = KRAUS_mult_dec_wachau_tt
+			hidden_effect = {
+				log = "[GetLogRoot]: Decision complete KRAUS_mult_dec_wachau"
+				4 = {
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					add_dynamic_modifier = { modifier = KRAUS_mult_dm_wachau }
+				}
+			}
+		}
+		cancel_effect = {
+			add_political_power = 20
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	# ★ 州 43 的名字两套库不一致，别照原版注释改州号：
+	#   原版 history\states\43-Hungary.txt 注释写 Northern Hungary；
+	#   KR 本体 00 Map States l_english.yml:170 → "Central Hungary"；
+	#   汉化包 KR_common\00 Map States l_simp_chinese.yml:78 → "中匈牙利"。
+	#   玩家在 KR 里看到的是「中匈牙利」，43 就是布达佩斯所在的州（province 9660）。
+	KRAUS_mult_dec_budapest = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		visible = {
+			has_country_flag = KRAUS_golden_danube_open
+		}
+		available = {
+			43 = { is_owned_and_controlled_by = ROOT }
+		}
+		cost = 40
+		days_remove = 60
+		fire_only_once = yes
+		cancel_trigger = { NOT = { 43 = { is_owned_and_controlled_by = ROOT } } }
+		complete_effect = {
+			log = "[GetLogRoot]: Decision taken KRAUS_mult_dec_budapest"
+		}
+		remove_effect = {
+			custom_effect_tooltip = KRAUS_mult_dec_budapest_tt
+			hidden_effect = {
+				log = "[GetLogRoot]: Decision complete KRAUS_mult_dec_budapest"
+				43 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+		cancel_effect = {
+			add_political_power = 20
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	KRAUS_mult_dec_iron_gate = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		visible = {
+			has_country_flag = KRAUS_golden_danube_open
+		}
+		available = {
+			has_completed_focus = KRAUS_pl_M0
+		}
+		cost = 50
+		days_remove = 90
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetLogRoot]: Decision taken KRAUS_mult_dec_iron_gate"
+		}
+		remove_effect = {
+			custom_effect_tooltip = KRAUS_mult_dec_iron_gate_tt
+			hidden_effect = {
+				log = "[GetLogRoot]: Decision complete KRAUS_mult_dec_iron_gate"
+				add_ideas = KRAUS_mult_dec_iron_gate_spirit
+			}
+		}
+		cancel_effect = {
+			add_political_power = 25
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	########################################################
+	### 第二组 · 王领整合红利核算与深化（可周期再提）
+	########################################################
+	KRAUS_mult_dec_bohemia_boom = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_country_flag = KRAUS_golden_danube_open
+			OR = {
+				has_completed_focus = KRAUS_pl_L4
+				has_country_flag = KRAUS_usga_formed
+			}
+		}
+		available = {
+			9 = { is_owned_and_controlled_by = ROOT }
+		}
+		cost = 40
+		days_remove = 60
+		days_re_enable = 180
+		cancel_trigger = { NOT = { 9 = { is_owned_and_controlled_by = ROOT } } }
+		complete_effect = {
+			log = "[GetLogRoot]: Decision taken KRAUS_mult_dec_bohemia_boom"
+		}
+		remove_effect = {
+			custom_effect_tooltip = KRAUS_mult_dec_bohemia_boom_tt
+			hidden_effect = {
+				log = "[GetLogRoot]: Decision complete KRAUS_mult_dec_bohemia_boom"
+				add_timed_idea = { idea = KRAUS_mult_dec_bohemia_boom_spirit days = 180 }
+			}
+		}
+		cancel_effect = {
+			add_political_power = 20
+		}
+		ai_will_do = { factor = 20 }
+	}
+
+	KRAUS_mult_dec_galicia_boom = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_country_flag = KRAUS_golden_danube_open
+			OR = {
+				has_completed_focus = KRAUS_pl_L4
+				has_country_flag = KRAUS_usga_formed
+			}
+		}
+		available = {
+			any_owned_state = { is_core_of = GAL }
+		}
+		cost = 40
+		days_remove = 60
+		days_re_enable = 180
+		cancel_trigger = { NOT = { any_owned_state = { is_core_of = GAL } } }
+		complete_effect = {
+			log = "[GetLogRoot]: Decision taken KRAUS_mult_dec_galicia_boom"
+		}
+		remove_effect = {
+			custom_effect_tooltip = KRAUS_mult_dec_galicia_boom_tt
+			hidden_effect = {
+				log = "[GetLogRoot]: Decision complete KRAUS_mult_dec_galicia_boom"
+				every_owned_state = {
+					limit = { is_core_of = GAL }
+					add_dynamic_modifier = {
+						modifier = KRAUS_mult_dm_galicia
+						days = 180
+					}
+				}
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+		}
+		cancel_effect = {
+			add_political_power = 20
+		}
+		ai_will_do = { factor = 20 }
+	}
+
+	KRAUS_mult_dec_doleance = {
+		icon = GFX_decision_generic_political_discourse
+		visible = {
+			has_country_flag = KRAUS_golden_danube_open
+			OR = {
+				has_completed_focus = KRAUS_pl_L4
+				has_country_flag = KRAUS_usga_formed
+			}
+		}
+		available = {
+			has_war = no
+			has_political_power > 49
+		}
+		cost = 50
+		days_remove = 45
+		days_re_enable = 180
+		complete_effect = {
+			log = "[GetLogRoot]: Decision taken KRAUS_mult_dec_doleance"
+		}
+		remove_effect = {
+			custom_effect_tooltip = KRAUS_mult_dec_doleance_tt
+			hidden_effect = {
+				log = "[GetLogRoot]: Decision complete KRAUS_mult_dec_doleance"
+				add_timed_idea = { idea = KRAUS_mult_dec_doleance_spirit days = 90 }
+				add_manpower = 15000
+			}
+		}
+		cancel_effect = {
+			add_political_power = 25
+		}
+		ai_will_do = { factor = 20 }
+	}
+}

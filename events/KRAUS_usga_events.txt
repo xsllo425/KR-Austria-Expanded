@@ -1,0 +1,83 @@
+############################################################
+### 合众国路线第 6 批：统一式合众国的王领不满链（2026-10-13）
+### 三次不满，每次一个王领出头，选项有代价但不致命；第一次起带减益 KRAUS_usga_unrest。
+### 第三次之后，决议栏出现一次性决议 KRAUS_usga_pacify，只有它能去掉减益。不做周期事件。
+############################################################
+add_namespace = KRAUS_usga_unrest
+
+### .1 波西米亚：语言与学校
+country_event = {
+	id = KRAUS_usga_unrest.1
+	title = KRAUS_usga_unrest.1.t
+	desc = KRAUS_usga_unrest.1.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		add_ideas = KRAUS_usga_unrest
+	}
+	option = {
+		name = KRAUS_usga_unrest.1.a
+		log = "[GetLogInfo]: event KRAUS_usga_unrest.1 option KRAUS_usga_unrest.1.a"
+		add_political_power = -50
+		hidden_effect = { country_event = { id = KRAUS_usga_unrest.2 days = 90 random_days = 30 } }
+		ai_chance = { base = 50 }
+	}
+	option = {
+		name = KRAUS_usga_unrest.1.b
+		log = "[GetLogInfo]: event KRAUS_usga_unrest.1 option KRAUS_usga_unrest.1.b"
+		add_stability = -0.03
+		hidden_effect = { country_event = { id = KRAUS_usga_unrest.2 days = 90 random_days = 30 } }
+		ai_chance = { base = 50 }
+	}
+}
+
+### .2 加利西亚：税收与地方议会
+country_event = {
+	id = KRAUS_usga_unrest.2
+	title = KRAUS_usga_unrest.2.t
+	desc = KRAUS_usga_unrest.2.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_usga_unrest.2.a
+		log = "[GetLogInfo]: event KRAUS_usga_unrest.2 option KRAUS_usga_unrest.2.a"
+		add_political_power = -50
+		hidden_effect = { country_event = { id = KRAUS_usga_unrest.3 days = 90 random_days = 30 } }
+		ai_chance = { base = 50 }
+	}
+	option = {
+		name = KRAUS_usga_unrest.2.b
+		log = "[GetLogInfo]: event KRAUS_usga_unrest.2 option KRAUS_usga_unrest.2.b"
+		add_stability = -0.03
+		hidden_effect = { country_event = { id = KRAUS_usga_unrest.3 days = 90 random_days = 30 } }
+		ai_chance = { base = 50 }
+	}
+}
+
+### .3 匈牙利：宪法与旧特权。之后开放一次性决议「平息王领」
+country_event = {
+	id = KRAUS_usga_unrest.3
+	title = KRAUS_usga_unrest.3.t
+	desc = KRAUS_usga_unrest.3.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_usga_unrest.3.a
+		log = "[GetLogInfo]: event KRAUS_usga_unrest.3 option KRAUS_usga_unrest.3.a"
+		add_political_power = -50
+		set_country_flag = KRAUS_usga_unrest_open
+		custom_effect_tooltip = KRAUS_usga_unrest_open_tt
+		ai_chance = { base = 50 }
+	}
+	option = {
+		name = KRAUS_usga_unrest.3.b
+		log = "[GetLogInfo]: event KRAUS_usga_unrest.3 option KRAUS_usga_unrest.3.b"
+		add_stability = -0.03
+		set_country_flag = KRAUS_usga_unrest_open
+		custom_effect_tooltip = KRAUS_usga_unrest_open_tt
+		ai_chance = { base = 50 }
+	}
+}

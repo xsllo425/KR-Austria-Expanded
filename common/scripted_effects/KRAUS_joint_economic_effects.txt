@@ -1,0 +1,458 @@
+############################################################
+### 共同经济树（2026-10-12）
+### 王领精神「多瑙河共同建设」I-V：5 个国策各升一级（顺序不限）。
+### 奥地利变量 KRAUS_joint_econ_level 记录已升到几级，王领中途加入共同投资时据此补齐。
+### 奥地利动态修正 KRAUS_joint_econ_aus_dm：按成员王领数加成（每日重算）。
+############################################################
+# 王领作用域：精神升一级（0.9 反馈33：共同经济树只留这一个精神，共 9 级，各国策依次升一级）
+KRAUS_joint_econ_spirit_up = {
+	if = {
+		limit = { has_idea = KRAUS_joint_econ_spirit_8 }
+		swap_ideas = { remove_idea = KRAUS_joint_econ_spirit_8 add_idea = KRAUS_joint_econ_spirit_9 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_joint_econ_spirit_7 }
+		swap_ideas = { remove_idea = KRAUS_joint_econ_spirit_7 add_idea = KRAUS_joint_econ_spirit_8 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_joint_econ_spirit_6 }
+		swap_ideas = { remove_idea = KRAUS_joint_econ_spirit_6 add_idea = KRAUS_joint_econ_spirit_7 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_joint_econ_spirit_5 }
+		swap_ideas = { remove_idea = KRAUS_joint_econ_spirit_5 add_idea = KRAUS_joint_econ_spirit_6 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_joint_econ_spirit_4 }
+		swap_ideas = { remove_idea = KRAUS_joint_econ_spirit_4 add_idea = KRAUS_joint_econ_spirit_5 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_joint_econ_spirit_3 }
+		swap_ideas = { remove_idea = KRAUS_joint_econ_spirit_3 add_idea = KRAUS_joint_econ_spirit_4 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_joint_econ_spirit_2 }
+		swap_ideas = { remove_idea = KRAUS_joint_econ_spirit_2 add_idea = KRAUS_joint_econ_spirit_3 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_joint_econ_spirit_1 }
+		swap_ideas = { remove_idea = KRAUS_joint_econ_spirit_1 add_idea = KRAUS_joint_econ_spirit_2 }
+	}
+	else_if = {
+		limit = { NOT = { has_idea = KRAUS_joint_econ_spirit_9 } }
+		add_ideas = KRAUS_joint_econ_spirit_1
+	}
+}
+# 王领作用域：加入共同投资时，精神补到奥地利当前的等级
+KRAUS_joint_econ_spirit_sync = {
+	if = {
+		limit = { check_variable = { AUS.KRAUS_joint_econ_level > 0 } }
+		remove_ideas = { KRAUS_joint_econ_spirit_1 KRAUS_joint_econ_spirit_2 KRAUS_joint_econ_spirit_3 KRAUS_joint_econ_spirit_4 KRAUS_joint_econ_spirit_5 KRAUS_joint_econ_spirit_6 KRAUS_joint_econ_spirit_7 KRAUS_joint_econ_spirit_8 KRAUS_joint_econ_spirit_9 }
+		if = {
+			limit = { check_variable = { AUS.KRAUS_joint_econ_level > 8 } }
+			add_ideas = KRAUS_joint_econ_spirit_9
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_econ_level > 7 } }
+			add_ideas = KRAUS_joint_econ_spirit_8
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_econ_level > 6 } }
+			add_ideas = KRAUS_joint_econ_spirit_7
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_econ_level > 5 } }
+			add_ideas = KRAUS_joint_econ_spirit_6
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_econ_level > 4 } }
+			add_ideas = KRAUS_joint_econ_spirit_5
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_econ_level > 3 } }
+			add_ideas = KRAUS_joint_econ_spirit_4
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_econ_level > 2 } }
+			add_ideas = KRAUS_joint_econ_spirit_3
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_econ_level > 1 } }
+			add_ideas = KRAUS_joint_econ_spirit_2
+		}
+		else = {
+			add_ideas = KRAUS_joint_econ_spirit_1
+		}
+	}
+}
+# 奥地利作用域（ROOT = 奥地利）：按成员王领的份数重算动态修正（份数见 KRAUS_joint_count_shares）
+KRAUS_joint_econ_recalc = {
+	KRAUS_joint_count_shares = yes
+	set_variable = { KRAUS_joint_econ_ic = KRAUS_joint_shares }
+	multiply_variable = { KRAUS_joint_econ_ic = 0.02 }
+	set_variable = { KRAUS_joint_econ_rs = KRAUS_joint_shares }
+	multiply_variable = { KRAUS_joint_econ_rs = 0.01 }
+	# 0.9 反馈33：奥地利自己的永久加成也并进这一个修正，按已完成的级数计算
+	set_variable = { KRAUS_jf_cg = 0 }
+	set_variable = { KRAUS_jf_ic = 0 }
+	set_variable = { KRAUS_jf_rs = 0 }
+	set_variable = { KRAUS_jf_bs = 0 }
+	set_variable = { KRAUS_jf_inf = 0 }
+	set_variable = { KRAUS_jf_me = 0 }
+	set_variable = { KRAUS_jf_eg = 0 }
+	set_variable = { KRAUS_jf_rep = 0 }
+	set_variable = { KRAUS_jf_lr = 0 }
+	set_variable = { KRAUS_jf_lk = 0 }
+	if = {
+		limit = { check_variable = { KRAUS_joint_econ_level > 0 } }
+		set_variable = { KRAUS_jf_cg = -0.03 }
+		set_variable = { KRAUS_jf_ic = 0.0 }
+		set_variable = { KRAUS_jf_rs = 0.0 }
+		set_variable = { KRAUS_jf_bs = 0.05 }
+		set_variable = { KRAUS_jf_inf = 0.0 }
+		set_variable = { KRAUS_jf_me = 0.0 }
+		set_variable = { KRAUS_jf_eg = 0.0 }
+		set_variable = { KRAUS_jf_rep = 0.0 }
+		set_variable = { KRAUS_jf_lr = 0.0 }
+		set_variable = { KRAUS_jf_lk = 0.0 }
+	}
+	if = {
+		limit = { check_variable = { KRAUS_joint_econ_level > 1 } }
+		set_variable = { KRAUS_jf_cg = -0.03 }
+		set_variable = { KRAUS_jf_ic = 0.0 }
+		set_variable = { KRAUS_jf_rs = 0.03 }
+		set_variable = { KRAUS_jf_bs = 0.05 }
+		set_variable = { KRAUS_jf_inf = 0.0 }
+		set_variable = { KRAUS_jf_me = 0.0 }
+		set_variable = { KRAUS_jf_eg = 0.0 }
+		set_variable = { KRAUS_jf_rep = 0.0 }
+		set_variable = { KRAUS_jf_lr = 0.0 }
+		set_variable = { KRAUS_jf_lk = 0.0 }
+	}
+	if = {
+		limit = { check_variable = { KRAUS_joint_econ_level > 2 } }
+		set_variable = { KRAUS_jf_cg = -0.03 }
+		set_variable = { KRAUS_jf_ic = 0.0 }
+		set_variable = { KRAUS_jf_rs = 0.03 }
+		set_variable = { KRAUS_jf_bs = 0.05 }
+		set_variable = { KRAUS_jf_inf = 0.0 }
+		set_variable = { KRAUS_jf_me = 0.0 }
+		set_variable = { KRAUS_jf_eg = 0.0 }
+		set_variable = { KRAUS_jf_rep = 0.0 }
+		set_variable = { KRAUS_jf_lr = 0.1 }
+		set_variable = { KRAUS_jf_lk = 0.0 }
+	}
+	if = {
+		limit = { check_variable = { KRAUS_joint_econ_level > 3 } }
+		set_variable = { KRAUS_jf_cg = -0.03 }
+		set_variable = { KRAUS_jf_ic = 0.0 }
+		set_variable = { KRAUS_jf_rs = 0.03 }
+		set_variable = { KRAUS_jf_bs = 0.1 }
+		set_variable = { KRAUS_jf_inf = 0.0 }
+		set_variable = { KRAUS_jf_me = 0.05 }
+		set_variable = { KRAUS_jf_eg = 0.0 }
+		set_variable = { KRAUS_jf_rep = 0.0 }
+		set_variable = { KRAUS_jf_lr = 0.1 }
+		set_variable = { KRAUS_jf_lk = 0.0 }
+	}
+	if = {
+		limit = { check_variable = { KRAUS_joint_econ_level > 4 } }
+		set_variable = { KRAUS_jf_cg = -0.05 }
+		set_variable = { KRAUS_jf_ic = 0.05 }
+		set_variable = { KRAUS_jf_rs = 0.03 }
+		set_variable = { KRAUS_jf_bs = 0.1 }
+		set_variable = { KRAUS_jf_inf = 0.0 }
+		set_variable = { KRAUS_jf_me = 0.05 }
+		set_variable = { KRAUS_jf_eg = 0.1 }
+		set_variable = { KRAUS_jf_rep = 0.1 }
+		set_variable = { KRAUS_jf_lr = 0.1 }
+		set_variable = { KRAUS_jf_lk = 0.0 }
+	}
+	if = {
+		limit = { check_variable = { KRAUS_joint_econ_level > 5 } }
+		set_variable = { KRAUS_jf_cg = -0.05 }
+		set_variable = { KRAUS_jf_ic = 0.05 }
+		set_variable = { KRAUS_jf_rs = 0.08 }
+		set_variable = { KRAUS_jf_bs = 0.1 }
+		set_variable = { KRAUS_jf_inf = 0.0 }
+		set_variable = { KRAUS_jf_me = 0.05 }
+		set_variable = { KRAUS_jf_eg = 0.1 }
+		set_variable = { KRAUS_jf_rep = 0.1 }
+		set_variable = { KRAUS_jf_lr = 0.1 }
+		set_variable = { KRAUS_jf_lk = 0.0 }
+	}
+	if = {
+		limit = { check_variable = { KRAUS_joint_econ_level > 6 } }
+		set_variable = { KRAUS_jf_cg = -0.05 }
+		set_variable = { KRAUS_jf_ic = 0.05 }
+		set_variable = { KRAUS_jf_rs = 0.08 }
+		set_variable = { KRAUS_jf_bs = 0.2 }
+		set_variable = { KRAUS_jf_inf = 0.2 }
+		set_variable = { KRAUS_jf_me = 0.05 }
+		set_variable = { KRAUS_jf_eg = 0.1 }
+		set_variable = { KRAUS_jf_rep = 0.1 }
+		set_variable = { KRAUS_jf_lr = 0.1 }
+		set_variable = { KRAUS_jf_lk = 0.0 }
+	}
+	if = {
+		limit = { check_variable = { KRAUS_joint_econ_level > 7 } }
+		set_variable = { KRAUS_jf_cg = -0.05 }
+		set_variable = { KRAUS_jf_ic = 0.05 }
+		set_variable = { KRAUS_jf_rs = 0.08 }
+		set_variable = { KRAUS_jf_bs = 0.2 }
+		set_variable = { KRAUS_jf_inf = 0.2 }
+		set_variable = { KRAUS_jf_me = 0.05 }
+		set_variable = { KRAUS_jf_eg = 0.1 }
+		set_variable = { KRAUS_jf_rep = 0.1 }
+		set_variable = { KRAUS_jf_lr = 0.2 }
+		set_variable = { KRAUS_jf_lk = -0.15 }
+	}
+	if = {
+		limit = { check_variable = { KRAUS_joint_econ_level > 8 } }
+		set_variable = { KRAUS_jf_cg = -0.05 }
+		set_variable = { KRAUS_jf_ic = 0.1 }
+		set_variable = { KRAUS_jf_rs = 0.11 }
+		set_variable = { KRAUS_jf_bs = 0.2 }
+		set_variable = { KRAUS_jf_inf = 0.2 }
+		set_variable = { KRAUS_jf_me = 0.1 }
+		set_variable = { KRAUS_jf_eg = 0.1 }
+		set_variable = { KRAUS_jf_rep = 0.1 }
+		set_variable = { KRAUS_jf_lr = 0.2 }
+		set_variable = { KRAUS_jf_lk = -0.15 }
+	}
+	# 维也纳学派并入：基础研究速度 +3%，「维也纳学派」二期完成后再 +5%
+	add_to_variable = { KRAUS_jf_rs = 0.03 }
+	if = {
+		limit = { has_completed_focus = AUS_vienna_circle_2 }
+		add_to_variable = { KRAUS_jf_rs = 0.05 }
+	}
+	add_to_variable = { KRAUS_joint_econ_ic = KRAUS_jf_ic }
+	add_to_variable = { KRAUS_joint_econ_rs = KRAUS_jf_rs }
+	# 九级集齐之后，修正更名为「多瑙河经济共同体」
+	if = {
+		limit = {
+			check_variable = { KRAUS_joint_econ_level > 8 }
+			has_dynamic_modifier = { modifier = KRAUS_joint_econ_aus_dm }
+		}
+		remove_dynamic_modifier = { modifier = KRAUS_joint_econ_aus_dm }
+		add_dynamic_modifier = { modifier = KRAUS_joint_econ_aus_dm_final }
+	}
+}
+
+############################################################
+### 共同军事树（2026-10-12）
+### 王领精神「帝国共同军队」I-V：5 个国策各升一级；奥地利变量 KRAUS_joint_mil_level 供中途加入的王领补齐。
+### 奥地利动态修正 KRAUS_joint_mil_aus_dm：按成员王领数加成（每日重算）。
+############################################################
+# 成员／奥地利作用域：「帝国共同陆军」精神升一级（共 7 级）
+KRAUS_joint_land_up = {
+	if = {
+		limit = { has_idea = KRAUS_jm_land_6 }
+		swap_ideas = { remove_idea = KRAUS_jm_land_6 add_idea = KRAUS_jm_land_7 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_land_5 }
+		swap_ideas = { remove_idea = KRAUS_jm_land_5 add_idea = KRAUS_jm_land_6 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_land_4 }
+		swap_ideas = { remove_idea = KRAUS_jm_land_4 add_idea = KRAUS_jm_land_5 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_land_3 }
+		swap_ideas = { remove_idea = KRAUS_jm_land_3 add_idea = KRAUS_jm_land_4 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_land_2 }
+		swap_ideas = { remove_idea = KRAUS_jm_land_2 add_idea = KRAUS_jm_land_3 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_land_1 }
+		swap_ideas = { remove_idea = KRAUS_jm_land_1 add_idea = KRAUS_jm_land_2 }
+	}
+	else_if = {
+		limit = { NOT = { has_idea = KRAUS_jm_land_7 } }
+		add_ideas = KRAUS_jm_land_1
+	}
+}
+# 成员／奥地利作用域：「帝国共同海军」精神升一级（共 6 级）
+KRAUS_joint_navy_up = {
+	if = {
+		limit = { has_idea = KRAUS_jm_navy_5 }
+		swap_ideas = { remove_idea = KRAUS_jm_navy_5 add_idea = KRAUS_jm_navy_6 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_navy_4 }
+		swap_ideas = { remove_idea = KRAUS_jm_navy_4 add_idea = KRAUS_jm_navy_5 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_navy_3 }
+		swap_ideas = { remove_idea = KRAUS_jm_navy_3 add_idea = KRAUS_jm_navy_4 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_navy_2 }
+		swap_ideas = { remove_idea = KRAUS_jm_navy_2 add_idea = KRAUS_jm_navy_3 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_navy_1 }
+		swap_ideas = { remove_idea = KRAUS_jm_navy_1 add_idea = KRAUS_jm_navy_2 }
+	}
+	else_if = {
+		limit = { NOT = { has_idea = KRAUS_jm_navy_6 } }
+		add_ideas = KRAUS_jm_navy_1
+	}
+}
+# 成员／奥地利作用域：「帝国共同空军」精神升一级（共 9 级）
+KRAUS_joint_air_up = {
+	if = {
+		limit = { has_idea = KRAUS_jm_air_8 }
+		swap_ideas = { remove_idea = KRAUS_jm_air_8 add_idea = KRAUS_jm_air_9 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_air_7 }
+		swap_ideas = { remove_idea = KRAUS_jm_air_7 add_idea = KRAUS_jm_air_8 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_air_6 }
+		swap_ideas = { remove_idea = KRAUS_jm_air_6 add_idea = KRAUS_jm_air_7 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_air_5 }
+		swap_ideas = { remove_idea = KRAUS_jm_air_5 add_idea = KRAUS_jm_air_6 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_air_4 }
+		swap_ideas = { remove_idea = KRAUS_jm_air_4 add_idea = KRAUS_jm_air_5 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_air_3 }
+		swap_ideas = { remove_idea = KRAUS_jm_air_3 add_idea = KRAUS_jm_air_4 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_air_2 }
+		swap_ideas = { remove_idea = KRAUS_jm_air_2 add_idea = KRAUS_jm_air_3 }
+	}
+	else_if = {
+		limit = { has_idea = KRAUS_jm_air_1 }
+		swap_ideas = { remove_idea = KRAUS_jm_air_1 add_idea = KRAUS_jm_air_2 }
+	}
+	else_if = {
+		limit = { NOT = { has_idea = KRAUS_jm_air_9 } }
+		add_ideas = KRAUS_jm_air_1
+	}
+}
+# 王领作用域：加入共同投资时，三个军种的精神补到奥地利当前的等级
+KRAUS_joint_mil_spirit_sync = {
+	if = {
+		limit = { check_variable = { AUS.KRAUS_joint_land_level > 0 } }
+		remove_ideas = { KRAUS_jm_land_1 KRAUS_jm_land_2 KRAUS_jm_land_3 KRAUS_jm_land_4 KRAUS_jm_land_5 KRAUS_jm_land_6 KRAUS_jm_land_7 }
+		if = {
+			limit = { check_variable = { AUS.KRAUS_joint_land_level > 6 } }
+			add_ideas = KRAUS_jm_land_7
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_land_level > 5 } }
+			add_ideas = KRAUS_jm_land_6
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_land_level > 4 } }
+			add_ideas = KRAUS_jm_land_5
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_land_level > 3 } }
+			add_ideas = KRAUS_jm_land_4
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_land_level > 2 } }
+			add_ideas = KRAUS_jm_land_3
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_land_level > 1 } }
+			add_ideas = KRAUS_jm_land_2
+		}
+		else = { add_ideas = KRAUS_jm_land_1 }
+	}
+	if = {
+		limit = { check_variable = { AUS.KRAUS_joint_navy_level > 0 } }
+		remove_ideas = { KRAUS_jm_navy_1 KRAUS_jm_navy_2 KRAUS_jm_navy_3 KRAUS_jm_navy_4 KRAUS_jm_navy_5 KRAUS_jm_navy_6 }
+		if = {
+			limit = { check_variable = { AUS.KRAUS_joint_navy_level > 5 } }
+			add_ideas = KRAUS_jm_navy_6
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_navy_level > 4 } }
+			add_ideas = KRAUS_jm_navy_5
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_navy_level > 3 } }
+			add_ideas = KRAUS_jm_navy_4
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_navy_level > 2 } }
+			add_ideas = KRAUS_jm_navy_3
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_navy_level > 1 } }
+			add_ideas = KRAUS_jm_navy_2
+		}
+		else = { add_ideas = KRAUS_jm_navy_1 }
+	}
+	if = {
+		limit = { check_variable = { AUS.KRAUS_joint_air_level > 0 } }
+		remove_ideas = { KRAUS_jm_air_1 KRAUS_jm_air_2 KRAUS_jm_air_3 KRAUS_jm_air_4 KRAUS_jm_air_5 KRAUS_jm_air_6 KRAUS_jm_air_7 KRAUS_jm_air_8 KRAUS_jm_air_9 }
+		if = {
+			limit = { check_variable = { AUS.KRAUS_joint_air_level > 8 } }
+			add_ideas = KRAUS_jm_air_9
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_air_level > 7 } }
+			add_ideas = KRAUS_jm_air_8
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_air_level > 6 } }
+			add_ideas = KRAUS_jm_air_7
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_air_level > 5 } }
+			add_ideas = KRAUS_jm_air_6
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_air_level > 4 } }
+			add_ideas = KRAUS_jm_air_5
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_air_level > 3 } }
+			add_ideas = KRAUS_jm_air_4
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_air_level > 2 } }
+			add_ideas = KRAUS_jm_air_3
+		}
+		else_if = {
+			limit = { check_variable = { AUS.KRAUS_joint_air_level > 1 } }
+			add_ideas = KRAUS_jm_air_2
+		}
+		else = { add_ideas = KRAUS_jm_air_1 }
+	}
+}
+# 奥地利作用域（ROOT = 奥地利）
+KRAUS_joint_mil_recalc = {
+	KRAUS_joint_count_shares = yes
+	# 0.9 反馈：议席协调完成后，可征兵人口按各王领的忠诚档位增加
+	set_variable = { KRAUS_joint_mil_pop = 0 }
+	if = {
+		limit = { has_completed_focus = KRAUS_pl_M_seat }
+		every_subject_country = {
+			limit = { KRAUS_joint_econ_crownland = yes }
+			if = { limit = { has_idea = KRAUS_cl_loyal_3 } PREV = { add_to_variable = { KRAUS_joint_mil_pop = 0.02 } } }
+			else_if = { limit = { has_idea = KRAUS_cl_loyal_2 } PREV = { add_to_variable = { KRAUS_joint_mil_pop = 0.01 } } }
+			else_if = { limit = { has_idea = KRAUS_cl_loyal_1 } PREV = { add_to_variable = { KRAUS_joint_mil_pop = 0.005 } } }
+		}
+	}
+	set_variable = { KRAUS_joint_mil_org = KRAUS_joint_shares }
+	multiply_variable = { KRAUS_joint_mil_org = 0.02 }
+	set_variable = { KRAUS_joint_mil_cons = KRAUS_joint_shares }
+	multiply_variable = { KRAUS_joint_mil_cons = 0.01 }
+	set_variable = { KRAUS_joint_mil_train = KRAUS_joint_shares }
+	multiply_variable = { KRAUS_joint_mil_train = -0.02 }
+}

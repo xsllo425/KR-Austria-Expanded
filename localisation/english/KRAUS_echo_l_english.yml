@@ -1,0 +1,10 @@
+﻿l_english:
+ KRAUS_echo.1.t:0 "No Second 1848"
+ KRAUS_echo.1.d:0 "The guns in Budapest have fallen silent. The generals stand quiet before the map: this time nobody wants to write the mistakes of 1848 again.\n\nThe court speaks with three voices. Some say the loyalty of the crownlands can only be won back with leniency. Some say the rebels must pay so that none forget. And some say the Crown of St. Stephen is itself the root of the trouble, and should be broken apart."
+ KRAUS_echo.1.a:0 "Leniency: restore the full Hungarian crownland."
+ KRAUS_echo.1.b:0 "Punish: Hungary is not restored, its core states are dealt with."
+ KRAUS_echo.1.c:0 "Break up the Crown of St. Stephen."
+ KRAUS_echo.1.d_opt:0 "There is nothing more to decide."
+ KRAUS_echo_lenient_tt:0 "Release the full Hungarian crownland (or make Hungary a crownland if it is already a subject) and move its loyalty up one step."
+ KRAUS_echo_harsh_tt:0 "Hungary is not restored. Hungarian core states lose 10 compliance, gain 8 resistance, and are integrated by compliance (cored once compliance reaches 50)."
+ KRAUS_echo_split_tt:0 "Slovakia and Transylvania become crownlands, Hungary a crownland of its own; the Southern Plain (Vojvodina) goes to Illyria, Carpathian Ruthenia to Galicia, the Danubian plain to Slovakia."

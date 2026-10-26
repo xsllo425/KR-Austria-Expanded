@@ -1,0 +1,245 @@
+############################################################
+### KRAUS 黑色星期一 · 脚本化触发器
+###
+### 用途：把黑一读条的达成条件封装，使决议保持可读、
+###       条件清单集中一处便于调参。
+###
+### 设计依据：_work/第1步_黑一读条决议_落地方案.md
+### 用户定案：期限 110 天统一（2026-10-23 由 180 天改）；条件数递增 2/2/3/4；失败退一层
+###
+### ★★ 关键技术修正（2026-09-21）
+###
+### 修正 1：用【原生 count_triggers】实现「任选 N 条」
+###   初稿打算用「变量计数 + check_variable 比较」。
+###   查证发现原生触发器更优：
+###       count_triggers = { amount = 2  <trigger> <trigger> ... }
+###   语义：「指定的 N 个子触发器为真则通过」= 正是「任选 N 条」。
+###   ★ 优点：无需变量、无需先跑 effect、可直接放进 available、
+###            且 tooltip 会自动列出各子条件（玩家能看到进度）。
+###   出处：官方 triggers_documentation.md「## count_triggers」
+###   KR 实例：KR_achievements.txt / POL triggers (Poland).txt
+###
+### 修正 2：★ 本文件【不用 scripted_triggers = { } 包裹】
+###   实测 KR 全库 112 个 scripted_trigger 文件、182 个 scripted_effect 文件
+###   【全部是裸写法】（bare=112/182，wrapped=0/0）。
+###   → 顶层直接写 名字 = { ... }，不加包裹块。
+###
+### ★ 条件素材全部核实存在（47 个 KRAUS_* flag 实测）
+### ★ 不使用 replace_path（三条铁律之二）
+############################################################
+
+############################################################
+### 黑一存在判定（7 层任一）
+###
+### ★★ 2026-09-21 修复：套 custom_override_tooltip
+###
+### 【问题】原定义是裸的 OR 7 个 has_idea。当它被用在
+###   cancel_trigger = { NOT = { KRAUS_has_black_monday_trigger = yes } }
+###   里时，引擎会把 7 个分支【逐个展开成否定式】，于是
+###   决议 tooltip 的中止条件出现 7 行一模一样的
+###   「没有民族精神：黑色星期一的余波」。
+###
+### 【解法】把 OR 包进 custom_override_tooltip ——
+###   引擎就只渲染我们指定的那一个 loc key。
+###   ★ 与 KRAUS_bm_cond_* 系列同一写法
+###
+### ★ 注：`has_idea` 的显示名来自 idea 的 loc，
+###   7 个层级 idea 都叫「黑色星期一的余波」（同一个 loc 名），
+###   所以 7 行文字完全相同 —— 这正是玩家看到的样子。
+############################################################
+KRAUS_has_black_monday_trigger = {
+	custom_override_tooltip = {
+		tooltip = KRAUS_bm_present_tt
+		OR = {
+			has_idea = AUS_black_monday
+			has_idea = AUS_black_monday_cs-1
+			has_idea = AUS_black_monday_cs-2
+			has_idea = AUS_black_monday_cs-3
+			has_idea = AUS_black_monday_sdap-1
+			has_idea = AUS_black_monday_sdap-2
+			has_idea = AUS_black_monday_sdap-3
+		}
+	}
+}
+
+############################################################
+### ★★ 当前层数判定
+###
+### ★ 2026-09-21 第三轮纠正：
+###   实测 KR 原版数值后确认【层数越大 = 惩罚越轻】：
+###       AUS_black_monday  工厂产能 -0.50  ← 最重（初始）
+###       _cs-1  -0.30 /  _cs-2  -0.15 /  _cs-3  -0.10  ← 最轻
+###   → 进度 = 层数越大越好；3 = 最接近消除
+###
+### ★ 命名改用【进度】语义，避免再次搞反：
+###       KRAUS_bm_at_deepest   （_cs-3/_sdap-3）= 最接近消除
+###       KRAUS_bm_at_middle    （_cs-2/_sdap-2）
+###       KRAUS_bm_at_shallowest（_cs-1/_sdap-1）= 刚起步
+###       KRAUS_bm_at_initial   （AUS_black_monday）= 最重
+############################################################
+
+# ---- 最接近消除（惩罚最轻）----
+KRAUS_bm_at_deepest = {
+	OR = {
+		has_idea = AUS_black_monday_cs-3
+		has_idea = AUS_black_monday_sdap-3
+	}
+}
+
+KRAUS_bm_at_middle = {
+	OR = {
+		has_idea = AUS_black_monday_cs-2
+		has_idea = AUS_black_monday_sdap-2
+	}
+}
+
+# ---- 刚起步（刚分叉到 cs-1 / sdap-1）----
+
+# ---- 仍在初始最重层 ----
+
+############################################################
+### ★ 兼容别名（保留旧名，指向新语义）
+###   旧名 layer_4 = 最深 = at_deepest
+############################################################
+KRAUS_bm_layer_4_trigger = {
+	KRAUS_bm_at_deepest = yes
+}
+
+KRAUS_bm_layer_3_trigger = {
+	KRAUS_bm_at_middle = yes
+}
+
+
+############################################################
+### ★ 单项条件（被 count_triggers 逐个引用）
+###
+### 每条都带 custom_override_tooltip，让玩家在决议上
+### 能逐条看到「达成了哪几条」。
+############################################################
+
+# ---- A 经济 ----
+KRAUS_bm_cond_factories = {
+	custom_override_tooltip = {
+		tooltip = KRAUS_bm_cond_factories_tt
+		# 2026-10-23 主人实测：40 座没有压力（开局约 24 座），改为至少 50 座
+		num_of_factories > 49
+	}
+}
+
+KRAUS_bm_cond_stability = {
+	custom_override_tooltip = {
+		tooltip = KRAUS_bm_cond_stability_tt
+		# ★ 修正（error.log 实证）：触发器名是 has_stability，不是 stability
+		#   日志：Invalid trigger 'stability' ... line : 88
+		# 2026-10-23 主人实测：60% 达不到（黑一期间全力拉稳定度最多十几到二十），改为至少 15%
+		has_stability > 0.149
+	}
+}
+
+# ---- B 德奥线 ----
+KRAUS_bm_cond_german_line = {
+	custom_override_tooltip = {
+		tooltip = KRAUS_bm_cond_german_line_tt
+		OR = {
+			has_country_flag = KRAUS_line_german_done
+			has_country_flag = KRAUS_german_economic_tied
+			has_country_flag = KRAUS_german_military_tied
+		}
+	}
+}
+
+# ---- C 巴尔干 ----
+KRAUS_bm_cond_balkan_line = {
+	custom_override_tooltip = {
+		tooltip = KRAUS_bm_cond_balkan_line_tt
+		has_country_flag = KRAUS_line_balkan_done
+	}
+}
+
+# ---- D 政治线 ----
+KRAUS_bm_cond_political_line = {
+	custom_override_tooltip = {
+		tooltip = KRAUS_bm_cond_political_line_tt
+		has_country_flag = KRAUS_line_political_done
+	}
+}
+
+# ---- E 王领协定 ----
+KRAUS_bm_cond_accord = {
+	custom_override_tooltip = {
+		tooltip = KRAUS_bm_cond_accord_tt
+		OR = {
+			has_country_flag = KRAUS_accord_with_CZE
+			has_country_flag = KRAUS_accord_with_HUN
+			has_country_flag = KRAUS_accord_with_GAL
+			has_country_flag = KRAUS_accord_with_CRO
+		}
+	}
+}
+
+# ---- F 加速器国策 ----
+KRAUS_bm_cond_accelerator = {
+	custom_override_tooltip = {
+		tooltip = KRAUS_bm_cond_accelerator_tt
+		OR = {
+			has_completed_focus = KRAUS_bm_accelerator_1
+			has_completed_focus = KRAUS_bm_accelerator_2
+			has_completed_focus = KRAUS_bm_accelerator_3
+			has_completed_focus = KRAUS_bm_accelerator_4
+			has_completed_focus = KRAUS_miklas_recovery_1
+			has_completed_focus = KRAUS_miklas_recovery_2
+			has_completed_focus = KRAUS_miklas_recovery_3
+			has_completed_focus = KRAUS_miklas_recovery_4
+		}
+	}
+}
+
+############################################################
+### ★★ 层级通过判定 —— 条件数递增（2 / 2 / 3 / 4）
+###
+### 难度递进靠【条件数】而非【期限】（用户定 110 天统一，最短 90 天）。
+### 2026-10-23：读条由 180 天改为 110 天；本层满 90 天且条件凑够 →
+###   on_daily_AUS 当天提前结算升层（见 KRAUS_on_actions.txt）。
+### 判定顺序：深 → 浅，先命中先返回。
+############################################################
+KRAUS_bm_layer_passed_trigger = {
+	if = {
+		limit = { KRAUS_bm_layer_4_trigger = yes }
+		count_triggers = {
+			amount = 4
+			KRAUS_bm_cond_factories = yes
+			KRAUS_bm_cond_stability = yes
+			KRAUS_bm_cond_german_line = yes
+			KRAUS_bm_cond_balkan_line = yes
+			KRAUS_bm_cond_political_line = yes
+			KRAUS_bm_cond_accord = yes
+			KRAUS_bm_cond_accelerator = yes
+		}
+	}
+	else_if = {
+		limit = { KRAUS_bm_layer_3_trigger = yes }
+		count_triggers = {
+			amount = 3
+			KRAUS_bm_cond_factories = yes
+			KRAUS_bm_cond_stability = yes
+			KRAUS_bm_cond_german_line = yes
+			KRAUS_bm_cond_balkan_line = yes
+			KRAUS_bm_cond_political_line = yes
+			KRAUS_bm_cond_accord = yes
+			KRAUS_bm_cond_accelerator = yes
+		}
+	}
+	else = {
+		# 第 1~2 层：2 条即可
+		count_triggers = {
+			amount = 2
+			KRAUS_bm_cond_factories = yes
+			KRAUS_bm_cond_stability = yes
+			KRAUS_bm_cond_german_line = yes
+			KRAUS_bm_cond_balkan_line = yes
+			KRAUS_bm_cond_political_line = yes
+			KRAUS_bm_cond_accord = yes
+			KRAUS_bm_cond_accelerator = yes
+		}
+	}
+}

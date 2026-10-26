@@ -1,0 +1,6 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_portrait_KRAUS_maria_theresia_academy_small"
+		texturefile = "gfx/interface/advisors/KRAUS/KRAUS_maria_theresia_academy.png"
+	}
+}

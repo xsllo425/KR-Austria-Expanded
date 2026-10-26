@@ -1,0 +1,130 @@
+############################################################
+### KRAUS 黑色星期一 · 读条决议（Mission 版 · 2026-09-21 第三轮重做）
+###
+### ★★★ 本轮修正了四个真 bug（用户实测反馈）★★★
+###
+### 【bug 1】决议「时隐时现」
+###   我写了 visible = { KRAUS_has_black_monday_trigger = yes }
+###   ★ 官方 wiki 原文：
+###       visible = { ... }  '''Does nothing for missions!'''
+###       activation = { ... } decides on triggers that must be met
+###                  for the decision to appear. This is checked daily.
+###   → 修：visible 换成 activation
+###
+### 【bug 2】决议「出现的瞬间就被完成」
+###   ★ 官方 wiki 原文：
+###       available = { ... } decides on triggers that make the mission
+###         possible to select, executing complete_effect.
+###         '''Defaults to always being true, making it disappear instantly.'''
+###   → 我把「进度条件」写进了 available，于是条件一满足就立刻结算。
+###   → 修：available 改为「进度条件是否达成」的判定，
+###         但**结算方式改为「缩短倒计时」而非直接完成**（用户要求）：
+###             达成条件 → 剩余时间大幅缩短
+###             时间到   → 才真正结算（消一层）
+###
+### 【bug 3】读条完成后对黑一 DEBUFF 无效果
+###   已在 KRAUS_black_monday_effects.txt 修正层级方向（见该文件）：
+###       成功 = 层数 +1（缓解）  失败 = 层数 −1（恶化）
+###
+### 【bug 4】开局不该有黑一
+###   ★ 官方 austria_events.2 才是「黑色星期一波及奥地利」的地方：
+###       immediate = { hidden_effect = { add_ideas = AUS_black_monday } }
+###   → 修：决议的 activation 用 has_idea = AUS_black_monday，
+###         黑一没出现就不显示；同时在 austria_events.2 里
+###         加一个「启动读条」的事件提示。
+###
+### ★ 官方依据：https://hoi4.paradoxwikis.com/Decision_modding#Missions
+############################################################
+
+KRAUS_black_monday = {
+
+	KRAUS_black_monday_progress = {
+		icon = GFX_decision_cash_flow
+
+		allowed = {
+			original_tag = AUS
+		}
+
+		# ★ 用 activation（不是 visible —— visible 对 mission 无效）
+		#   黑一出现后才显示本决议
+		activation = {
+			KRAUS_has_black_monday_trigger = yes
+		}
+
+		# ===== ★ 任务模式 =====
+		# 2026-10-23（KRAUS 黑一限期自救）：读条 180 → 110 天。
+		#   配合 on_actions 里的「本层满 90 天且条件凑够 → 当天提前结算」，
+		#   条件凑齐的玩家会在第 90 天升层，凑不齐的读满 110 天照旧判失败。
+		days_mission_timeout = 110
+
+		is_good = yes
+		selectable_mission = no
+
+		# ══════════════════════════════════════════════════════
+		# ★★★ 2026-09-21 第八轮：把「完成条件」重新显示出来
+		#
+		# 【用户反馈】「读条决议没有完成条件了」
+		#
+		# 【原因】上一轮我把 available 整个换成 always = no，
+		#   条件就【不再渲染】到 tooltip 里 —— 玩家看不到要做什么。
+		#
+		# 【解法】照抄 KR 原版 AFG 的 mission 写法
+		#   （common/decisions/AFG decisions (Afghanistan).txt:170-182
+		#    的 AFG_monthly_reform_progress_mission）：
+		#
+		#       allowed = { always = no }        # 不可手动点
+		#       available = {
+		#           hidden_trigger = { always = no }   ← ★ 强制整块为假
+		#           <要展示的条件>                      ← ★ 仍会渲染进 tooltip
+		#       }
+		#       days_mission_timeout = N
+		#       timeout_effect = { ... }         # 一切结算在这里
+		#
+		#   ★★ 关键机制：
+		#     available 的结果 = 块内所有触发器的【逻辑与】。
+		#     所以 hidden_trigger = { always = no } 一旦存在，
+		#     整个 available 恒为假 → complete_effect 永不触发
+		#     → 任务不会提前结算。
+		#     但【不在 hidden_trigger 里的条件仍会渲染到 tooltip】，
+		#     玩家因此能看到自己要满足什么。
+		#
+		#     这是"既要显示条件、又不许提前结算"的唯一正解。
+		# ══════════════════════════════════════════════════════
+		available = {
+			# ★ 强制整块为假 —— 防止被手动选取 / 提前结算
+			hidden_trigger = { always = no }
+
+			# ★ 下面这条【只负责显示】，让玩家看到 7 条候选条件
+			#   （它自身的 custom_override_tooltip 会逐条渲染达成情况）
+			KRAUS_bm_layer_passed_trigger = yes
+		}
+
+		# ══════════════════════════════════════════════════════
+		# ★ 倒计时走完 → 读条件结算
+		#
+		#   达标 → 缓解一层（含州级效果换档）
+		#   未达标 → 恶化一层
+		# ══════════════════════════════════════════════════════
+		timeout_effect = {
+			log = "[GetLogRoot]: KRAUS BM timer expired - settling"
+			if = {
+				limit = { KRAUS_bm_layer_passed_trigger = yes }
+				# 达标 → 缓解
+				KRAUS_bm_success_effect = yes
+			}
+			else = {
+				# 未达标 → 恶化
+				KRAUS_bm_fail_effect = yes
+			}
+		}
+
+		# ★ 黑一消失则本任务自动取消
+		cancel_trigger = {
+			NOT = { KRAUS_has_black_monday_trigger = yes }
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

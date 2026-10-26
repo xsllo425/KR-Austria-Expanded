@@ -1,0 +1,17 @@
+############################################################
+### 王领纠纷裁决（2026-10-12）：匈牙利对奥地利的看法
+############################################################
+opinion_modifiers = {
+	KRAUS_dispute_backed_claim = {
+		value = -50
+		decay = 1
+	}
+	KRAUS_dispute_status_quo = {
+		value = 10
+		decay = 1
+	}
+	KRAUS_dispute_arbitrated = {
+		value = -20
+		decay = 1
+	}
+}

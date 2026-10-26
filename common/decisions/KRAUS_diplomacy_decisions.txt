@@ -1,0 +1,141 @@
+############################################################
+### 外交线「多瑙河之外」决议（2026-10-12）
+### 波兰：奥地利提升自己在波兰的影响力（调用 KR 的 POL_add_austrian_influence，提示为 KR 原生）。
+###   KR 机制：波兰共和国成立、德国发最后通牒时，奥地利影响力 > 30 且高于德国，波兰就转投奥地利并签同盟条约。
+### 加利西亚：来自奥地利、波兰、乌克兰的周期性投资，各自单独结算（180 天循环任务）。
+############################################################
+KRAUS_diplomacy_category = {
+	KRAUS_dip_pol_fund_republicans = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_completed_focus = KRAUS_dip_poland_hand
+			country_exists = POL
+			POL = { NOT = { is_in_faction_with = ROOT } }
+			# 波兰的大选结束后，影响力之争已有结果，决议组随之消失（0.9 实测）
+			NOT = { POL = { has_country_flag = POL_election_happened } }
+		}
+		available = {
+			POL = { has_socialist_government = no NOT = { has_war_with = ROOT } }
+		}
+		cost = 30
+		days_re_enable = 90
+		complete_effect = {
+			POL = {
+				set_temp_variable = { POL_influence_change = 3 }
+				POL_add_austrian_influence = yes
+				set_temp_variable = { POL_influence_change = 3 }
+				POL_add_republican_influence = yes
+			}
+		}
+		ai_will_do = { factor = 1 }
+	}
+	KRAUS_dip_pol_academic = {
+		icon = GFX_decision_generic_nationalism
+		allowed = { original_tag = AUS }
+		visible = {
+			has_completed_focus = KRAUS_dip_poland_hand
+			country_exists = POL
+			POL = { NOT = { is_in_faction_with = ROOT } }
+			# 波兰的大选结束后，影响力之争已有结果，决议组随之消失（0.9 实测）
+			NOT = { POL = { has_country_flag = POL_election_happened } }
+		}
+		available = {
+			POL = { has_socialist_government = no NOT = { has_war_with = ROOT } }
+		}
+		cost = 20
+		days_re_enable = 90
+		complete_effect = {
+			POL = {
+				set_temp_variable = { POL_influence_change = 3 }
+				POL_add_austrian_influence = yes
+			}
+		}
+		ai_will_do = { factor = 1 }
+	}
+	KRAUS_dip_pol_aid = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		visible = {
+			has_completed_focus = KRAUS_dip_poland_hand
+			country_exists = POL
+			POL = { NOT = { is_in_faction_with = ROOT } }
+			# 波兰的大选结束后，影响力之争已有结果，决议组随之消失（0.9 实测）
+			NOT = { POL = { has_country_flag = POL_election_happened } }
+		}
+		available = {
+			POL = { has_socialist_government = no NOT = { has_war_with = ROOT } }
+		}
+		cost = 50
+		days_re_enable = 90
+		complete_effect = {
+			POL = {
+				set_temp_variable = { POL_influence_change = 6 }
+				POL_add_austrian_influence = yes
+			}
+		}
+		ai_will_do = { factor = 1 }
+	}
+	KRAUS_dip_ukr_arms = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		visible = {
+			has_completed_focus = KRAUS_dip_ukraine_republicans
+			country_exists = UKR
+			UKR = { has_country_flag = UKR_revolt_started NOT = { has_country_flag = UKR_revolt_over } }
+		}
+		available = {
+			UKR = { NOT = { has_war_with = ROOT } }
+		}
+		cost = 40
+		days_re_enable = 60
+		complete_effect = {
+			UKR = {
+				set_temp_variable = { UKR_strength_change = 5 }
+				UKR_change_vdr_strength = yes
+			}
+		}
+		ai_will_do = { factor = 1 }
+	}
+}
+KRAUS_gal_invest_category = {
+	KRAUS_gal_invest_AUS = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = GAL }
+		activation = { has_country_flag = KRAUS_gal_invest_from_AUS }
+		days_mission_timeout = 180
+		is_good = yes
+		selectable_mission = no
+		available = { hidden_trigger = { always = no } }
+		timeout_effect = {
+			country_event = { id = KRAUS_dip_events.20 }
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_gal_invest_POL = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = GAL }
+		activation = { has_country_flag = KRAUS_gal_invest_from_POL }
+		days_mission_timeout = 180
+		is_good = yes
+		selectable_mission = no
+		available = { hidden_trigger = { always = no } }
+		timeout_effect = {
+			country_event = { id = KRAUS_dip_events.21 }
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_gal_invest_UKR = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = GAL }
+		activation = { has_country_flag = KRAUS_gal_invest_from_UKR }
+		days_mission_timeout = 180
+		is_good = yes
+		selectable_mission = no
+		available = { hidden_trigger = { always = no } }
+		timeout_effect = {
+			country_event = { id = KRAUS_dip_events.22 }
+		}
+		ai_will_do = { factor = 0 }
+	}
+}

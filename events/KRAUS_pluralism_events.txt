@@ -1,0 +1,195 @@
+add_namespace = KRAUS_pl
+add_namespace = KRAUS_coop
+
+# 左支：原王领的企业家
+country_event = {
+	id = KRAUS_pl.1
+	title = KRAUS_pl.1.t
+	desc = KRAUS_pl.1.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_pl.1.a
+		log = "[GetLogInfo]: event KRAUS_pl.1 option KRAUS_pl.1.a"
+		set_country_flag = KRAUS_pl_open_advisors
+		add_political_power = -20
+		add_timed_idea = { idea = KRAUS_integ_boom_industry days = 180 }
+		CZE = { every_character = { limit = { is_advisor = yes } set_nationality = ROOT } }
+		GAL = { every_character = { limit = { is_advisor = yes } set_nationality = ROOT } }
+		CRO = { every_character = { limit = { is_advisor = yes } set_nationality = ROOT } }
+		HUN = { every_character = { limit = { is_advisor = yes } set_nationality = ROOT } }
+		SLO = { every_character = { limit = { is_advisor = yes } set_nationality = ROOT } }
+		TRS = { every_character = { limit = { is_advisor = yes } set_nationality = ROOT } }
+		ai_chance = { base = 80 }
+	}
+	option = {
+		name = KRAUS_pl.1.b
+		log = "[GetLogInfo]: event KRAUS_pl.1 option KRAUS_pl.1.b"
+		add_stability = 0.02
+		ai_chance = { base = 20 }
+	}
+}
+
+# 中支：王领的科学家
+country_event = {
+	id = KRAUS_pl.2
+	title = KRAUS_pl.2.t
+	desc = KRAUS_pl.2.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_pl.2.a
+		log = "[GetLogInfo]: event KRAUS_pl.2 option KRAUS_pl.2.a"
+		set_country_flag = KRAUS_pl_open_scientists
+		custom_effect_tooltip = KRAUS_pl_scientists_tt
+		ai_chance = { base = 80 }
+	}
+	option = {
+		name = KRAUS_pl.2.b
+		log = "[GetLogInfo]: event KRAUS_pl.2 option KRAUS_pl.2.b"
+		add_political_power = 25
+		ai_chance = { base = 20 }
+	}
+}
+
+# 右支：与 波兰 合作的开端
+country_event = {
+	id = KRAUS_coop.1
+	title = KRAUS_coop.1.t
+	desc = KRAUS_coop.1.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_coop.1.a
+		log = "[GetLogInfo]: event KRAUS_coop.1 option KRAUS_coop.1.a"
+		custom_effect_tooltip = KRAUS_coop_start_tt
+	}
+}
+# 与 波兰 合作的红利
+country_event = {
+	id = KRAUS_coop.11
+	title = KRAUS_coop.11.t
+	desc = KRAUS_coop.11.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_coop.11.a
+		log = "[GetLogInfo]: event KRAUS_coop.11 option KRAUS_coop.11.a"
+		KRAUS_coop_settle_POL = yes
+	}
+}
+
+# 右支：与 乌克兰 合作的开端
+country_event = {
+	id = KRAUS_coop.2
+	title = KRAUS_coop.2.t
+	desc = KRAUS_coop.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_coop.2.a
+		log = "[GetLogInfo]: event KRAUS_coop.2 option KRAUS_coop.2.a"
+		custom_effect_tooltip = KRAUS_coop_start_tt
+	}
+}
+# 与 乌克兰 合作的红利
+country_event = {
+	id = KRAUS_coop.12
+	title = KRAUS_coop.12.t
+	desc = KRAUS_coop.12.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_coop.12.a
+		log = "[GetLogInfo]: event KRAUS_coop.12 option KRAUS_coop.12.a"
+		KRAUS_coop_settle_UKR = yes
+	}
+}
+
+# 右支：与 德国 合作的开端
+country_event = {
+	id = KRAUS_coop.3
+	title = KRAUS_coop.3.t
+	desc = KRAUS_coop.3.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_coop.3.a
+		log = "[GetLogInfo]: event KRAUS_coop.3 option KRAUS_coop.3.a"
+		custom_effect_tooltip = KRAUS_coop_start_tt
+	}
+}
+# 与 德国 合作的红利
+country_event = {
+	id = KRAUS_coop.13
+	title = KRAUS_coop.13.t
+	desc = KRAUS_coop.13.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_coop.13.a
+		log = "[GetLogInfo]: event KRAUS_coop.13 option KRAUS_coop.13.a"
+		KRAUS_coop_settle_GER = yes
+	}
+}
+
+# 右支：与 意大利 合作的开端
+country_event = {
+	id = KRAUS_coop.4
+	title = KRAUS_coop.4.t
+	desc = KRAUS_coop.4.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_coop.4.a
+		log = "[GetLogInfo]: event KRAUS_coop.4 option KRAUS_coop.4.a"
+		custom_effect_tooltip = KRAUS_coop_start_tt
+	}
+}
+# 与 意大利 合作的红利
+country_event = {
+	id = KRAUS_coop.14
+	title = KRAUS_coop.14.t
+	desc = KRAUS_coop.14.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_coop.14.a
+		log = "[GetLogInfo]: event KRAUS_coop.14 option KRAUS_coop.14.a"
+		KRAUS_coop_settle_ITA = yes
+	}
+}
+
+# 10-27：联邦行政化纲要完成后，选一条管各邦的路（立即完成对应国策）
+country_event = {
+	id = KRAUS_pl.3
+	title = KRAUS_pl.3.t
+	desc = KRAUS_pl.3.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_pl.3.a
+		log = "[GetLogInfo]: event KRAUS_pl.3 option KRAUS_pl.3.a"
+		complete_national_focus = KRAUS_pl_L2
+		ai_chance = { base = 34 }
+	}
+	option = {
+		name = KRAUS_pl.3.b
+		log = "[GetLogInfo]: event KRAUS_pl.3 option KRAUS_pl.3.b"
+		complete_national_focus = KRAUS_pl_L3
+		ai_chance = { base = 33 }
+	}
+	option = {
+		name = KRAUS_pl.3.c
+		log = "[GetLogInfo]: event KRAUS_pl.3 option KRAUS_pl.3.c"
+		complete_national_focus = KRAUS_pl_L3b
+		ai_chance = { base = 33 }
+	}
+}

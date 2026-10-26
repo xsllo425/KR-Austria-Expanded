@@ -1,0 +1,198 @@
+############################################################
+### KRAUS 政治线 · 胜选效果（2026-09-21 第六轮）
+###
+### ★★ 用户要求 ★★
+###
+### 1) 「米克拉斯既然是想要组大帐篷【注：应为伦纳】，那么在他胜选后，
+###     应该有一些其他的盟友，也就是其他的政党作为执政联盟加入联盟。」
+###    → 为两线各做一套「执政联盟」：胜选后拉其他政党入阁。
+###
+### 2) 「我们的政治线也应该和新一年新办法那一套国策产生联动：
+###     如果伦纳胜选 → 王冠的重量下面的国策，全部减少 7-14 天启动时间。
+###     如果米克拉斯胜选 → 从柏林到维也纳下面的军事线和经济线，
+###       可以二选一进行减少启动时间（弹事件让玩家决定）。」
+###    → 用 reduce_focus_completion_cost 实现。
+###
+### ★ 官方语法（已核实）：
+###     reduce_focus_completion_cost = {
+###       focus = focus_to_be_reduced
+###       cost = 15          # ★ 单位 = 天
+###     }
+###
+### ★ 不使用 replace_path（三条铁律之二）
+############################################################
+
+############################################################
+### ★ 伦纳胜选 · 执行
+###
+### 1) 社民党主导的「大帐篷」：把其他政党拉进联盟
+### 2) 「王冠的重量」子树（KRAUS_reflect_our_rule 及其下游）
+###    全部减少启动时间
+############################################################
+KRAUS_renner_victory_effect = {
+
+	# ===== 1) 执政联盟：伦纳的「大帐篷」 =====
+	# 拉入激进社会党（工人左翼）与温和派
+	add_popularity = {
+		ideology = radical_socialist
+		popularity = 0.03
+	}
+	set_country_flag = KRAUS_renner_coalition
+
+	# ★★ 若此前已与激进派达成妥协 → 他们正式加入执政联盟
+	#   （用户要求：「后续再弹出一个事件，表达达成妥协，
+	#             在胜选后会加入执政联盟」）
+	if = {
+		limit = { has_country_flag = KRAUS_left_compromise_done }
+		set_country_flag = KRAUS_radicals_in_coalition
+		# 联盟更宽 → 明线略多
+		add_to_variable = { KRAUS_regime_legitimacy = 5 }
+		KRAUS_clamp_political_vars = yes
+	}
+
+	# ===== 2) 「王冠的重量」子树减时 =====
+	# 主力节点：-14 天
+	reduce_focus_completion_cost = {
+		focus = KRAUS_reflect_our_rule
+		cost = 14
+	}
+	# 下游四节点：-7 天
+	reduce_focus_completion_cost = {
+		focus = KRAUS_imperial_mediation
+		cost = 7
+	}
+	reduce_focus_completion_cost = {
+		focus = KRAUS_soothe_czech
+		cost = 7
+	}
+	reduce_focus_completion_cost = {
+		focus = KRAUS_soothe_hungary
+		cost = 7
+	}
+	reduce_focus_completion_cost = {
+		focus = KRAUS_soothe_slovak
+		cost = 7
+	}
+
+	# ===== 3) 明线 +15（温和派大胜的政治资本）=====
+	add_to_variable = { KRAUS_regime_legitimacy = 15 }
+	KRAUS_clamp_political_vars = yes
+
+	# ===== 4) ★★ 场景 A · 胜选红利（州级，地图可见）=====
+	#
+	# 用户定案：胜选【减时】不改（政党领袖影响皇帝决策，链条成立）。
+	# 本组是【额外】的红利，且**在地图上看得见** ——
+	# 打开本部任一州，能看到「社会改革红利」。
+	#
+	# ★ 作用域：本部 14 州（本国的奥地利部分），不碰王领。
+	# ★ 与黑一州级效果叠加：两者是不同 dynmod，可以并存。
+	#
+	custom_effect_tooltip = KRAUS_dm_renner_victory_tt
+	# ★ 先清掉对方可能留下的红利（防止重选或交叉）
+	every_owned_state = {
+		limit = { KRAUS_is_austrian_all = yes }
+		if = {
+			limit = { has_dynamic_modifier = { modifier = KRAUS_dm_miklas_victory } }
+			remove_dynamic_modifier = { modifier = KRAUS_dm_miklas_victory }
+		}
+		add_dynamic_modifier = { modifier = KRAUS_dm_renner_victory }
+	}
+}
+
+############################################################
+### ★ 米克拉斯胜选 · 执行（不含二选一）
+###
+### 「从柏林到维也纳」子树的二选一由事件 KRAUS_leader_intro.10 处理
+############################################################
+KRAUS_miklas_victory_effect = {
+
+	# ===== 1) 执政联盟：米克拉斯的「天主教秩序」 =====
+	# 拉入威权民主派与保守同盟 —— 秩序需要更多同盟
+	add_popularity = {
+		ideology = authoritarian_democrat
+		popularity = 0.03
+	}
+	set_country_flag = KRAUS_miklas_coalition
+
+	# ===== 2) 明线 +10（保守派获胜的政治资本）=====
+	add_to_variable = { KRAUS_regime_legitimacy = 10 }
+	KRAUS_clamp_political_vars = yes
+
+	# ===== 3) ★★ 场景 A · 胜选红利（州级，地图可见）=====
+	custom_effect_tooltip = KRAUS_dm_miklas_victory_tt
+	# 与伦纳版对称，见那里的详细说明。
+	every_owned_state = {
+		limit = { KRAUS_is_austrian_all = yes }
+		if = {
+			limit = { has_dynamic_modifier = { modifier = KRAUS_dm_renner_victory } }
+			remove_dynamic_modifier = { modifier = KRAUS_dm_renner_victory }
+		}
+		add_dynamic_modifier = { modifier = KRAUS_dm_miklas_victory }
+	}
+}
+
+############################################################
+### ★ 米克拉斯二选一 · A：减军事线
+###
+### 「从柏林到维也纳」的军事侧（德奥军事合作系列）
+############################################################
+KRAUS_miklas_reduce_military = {
+	reduce_focus_completion_cost = {
+		focus = KRAUS_german_military_coop
+		cost = 14
+	}
+	reduce_focus_completion_cost = {
+		focus = KRAUS_german_advisors
+		cost = 7
+	}
+	reduce_focus_completion_cost = {
+		focus = KRAUS_german_armor
+		cost = 7
+	}
+	reduce_focus_completion_cost = {
+		focus = KRAUS_german_infantry
+		cost = 7
+	}
+	reduce_focus_completion_cost = {
+		focus = KRAUS_german_combined
+		cost = 7
+	}
+	reduce_focus_completion_cost = {
+		focus = KRAUS_german_standardisation
+		cost = 7
+	}
+	set_country_flag = KRAUS_miklas_chose_military
+}
+
+############################################################
+### ★ 米克拉斯二选一 · B：减经济线
+###
+### 「从柏林到维也纳」的经济侧（德奥经济合作系列）
+############################################################
+KRAUS_miklas_reduce_economic = {
+	reduce_focus_completion_cost = {
+		focus = KRAUS_german_economic_coop
+		cost = 14
+	}
+	reduce_focus_completion_cost = {
+		focus = KRAUS_german_capital
+		cost = 7
+	}
+	reduce_focus_completion_cost = {
+		focus = KRAUS_german_industry_standard
+		cost = 7
+	}
+	reduce_focus_completion_cost = {
+		focus = KRAUS_german_infrastructure
+		cost = 7
+	}
+	reduce_focus_completion_cost = {
+		focus = KRAUS_german_light_industry
+		cost = 7
+	}
+	reduce_focus_completion_cost = {
+		focus = KRAUS_german_heavy_industry
+		cost = 7
+	}
+	set_country_flag = KRAUS_miklas_chose_economic
+}

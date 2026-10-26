@@ -1,0 +1,290 @@
+﻿l_simp_chinese:
+ # ===== KRAUS 政治线：伦纳 + 米克拉斯（2026-09-21）=====
+
+ # --- 入口国策 ---
+
+
+ # --- 米克拉斯秩序国策 ---
+ KRAUS_miklas_order_1:0 "紧急法令"
+ KRAUS_miklas_order_1_desc:0 "米克拉斯准备以紧急措施整顿行政与社会协调，让拖延的事务得到答复。支持者相信果断行动能恢复秩序，反对者则担心政府越过正常协商。命令可以缩短程序，却不能抹去执行中的不满，也可能在日后被追究。政府须说明这些措施的权限边界，并承担眼前的政治代价。"
+ KRAUS_miklas_order_2:0 "守住象征"
+ KRAUS_miklas_order_2_desc:0 "红白红再次飘扬在霍夫堡之上。在一个万事都可谈判的年代，皇室坚持某些象征不容退让，以求为中央的权威留下立足点。守住旗帜能凝聚一部分忠诚，也会让要求更多自治的一方更加警惕。象征无法替代预算与合同，却能为履约提供一份公共的信誉。"
+ KRAUS_miklas_order_3:0 "整顿的代价"
+ KRAUS_miklas_order_3_desc:0 "整顿终于触及一家民用工厂。关停决定送到地方，厂主要求重新审议，工人追问下一份工资从何而来，连支持内阁的教区代表也来替他们陈情。米克拉斯不能只在报告里写下秩序改善，把损失留给别人。他必须公开承担这项决定的责任，并面对它将在联盟和地方留下的裂痕。"
+
+ # --- 米克拉斯分级精神 ---
+
+ # --- BOP 叙事 ---
+
+ # --- BOP 分段提示 ---
+
+ # --- 米克拉斯双轴提示 ---
+
+ # --- 伦纳事件 ---
+ KRAUS_renner_events.1.t: "大帐篷稳住了"
+ KRAUS_renner_events.1.d: "眼下这套安排还行得通。捷克工业界拿到了自治，匈牙利人拿到了语言权利，军队也仍然听命于同一个参谋部。没有一个人完全满意——而这已经是这个帝国所能达到的、最接近成功的状态了。"
+ KRAUS_renner_events.1.a: "所有人都在里面。"
+ KRAUS_renner_events.2.t: "王领擅自行动"
+ KRAUS_renner_events.2.d: "天平向边缘摆得太远了。布拉格和布达佩斯已经开始当作无须征求维也纳的意见——而这种念头一旦扎下根，就极难收回。"
+ KRAUS_renner_events.2.a: "我们正在失去他们。"
+ KRAUS_renner_events.3.t: "这不是大帐篷"
+ KRAUS_renner_events.3.d: "天平向维也纳摆得太远了。各王领名义上还在帐篷里，但已经不再假装满意——而一顶没人愿意站的帐篷，不过是个屋顶罢了。"
+ KRAUS_renner_events.3.a: "我们抓得太紧了。"
+ KRAUS_renner_events.10.t: "伦纳组阁"
+ KRAUS_renner_events.10.d: "卡尔·伦纳接下了组阁的重任。他的第一件事，就是宣布帝国此后将在中央与各民族之间保持平衡——而平衡本身就是政策。\n\n批评者称之为优柔寡断。他称之为唯一真正奏效过的办法。"
+ KRAUS_renner_events.10.a: "我们会一起待在这顶帐篷里。"
+
+ # --- 米克拉斯事件 ---
+ KRAUS_miklas_events.1.t:0 "整顿的代价"
+ KRAUS_miklas_events.1.d:0 "整顿终于触及一家民用工厂。关停决定送到地方，厂主要求重新审议，工人追问下一份工资从何而来，连支持内阁的教区代表也来替他们陈情。米克拉斯不能只在报告里写下秩序改善，把损失留给别人。他必须公开承担这项决定的责任，并面对它将在联盟和地方留下的裂痕。"
+ KRAUS_miklas_events.1.a:0 "这项决定由我们负责。"
+ KRAUS_miklas_events.2.t: "紧急法令"
+ KRAUS_miklas_events.2.d: "政府依据紧急权力又颁布了一批法令。一周之内，秩序明显好转。\n\n走廊里有人评论说，共和国如今靠笔而不是靠议会统治——而且运转得更好了。"
+ KRAUS_miklas_events.2.a: "秩序优先。"
+ KRAUS_miklas_events.3.t: "红白红"
+ KRAUS_miklas_events.3.d: "旧旗帜再次升上霍夫堡。这件事没有任何实际用处；旗帜喂不饱任何人。\n\n但帝国各地，那些已经开始怀疑「奥地利」到底还意味着什么的人，抬头看着它，安静了下来。"
+ KRAUS_miklas_events.3.a: "旗帜并非虚无。"
+ KRAUS_miklas_events.10.t: "米克拉斯掌舵"
+ KRAUS_miklas_events.10.d: "威廉·米克拉斯接过了政府的责任。他的纲领很短：奥地利的天主教性质将被保住，无论代价为何。\n\n了解他的人明白，这句话的后半段——无论代价为何——并不是一个修辞。"
+ KRAUS_miklas_events.10.a: "无论代价为何。"
+ KRAUS_miklas_events.20.t: "合法性危机"
+ KRAUS_miklas_events.20.d: "他成功了。皇权与秩序得以保住，国家从未如此稳固。\n\n但为了保住它，他在宪法之外统治了三年，而宪法没能挺过这段经历。帝国井井有条。帝国已不再合法。在维也纳的沙龙里，那些曾经被排挤在边缘的人，开始收到晚宴的邀请。"
+ KRAUS_miklas_events.20.a: "他保住了秩序，却失去了帝国。"
+
+ # --- 动态修正：米克拉斯双轴 ---
+ # --- 科技加成标签（KRAUS_soothe_* 国策奖励引用）---
+ KRAUS_soothe_czech_industry: "波希米亚工业现代化"
+ KRAUS_soothe_hungary_art: "匈牙利炮兵传统"
+ KRAUS_soothe_slovak_doctrine: "斯洛伐克军官团"
+
+ # --- 1936 大选风味事件 + 伦纳大帐篷国策（2026-09-21）---
+ KRAUS_renner_tent_1:0 "布拉格工业圆桌"
+ KRAUS_renner_tent_1_desc:0 "波希米亚的工业界关系着就业、订单与地方财政，也关系着联盟能否跨过民族界线。伦纳请他们参加施政协商，以继续投资和稳定合作争取支持。产业界不会因此放弃自己的要求；政府既要给他们提问题的渠道，也要让他们为共同承担的计划负责。圆桌只是协商，不是服从。"
+ KRAUS_renner_tent_2:0 "安抚维也纳与军队"
+ KRAUS_renner_tent_2_desc:0 "军官团与官僚层担心帝国正在他们身边瓦解，维也纳的工薪阶层则怕恢复的代价由自己承担。政府用预算保障、军费安排与对公务员的承诺回应两边，明确哪些要求能够兑现、哪些要等。安抚不是收买，而是让这些力量相信中央仍在协调，并未放弃秩序。"
+ KRAUS_renner_tent_3:0 "大帐篷稳住了"
+ KRAUS_renner_tent_3_desc:0 "产业界、地方代表与联盟各派终于找到继续共事的办法。内阁可以把精力从相互试探转向尚未完成的恢复工作，但分歧并没有消失。伦纳要维持的，是一个能够继续协商的联盟，而非永久一致的队伍。大帐篷暂时稳住，接下来的预算与建设仍会检验这份合作。"
+
+ KRAUS_election_flavor.1.t: "首都的街头"
+ KRAUS_election_flavor.1.d: "职业介绍所外的队伍比去年更长。在工人街区，那些曾经只满足于发发牢骚的人，开始问起该由谁来负责。"
+ KRAUS_election_flavor.2.t: "讲坛上的一句话"
+ KRAUS_election_flavor.2.d: "主教们已经委婉地表明了他们的偏好。在乡间和小镇上，这句话传得比任何报纸都远。"
+ KRAUS_election_flavor.3.t: "狩猎之行"
+ KRAUS_election_flavor.3.d: "皇储的狩猎之行本意是展示帝国的强盛。结果各家报纸满篇都是它所造成的破坏——以及这场狩猎的开销抵得上一个村子一年的收入。\n\n政府必须作出回应。"
+ KRAUS_election_flavor.3.a: "力挺王室"
+ KRAUS_election_flavor.3.b: "承认失仪"
+ KRAUS_election_flavor.4.t: "伦纳的演说"
+ KRAUS_election_flavor.4.d: "卡尔·伦纳在党代会上讲话。他说帝国是一栋有许多房间的房子，而每个房间都有责任把屋顶撑住。工人们在听，而店主们——小心翼翼地——也在听。"
+ KRAUS_election_flavor.4.a: "大家都把屋顶撑住。"
+ KRAUS_election_flavor.5.t: "沉默"
+ KRAUS_election_flavor.5.d: "即将卸任的政府爆出丑闻，决定权落到了米克拉斯手上。换了别的政客，中午之前就会发表声明。\n\n米克拉斯什么也没说，而且看起来打算就这么不说下去。"
+ KRAUS_election_flavor.5.a: "他保持沉默。"
+ KRAUS_election_flavor.5.b: "他公开发声。"
+ # --- 大选风味事件选项 tooltip（2026-09-21）---
+ KRAUS_ef3_a_tt: "社会保守主义支持率：§G+4.00%§!"
+ KRAUS_ef3_a2_tt: "社会民主主义支持率：§R-2.00%§!"
+ KRAUS_ef3_b_tt: "社会民主主义支持率：§G+4.00%§!"
+ KRAUS_ef3_b2_tt: "社会保守主义支持率：§R-3.00%§!"
+ KRAUS_ef4_a_tt: "社会民主主义支持率：§G+5.00%§!"
+ KRAUS_ef5_a_tt: "社会保守主义支持率：§R-5.00%§!"
+ KRAUS_ef5_b_tt: "社会保守主义支持率：§G+2.00%§!"
+ KRAUS_ef5_b2_tt: "政治点：§R-25§!"
+ KRAUS_miklas_events.20_a_tt: "§R阴影正在滋长。§!"
+ # --- 政局天平 BOP（2026-09-21 第三轮）---
+ KRAUS_regime_balance: "皇帝的天平"
+ KRAUS_renner_side: "伦纳——社会民主党"
+ KRAUS_miklas_side: "米克拉斯——基督教社会党"
+ KRAUS_bop_imperial_balance_range: "皇帝居中"
+ KRAUS_bop_renner_tilt_range: "伦纳占了上风"
+ KRAUS_bop_renner_dominant_range: "伦纳无人制衡——帐篷变成多数"
+ KRAUS_bop_miklas_tilt_range: "米克拉斯占了上风"
+ KRAUS_bop_miklas_dominant_range: "米克拉斯无人制衡——无同意的统治"
+ KRAUS_bop_imperial_balance_tt: "§G皇帝居中。§!伦纳与米克拉斯谁也无法独治——只要这一点成立，帝国就不散。"
+ KRAUS_bop_renner_tilt_tt: "伦纳一派正在扩大声势。维也纳的保守派已经开始物色另一个代言人。"
+ KRAUS_bop_renner_dominant_tt: "§R伦纳无人可制。§!工人与各民族拿到了他们所要的——而那些没被问过的人，已经开始另寻出路。"
+ KRAUS_bop_miklas_tilt_tt: "米克拉斯一派正在扩大声势。每一道法令买到的是秩序，花掉的是合法性。"
+ KRAUS_bop_miklas_dominant_tt: "§R米克拉斯无人可制。§!帝国井井有条。帝国已不再合法——而有人正在等着，他们两者都不在乎。"
+ KRAUS_regime_balance_category: "皇帝的天平"
+ KRAUS_regime_balance_category_desc: "两个想要执掌奥地利的人，以及那个不让任何一方独治的皇室。"
+ # --- 第三轮：黑一出现事件、结算 tooltip、风味选项 ---
+ KRAUS_black_monday_events.0.t: "黑色星期一波及奥地利"
+ KRAUS_black_monday_events.0.d: "当黑色星期一冲击德国的时候，距离席卷整个欧洲也不远了。奥地利是第一批被拖入的国家之一。\n\n内阁已经开设了一本应急账簿：决议面板中的 §Y重整帝国经济§! 现已可用。每层读条 §Y110§! 天——条件凑够且已过 §Y90§! 天就提前结算、危机缓解一层；凑不够则读满 110 天，危机加深一层。\n\n除了国家层面的§Y民族精神§!，各州也挂上了§Y「大萧条」的地区修正§!：越是工业重镇，人力与建设速度的惩罚越重，可在省份面板中查看。它们会随着经济重整一档一档地消退。"
+ KRAUS_black_monday_events.0.a: "哦，上帝！"
+ KRAUS_black_monday_events.3.t: "毫无进展"
+ KRAUS_black_monday_events.3.d: "账簿到期，上面空空如也。那些本该缓和危机的措施从未被采取，危机也就相应地蔓延开来。"
+ KRAUS_black_monday_events.3.a: "我们让它溜走了。"
+ KRAUS_bm10_reward_tt: "稳定度：§G+3.00%§!"
+ KRAUS_bm10_pp_tt: "政治点：§G+50§!"
+ KRAUS_bm20_stab_tt: "稳定度：§R-3.00%§!"
+ KRAUS_bm20_pp_tt: "政治点：§R-50§!"
+ KRAUS_ef1_a_tt: "社会民主主义支持率：§G+3.00%§!"
+ KRAUS_ef2_a_tt: "社会保守主义支持率：§G+3.00%§!"
+ KRAUS_election_flavor.1.a: "风向在变。"
+ KRAUS_election_flavor.2.a: "这句话传开了。"
+ # ===== 政治人物介绍（2026-09-21 第六轮）=====
+ KRAUS_leader_intro.1.t: "卡尔·伦纳"
+ KRAUS_leader_intro.1.d: "每当社会民主党需要组阁，人们就会提起这个名字：卡尔·伦纳。\n\n他做过这件事。1918 年，当君主国分崩离析、谁也不知道该用什么来取代它的时候，是伦纳把碎片拢在了一起——不是靠武力，而是靠拒绝把任何一个民族当作敌人。他那次并没有拯救帝国。他拯救的是「帝国」这个东西的可能性，并且自那以后的每一年，他都在论证同一套把戏可以再耍一次。\n\n他领导 §Y奥地利社会民主工党§!——工业工人、工会与大城市的党。在维也纳的保守派眼中，他是个伺机而动的革命者；在他自己党内的激进派眼中，他是个妥协太多次的人。\n\n他管自己的办法叫 §Y大帐篷§!：把所有人都留在里面，不让任何人完全满意，结构就撑得住。"
+ KRAUS_leader_intro.1.a: "一个有办法的人。"
+
+ KRAUS_leader_intro.2.t: "威廉·米克拉斯"
+ KRAUS_leader_intro.2.d: "伦纳在搭建，米克拉斯在守护。\n\n邮差之子，受过师范教育，十二个孩子的父亲——米克拉斯只有一个信念，并且从未拿它做过交易：天主教奥地利必须在这场现代化的洪流中活下来。他不是什么胸怀宏图的人。他只有一条线，只划了一次，并且绝不越过。\n\n他领导 §Y基督教社会党§!——教会、乡间、小镇与天主教中产阶级的党；这个党治理奥地利的次数比任何其他党都多，并把社会民主党视为它存在所要守护的一切的长期威胁。\n\n他知道那些以他之名所行之事并不完全合乎宪法。他说过——亲笔写在自己的私人日记里，篇幅很长，是在深夜。而在公开场合，他什么也不说。了解他的人明白，这两半都是真话，而真正要紧的是后一半。"
+ KRAUS_leader_intro.2.a: "一个只守一条线的人。"
+
+ KRAUS_leader_intro.3.t: "皇帝的天平"
+ KRAUS_leader_intro.3.d: "两个人，两个党，两种对「奥地利为何存在」截然不同的理解——而夹在他们之间的，是皇帝。\n\n卡尔既不是任何一套纲领的作者。他是这两套纲领都无法单独推行的那份理由。伦纳掌握着城市与工会；米克拉斯掌握着教会与乡间。若其中一方彻底压倒另一方，帝国就不得不变成另一种东西——而在奥地利，并没有别的什么东西撑得住。\n\n于是皇室做了皇室在奥地利一向做的事：居中。给每一方刚好足够留住他们坐上谈判桌的东西，也刚好扣下足够不让他们离席的东西。\n\n1936 年的大选将决定由谁来组阁。但它不会决定谁是对的——也不会让皇帝从「平衡两者」这件差事中解脱出来。\n\n§Y自下次大选起，帝国天平将出现在「权力平衡」面板中。让两派大致均衡，帝国就不散；放任任何一方独大，中间就守不住了。§!"
+ KRAUS_leader_intro.3.a: "这一次，中间守住了。"
+
+ # --- 米克拉斯胜选二选一 ---
+ KRAUS_leader_intro.10.t: "基督教社会党政府"
+ KRAUS_leader_intro.10.d: "米克拉斯完成组阁——基督教社会党居首，右翼的威权民主派也被拉进来共事：秩序需要盟友，而他选的是那些不会碍事的。\n\n政府内部正在争论：奥地利的未来该锚定在哪里。德意志这条纽带既能提供步枪，也能提供工厂。两者无法同时取得。"
+ KRAUS_leader_intro.10.a: "先要步枪。"
+ KRAUS_leader_intro.10.b: "先要工厂。"
+ KRAUS_intro10_mil_tt: "§Y德奥军事合作§!——「从柏林到维也纳」的军事分支，其国策启动时间缩短（每个最多 §G14 天§!）。"
+ KRAUS_intro10_eco_tt: "§Y德奥经济合作§!——「从柏林到维也纳」的经济分支，其国策启动时间缩短（每个最多 §G14 天§!）。"
+
+ # --- 伦纳胜选 ---
+ KRAUS_leader_intro.11.t: "大帐篷政府"
+ KRAUS_leader_intro.11.d: "伦纳完成组阁，用的还是他唯一会用的办法：拉进来的人比严格需要的更多。社民党掌握各部；激进社会党人得到的是被倾听的机会，而不是怨恨的理由；中间派中有足够多的人被说服，认为这顶帐篷足够大，站得进去。\n\n他也转向了皇室——奥地利政治中那个根本不是政党的部分。在皇帝的分量压在这套安排上之后，帝国的各民族与各王领就能被带向一个了结，而不是被逼向一场决裂。\n\n§Y「王冠的重量」之下的国策，其启动时间全部缩短。§!"
+ KRAUS_leader_intro.11.a: "大家都把屋顶撑住。"
+ KRAUS_intro11_tt: "§Y大帐篷§!——§Y王冠§!分支的国策启动时间缩短（每个最多 §G14 天§!）。同时组成一个广泛的执政联盟。"
+ # ===== 覆写的 KR 选举事件（2026-09-21 第六轮）=====
+ austria_election_events.1.t: "1936 年奥地利选举"
+ austria_election_events.1.d: "自 1867 年奥匈折衷以来，「奥地利问题」一直是在帝国的德语区里解决的——而在大部分时间里，给出答案的都是两大党之一。基督教社会党代表教会、乡间与天主教中产阶级，治理奥地利的次数比任何其他政党都多。社会民主工党代表工业工人、工会与大城市，并把基督教社会党视为它一切诉求的长期阻碍。\n\n在经济问题上，两党不只是意见不同——他们是截然相反。社会民主党人想用失业救济、公共工程和国家机器为工人撑腰来应对危机。基督教社会党人想用紧缩来应对：削减开支、平衡账目，并坚信一个入不敷出的国家很快就会不再存在。\n\n皇帝没有为任何一方的纲领背书。但他已让人明白：无论谁组阁，都不会是单独组阁。这两派之间的平衡，如今已被皇室视为自己的分内之事。\n\n§Y大选将决定由谁治理奥地利。它不会决定谁是对的。§!"
+ austria_election_events.1.a: "让人民来决定这一切！"
+
+ austria_election_events.3.t: "阿德勒谴责社民党"
+ austria_election_events.3.d: "弗里德里希·阿德勒——党的创始人维克多·阿德勒之子——是一名激进社会主义者，最出名的事迹是 1916 年为抗议世界大战而枪击首相。岁月并没有让他变得温和。\n\n在党代会前，他用一种简直像是从对岸说出来的措辞谴责社民党：它已经变成「一种为当权派而存在的社会主义」——它谈判、它妥协、它调和，直到那个理念只剩下一个词。\n\n半个会场鼓掌。另一半没有。阿德勒的追随者人数不多、声音很大，而且完全真诚。"
+ austria_election_events.3.a: "激进派还是那个激进派。"
+ austria_election_events.3.a_tt: "激进社会主义支持率：§G+2.50%§!——放任阿德勒自行其是。"
+ austria_election_events.3.b: "向阿德勒递出谅解。"
+ austria_election_events.3.b_tt: "社会民主主义支持率：§G+2.00%§!"
+ austria_election_events.3.b2_tt: "激进社会主义支持率：§G+1.00%§!——而且他们会记住这份递出的手。"
+
+ austria_election_events.7.t: "左翼的谅解"
+ austria_election_events.7.d: "谈话很安静，很短，地点是一间门外没有记者的房间。\n\n公开场合什么也没有让步。达成的是这样一条共识：阿德勒的激进派不会在这次选举中从左边攻击本党；而如果社会民主党组成下一届政府，那个政府里不会没有这些曾批评过它的人的位置。\n\n阿德勒离开时没有握手。他离开时也没有谴责任何人。"
+ austria_election_events.7.a: "桌边留一个位子。"
+ austria_election_events.7.a_tt: "社会民主主义支持率：§G+2.00%§!——左翼被团结起来，而不是被分裂。"
+
+ ### 权力平衡 · 决议 ---------------------------------------------------------
+ KRAUS_bop_crown_arbitration: "皇帝仲裁"
+ KRAUS_bop_crown_arbitration_desc: "这两个人都不会自己走进霍夫堡。但只要皇帝派人去叫，两个都会来。\n\n皇室不当政——皇室维持。把两人召进同一间屋子，提醒他们：若其中任何一方大获全胜，奥地利会变成什么样。"
+ KRAUS_bop_renner_rally: "党的集会"
+ KRAUS_bop_renner_rally_desc: "社会民主工党至今仍能在一个下午之间把十万人送上环城大道。\n\n代价只是秩序。维也纳会喧闹一个星期——但霍夫堡里不会再有任何人对「谁代表奥地利的工人说话」心存疑问。"
+ KRAUS_bop_miklas_decree: "以法令治国"
+ KRAUS_bop_miklas_decree_desc: "内阁可以被驱使去做议会不肯做的事。\n\n狭义上讲，这是合法的。这也正是卡尔·伦纳花了三十年论证「帝国撑不下去」的那个方法。\n\n§Y180 天的秩序——以及一笔比它更长寿的债。§!"
+ KRAUS_bop_imperial_audience: "御前听政"
+ KRAUS_bop_imperial_audience_desc: "皇帝一直在看报，也注意到了风往哪边吹。\n\n他会接见那位正在扩大声势的领袖。他会很客气。他几乎什么都不说。而那个人离开时已经明白：皇室在看着，而且还没有决定要表示满意。"
+ KRAUS_bop_cost_50pp: "£pol_power §H50§!"
+ KRAUS_bop_cost_50pp_blocked: "£pol_power §R50§!"
+ KRAUS_bop_cost_50pp_tooltip: "需要花费 $KRAUS_bop_cost_50pp_blocked$ 才能做出该决策"
+ KRAUS_bop_cost_60pp: "£pol_power §H60§!"
+ KRAUS_bop_cost_60pp_blocked: "£pol_power §R60§!"
+ KRAUS_bop_cost_60pp_tooltip: "需要花费 $KRAUS_bop_cost_60pp_blocked$ 才能做出该决策"
+ KRAUS_bop_cost_5stab: "£GFX_stability_texticon §H5%§!"
+ KRAUS_bop_cost_5stab_blocked: "£GFX_stability_texticon §R5%§!"
+ KRAUS_bop_cost_5stab_tooltip: "需要花费 $KRAUS_bop_cost_5stab_blocked$ 才能做出该决策"
+
+ KRAUS_bop_arbitration_tt: "皇帝直接介入：天平向中段回摆。"
+ KRAUS_bop_rally_tt: "本党走上街头——天平向伦纳一侧移动。"
+ KRAUS_bop_decree_tt: "内阁独断——天平向米克拉斯一侧移动。"
+ KRAUS_bop_audience_tt: "皇室已经表明了自己的不满。"
+
+ ### 州级修正 · 实测 ----------------------------------------------------------
+
+ ### 黑色星期一 · 州级效果 ----------------------------------------------------
+ KRAUS_dm_crisis_deep: "大萧条（最重）"
+ KRAUS_dm_crisis_heavy: "大萧条（严峻）"
+ KRAUS_dm_crisis_moderate: "大萧条（缓解中）"
+ KRAUS_dm_crisis_light: "大萧条（将退）"
+ KRAUS_dm_recovery: "复苏"
+
+ ### 皇权与秩序 ------------------------------------------------------------------
+ KRAUS_imperial_authority_dm: "皇权与秩序"
+ KRAUS_imperial_authority_dm_tt: "§Y皇室的威望与天主教秩序，合为一体。§!当前：§Y[?KRAUS_imperial_authority|0]§!/100\n\n§Y0–24§! 王权旁落：稳定度与政治点数下降\n§Y25–49§! 勉力维持：稳定度小幅提升\n§Y50–74§! 皇权稳固：稳定度、政治点数、战争支持度、组织度\n§Y75–100§! 帝国权威：以上全部提高，并增加可征兵人口\n\n靠维持平衡、熬过危机、推进国策积攒，也可以在「皇权与秩序」决议里花用。"
+ KRAUS_ia_convoke_diet: "召集帝国议会"
+ KRAUS_ia_convoke_diet_desc: "皇帝不立法。他召集。\n\n两院同处一室，皇室在场倾听。什么也没有决定——但许多事情被理解了，那些原本在走廊里大喊大叫的人，回到了桌边。\n\n§Y消耗 25 点权威。§!"
+ KRAUS_ia_convoke_diet_tt: "§G+30§! 政治点，§G+3%§! 稳定度"
+ KRAUS_ia_imperial_honours: "颁发帝国嘉奖"
+ KRAUS_ia_imperial_honours_desc: "勋章、头衔，以及那些只花掉皇室「注意力」的礼节。\n\n它们被发往最能发挥作用的地方——由那些会记住「是谁给的」的人收下。\n\n§Y消耗 15 点权威。§!"
+ KRAUS_ia_imperial_honours_tt: "§G+2%§! 战争支持度，§G+1§! 陆军经验"
+ KRAUS_ia_royal_reserves: "动用皇室储备"
+ KRAUS_ia_royal_reserves_desc: "哈布斯堡的私产不是国家的。但它可以被动用——代价不会用金钱来付。\n\n§R它要花掉皇室积累的一半。§!现在花掉，皇室在很长一段时间里都会显得大不如前。\n\n§Y消耗 50 点权威。§!"
+ KRAUS_ia_royal_reserves_tt: "§G+50§! 政治点"
+ KRAUS_dm_renner_victory: "社会改革的利益"
+ KRAUS_dm_miklas_victory: "秩序的利益"
+
+
+ ### 皇权与秩序 · 单轴累积重构 --------------------------------------------------
+ KRAUS_catholic_order_decisions: "皇权与秩序"
+ KRAUS_catholic_order_decisions_desc: "只有皇权与秩序才能赋予正当性的法令——也只有皇权与秩序必须为它付账。"
+
+
+ ### 决议 -----------------------------------------------------------------------
+ KRAUS_order_decree_in_emergency: "以紧急法令治国"
+ KRAUS_order_decree_in_emergency_desc: "内阁可以做议会不肯做的事。狭义上讲这是合法的——这也正是伦纳花了三十年论证「帝国撑不下去」的那个方法。\n\n代价用政治资本支付，而且每做一次，就要再付一次。"
+ KRAUS_order_suppress_press: "取缔敌对报纸"
+ KRAUS_order_suppress_press_desc: "不肯说真话的报纸，索性就不必出刊了。\n\n街头会注意到。他们总是会注意到。"
+ KRAUS_order_church_schools: "扩张教会学校"
+ KRAUS_order_church_schools_desc: "教区学校是帝国拥有过最便宜的秩序工具。\n\n它也很慢——而学校建起来的时候，危机是不会等的。"
+ KRAUS_order_seize_industry: "征用工业产能"
+ KRAUS_order_seize_industry_desc: "国家拿走一座工厂，把它用于国家的目的。\n\n事后，会有一座工厂不在了。这不是比喻。"
+ KRAUS_order_state_of_emergency: "宣布国家紧急状态"
+ KRAUS_order_state_of_emergency_desc: "停摆、逮捕、征用，然后独自治理——公开地做，并且盖上皇帝的签名。\n\n§R这会很贵，而且会被记住。§!"
+
+ ### 决议代价/收益提示 ------------------------------------------------------------
+ KRAUS_order_cost_25pp_blocked: "£pol_power §R25§!"
+ KRAUS_order_cost_20pp_blocked: "£pol_power §R20§!"
+ KRAUS_order_cost_50pp_blocked: "£pol_power §R50§!"
+ KRAUS_order_cost_3stab_blocked: "£GFX_stability_texticon §R3%§!"
+
+ KRAUS_order_cost_factory_tt: "§R被征用并失去 1 座民用工厂。§!"
+
+ KRAUS_order_cost_20pp_tt: "§R-20§! 政治点"
+ KRAUS_bm_present_tt: "黑色星期一正在生效"
+ KRAUS_leader_intro.1.a_tt: "§G社会民主主义支持率：+1.00%§!"
+ KRAUS_leader_intro.2.a_tt: "§G基督教社会支持率：+1.00%§!"
+ KRAUS_leader_intro.3.a_tt: "§G皇权与秩序：+5§!"
+
+
+ ### 执政联盟 · 两翼忠诚度（方案 D） ----------------------------------------------
+
+ ### 组阁事件 -------------------------------------------------------------------
+
+ ### 组阁提示 -------------------------------------------------------------------
+
+ ### 联盟会议 -------------------------------------------------------------------
+ KRAUS_coalition_cost_50pp_blocked: "£pol_power §R50§!"
+
+ ### 危机选边（黑色星期一） --------------------------------------------------------
+ KRAUS_crisis_left_tt: "§G左翼满意了。§!右翼不会忘记这件事。"
+ KRAUS_crisis_right_tt: "§G右翼满意了。§!左翼不会忘记这件事。"
+ KRAUS_crisis_choices.1.t: "银行挤兑"
+ KRAUS_crisis_choices.1.d: "信贷银行的大门一开，队伍就绕过了街角，而且至今没有变短。\n\n左翼要求国家直接接管银行。右翼要求国家只为存款作保。两者都要花钱，而钱我们没有。"
+ KRAUS_crisis_choices.1.a: "把银行国有化。"
+ KRAUS_crisis_choices.1.b: "为存款作保。"
+ KRAUS_crisis_choices.2.t: "失业者游行"
+ KRAUS_crisis_choices.2.d: "他们成千上万地沿着环城大道走来，秩序井然——而这不知为何更让人不安。\n\n一翼要求扩大救济，不计代价。另一翼要求削减预算，也不计代价。他们在算术上都没错，而在国家这件事上都错了。"
+ KRAUS_crisis_choices.2.a: "扩大救济。"
+ KRAUS_crisis_choices.2.b: "削减预算。"
+ KRAUS_crisis_choices.3.t: "乡下撑不住了"
+ KRAUS_crisis_choices.3.d: "收成很差，抵押贷款却没有变少，小农们开始写信，而农业部已经不再回信。\n\n土地改革能回答那些信。补贴能回答那些贷款。钱只够做一件。"
+ KRAUS_crisis_choices.3.a: "土地改革。"
+ KRAUS_crisis_choices.3.b: "农业补贴。"
+ KRAUS_crisis_choices.4.t: "总罢工"
+ KRAUS_crisis_choices.4.d: "铁路停了。电车停了。印刷厂也停了——这意味着一天之内，没有人会知道任何地方正在发生什么。\n\n政府必须迅速决定：它究竟是一个什么样的国家。"
+ KRAUS_crisis_choices.4.a: "承认工会。"
+ KRAUS_crisis_choices.4.b: "出动军队。"
+
+ ### 原版国策改造 -----------------------------------------------------------------
+ KRAUS_focus_bm_speedup_tt: "§G向恢复工作注入资源：政治点数 +25。§!"
+
+ ### 国策地块奖励 + 经济纲领 --------------------------------------------------------
+
+ KRAUS_renner_economic_program:0 "大帐篷经济协议"
+ KRAUS_renner_economic_program_desc:0 "伦纳希望把恢复经济变成维持联盟的共同事业。合作信贷、公共采购与地方投资将写进一份可以讨论、可以追责的协议，让工人、产业界与王领代表都看到自己的利益。金色多瑙河计划从本部试点起步，再与帝国共同建设衔接；能走多远，取决于联盟是否愿意继续承担代价。"
+ KRAUS_miklas_economic_program:0 "秩序经济"
+ KRAUS_miklas_economic_program_desc:0 "米克拉斯主张以可兑现的信用和明确的责任恢复生产。教区网络、雇主与劳动者的协商，以及皇室的背书，共同支撑金色多瑙河计划。秩序不能只意味着要求服从，也要让合同得到履行、地方能够参与。由本部工程走向帝国共同建设，政府必须证明这套办法不只服务维也纳。"
+ KRAUS_econ_program_dm_tt: "§Y经济纲领。§!\n\n政府真正建成了什么，以及它打算继续建什么。\n\n§G+5% 政治点，且工厂产出随着每一项兑现的承诺而上升。§!"
+
+
+ KRAUS_econ_program_dm:0 "金色多瑙河：经济纲领"

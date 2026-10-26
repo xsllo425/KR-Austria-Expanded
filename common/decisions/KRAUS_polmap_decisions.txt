@@ -1,0 +1,93 @@
+############################################################
+### 帝国议会的重心：测试按钮（只在控制台 set_country_flag KRAUS_pm_debug 后出现）
+### 每个按钮把重心移动 10，或开关皇帝点；不花费，可反复点。
+############################################################
+KRAUS_polmap_category = {
+	KRAUS_pm_test_activate = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_country_flag = KRAUS_pm_debug
+			NOT = { has_country_flag = KRAUS_pm_active }
+		}
+		cost = 0
+		complete_effect = { KRAUS_pm_activate = yes }
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	KRAUS_pm_test_left = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = { has_country_flag = KRAUS_pm_debug }
+		cost = 0
+		complete_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = -10 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = 0 }
+			KRAUS_pm_move = yes
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	KRAUS_pm_test_right = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = { has_country_flag = KRAUS_pm_debug }
+		cost = 0
+		complete_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = 10 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = 0 }
+			KRAUS_pm_move = yes
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	KRAUS_pm_test_up = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = { has_country_flag = KRAUS_pm_debug }
+		cost = 0
+		complete_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = 0 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = -10 }
+			KRAUS_pm_move = yes
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	KRAUS_pm_test_down = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = { has_country_flag = KRAUS_pm_debug }
+		cost = 0
+		complete_effect = {
+			set_temp_variable = { var = KRAUS_pm_in_dx value = 0 }
+			set_temp_variable = { var = KRAUS_pm_in_dy value = 10 }
+			KRAUS_pm_move = yes
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	KRAUS_pm_test_emperor = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = { has_country_flag = KRAUS_pm_debug }
+		cost = 0
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = KRAUS_pm_emperor_on }
+				clr_country_flag = KRAUS_pm_emperor_on
+			}
+			else = {
+				set_country_flag = KRAUS_pm_emperor_on
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

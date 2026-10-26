@@ -1,0 +1,191 @@
+############################################################
+### KRAUS 皇帝权威 · 变量与效果（第五轮方案 · 第 3 批）
+###
+### ★★ 用户定案（第五轮 §3）
+###   「皇帝权威可以可见，加一个民族精神，里面有动态数值，
+###     从 0 开始，然后可以使用决议消耗数值获得好处。」
+###
+### ★★ 呈现方式：动态民族精神（dynamic_modifier）
+###
+###   ★ 为什么不用普通 idea：
+###     我们备忘里已实测记录 —— idea 的 modifier 【不能写变量名】，
+###     会静默失效、不报错。要做到「数值随变量变」，
+###     dynamic_modifier 是唯一解。
+###
+###   ★ dynamic_modifier 挂上后【会显示在民族精神栏】，
+###     所以同时满足「民族精神」+「动态数值」两个要求。
+###     先例：KRAUS_catholic_order_dm（已跑通）
+###
+### ★★ 数值设计
+###     KRAUS_imperial_authority   皇帝权威   0~100
+###
+###     ★ 初始值 20（用户已认可"从 0 开始"的意图，
+###       但纯 0 会让开局几个月消耗决议空转，
+###       故给 20 —— 叙事上：卡尔 1916 继位至今 20 年，
+###       本就积累了威望）
+###
+### ★★ 来源（正负都有 —— 权威会被消耗，不是只增）
+###
+###     类别          来源                        增减
+###     ─────────────────────────────────────────────────
+###     基础          皇帝在位（每季度）           +5
+###     平衡          天平居中                    +3
+###     平衡          天平极端（任一侧 dominant）  −3
+###     危机          黑一成功降级                +8
+###     危机          黑一失败                    −5
+###     帝国          王领交易完成                +10
+###     帝国          王领叛离                    −15
+###     内政          政争失控                    −3
+###
+### ★ 不使用 replace_path（三条铁律之二）
+############################################################
+
+############################################################
+### ★ 变量初始化 + 钳制 + 折算
+###
+### ★ 顺序铁律（钢之工坊实测）：先 set_variable，再挂 dynmod。
+###   否则第一天修正值为空，且 has_variable 为假会让判断走错分支。
+############################################################
+
+# 皇权与秩序：四档输出，档位越高加成种类越多
+#   0-24 王权旁落 / 25-49 勉力维持 / 50-74 皇权稳固 / 75-100 帝国权威
+KRAUS_imperial_clamp = {
+	clamp_variable = { var = KRAUS_imperial_authority min = 0 max = 100 }
+	if = {
+		limit = { has_completed_focus = KRAUS_federal_charter }
+		clamp_variable = { var = KRAUS_imperial_authority min = 50 max = 100 }
+	}
+	if = {
+		limit = { check_variable = { KRAUS_imperial_authority > 74 } }
+		set_variable = { KRAUS_ia_stab = 0.15 }
+		set_variable = { KRAUS_ia_pp = 0.15 }
+		set_variable = { KRAUS_ia_ws = 0.10 }
+		set_variable = { KRAUS_ia_org = 0.05 }
+		set_variable = { KRAUS_ia_cons = 0.05 }
+	}
+	else_if = {
+		limit = { check_variable = { KRAUS_imperial_authority > 49 } }
+		set_variable = { KRAUS_ia_stab = 0.10 }
+		set_variable = { KRAUS_ia_pp = 0.10 }
+		set_variable = { KRAUS_ia_ws = 0.05 }
+		set_variable = { KRAUS_ia_org = 0.03 }
+		set_variable = { KRAUS_ia_cons = 0 }
+	}
+	else_if = {
+		limit = { check_variable = { KRAUS_imperial_authority > 24 } }
+		set_variable = { KRAUS_ia_stab = 0.05 }
+		set_variable = { KRAUS_ia_pp = 0 }
+		set_variable = { KRAUS_ia_ws = 0 }
+		set_variable = { KRAUS_ia_org = 0 }
+		set_variable = { KRAUS_ia_cons = 0 }
+	}
+	else = {
+		set_variable = { KRAUS_ia_stab = -0.05 }
+		set_variable = { KRAUS_ia_pp = -0.05 }
+		set_variable = { KRAUS_ia_ws = 0 }
+		set_variable = { KRAUS_ia_org = 0 }
+		set_variable = { KRAUS_ia_cons = 0 }
+	}
+	force_update_dynamic_modifier = yes
+}
+
+############################################################
+### ★ 初始化（开局调用一次）
+############################################################
+KRAUS_imperial_authority_init = {
+	set_variable = { KRAUS_imperial_authority = 20 }
+
+	# 折算一次
+	KRAUS_imperial_clamp = yes
+
+	# ★ 先变量后挂载（铁律）
+	add_dynamic_modifier = { modifier = KRAUS_imperial_authority_dm }
+	force_update_dynamic_modifier = yes
+}
+
+############################################################
+### ★ 增减接口（供各处调用，自动钳制 + 折算）
+###
+### ★ 为什么不直接 add_to_variable：
+###   权威有 0~100 上下限，且改了之后必须重算折算值并刷新，
+###   集中在这两个 effect 里，改数值只动一处。
+############################################################
+KRAUS_imperial_gain = {
+	custom_effect_tooltip = KRAUS_ia_gain_5_tt
+	hidden_effect = {
+		add_to_variable = { KRAUS_imperial_authority = 5 }
+		KRAUS_imperial_clamp = yes
+	}
+}
+
+KRAUS_imperial_gain_3 = {
+	custom_effect_tooltip = KRAUS_ia_gain_3_tt
+	hidden_effect = {
+		add_to_variable = { KRAUS_imperial_authority = 3 }
+		KRAUS_imperial_clamp = yes
+	}
+}
+
+KRAUS_imperial_gain_8 = {
+	custom_effect_tooltip = KRAUS_ia_gain_8_tt
+	hidden_effect = {
+		add_to_variable = { KRAUS_imperial_authority = 8 }
+		KRAUS_imperial_clamp = yes
+	}
+}
+
+KRAUS_imperial_gain_10 = {
+	custom_effect_tooltip = KRAUS_ia_gain_10_tt
+	hidden_effect = {
+		add_to_variable = { KRAUS_imperial_authority = 10 }
+		KRAUS_imperial_clamp = yes
+	}
+}
+
+KRAUS_imperial_loss = {
+	custom_effect_tooltip = KRAUS_ia_cost_3_tt
+	hidden_effect = {
+		subtract_from_variable = { KRAUS_imperial_authority = 3 }
+		KRAUS_imperial_clamp = yes
+	}
+}
+
+KRAUS_imperial_loss_5 = {
+	custom_effect_tooltip = KRAUS_ia_cost_5_tt
+	hidden_effect = {
+		subtract_from_variable = { KRAUS_imperial_authority = 5 }
+		KRAUS_imperial_clamp = yes
+	}
+}
+
+KRAUS_imperial_loss_15 = {
+	custom_effect_tooltip = KRAUS_ia_cost_15_tt
+	hidden_effect = {
+		subtract_from_variable = { KRAUS_imperial_authority = 15 }
+		KRAUS_imperial_clamp = yes
+	}
+}
+
+############################################################
+### ★ 消耗接口（决议调用）
+###
+### ★ 消耗是【不可逆】的 —— 花掉的权威要慢慢攒回来。
+###   这让"什么时候花"成为真决策。
+############################################################
+
+
+
+KRAUS_imperial_loss_10 = {
+	custom_effect_tooltip = KRAUS_ia_cost_10_tt
+	hidden_effect = {
+		subtract_from_variable = { KRAUS_imperial_authority = 10 }
+		KRAUS_imperial_clamp = yes
+	}
+}
+KRAUS_imperial_gain_15 = {
+	custom_effect_tooltip = KRAUS_ia_gain_15_tt
+	hidden_effect = {
+		add_to_variable = { KRAUS_imperial_authority = 15 }
+		KRAUS_imperial_clamp = yes
+	}
+}

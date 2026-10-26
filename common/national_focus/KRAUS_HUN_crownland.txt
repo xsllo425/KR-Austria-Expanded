@@ -1,0 +1,353 @@
+### KRAUS 王冠领国策树：HUN（2026-10-12，AI 向）。设计：王领政治树设计_伊利里亚与匈牙利。
+### 忠诚与自主两条分支不互斥，各推一档「王冠领地位」；另挂共同经济树、共同军事树。
+focus_tree = {
+	id = KRAUS_HUN_focus
+	country = {
+		factor = 0
+		modifier = { add = 100 original_tag = HUN }
+	}
+	default = no
+	continuous_focus_position = { x = 50 y = 1200 }
+	shared_focus = AUS_eco_council
+	shared_focus = AUS_military_expansion
+
+	focus = {
+		id = KRAUS_HUN_path
+		icon = GFX_goal_generic_national_unity
+		x = 6
+		y = 0
+		cost = 3
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_path"
+			add_political_power = 150
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_transdanubian_bauxite
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = KRAUS_HUN_path }
+		relative_position_id = KRAUS_HUN_path
+		x = -2
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_transdanubian_bauxite"
+			add_resource = { type = aluminium amount = 12 state = 155 }
+			155 = { add_extra_state_shared_building_slots = 2 }
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_alfold_granary
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = KRAUS_HUN_path }
+		relative_position_id = KRAUS_HUN_path
+		x = 0
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_alfold_granary"
+			154 = {
+				increase_state_category_by_one_level = yes
+				add_building_construction = { type = infrastructure level = 2 instant_build = yes }
+			}
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_budapest_factories
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = KRAUS_HUN_path }
+		relative_position_id = KRAUS_HUN_path
+		x = 2
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_budapest_factories"
+			43 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+			}
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_ludovika
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = KRAUS_HUN_alfold_granary }
+		relative_position_id = KRAUS_HUN_path
+		x = -1
+		y = 2
+		cost = 5
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_ludovika"
+			army_experience = 30
+			add_tech_bonus = { name = KRAUS_HUN_ludovika bonus = 1 uses = 1 category = infantry_weapons }
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_mountain_hunters
+		icon = GFX_goal_generic_special_forces
+		prerequisite = { focus = KRAUS_HUN_alfold_granary }
+		relative_position_id = KRAUS_HUN_path
+		x = 1
+		y = 2
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_mountain_hunters"
+			army_experience = 30
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_joseph_august
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = KRAUS_HUN_path }
+		relative_position_id = KRAUS_HUN_path
+		x = -5
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_joseph_august"
+			KRAUS_cl_toward_loyal = yes
+			add_political_power = 150
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority > 49 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 AUS = { has_country_flag = KRAUS_dc_won_HUN } }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value < -0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_pay_the_quota
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = KRAUS_HUN_joseph_august }
+		relative_position_id = KRAUS_HUN_path
+		x = -5
+		y = 2
+		cost = 5
+		available = { AUS = { KRAUS_dc_resolved = yes } }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_pay_the_quota"
+			KRAUS_cl_toward_loyal = yes
+			if = {
+				limit = { has_idea = HUN_financial_ties_broken }
+				remove_ideas = HUN_financial_ties_broken
+			}
+			AUS = {
+				if = {
+					limit = { has_idea = AUS_financial_ties_broken }
+					remove_ideas = AUS_financial_ties_broken
+				}
+				add_political_power = 150
+			}
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority > 49 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 AUS = { has_country_flag = KRAUS_dc_won_HUN } }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value < -0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_imperial_gendarmes
+		icon = GFX_goal_generic_allies_build_infantry
+		prerequisite = { focus = KRAUS_HUN_pay_the_quota }
+		relative_position_id = KRAUS_HUN_path
+		x = -5
+		y = 3
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_imperial_gendarmes"
+			KRAUS_cl_toward_loyal = yes
+			add_stability = 0.15
+			custom_effect_tooltip = KRAUS_trs_secured_tt
+			hidden_effect = { set_global_flag = KRAUS_trs_secured }
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority > 49 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 AUS = { has_country_flag = KRAUS_dc_won_HUN } }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value < -0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_imperial_hungary
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = KRAUS_HUN_imperial_gendarmes }
+		relative_position_id = KRAUS_HUN_path
+		x = -5
+		y = 4
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_imperial_hungary"
+			KRAUS_cl_toward_loyal = yes
+			add_political_power = 150
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority > 49 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 AUS = { has_country_flag = KRAUS_dc_won_HUN } }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value < -0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_tradition_1848
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = KRAUS_HUN_path }
+		relative_position_id = KRAUS_HUN_path
+		x = 5
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_tradition_1848"
+			KRAUS_cl_toward_autonomy = yes
+			add_political_power = 150
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority < 25 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < -1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 3 has_country_flag = KRAUS_dc_punished }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value > 0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_magyarization
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = KRAUS_HUN_tradition_1848 }
+		relative_position_id = KRAUS_HUN_path
+		x = 5
+		y = 2
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_magyarization"
+			KRAUS_cl_toward_autonomy = yes
+			custom_effect_tooltip = KRAUS_trs_secured_tt
+			hidden_effect = { set_global_flag = KRAUS_trs_secured }
+			every_owned_state = {
+				limit = { is_core_of = TRS }
+				add_dynamic_modifier = { modifier = KRAUS_trs_magyarization }
+			}
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority < 25 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < -1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 3 has_country_flag = KRAUS_dc_punished }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value > 0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_honved
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = KRAUS_HUN_magyarization }
+		relative_position_id = KRAUS_HUN_path
+		x = 5
+		y = 3
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_honved"
+			KRAUS_cl_toward_autonomy = yes
+			army_experience = 45
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority < 25 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < -1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 3 has_country_flag = KRAUS_dc_punished }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value > 0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_crown_autonomy
+		icon = GFX_focus_generic_self_management
+		prerequisite = { focus = KRAUS_HUN_honved }
+		relative_position_id = KRAUS_HUN_path
+		x = 5
+		y = 4
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_crown_autonomy"
+			KRAUS_cl_toward_autonomy = yes
+			add_war_support = 0.15
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority < 25 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < -1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 3 has_country_flag = KRAUS_dc_punished }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value > 0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_HUN_croatia_slavonia
+		icon = GFX_goal_generic_more_territorial_claims
+		prerequisite = { focus = KRAUS_HUN_ludovika }
+		relative_position_id = KRAUS_HUN_path
+		x = 0
+		y = 3
+		cost = 5
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+		}
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_HUN_croatia_slavonia"
+			custom_effect_tooltip = KRAUS_cl_dispute_tt
+			hidden_effect = { AUS = { country_event = { id = KRAUS_cl_dispute.4 days = 1 } } }
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+}

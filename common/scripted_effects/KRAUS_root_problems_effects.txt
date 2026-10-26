@@ -1,0 +1,190 @@
+############################################################
+### 奥地利的根深蒂固问题（2026-10-11 第二版）
+###
+### 仿 KR 印度 india_recovery：每条减益 6 级，每次缓解直接替换为下一级精神，
+### 提示里显示的就是「以 X 取代 Y」和数值变化。
+###   经济危机：最后一级需黑色星期一已经过去
+###   政治动荡：最后一级需皇权与秩序 ≥ 50
+###   军事弱势：无额外条件
+### 条件未满足时停在最后一级，条件满足后由每日检查自动移除。
+### 三条全部解决且完成「看不见的手」后，发放「王冠领地的和谐发展」。
+############################################################
+
+KRAUS_ease_economic_crisis = {
+	if = {
+		limit = { has_idea = aus_economic_crisis }
+		swap_ideas = { remove_idea = aus_economic_crisis add_idea = aus_economic_crisis_1h }
+	}
+	else_if = {
+		limit = { has_idea = aus_economic_crisis_1h }
+		swap_ideas = { remove_idea = aus_economic_crisis_1h add_idea = aus_economic_crisis_2 }
+	}
+	else_if = {
+		limit = { has_idea = aus_economic_crisis_2 }
+		swap_ideas = { remove_idea = aus_economic_crisis_2 add_idea = aus_economic_crisis_2h }
+	}
+	else_if = {
+		limit = { has_idea = aus_economic_crisis_2h }
+		swap_ideas = { remove_idea = aus_economic_crisis_2h add_idea = aus_economic_crisis_3 }
+	}
+	else_if = {
+		limit = { has_idea = aus_economic_crisis_3 }
+		swap_ideas = { remove_idea = aus_economic_crisis_3 add_idea = aus_economic_crisis_3h }
+	}
+	else_if = {
+		limit = { has_idea = aus_economic_crisis_3h NOT = { KRAUS_has_black_monday_trigger = yes } }
+		remove_ideas = aus_economic_crisis_3h
+		country_event = { id = KRAUS_root_events.1 days = 1 }
+	}
+	else_if = {
+		limit = { has_idea = aus_economic_crisis_3h }
+		custom_effect_tooltip = KRAUS_root_ecr_gate_tt
+		set_country_flag = KRAUS_root_ecr_ready
+	}
+}
+
+
+KRAUS_ease_military_weakness = {
+	if = {
+		limit = { has_idea = aus_military_weakness }
+		swap_ideas = { remove_idea = aus_military_weakness add_idea = aus_military_weakness_1h }
+	}
+	else_if = {
+		limit = { has_idea = aus_military_weakness_1h }
+		swap_ideas = { remove_idea = aus_military_weakness_1h add_idea = aus_military_weakness_2 }
+	}
+	else_if = {
+		limit = { has_idea = aus_military_weakness_2 }
+		swap_ideas = { remove_idea = aus_military_weakness_2 add_idea = aus_military_weakness_2h }
+	}
+	else_if = {
+		limit = { has_idea = aus_military_weakness_2h }
+		swap_ideas = { remove_idea = aus_military_weakness_2h add_idea = aus_military_weakness_3 }
+		country_lock_all_division_template = no
+		custom_effect_tooltip = KRAUS_military_unlock_tt
+	}
+	else_if = {
+		limit = { has_idea = aus_military_weakness_3 }
+		swap_ideas = { remove_idea = aus_military_weakness_3 add_idea = aus_military_weakness_3h }
+	}
+	else_if = {
+		limit = { has_idea = aus_military_weakness_3h }
+		remove_ideas = aus_military_weakness_3h
+		country_event = { id = KRAUS_root_events.1 days = 1 }
+	}
+}
+
+
+KRAUS_ease_political_instability = {
+	if = {
+		limit = { has_idea = aus_political_instability }
+		swap_ideas = { remove_idea = aus_political_instability add_idea = aus_political_instability_1h }
+	}
+	else_if = {
+		limit = { has_idea = aus_political_instability_1h }
+		swap_ideas = { remove_idea = aus_political_instability_1h add_idea = aus_political_instability_2 }
+	}
+	else_if = {
+		limit = { has_idea = aus_political_instability_2 }
+		swap_ideas = { remove_idea = aus_political_instability_2 add_idea = aus_political_instability_2h }
+	}
+	else_if = {
+		limit = { has_idea = aus_political_instability_2h }
+		swap_ideas = { remove_idea = aus_political_instability_2h add_idea = aus_political_instability_3 }
+	}
+	else_if = {
+		limit = { has_idea = aus_political_instability_3 }
+		swap_ideas = { remove_idea = aus_political_instability_3 add_idea = aus_political_instability_3h }
+	}
+	else_if = {
+		limit = { has_idea = aus_political_instability_3h check_variable = { KRAUS_imperial_authority > 49 } }
+		remove_ideas = aus_political_instability_3h
+		country_event = { id = KRAUS_root_events.1 days = 1 }
+	}
+	else_if = {
+		limit = { has_idea = aus_political_instability_3h }
+		custom_effect_tooltip = KRAUS_root_pol_gate_tt
+		set_country_flag = KRAUS_root_pol_ready
+	}
+}
+
+# 每日：收尾条件后来才满足时自动移除；三条全清时发放终态精神
+KRAUS_root_problems_update = {
+	if = {
+		limit = { has_country_flag = KRAUS_root_ecr_ready has_idea = aus_economic_crisis_3h NOT = { KRAUS_has_black_monday_trigger = yes } }
+		clr_country_flag = KRAUS_root_ecr_ready
+		remove_ideas = aus_economic_crisis_3h
+		country_event = { id = KRAUS_root_events.1 days = 1 }
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_root_pol_ready has_idea = aus_political_instability_3h check_variable = { KRAUS_imperial_authority > 49 } }
+		clr_country_flag = KRAUS_root_pol_ready
+		remove_ideas = aus_political_instability_3h
+		country_event = { id = KRAUS_root_events.1 days = 1 }
+	}
+}
+
+# 政治动荡加重一级（巴尔干失败等）；已消除时重新出现在最后一级
+KRAUS_worsen_political_instability = {
+	if = {
+		limit = { has_idea = aus_political_instability_1h }
+		swap_ideas = { remove_idea = aus_political_instability_1h add_idea = aus_political_instability }
+	}
+	else_if = {
+		limit = { has_idea = aus_political_instability_2 }
+		swap_ideas = { remove_idea = aus_political_instability_2 add_idea = aus_political_instability_1h }
+	}
+	else_if = {
+		limit = { has_idea = aus_political_instability_2h }
+		swap_ideas = { remove_idea = aus_political_instability_2h add_idea = aus_political_instability_2 }
+	}
+	else_if = {
+		limit = { has_idea = aus_political_instability_3 }
+		swap_ideas = { remove_idea = aus_political_instability_3 add_idea = aus_political_instability_2h }
+	}
+	else_if = {
+		limit = { has_idea = aus_political_instability_3h }
+		swap_ideas = { remove_idea = aus_political_instability_3h add_idea = aus_political_instability_3 }
+	}
+	else_if = {
+		limit = { NOT = { has_idea = aus_political_instability } }
+		add_ideas = aus_political_instability_3h
+	}
+}
+# 奥地利作用域：巴尔干火药桶整个清掉
+KRAUS_clear_powder_keg = {
+	remove_ideas = { aus_political_instability aus_political_instability_1h aus_political_instability_2 aus_political_instability_2h aus_political_instability_3 aus_political_instability_3h }
+}
+# 奥地利作用域：二战爆发时火药桶还没消除，就按当前档位变成 90 天的限时负面，到期自动消失
+KRAUS_powder_keg_timed = {
+	if = {
+		limit = { has_idea = aus_political_instability }
+		remove_ideas = aus_political_instability
+		add_timed_idea = { idea = aus_political_instability days = 90 }
+	}
+	if = {
+		limit = { has_idea = aus_political_instability_1h }
+		remove_ideas = aus_political_instability_1h
+		add_timed_idea = { idea = aus_political_instability_1h days = 90 }
+	}
+	if = {
+		limit = { has_idea = aus_political_instability_2 }
+		remove_ideas = aus_political_instability_2
+		add_timed_idea = { idea = aus_political_instability_2 days = 90 }
+	}
+	if = {
+		limit = { has_idea = aus_political_instability_2h }
+		remove_ideas = aus_political_instability_2h
+		add_timed_idea = { idea = aus_political_instability_2h days = 90 }
+	}
+	if = {
+		limit = { has_idea = aus_political_instability_3 }
+		remove_ideas = aus_political_instability_3
+		add_timed_idea = { idea = aus_political_instability_3 days = 90 }
+	}
+	if = {
+		limit = { has_idea = aus_political_instability_3h }
+		remove_ideas = aus_political_instability_3h
+		add_timed_idea = { idea = aus_political_instability_3h days = 90 }
+	}
+}

@@ -1,0 +1,48 @@
+############################################################
+### 四党团（2026-10-12 v2）：第一个被点的党成为主党（效果全额），其余效果减半。内部标志，界面上不再标"主/辅"。
+### 0.8.1：站队事件只触发一次（第一个被点的党团），并放进 hidden_effect，12 个国策的提示里不再重复显示。
+############################################################
+KRAUS_pp_mark_sd = {
+	if = {
+		limit = { NOT = { has_country_flag = KRAUS_pp_main_set } }
+		set_country_flag = KRAUS_pp_main_set
+		set_country_flag = KRAUS_pp_main_sd
+		hidden_effect = {
+			country_event = { id = KRAUS_pp_events.1 days = 2 }
+			country_event = { id = KRAUS_el2c.0 days = 10 }
+		}
+	}
+}
+KRAUS_pp_mark_cs = {
+	if = {
+		limit = { NOT = { has_country_flag = KRAUS_pp_main_set } }
+		set_country_flag = KRAUS_pp_main_set
+		set_country_flag = KRAUS_pp_main_cs
+		hidden_effect = {
+			country_event = { id = KRAUS_pp_events.2 days = 2 }
+			country_event = { id = KRAUS_el2c.0 days = 10 }
+		}
+	}
+}
+KRAUS_pp_mark_sl = {
+	if = {
+		limit = { NOT = { has_country_flag = KRAUS_pp_main_set } }
+		set_country_flag = KRAUS_pp_main_set
+		set_country_flag = KRAUS_pp_main_sl
+		hidden_effect = {
+			country_event = { id = KRAUS_pp_events.3 days = 2 }
+			country_event = { id = KRAUS_el2c.0 days = 10 }
+		}
+	}
+}
+KRAUS_pp_mark_ml = {
+	if = {
+		limit = { NOT = { has_country_flag = KRAUS_pp_main_set } }
+		set_country_flag = KRAUS_pp_main_set
+		set_country_flag = KRAUS_pp_main_ml
+		hidden_effect = {
+			country_event = { id = KRAUS_pp_events.4 days = 2 }
+			country_event = { id = KRAUS_el2c.0 days = 10 }
+		}
+	}
+}

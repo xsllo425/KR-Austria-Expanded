@@ -1,0 +1,151 @@
+add_namespace = KRAUS_pwr_events
+
+# 俄国：奥地利提议互不侵犯条约（ROOT = 俄国，FROM = 奥地利）
+country_event = {
+	id = KRAUS_pwr_events.1
+	title = KRAUS_pwr_events.1.t
+	desc = KRAUS_pwr_events.1.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	trigger = {
+		is_subject = no
+		NOT = { has_war_with = FROM }
+	}
+	option = {
+		name = KRAUS_pwr_events.1.a
+		log = "[GetLogInfo]: event KRAUS_pwr_events.1 option KRAUS_pwr_events.1.a"
+		ai_chance = { base = 60 }
+		diplomatic_relation = {
+			country = FROM
+			relation = non_aggression_pact
+			active = yes
+		}
+		FROM = {
+			add_ideas = KRAUS_pwr_moscow_pact
+			set_country_flag = KRAUS_ww2_ru_pact
+			country_event = { id = KRAUS_pwr_events.2 days = 1 }
+			country_event = { id = KRAUS_pwr_events.30 days = 540 random_days = 540 }
+		}
+	}
+	option = {
+		name = KRAUS_pwr_events.1.b
+		log = "[GetLogInfo]: event KRAUS_pwr_events.1 option KRAUS_pwr_events.1.b"
+		ai_chance = { base = 40 }
+		FROM = { country_event = { id = KRAUS_pwr_events.3 days = 1 } }
+	}
+}
+# 奥地利：俄国接受
+country_event = {
+	id = KRAUS_pwr_events.2
+	title = KRAUS_pwr_events.2.t
+	desc = KRAUS_pwr_events.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_pwr_events.2.a }
+}
+# 奥地利：俄国拒绝
+country_event = {
+	id = KRAUS_pwr_events.3
+	title = KRAUS_pwr_events.3.t
+	desc = KRAUS_pwr_events.3.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_pwr_events.3.a }
+}
+
+# 哥本哈根会议：奥地利已有协约国联络，可以做调停者（ROOT = 奥地利）
+country_event = {
+	id = KRAUS_pwr_events.10
+	title = KRAUS_pwr_events.10.t
+	desc = KRAUS_pwr_events.10.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_pwr_events.10.a
+		log = "[GetLogInfo]: event KRAUS_pwr_events.10 option KRAUS_pwr_events.10.a"
+		trigger = { has_political_power > 24 }
+		ai_chance = { base = 70 }
+		add_political_power = -25
+		add_named_threat = {
+			threat = -4
+			name = KRAUS_copenhagen_mediation
+		}
+		if = {
+			limit = { country_exists = GER }
+			GER = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship } }
+		}
+		if = {
+			limit = { country_exists = ENT }
+			ENT = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship } }
+		}
+	}
+	option = {
+		name = KRAUS_pwr_events.10.b
+		log = "[GetLogInfo]: event KRAUS_pwr_events.10 option KRAUS_pwr_events.10.b"
+		ai_chance = { base = 30 }
+		add_political_power = 10
+	}
+}
+
+# 第三国际密约被柏林察觉（ROOT = 奥地利）
+country_event = {
+	id = KRAUS_pwr_events.20
+	title = KRAUS_pwr_events.20.t
+	desc = KRAUS_pwr_events.20.d
+	picture = GFX_report_event_generic_diplomacy3
+	is_triggered_only = yes
+	trigger = {
+		has_idea = KRAUS_pwr_internationale_contact
+		country_exists = GER
+	}
+	option = {
+		name = KRAUS_pwr_events.20.a
+		log = "[GetLogInfo]: event KRAUS_pwr_events.20 option KRAUS_pwr_events.20.a"
+		ai_chance = { base = 50 }
+		random_list = {
+			40 = {
+				add_political_power = -10
+			}
+			60 = {
+				GER = { add_opinion_modifier = { target = ROOT modifier = KRAUS_pwr_betrayal } }
+				if = {
+					limit = { has_idea = KRAUS_pwr_ger_trade }
+					remove_ideas = KRAUS_pwr_ger_trade
+				}
+			}
+		}
+	}
+	option = {
+		name = KRAUS_pwr_events.20.b
+		log = "[GetLogInfo]: event KRAUS_pwr_events.20 option KRAUS_pwr_events.20.b"
+		ai_chance = { base = 50 }
+		add_stability = -0.02
+		GER = { add_opinion_modifier = { target = ROOT modifier = KRAUS_pwr_betrayal } }
+		if = {
+			limit = { has_idea = KRAUS_pwr_ger_trade }
+			remove_ideas = KRAUS_pwr_ger_trade
+		}
+	}
+}
+
+# 俄国撕毁互不侵犯条约（ROOT = 奥地利）
+country_event = {
+	id = KRAUS_pwr_events.30
+	title = KRAUS_pwr_events.30.t
+	desc = KRAUS_pwr_events.30.d
+	picture = GFX_report_event_generic_diplomacy3
+	is_triggered_only = yes
+	trigger = { has_idea = KRAUS_pwr_moscow_pact }
+	option = {
+		name = KRAUS_pwr_events.30.a
+		log = "[GetLogInfo]: event KRAUS_pwr_events.30 option KRAUS_pwr_events.30.a"
+		remove_ideas = KRAUS_pwr_moscow_pact
+		clr_country_flag = KRAUS_ww2_ru_pact
+		set_country_flag = KRAUS_ru_pact_broken
+		add_war_support = 0.03
+		if = {
+			limit = { country_exists = RUS }
+			RUS = { add_opinion_modifier = { target = ROOT modifier = KRAUS_pwr_betrayal } }
+		}
+	}
+}

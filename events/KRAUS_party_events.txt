@@ -1,0 +1,75 @@
+add_namespace = KRAUS_party_events
+
+# Flavour for the six government focuses (2026-10-11)
+
+country_event = {
+	id = KRAUS_party_events.1
+	title = KRAUS_party_events.1.t
+	desc = KRAUS_party_events.1.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_party_events.1.a
+		add_political_power = 10
+	}
+}
+
+country_event = {
+	id = KRAUS_party_events.2
+	title = KRAUS_party_events.2.t
+	desc = KRAUS_party_events.2.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_party_events.2.a
+		add_political_power = 10
+	}
+}
+
+country_event = {
+	id = KRAUS_party_events.3
+	title = KRAUS_party_events.3.t
+	desc = KRAUS_party_events.3.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_party_events.3.a
+		add_political_power = 10
+	}
+}
+
+country_event = {
+	id = KRAUS_party_events.4
+	title = KRAUS_party_events.4.t
+	desc = KRAUS_party_events.4.d
+	picture = GFX_report_event_generic_cabinet_meeting
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_party_events.4.a
+		add_political_power = 10
+	}
+}
+
+country_event = {
+	id = KRAUS_party_events.5
+	title = KRAUS_party_events.5.t
+	desc = KRAUS_party_events.5.d
+	picture = GFX_report_event_generic_farming
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_party_events.5.a
+		add_political_power = 10
+	}
+}
+
+country_event = {
+	id = KRAUS_party_events.6
+	title = KRAUS_party_events.6.t
+	desc = KRAUS_party_events.6.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_party_events.6.a
+		add_political_power = 10
+	}
+}

@@ -1,0 +1,134 @@
+add_namespace = KRAUS_danube_crisis
+
+# 战争爆发：被争取的王领响应维也纳（由 ausgleich_events.344.a 触发）
+country_event = {
+	id = KRAUS_danube_crisis.1
+	title = KRAUS_danube_crisis.1.t
+	desc = KRAUS_danube_crisis.1.d
+	picture = GFX_report_event_KRAUS_danube_crisis_1
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_danube_crisis.1.a
+		HUN = { set_rule = { can_not_declare_war = yes } }
+		custom_effect_tooltip = KRAUS_dc_hun_no_declare_tt
+		if = {
+			limit = { has_country_flag = KRAUS_dc_won_CZE country_exists = CZE }
+			if = {
+				limit = { NOT = { CZE = { is_subject_of = ROOT } } }
+				set_autonomy = { target = CZE autonomy_state = crownland end_wars = no }
+				if = { limit = { is_faction_leader = yes } add_to_faction = CZE }
+				CZE = { clr_country_flag = KRAUS_dc_released }
+			}
+			CZE = {
+				add_to_war = {
+					targeted_alliance = ROOT
+					enemy = HUN
+				}
+				hidden_effect = { add_civil_war_target = HUN }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_dc_won_GAL country_exists = GAL }
+			if = {
+				limit = { NOT = { GAL = { is_subject_of = ROOT } } }
+				set_autonomy = { target = GAL autonomy_state = crownland end_wars = no }
+				if = { limit = { is_faction_leader = yes } add_to_faction = GAL }
+				GAL = { clr_country_flag = KRAUS_dc_released }
+			}
+			GAL = {
+				add_to_war = {
+					targeted_alliance = ROOT
+					enemy = HUN
+				}
+				hidden_effect = { add_civil_war_target = HUN }
+			}
+		}
+		if = {
+			limit = { has_country_flag = KRAUS_dc_won_CRO country_exists = CRO }
+			if = {
+				limit = { NOT = { CRO = { is_subject_of = ROOT } } }
+				set_autonomy = { target = CRO autonomy_state = crownland end_wars = no }
+				if = { limit = { is_faction_leader = yes } add_to_faction = CRO }
+				CRO = { clr_country_flag = KRAUS_dc_released }
+			}
+			CRO = {
+				add_to_war = {
+					targeted_alliance = ROOT
+					enemy = HUN
+				}
+				hidden_effect = { add_civil_war_target = HUN }
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = KRAUS_dc_won_CZE }
+				NOT = { has_country_flag = KRAUS_dc_won_GAL }
+				NOT = { has_country_flag = KRAUS_dc_won_CRO }
+			}
+			custom_effect_tooltip = KRAUS_dc_none_join_tt
+		}
+	}
+}
+
+# 危机了结：独立出去的王领重新成为王冠领；若打过仗，未参战者受清算
+country_event = {
+	id = KRAUS_danube_crisis.2
+	title = KRAUS_danube_crisis.2.t
+	desc = KRAUS_danube_crisis.2.d
+	picture = GFX_report_event_KRAUS_danube_crisis_2
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_danube_crisis.2.a
+		if = {
+			limit = { country_exists = CZE CZE = { has_country_flag = KRAUS_dc_released } }
+			set_autonomy = { target = CZE autonomy_state = crownland end_wars = no }
+			if = { limit = { is_faction_leader = yes } add_to_faction = CZE }
+			CZE = { clr_country_flag = KRAUS_dc_released }
+			if = {
+				limit = { has_country_flag = KRAUS_dc_had_war }
+				CZE = { KRAUS_dc_punish_crownland = yes }
+			}
+		}
+		if = {
+			limit = { country_exists = GAL GAL = { has_country_flag = KRAUS_dc_released } }
+			set_autonomy = { target = GAL autonomy_state = crownland end_wars = no }
+			if = { limit = { is_faction_leader = yes } add_to_faction = GAL }
+			GAL = { clr_country_flag = KRAUS_dc_released }
+			if = {
+				limit = { has_country_flag = KRAUS_dc_had_war }
+				GAL = { KRAUS_dc_punish_crownland = yes }
+			}
+		}
+		if = {
+			limit = { country_exists = CRO CRO = { has_country_flag = KRAUS_dc_released } }
+			set_autonomy = { target = CRO autonomy_state = crownland end_wars = no }
+			if = { limit = { is_faction_leader = yes } add_to_faction = CRO }
+			CRO = { clr_country_flag = KRAUS_dc_released }
+			if = {
+				limit = { has_country_flag = KRAUS_dc_had_war }
+				CRO = { KRAUS_dc_punish_crownland = yes }
+			}
+		}
+		if = {
+			limit = { country_exists = SLO SLO = { has_country_flag = KRAUS_dc_released } }
+			set_autonomy = { target = SLO autonomy_state = crownland end_wars = no }
+			if = { limit = { is_faction_leader = yes } add_to_faction = SLO }
+			SLO = { clr_country_flag = KRAUS_dc_released }
+			if = {
+				limit = { has_country_flag = KRAUS_dc_had_war }
+				SLO = { KRAUS_dc_punish_crownland = yes }
+			}
+		}
+		if = {
+			limit = { country_exists = TRS TRS = { has_country_flag = KRAUS_dc_released } }
+			set_autonomy = { target = TRS autonomy_state = crownland end_wars = no }
+			if = { limit = { is_faction_leader = yes } add_to_faction = TRS }
+			TRS = { clr_country_flag = KRAUS_dc_released }
+			if = {
+				limit = { has_country_flag = KRAUS_dc_had_war }
+				TRS = { KRAUS_dc_punish_crownland = yes }
+			}
+		}
+		set_country_flag = KRAUS_dc_reckoning_done
+	}
+}

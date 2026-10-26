@@ -1,0 +1,1488 @@
+ideas = {
+
+	country = {
+		# ============================================================
+		# 日耳曼兄弟（德奥协同发展）—— 由「深化绑定」发放
+		#   叙事：德奥共同繁荣、亲如一家；为日后中欧同盟经济圈 / 帝国公约铺垫。
+		#   不叠加常规 BUFF，只有协同类效果。
+		# ============================================================
+		KRAUS_german_brotherhood = {
+			picture = KRAUS_german_brotherhood
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# —— 协同发展：两边一起把盘子做大 ——
+				production_speed_buildings_factor = 0.05
+				production_factory_max_efficiency_factor = 0.05
+				research_speed_factor = 0.03
+				# 与德国（及中欧同盟）的贸易与好感
+				trade_opinion_factor = 0.25
+				opinion_gain_monthly_factor = 0.1
+		}
+		}
+
+		# 共同繁荣（波西米亚）—— 未雨绸缪选定的小弟共享成果
+		KRAUS_common_prosperity_CZE = {
+			picture = KRAUS_common_prosperity_CZE
+			allowed = {
+				always = no
+			}
+			removal_cost = -1
+			modifier = {
+				# —— 复制自「德奥经济共同体」——
+				research_speed_factor = 0.05
+				production_speed_buildings_factor = 0.1
+				production_factory_max_efficiency_factor = 0.1
+				production_factory_efficiency_gain_factor = 0.05
+				industrial_capacity_factory = 0.05
+				consumer_goods_factor = -0.05
+				local_resources_factor = 0.05
+				# —— 复制自「帝国陆军重生」——
+				army_attack_factor = 0.1
+				army_defence_factor = 0.1
+				army_speed_factor = 0.1
+				army_org_factor = 0.1
+				planning_speed = 0.2
+				max_planning_factor = 0.1
+				combat_width_factor = -0.1
+				experience_loss_factor = -0.1
+				experience_gain_army_factor = 0.1
+				org_loss_when_moving = -0.1
+			}
+			equipment_bonus = {
+				armor = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					maximum_speed = 0.05
+					armor_value = 0.05
+					build_cost_ic = -0.1
+					breakthrough = 0.1
+				}
+				infantry_equipment = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					defense = 0.1
+					breakthrough = 0.1
+					build_cost_ic = -0.1
+				}
+			}
+		}
+		# 共同繁荣（伊利里亚）—— 未雨绸缪选定的小弟共享成果
+		KRAUS_common_prosperity_CRO = {
+			picture = KRAUS_common_prosperity_CRO
+			allowed = {
+				always = no
+			}
+			removal_cost = -1
+			modifier = {
+				# —— 复制自「德奥经济共同体」——
+				research_speed_factor = 0.05
+				production_speed_buildings_factor = 0.1
+				production_factory_max_efficiency_factor = 0.1
+				production_factory_efficiency_gain_factor = 0.05
+				industrial_capacity_factory = 0.05
+				consumer_goods_factor = -0.05
+				local_resources_factor = 0.05
+				# —— 复制自「帝国陆军重生」——
+				army_attack_factor = 0.1
+				army_defence_factor = 0.1
+				army_speed_factor = 0.1
+				army_org_factor = 0.1
+				planning_speed = 0.2
+				max_planning_factor = 0.1
+				combat_width_factor = -0.1
+				experience_loss_factor = -0.1
+				experience_gain_army_factor = 0.1
+				org_loss_when_moving = -0.1
+			}
+			equipment_bonus = {
+				armor = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					maximum_speed = 0.05
+					armor_value = 0.05
+					build_cost_ic = -0.1
+					breakthrough = 0.1
+				}
+				infantry_equipment = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					defense = 0.1
+					breakthrough = 0.1
+					build_cost_ic = -0.1
+				}
+			}
+		}
+		# 共同繁荣（加利西亚-洛多梅里亚）—— 未雨绸缪选定的小弟共享成果
+		KRAUS_common_prosperity_GAL = {
+			picture = KRAUS_common_prosperity_GAL
+			allowed = {
+				always = no
+			}
+			removal_cost = -1
+			modifier = {
+				# —— 复制自「德奥经济共同体」——
+				research_speed_factor = 0.05
+				production_speed_buildings_factor = 0.1
+				production_factory_max_efficiency_factor = 0.1
+				production_factory_efficiency_gain_factor = 0.05
+				industrial_capacity_factory = 0.05
+				consumer_goods_factor = -0.05
+				local_resources_factor = 0.05
+				# —— 复制自「帝国陆军重生」——
+				army_attack_factor = 0.1
+				army_defence_factor = 0.1
+				army_speed_factor = 0.1
+				army_org_factor = 0.1
+				planning_speed = 0.2
+				max_planning_factor = 0.1
+				combat_width_factor = -0.1
+				experience_loss_factor = -0.1
+				experience_gain_army_factor = 0.1
+				org_loss_when_moving = -0.1
+			}
+			equipment_bonus = {
+				armor = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					maximum_speed = 0.05
+					armor_value = 0.05
+					build_cost_ic = -0.1
+					breakthrough = 0.1
+				}
+				infantry_equipment = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					defense = 0.1
+					breakthrough = 0.1
+					build_cost_ic = -0.1
+				}
+			}
+		}
+		# 共同繁荣（斯洛伐克）—— 未雨绸缪选定的小弟共享成果
+		KRAUS_common_prosperity_SLO = {
+			picture = KRAUS_common_prosperity_GAL
+			allowed = {
+				always = no
+			}
+			removal_cost = -1
+			modifier = {
+				# —— 复制自「德奥经济共同体」——
+				research_speed_factor = 0.05
+				production_speed_buildings_factor = 0.1
+				production_factory_max_efficiency_factor = 0.1
+				production_factory_efficiency_gain_factor = 0.05
+				industrial_capacity_factory = 0.05
+				consumer_goods_factor = -0.05
+				local_resources_factor = 0.05
+				# —— 复制自「帝国陆军重生」——
+				army_attack_factor = 0.1
+				army_defence_factor = 0.1
+				army_speed_factor = 0.1
+				army_org_factor = 0.1
+				planning_speed = 0.2
+				max_planning_factor = 0.1
+				combat_width_factor = -0.1
+				experience_loss_factor = -0.1
+				experience_gain_army_factor = 0.1
+				org_loss_when_moving = -0.1
+			}
+			equipment_bonus = {
+				armor = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					maximum_speed = 0.05
+					armor_value = 0.05
+					build_cost_ic = -0.1
+					breakthrough = 0.1
+				}
+				infantry_equipment = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					defense = 0.1
+					breakthrough = 0.1
+					build_cost_ic = -0.1
+				}
+			}
+		}
+		# 共同繁荣（特兰西瓦尼亚）—— 未雨绸缪选定的小弟共享成果
+		KRAUS_common_prosperity_TRS = {
+			picture = KRAUS_common_prosperity_GAL
+			allowed = {
+				always = no
+			}
+			removal_cost = -1
+			modifier = {
+				# —— 复制自「德奥经济共同体」——
+				research_speed_factor = 0.05
+				production_speed_buildings_factor = 0.1
+				production_factory_max_efficiency_factor = 0.1
+				production_factory_efficiency_gain_factor = 0.05
+				industrial_capacity_factory = 0.05
+				consumer_goods_factor = -0.05
+				local_resources_factor = 0.05
+				# —— 复制自「帝国陆军重生」——
+				army_attack_factor = 0.1
+				army_defence_factor = 0.1
+				army_speed_factor = 0.1
+				army_org_factor = 0.1
+				planning_speed = 0.2
+				max_planning_factor = 0.1
+				combat_width_factor = -0.1
+				experience_loss_factor = -0.1
+				experience_gain_army_factor = 0.1
+				org_loss_when_moving = -0.1
+			}
+			equipment_bonus = {
+				armor = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					maximum_speed = 0.05
+					armor_value = 0.05
+					build_cost_ic = -0.1
+					breakthrough = 0.1
+				}
+				infantry_equipment = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					defense = 0.1
+					breakthrough = 0.1
+					build_cost_ic = -0.1
+				}
+			}
+		}
+		# 共同繁荣（匈牙利）—— 未雨绸缪选定的小弟共享成果
+		KRAUS_common_prosperity_HUN = {
+			picture = KRAUS_common_prosperity_HUN
+			allowed = {
+				always = no
+			}
+			removal_cost = -1
+			modifier = {
+				# —— 复制自「德奥经济共同体」——
+				research_speed_factor = 0.05
+				production_speed_buildings_factor = 0.1
+				production_factory_max_efficiency_factor = 0.1
+				production_factory_efficiency_gain_factor = 0.05
+				industrial_capacity_factory = 0.05
+				consumer_goods_factor = -0.05
+				local_resources_factor = 0.05
+				# —— 复制自「帝国陆军重生」——
+				army_attack_factor = 0.1
+				army_defence_factor = 0.1
+				army_speed_factor = 0.1
+				army_org_factor = 0.1
+				planning_speed = 0.2
+				max_planning_factor = 0.1
+				combat_width_factor = -0.1
+				experience_loss_factor = -0.1
+				experience_gain_army_factor = 0.1
+				org_loss_when_moving = -0.1
+			}
+			equipment_bonus = {
+				armor = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					maximum_speed = 0.05
+					armor_value = 0.05
+					build_cost_ic = -0.1
+					breakthrough = 0.1
+				}
+				infantry_equipment = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					defense = 0.1
+					breakthrough = 0.1
+					build_cost_ic = -0.1
+				}
+			}
+		}
+
+		# ============================================================
+		# 王冠归一（帝国内圈）—— 王领线「暗中布局」的终点精神
+		#   叙事：捷克、斯洛伐克、匈牙利真心归附，帝国重新成为一个整体。
+		#   注意：与「多瑙河的繁荣」（巴尔干线的和平红利）区分
+		#      —— 那个是和平红利，参战即消失；
+		#         这个是制度成果，永久保留。
+		# ============================================================
+
+
+		KRAUS_german_military_mission = {
+			picture = KRAUS_german_military_mission
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				experience_loss_factor = -0.2
+				max_command_power_mult = 0.2
+				# 最低训练程度：-10%（原为 +0.1，方向错了）
+				minimum_training_level = -0.1
+				command_power_gain_mult = 0.2
+			}
+		}
+
+		KRAUS_common_army_reborn = {
+    picture = KRAUS_common_army_reborn
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# —— 陆军师（装甲/步兵的单独加成全部合并到这里）——
+				army_attack_factor = 0.10
+				army_defence_factor = 0.10
+				army_speed_factor = 0.10
+				army_org_factor = 0.1
+				# —— 计划（速度增强到 +20%）——
+				planning_speed = 0.2
+				max_planning_factor = 0.1
+				# —— 合成兵种（合并自「宽大战线」）——
+				combat_width_factor = -0.1
+				experience_loss_factor = -0.1
+				experience_gain_army_factor = 0.1
+				# —— 新增：移动中组织度损失 -10% ——
+				org_loss_when_moving = -0.10
+			}
+			equipment_bonus = {
+				# 装甲：用装备大类 type = armor，一次覆盖轻/中/重/超重全部坦克底盘
+				#   （范本：KR common/ideas/USA ideas (United States).txt:784）
+				armor = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					maximum_speed = 0.05
+					armor_value = 0.05
+					build_cost_ic = -0.1
+					breakthrough = 0.1
+				}
+				infantry_equipment = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					defense = 0.1
+					breakthrough = 0.1
+					build_cost_ic = -0.1
+				}
+			}
+		}
+
+		KRAUS_eco_recovered = {
+			picture = KRAUS_eco_recovered
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			# 多瑙河的繁荣 = 和平红利。一旦开战，繁荣立刻蒸发。
+			# （idea 的 cancel 触发器：条件为真时自动移除。KR 里 461 个 idea 用 cancel，
+			#   其中 139 个含 has_war。范本：02 Central Asia ideas.txt:623）
+			cancel = {
+				has_war = yes
+			}
+			modifier = {
+				consumer_goods_factor = -0.08
+				industrial_capacity_factory = 0.1
+				production_speed_buildings_factor = 0.15
+			}
+		}
+
+		KRAUS_german_military_equipment = {
+    picture = KRAUS_german_military_equipment
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				planning_speed = 0.05
+				army_org_factor = 0.05
+				army_attack_factor = 0.05
+				army_defence_factor = 0.05
+				max_planning_factor = 0.05
+			}
+		}
+
+		KRAUS_german_military_armor = {
+    picture = KRAUS_german_military_armor
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.05
+				max_planning_factor = 0.05
+				army_armor_speed_factor = 0.05
+				army_armor_attack_factor = 0.08
+				army_armor_defence_factor = 0.08
+			}
+			equipment_bonus = {
+				armor = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					maximum_speed = 0.05
+					armor_value = 0.05
+					build_cost_ic = -0.1
+					breakthrough = 0.1
+				}
+			}
+		}
+
+		KRAUS_german_military_infantry = {
+    picture = KRAUS_german_military_infantry
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.05
+				army_infantry_attack_factor = 0.05
+				army_infantry_defence_factor = 0.05
+				planning_speed = 0.1
+				max_planning_factor = 0.1
+				experience_gain_army_factor = 0.1
+			}
+			equipment_bonus = {
+				infantry_equipment = {
+					instant = yes
+					reliability = 0.05
+					soft_attack = 0.1
+					defense = 0.1
+					breakthrough = 0.1
+					build_cost_ic = -0.1
+				}
+			}
+		}
+
+		KRAUS_german_military_combined = {
+    picture = KRAUS_german_military_combined
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.1
+				combat_width_factor = -0.1
+				experience_loss_factor = -0.1
+			}
+		}
+
+		KRAUS_german_capital_inflow = {
+    picture = KRAUS_german_capital_inflow
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# ── 经济线第 1 层（2026-09 数值重做）──
+				#   纯增益系统的起点。数值为「游戏内显示值」，非计算值。
+				#   基础生产效率 +10%
+				#   生产效率增长 +10%
+				production_factory_start_efficiency_factor = 0.10
+				production_factory_efficiency_gain_factor = 0.10
+			}
+		}
+
+		KRAUS_german_industrial_standard = {
+    picture = KRAUS_german_industrial_standard
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# ── 经济线第 2 层（2026-09 数值重做）──
+				#   第 1 层全部保留 + 本层新增：
+				#   基础生产效率 +10%（第1层）
+				#   生产效率增长 +10%（第1层）
+				#   生产上限     +10%（本层新增）
+				#   工厂产出     +10%（本层新增）
+				production_factory_start_efficiency_factor = 0.10
+				production_factory_efficiency_gain_factor = 0.10
+				production_factory_max_efficiency_factor = 0.10
+				industrial_capacity_factory = 0.10
+			}
+		}
+
+		KRAUS_german_economic_heavy = {
+    picture = KRAUS_german_economic_heavy
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# ── 经济线第 3 层·重工路线（2026-09 数值重做）──
+				#   第 1、2 层全部保留 + 本路线新增。
+				#   ⚠️ ② 和 ⑥ 与第 2 层重叠，此处为【手算合并后】的值：
+				#     ② 生产上限 = 标准化 10% + 重工 10% = 20%
+				#     ⑥ 工厂产出 = 标准化 10% + 重工 10% = 20%
+				#   （同一精神里不能写两行相同 modifier，必须合并）
+				production_factory_start_efficiency_factor = 0.10
+				production_factory_efficiency_gain_factor = 0.10
+				production_factory_max_efficiency_factor = 0.20
+				industrial_capacity_factory = 0.20
+				# 缺乏战略资源惩罚 -20%
+				production_lack_of_resource_penalty_factor = -0.20
+			}
+		}
+
+		KRAUS_german_economic_light = {
+    picture = KRAUS_german_economic_light
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# ── 经济线第 3 层·轻工路线（2026-09 数值重做）──
+				#   第 1、2 层全部保留 + 本路线新增。
+				#   本路线不与第 2 层重叠（② ⑥ 保持 10%）。
+				production_factory_start_efficiency_factor = 0.10
+				production_factory_efficiency_gain_factor = 0.10
+				production_factory_max_efficiency_factor = 0.10
+				industrial_capacity_factory = 0.10
+				# 轻工路线专属：
+				consumer_goods_factor = -0.15          # 生活消费品 -15%
+				research_speed_factor = 0.05           # 科研速度 +5%
+				supply_consumption_factor = -0.05      # 补给消耗 -5%
+				monthly_population = 0.20              # 每月人口 +20%
+				recruitable_population_factor = 0.05   # 可招募人口系数 +5%
+			}
+		}
+
+		KRAUS_german_economic_infrastructure = {
+    picture = KRAUS_german_economic_infrastructure
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# ── 经济线第 3 层·基建路线（2026-09 数值重做）──
+				#   第 1、2 层全部保留 + 本路线新增。
+				#   本路线不与第 2 层重叠（② ⑥ 保持 10%）。
+				production_factory_start_efficiency_factor = 0.10
+				production_factory_efficiency_gain_factor = 0.10
+				production_factory_max_efficiency_factor = 0.10
+				industrial_capacity_factory = 0.10
+				# 基建路线专属：
+				factory_energy_consumption = -0.05     # 工厂能源消耗 -5%
+				production_speed_buildings_factor = 0.10   # 建造速度 +10%
+				local_resources_factor = 0.10              # 战略资源 +10%
+				local_building_slots_factor = 0.10         # 地区最大工厂 +10%
+			}
+		}
+
+		KRAUS_arms_trade_profits = {
+			picture = KRAUS_arms_trade_profits
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.15
+				production_speed_buildings_factor = 0.15
+				# 地图外工厂：modifier 里这两个【只负责显示】，真正生效的在 on_add
+				# （范本：KR common/ideas/IRE ideas (Ireland).txt 的 offmap 范式）
+				offmap_military_factories_tooltip = 3
+				offmap_civilian_factories_tooltip = 3
+			}
+			# 真正加地图外工厂（KR 里 add_offsite_building 共 519 处；
+			#   offmap_military_factories 裸写 0 处 —— 那个 modifier 不存在）
+			on_add = {
+				add_offsite_building = { type = arms_factory level = 3 }
+				add_offsite_building = { type = industrial_complex level = 3 }
+			}
+			on_remove = {
+				add_offsite_building = { type = arms_factory level = -3 }
+				add_offsite_building = { type = industrial_complex level = -3 }
+			}
+		}
+
+		KRAUS_refugee_labour = {
+			picture = KRAUS_refugee_labour
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				mobilization_speed = 0.1
+				consumer_goods_factor = 0.05
+				production_speed_buildings_factor = 0.1
+			}
+		}
+
+		KRAUS_volunteer_act_idea = {
+    picture = KRAUS_volunteer_act
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				send_volunteer_size = 4
+				army_experience_from_volunteers = 0.5
+			}
+		}
+
+
+		aus_economic_crisis = {
+    picture = KRAUS_aus_economic_crisis
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				conscription_factor = -0.3
+				consumer_goods_factor = 0.3
+				industrial_capacity_factory = -0.3
+			}
+		}
+		# 2026-10-11 根深蒂固问题：中间级
+		aus_economic_crisis_1h = {
+			picture = KRAUS_aus_economic_crisis
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				conscription_factor = -0.25
+				consumer_goods_factor = 0.25
+				industrial_capacity_factory = -0.25
+			}
+		}
+
+		aus_political_instability = {
+			picture = KRAUS_aus_political_instability
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.3
+				war_support_factor = -0.3
+				political_power_cost = 0.3
+			}
+		}
+		# 2026-10-11 根深蒂固问题：中间级
+		aus_political_instability_1h = {
+			picture = KRAUS_aus_political_instability
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.25
+				war_support_factor = -0.25
+				political_power_cost = 0.25
+			}
+		}
+
+		aus_military_weakness = {
+			picture = KRAUS_aus_military_weakness
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				planning_speed = -0.3
+				army_morale_factor = -0.1
+				mobilization_speed = -0.3
+				land_reinforce_rate = -0.1
+				max_planning_factor = -0.3
+				cannot_call_allies_or_join_wars_except_subjects = 1
+				custom_modifier_tooltip = KRAUS_military_lock_tt
+			}
+		}
+		# 2026-10-11 根深蒂固问题：中间级
+		aus_military_weakness_1h = {
+			picture = KRAUS_aus_military_weakness
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				planning_speed = -0.25
+				army_morale_factor = -0.08
+				mobilization_speed = -0.25
+				land_reinforce_rate = -0.08
+				max_planning_factor = -0.25
+				cannot_call_allies_or_join_wars_except_subjects = 1
+				custom_modifier_tooltip = KRAUS_military_lock_tt
+			}
+		}
+
+		aus_military_weakness_2 = {
+			picture = KRAUS_aus_military_weakness
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				planning_speed = -0.2
+				army_morale_factor = -0.07
+				mobilization_speed = -0.2
+				land_reinforce_rate = -0.07
+				max_planning_factor = -0.2
+				cannot_call_allies_or_join_wars_except_subjects = 1
+				custom_modifier_tooltip = KRAUS_military_lock_tt
+			}
+		}
+		# 2026-10-11 根深蒂固问题：中间级
+		aus_military_weakness_2h = {
+			picture = KRAUS_aus_military_weakness
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				planning_speed = -0.15
+				army_morale_factor = -0.05
+				mobilization_speed = -0.15
+				land_reinforce_rate = -0.05
+				max_planning_factor = -0.15
+				cannot_call_allies_or_join_wars_except_subjects = 1
+				custom_modifier_tooltip = KRAUS_military_lock_tt
+			}
+		}
+
+		aus_military_weakness_3 = {
+			picture = KRAUS_aus_military_weakness
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				planning_speed = -0.1
+				army_morale_factor = -0.03
+				mobilization_speed = -0.1
+				land_reinforce_rate = -0.03
+				max_planning_factor = -0.1
+			}
+		}
+		# 2026-10-11 根深蒂固问题：中间级
+		aus_military_weakness_3h = {
+			picture = KRAUS_aus_military_weakness
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				planning_speed = -0.05
+				army_morale_factor = -0.02
+				mobilization_speed = -0.05
+				land_reinforce_rate = -0.02
+				max_planning_factor = -0.05
+			}
+		}
+
+		aus_economic_crisis_2 = {
+    picture = KRAUS_aus_economic_crisis
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# 王冠的重量 → +10% / -10% / +10%
+				conscription_factor = -0.20
+				consumer_goods_factor = 0.20
+				industrial_capacity_factory = -0.20
+			}
+		}
+		# 2026-10-11 根深蒂固问题：中间级
+		aus_economic_crisis_2h = {
+			picture = KRAUS_aus_economic_crisis
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				conscription_factor = -0.15
+				consumer_goods_factor = 0.15
+				industrial_capacity_factory = -0.15
+			}
+		}
+
+		aus_economic_crisis_3 = {
+    picture = KRAUS_aus_economic_crisis
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# 美泉宫的圆桌 (_2 -> _3)
+				#   swap_ideas 的游戏显示「效果变化」= 新值 - 旧值，
+				#   故要让游戏内显示 +10% / -10% / +10%：
+				#     征兵: -0.1 - (-0.20) = +0.10  -> 显示 +10%
+				#     消费品: 0.1 - 0.20   = -0.10  -> 显示 -10%
+				#     工厂: -0.1 - (-0.20) = +0.10  -> 显示 +10%
+				#   与「王冠的重量」的显示值一致。
+				conscription_factor = -0.1
+				consumer_goods_factor = 0.1
+				industrial_capacity_factory = -0.1
+			}
+		}
+		# 2026-10-11 根深蒂固问题：中间级
+		aus_economic_crisis_3h = {
+			picture = KRAUS_aus_economic_crisis
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				conscription_factor = -0.05
+				consumer_goods_factor = 0.05
+				industrial_capacity_factory = -0.05
+			}
+		}
+
+		aus_political_instability_2 = {
+			picture = KRAUS_aus_political_instability
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.2
+				war_support_factor = -0.2
+				political_power_cost = 0.2
+			}
+		}
+		# 2026-10-11 根深蒂固问题：中间级
+		aus_political_instability_2h = {
+			picture = KRAUS_aus_political_instability
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.15
+				war_support_factor = -0.15
+				political_power_cost = 0.15
+			}
+		}
+
+		aus_political_instability_3 = {
+			picture = KRAUS_aus_political_instability
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.1
+				war_support_factor = -0.1
+				political_power_cost = 0.1
+			}
+		}
+		# 2026-10-11 根深蒂固问题：中间级
+		aus_political_instability_3h = {
+			picture = KRAUS_aus_political_instability
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.05
+				war_support_factor = -0.05
+				political_power_cost = 0.05
+			}
+		}
+		# 2026-10-11 天平推到尽头：一方彻底胜出，天平锁定
+		KRAUS_renner_hegemony = {
+			picture = KRAUS_renner_hegemony
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.10
+				production_speed_industrial_complex_factor = 0.25
+				research_speed_factor = 0.07
+				monthly_population = 0.15
+				stability_factor = 0.05
+				war_support_factor = -0.10
+			}
+		}
+		KRAUS_miklas_hegemony = {
+			picture = KRAUS_miklas_hegemony
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.10
+				conscription_factor = 0.10
+				production_speed_arms_factory_factor = 0.25
+				command_power_gain_mult = 0.15
+				war_support_factor = 0.05
+				consumer_goods_factor = 0.05
+			}
+		}
+		# Crown crisis left unattended (180 days)
+		KRAUS_crown_eclipse = {
+			picture = KRAUS_crown_eclipse
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.10
+				political_power_factor = -0.15
+				war_support_factor = -0.05
+			}
+		}
+		# 王领线：共同的军队与人民
+		KRAUS_common_army_people = {
+			picture = KRAUS_common_army_people
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				monthly_population = 0.10
+				conscription_factor = 0.05
+				army_org_factor = 0.05
+				experience_gain_army_factor = 0.10
+				experience_gain_army_unit_factor = 0.10
+			}
+		}
+		# 黑一期间德国的经济援助（黑一结束即移除）
+		KRAUS_german_bm_aid_1 = {
+			picture = KRAUS_german_bm_aid
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.15
+				industrial_capacity_factory = 0.10
+				stability_factor = 0.05
+			}
+		}
+		KRAUS_german_bm_aid_2 = {
+			picture = KRAUS_german_bm_aid
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.25
+				industrial_capacity_factory = 0.20
+				production_factory_max_efficiency_factor = 0.10
+				stability_factor = 0.05
+			}
+		}
+		KRAUS_party_buff_1 = {
+			picture = KRAUS_party_buff_1
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				monthly_population = 0.05
+			}
+		}
+		KRAUS_party_buff_2 = {
+			picture = KRAUS_party_buff_2
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				political_power_factor = 0.05
+			}
+		}
+		KRAUS_party_buff_3 = {
+			picture = KRAUS_party_buff_3
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.10
+				war_support_factor = 0.03
+			}
+		}
+		KRAUS_party_buff_4 = {
+			picture = KRAUS_party_buff_4
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = 0.05
+			}
+		}
+		KRAUS_party_buff_5 = {
+			picture = KRAUS_party_buff_5
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				conscription_factor = 0.03
+			}
+		}
+		KRAUS_party_buff_6 = {
+			picture = KRAUS_party_buff_6
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				war_support_factor = 0.03
+			}
+		}
+		# 黑一彻底消除后（365 天）
+		KRAUS_bm_recovered = {
+			picture = KRAUS_bm_recovered
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.10
+				production_speed_buildings_factor = 0.10
+				consumer_goods_factor = -0.05
+				stability_factor = 0.05
+			}
+		}
+		# ══════════════════════════════════════════════════════
+		# 2026-10-23 黑一限期自救：多瑙河危机期限结算的三个精神
+		#
+		#   KRAUS_bm_overdue         逾期未解决 · 拖累（365 天）
+		#   KRAUS_bm_overdue_severe  逾期未解决 · 危机加硬（最惨层专用）
+		#   KRAUS_bm_relief          赶在危机前解决 · 喘息（365 天）
+		#
+		# ★ 三者都用 add_timed_idea 挂，到期自动移除；
+		#   removal_cost = -1 保证不会被玩家手动消掉。
+		# ★ picture 复用已有图标（gfx 见 interface/kraus_spirit_icons.gfx），
+		#   不新增贴图文件。
+		# ══════════════════════════════════════════════════════
+		KRAUS_bm_overdue = {
+			picture = KRAUS_aus_economic_crisis
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = -0.08
+				consumer_goods_factor = 0.05
+				stability_factor = -0.05
+				political_power_factor = -0.10
+			}
+		}
+		KRAUS_bm_overdue_severe = {
+			picture = KRAUS_aus_political_instability
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.10
+				war_support_factor = -0.10
+				political_power_gain = -0.15
+			}
+		}
+		# 2026-10-23 危机加硬：由认罚效果给予正在与奥地利交战的对手。
+		KRAUS_dc_hun_hardline = {
+			picture = KRAUS_joint_mil
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.10
+				army_defence_factor = 0.10
+				army_org_factor = 0.05
+				planning_speed = 0.15
+			}
+		}
+		KRAUS_bm_relief = {
+			picture = KRAUS_eco_recovered
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = 0.10
+				industrial_capacity_factory = 0.03
+			}
+		}
+		KRAUS_cw_legacy_1 = {
+			picture = KRAUS_cw_legacy
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.05
+				industrial_capacity_factory = 0.03
+				stability_factor = 0.02
+			}
+		}
+		KRAUS_cw_legacy_2 = {
+			picture = KRAUS_cw_legacy
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.1
+				industrial_capacity_factory = 0.05
+				stability_factor = 0.03
+			}
+		}
+		KRAUS_cw_legacy_3 = {
+			picture = KRAUS_cw_legacy
+			allowed = {
+				original_tag = AUS
+			}
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.15
+				industrial_capacity_factory = 0.08
+				stability_factor = 0.05
+			}
+		}
+
+
+
+		# ────────────────────────────────────────────────────────
+		# 王冠领地的和谐发展（王领线终点，取代「均衡发展的帝国经济」）
+		#   走完「反思我们的统治 → 帝国调解 → 暗中布局」后发放。
+		#   它本身就是正收益：王领真正并入帝国经济体系。
+		# ────────────────────────────────────────────────────────
+		KRAUS_crown_harmony = {
+			picture = KRAUS_crown_harmony
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.08
+				monthly_population = 0.08
+				stability_factor = 0.10
+				war_support_factor = 0.10
+				war_support_weekly = 0.0025
+				surrender_limit = 0.05
+				# 地区最大工厂数 +10%
+				local_building_slots_factor = 0.10
+			}
+		}
+		KRAUS_crown_harmony_2 = {
+			name = KRAUS_crown_harmony
+			picture = KRAUS_crown_harmony
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.16
+				monthly_population = 0.16
+				stability_factor = 0.2
+				war_support_factor = 0.2
+				war_support_weekly = 0.005
+				surrender_limit = 0.1
+				# 地区最大工厂数 +10%
+				local_building_slots_factor = 0.2
+			}
+		}
+
+		# ────────────────────────────────────────────────────────
+		# 制裁贝尔格莱德条约（给 SER / ROM 挂的减益）
+		#   原设计是「拆走对方工厂」，叙事上颠倒（贝约已与保加利亚开战，
+		#   不可能再去拆厂）。改为单纯的政治打击。
+		# ────────────────────────────────────────────────────────
+		KRAUS_sanctioned_by_austria = {
+    picture = KRAUS_sanctioned_by_austria
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.10
+				war_support_factor = -0.10
+			}
+		}
+
+		# ════════════════════════════════════════════════════════════
+		# 「德奥经济共同体」终态精神（2026-09 结构改造）
+		#
+		#   三条经济支线已改为互斥三选一，所以玩家到终态时身上只有
+		#   一个支线精神 + 资本输入 + 初步工业标准化。
+		#   终态国策把这几个都换成下面三者之一（按所选路线）。
+		#
+		#   ★★★ 数值待平衡 ★★★
+		#   目前数值暂与各自支线精神相同，仅作占位。
+		#
+		#   设计参考：_dev/plan4.py 的九项总量
+		#     ① 基础生产效率 +30%   ② 生产上限     +15%
+		#     ③ 生产效率增长 +30%   ④ 生活消费品   -30%
+		#     ⑤ 科研速度      +5%   ⑥ 工厂产出     +20%
+		#     ⑦ 建造速度     +20%   ⑧ 战略资源获取 +20%
+		#     ⑨ 地区最大工厂 +20%
+		#
+		#   三条路线强度应大致相当，或各有取舍。
+		#   调数值只改本文件，不用碰国策（国策只负责置换）。
+		# ════════════════════════════════════════════════════════════
+
+		# ── 基建路终态：多瑙河航道与南方铁路 → 德奥经济共同体 ──
+		KRAUS_cep_final_infra = {
+			picture = KRAUS_cep_infra
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# ── 经济线终态·基建（2026-09 数值重做）──
+				#   前 3 层全部保留；基建专属项【翻倍】。
+				#     工厂能源消耗  -5%  → -10%
+				#     建造速度     +10%  → +20%
+				#     战略资源     +10%  → +20%
+				#     地区最大工厂 +10%  → +20%
+				production_factory_start_efficiency_factor = 0.10
+				production_factory_efficiency_gain_factor = 0.10
+				production_factory_max_efficiency_factor = 0.10
+				industrial_capacity_factory = 0.10
+				factory_energy_consumption = -0.10
+				production_speed_buildings_factor = 0.20
+				local_resources_factor = 0.20
+				local_building_slots_factor = 0.20
+			}
+		}
+
+		# ── 重工路终态：鲁尔区模式 → 德奥经济共同体 ──
+		KRAUS_cep_final_heavy = {
+			picture = KRAUS_cep_heavy
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# ── 经济线终态·重工（2026-09 数值重做）──
+				#   前 3 层全部保留；重工专属项【翻倍】。
+				#   ⚠️ ② 和 ⑥ 三层累加，手算结果：
+				#     ② 生产上限 = 标准化 10% + 重工 10% + 终态翻倍 10% = 30%
+				#     ⑥ 工厂产出 = 标准化 10% + 重工 10% + 终态翻倍 10% = 30%
+				#     缺乏战略资源惩罚：-20% → -40%
+				production_factory_start_efficiency_factor = 0.10
+				production_factory_efficiency_gain_factor = 0.10
+				production_factory_max_efficiency_factor = 0.30
+				industrial_capacity_factory = 0.30
+				production_lack_of_resource_penalty_factor = -0.40
+			}
+		}
+
+		# ── 轻工路终态：维也纳消费品工业 → 德奥经济共同体 ──
+		KRAUS_cep_final_light = {
+			picture = KRAUS_cep_light
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# ── 经济线终态·轻工（2026-09 数值重做）──
+				#   前 3 层全部保留；轻工专属项【翻倍】。
+				#     生活消费品 -15% → -30%
+				#     科研速度    +5% → +10%
+				#     补给消耗    -5% → -10%
+				#     每月人口   +20% → +40%
+				#     可招募人口  +5% → +10%
+				#   注意：轻工路线不给工厂产出，此处保持 10%（来自第 2 层）
+				production_factory_start_efficiency_factor = 0.10
+				production_factory_efficiency_gain_factor = 0.10
+				production_factory_max_efficiency_factor = 0.10
+				industrial_capacity_factory = 0.10
+				consumer_goods_factor = -0.30
+				research_speed_factor = 0.10
+				supply_consumption_factor = -0.10
+				monthly_population = 0.40
+				recruitable_population_factor = 0.10
+			}
+		}
+
+
+		# ════════════════════════════════════════════════════════════
+		# 【2026-09 新增】德国版「德奥经济共同体」—— 减半数值
+		#
+		#   发放位置：国策 KRAUS_german_deep_binding（从多瑙河到莱茵河）
+		#   逻辑：按奥地利所选的经济路线，给德国对应的一半效果。
+		#        德奥共同繁荣，不是奥地利单方面获益。
+		#
+		#   数值 = 对应 KRAUS_cep_final_* 的一半（已手算写死）：
+		#     基建：①+5% ③+5% ②+5% ⑥+5%　⚡-5%　⑦+10% ⑧+10% ⑨+10%
+		#     重工：①+5% ③+5% ②+15% ⑥+15%　缺乏资源惩罚-20%
+		#     轻工：①+5% ③+5% ②+5% ⑥+5%　④-15% ⑤+5% 补给-5% 人口+20% 可招募+5%
+		# ════════════════════════════════════════════════════════════
+
+		# ── 德国版·基建路线的一半 ──
+		KRAUS_cep_germany_infra = {
+			picture = KRAUS_cep_infra
+			removal_cost = -1
+			modifier = {
+				production_factory_start_efficiency_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.05
+				production_factory_max_efficiency_factor = 0.05
+				industrial_capacity_factory = 0.05
+				factory_energy_consumption = -0.05
+				production_speed_buildings_factor = 0.10
+				local_resources_factor = 0.10
+				local_building_slots_factor = 0.10
+			}
+		}
+
+		# ── 德国版·重工路线的一半 ──
+		KRAUS_cep_germany_heavy = {
+			picture = KRAUS_cep_heavy
+			removal_cost = -1
+			modifier = {
+				production_factory_start_efficiency_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.05
+				production_factory_max_efficiency_factor = 0.15
+				industrial_capacity_factory = 0.15
+				production_lack_of_resource_penalty_factor = -0.20
+			}
+		}
+
+		# ── 德国版·轻工路线的一半 ──
+		KRAUS_cep_germany_light = {
+			picture = KRAUS_cep_light
+			removal_cost = -1
+			modifier = {
+				production_factory_start_efficiency_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.05
+				production_factory_max_efficiency_factor = 0.05
+				industrial_capacity_factory = 0.05
+				consumer_goods_factor = -0.15
+				research_speed_factor = 0.05
+				supply_consumption_factor = -0.05
+				monthly_population = 0.20
+				recruitable_population_factor = 0.05
+			}
+		}
+
+
+		# ────────────────────────────────────────────────────────
+		# 帝国协同发展协定已取消独立精神
+		#   （原 KRAUS_imperial_accord_home / _vassal 两个 id 已删除）。
+		#   现由「看不见的手」发放 KRAUS_crown_harmony 给奥地利本部，
+		#   并由事件 KRAUS_court_events.14 让选定的试点辖区共享同一个精神。
+		# ────────────────────────────────────────────────────────
+
+		# ── 【2026-09 新增】巴塔工业合作（临时精神，365 天）──
+		#   由「布拉格的橄榄枝」发放（add_timed_idea，365 天）。
+		#   叙事：捷克工业巨头巴塔（Baťa）把生产线与管理经验带进帝国。
+		#   数值：生活消费品 -15%，基础生产效率 +10%，生产效率增长 +10%
+		KRAUS_bata_industrial_cooperation = {
+			picture = KRAUS_bata_industrial_cooperation
+			allowed = {
+				original_tag = AUS
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.15
+				production_factory_start_efficiency_factor = 0.10
+				production_factory_efficiency_gain_factor = 0.10
+			}
+		}
+}
+}
+

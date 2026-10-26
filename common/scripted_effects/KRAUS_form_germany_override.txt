@@ -1,0 +1,9 @@
+# 0.9 V2：和会吞并事件（annexation_events.1003/1004/1006）的「吞并」选项不再让奥地利变成「德意志」。
+# 覆盖 KR 的 AUS_form_germany：不改国家外观，只在南德意志各州留下宣称，其余由扶植附庸、邀请入盟等路线处理。
+AUS_form_germany = {
+	custom_effect_tooltip = KRAUS_no_form_germany_tt
+	every_state = {
+		limit = { is_south_germany = yes }
+		add_claim_of_ROOT = yes
+	}
+}

@@ -1,0 +1,124 @@
+############################################################
+### 合众国路线第 4 批：战时政策决议（皇帝与四党各一条，每 180 天可再提一次）。本文件由 gen_war.py 生成。
+############################################################
+KRAUS_polmap_category = {
+	KRAUS_pm_warpol_emp = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_country_flag = KRAUS_pm_war_begun
+			NOT = { has_global_flag = second_weltkrieg_has_ended }
+			has_country_flag = KRAUS_pm_emperor_on
+		}
+		cost = 50
+		days_re_enable = 180
+		complete_effect = {
+			log = "[GetLogRoot]: Decision complete KRAUS_pm_warpol_emp"
+			add_timed_idea = { days = 180 idea = KRAUS_pm_warpol_emp }
+			custom_effect_tooltip = KRAUS_pm_pullto_emp_dec_tt
+			hidden_effect = {
+				set_temp_variable = { var = KRAUS_pm_in_frac value = 0.05 }
+				KRAUS_pm_pull_emperor = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	KRAUS_pm_warpol_sd = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_country_flag = KRAUS_pm_war_begun
+			NOT = { has_global_flag = second_weltkrieg_has_ended }
+		}
+		cost = 50
+		days_re_enable = 180
+		complete_effect = {
+			log = "[GetLogRoot]: Decision complete KRAUS_pm_warpol_sd"
+			add_timed_idea = { days = 180 idea = KRAUS_pm_warpol_sd }
+			custom_effect_tooltip = KRAUS_pm_pullto_sd_dec_tt
+			hidden_effect = {
+				set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+				set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+				set_temp_variable = { var = KRAUS_pm_in_frac value = 0.04 }
+				KRAUS_pm_pull = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	KRAUS_pm_warpol_cs = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_country_flag = KRAUS_pm_war_begun
+			NOT = { has_global_flag = second_weltkrieg_has_ended }
+		}
+		cost = 50
+		days_re_enable = 180
+		complete_effect = {
+			log = "[GetLogRoot]: Decision complete KRAUS_pm_warpol_cs"
+			add_timed_idea = { days = 180 idea = KRAUS_pm_warpol_cs }
+			custom_effect_tooltip = KRAUS_pm_pullto_cs_dec_tt
+			hidden_effect = {
+				set_temp_variable = { var = KRAUS_pm_in_tx value = 20 }
+				set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+				set_temp_variable = { var = KRAUS_pm_in_frac value = 0.04 }
+				KRAUS_pm_pull = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	KRAUS_pm_warpol_sl = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_country_flag = KRAUS_pm_war_begun
+			NOT = { has_global_flag = second_weltkrieg_has_ended }
+		}
+		cost = 50
+		days_re_enable = 180
+		complete_effect = {
+			log = "[GetLogRoot]: Decision complete KRAUS_pm_warpol_sl"
+			add_timed_idea = { days = 180 idea = KRAUS_pm_warpol_sl }
+			custom_effect_tooltip = KRAUS_pm_pullto_sl_dec_tt
+			hidden_effect = {
+				set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+				set_temp_variable = { var = KRAUS_pm_in_ty value = 80 }
+				set_temp_variable = { var = KRAUS_pm_in_frac value = 0.04 }
+				KRAUS_pm_pull = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	KRAUS_pm_warpol_ml = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_country_flag = KRAUS_pm_war_begun
+			NOT = { has_global_flag = second_weltkrieg_has_ended }
+		}
+		cost = 50
+		days_re_enable = 180
+		complete_effect = {
+			log = "[GetLogRoot]: Decision complete KRAUS_pm_warpol_ml"
+			add_timed_idea = { days = 180 idea = KRAUS_pm_warpol_ml }
+			custom_effect_tooltip = KRAUS_pm_pullto_ml_dec_tt
+			hidden_effect = {
+				set_temp_variable = { var = KRAUS_pm_in_tx value = 80 }
+				set_temp_variable = { var = KRAUS_pm_in_ty value = 20 }
+				set_temp_variable = { var = KRAUS_pm_in_frac value = 0.04 }
+				KRAUS_pm_pull = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

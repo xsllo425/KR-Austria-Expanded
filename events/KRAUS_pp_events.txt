@@ -1,0 +1,111 @@
+add_namespace = KRAUS_pp_events
+
+# 主党确定：sd
+country_event = {
+	id = KRAUS_pp_events.1
+	title = KRAUS_pp_events.1.t
+	desc = KRAUS_pp_events.1.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_pp_events.1.a
+		log = "[GetLogInfo]: event KRAUS_pp_events.1 option KRAUS_pp_events.1.a"
+		add_stability = 0.02
+	}
+}
+# 主党确定：cs
+country_event = {
+	id = KRAUS_pp_events.2
+	title = KRAUS_pp_events.2.t
+	desc = KRAUS_pp_events.2.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_pp_events.2.a
+		log = "[GetLogInfo]: event KRAUS_pp_events.2 option KRAUS_pp_events.2.a"
+		add_stability = 0.02
+	}
+}
+# 主党确定：sl
+country_event = {
+	id = KRAUS_pp_events.3
+	title = KRAUS_pp_events.3.t
+	desc = KRAUS_pp_events.3.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_pp_events.3.a
+		log = "[GetLogInfo]: event KRAUS_pp_events.3 option KRAUS_pp_events.3.a"
+		add_stability = 0.02
+	}
+}
+# 主党确定：ml
+country_event = {
+	id = KRAUS_pp_events.4
+	title = KRAUS_pp_events.4.t
+	desc = KRAUS_pp_events.4.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_pp_events.4.a
+		log = "[GetLogInfo]: event KRAUS_pp_events.4 option KRAUS_pp_events.4.a"
+		add_stability = 0.02
+	}
+}
+
+# 纲领走完：sd
+country_event = {
+	id = KRAUS_pp_events.11
+	title = KRAUS_pp_events.11.t
+	desc = KRAUS_pp_events.11.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_pp_events.11.a
+		log = "[GetLogInfo]: event KRAUS_pp_events.11 option KRAUS_pp_events.11.a"
+		add_political_power = 10
+	}
+}
+
+# 纲领走完：cs
+country_event = {
+	id = KRAUS_pp_events.12
+	title = KRAUS_pp_events.12.t
+	desc = KRAUS_pp_events.12.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_pp_events.12.a
+		log = "[GetLogInfo]: event KRAUS_pp_events.12 option KRAUS_pp_events.12.a"
+		add_political_power = 10
+	}
+}
+
+# 纲领走完：sl
+country_event = {
+	id = KRAUS_pp_events.13
+	title = KRAUS_pp_events.13.t
+	desc = KRAUS_pp_events.13.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_pp_events.13.a
+		log = "[GetLogInfo]: event KRAUS_pp_events.13 option KRAUS_pp_events.13.a"
+		add_political_power = 10
+	}
+}
+
+# 纲领走完：ml
+country_event = {
+	id = KRAUS_pp_events.14
+	title = KRAUS_pp_events.14.t
+	desc = KRAUS_pp_events.14.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_pp_events.14.a
+		log = "[GetLogInfo]: event KRAUS_pp_events.14 option KRAUS_pp_events.14.a"
+		add_political_power = 10
+	}
+}
+

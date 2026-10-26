@@ -1,0 +1,151 @@
+add_namespace = KRAUS_golden_danube_policy
+
+# 2026-10-11: rewritten as plain two-way choices with native effects (no cost variables)
+
+country_event = {
+    id = KRAUS_golden_danube_policy.1
+    title = KRAUS_golden_danube_policy.1.t
+    desc = KRAUS_golden_danube_policy.1.d
+    picture = GFX_report_event_generic_factory
+    is_triggered_only = yes
+    fire_only_once = yes
+    trigger = { original_tag = AUS NOT = { has_country_flag = KRAUS_golden_danube_policy_1_resolved } }
+    immediate = { set_country_flag = KRAUS_golden_danube_policy_1_queued }
+    option = {
+        name = KRAUS_golden_danube_policy.1.a
+        set_country_flag = KRAUS_golden_danube_policy_1_resolved
+        clr_country_flag = KRAUS_golden_danube_policy_1_queued
+        add_stability = 0.03
+    }
+    option = {
+        name = KRAUS_golden_danube_policy.1.b
+        set_country_flag = KRAUS_golden_danube_policy_1_resolved
+        clr_country_flag = KRAUS_golden_danube_policy_1_queued
+        add_political_power = 40
+        KRAUS_bop_push_renner_05 = yes
+    }
+}
+
+country_event = {
+    id = KRAUS_golden_danube_policy.2
+    title = KRAUS_golden_danube_policy.2.t
+    desc = KRAUS_golden_danube_policy.2.d
+    picture = GFX_report_event_generic_factory
+    is_triggered_only = yes
+    fire_only_once = yes
+    trigger = { original_tag = AUS NOT = { has_country_flag = KRAUS_golden_danube_policy_2_resolved } }
+    immediate = { set_country_flag = KRAUS_golden_danube_policy_2_queued }
+    option = {
+        name = KRAUS_golden_danube_policy.2.a
+        set_country_flag = KRAUS_golden_danube_policy_2_resolved
+        clr_country_flag = KRAUS_golden_danube_policy_2_queued
+        KRAUS_link_civ_factory = yes
+        KRAUS_bop_push_miklas_05 = yes
+    }
+    option = {
+        name = KRAUS_golden_danube_policy.2.b
+        set_country_flag = KRAUS_golden_danube_policy_2_resolved
+        clr_country_flag = KRAUS_golden_danube_policy_2_queued
+        add_political_power = 50
+    }
+}
+
+country_event = {
+    id = KRAUS_golden_danube_policy.3
+    title = KRAUS_golden_danube_policy.3.t
+    desc = KRAUS_golden_danube_policy.3.d
+    picture = GFX_report_event_generic_factory
+    is_triggered_only = yes
+    fire_only_once = yes
+    trigger = { original_tag = AUS NOT = { has_country_flag = KRAUS_golden_danube_policy_3_resolved } }
+    immediate = { set_country_flag = KRAUS_golden_danube_policy_3_queued }
+    option = {
+        name = KRAUS_golden_danube_policy.3.a
+        set_country_flag = KRAUS_golden_danube_policy_3_resolved
+        clr_country_flag = KRAUS_golden_danube_policy_3_queued
+        KRAUS_bop_push_renner_10 = yes
+        KRAUS_imperial_loss_5 = yes
+    }
+    option = {
+        name = KRAUS_golden_danube_policy.3.b
+        set_country_flag = KRAUS_golden_danube_policy_3_resolved
+        clr_country_flag = KRAUS_golden_danube_policy_3_queued
+        KRAUS_imperial_gain = yes
+        add_stability = 0.02
+    }
+}
+
+country_event = {
+    id = KRAUS_golden_danube_policy.4
+    title = KRAUS_golden_danube_policy.4.t
+    desc = KRAUS_golden_danube_policy.4.d
+    picture = GFX_report_event_generic_factory
+    is_triggered_only = yes
+    fire_only_once = yes
+    trigger = { original_tag = AUS NOT = { has_country_flag = KRAUS_golden_danube_policy_4_resolved } }
+    immediate = { set_country_flag = KRAUS_golden_danube_policy_4_queued }
+    option = {
+        name = KRAUS_golden_danube_policy.4.a
+        set_country_flag = KRAUS_golden_danube_policy_4_resolved
+        clr_country_flag = KRAUS_golden_danube_policy_4_queued
+        KRAUS_imperial_gain = yes
+        add_stability = 0.02
+    }
+    option = {
+        name = KRAUS_golden_danube_policy.4.b
+        set_country_flag = KRAUS_golden_danube_policy_4_resolved
+        clr_country_flag = KRAUS_golden_danube_policy_4_queued
+        add_political_power = 50
+        add_stability = -0.02
+    }
+}
+
+country_event = {
+    id = KRAUS_golden_danube_policy.5
+    title = KRAUS_golden_danube_policy.5.t
+    desc = KRAUS_golden_danube_policy.5.d
+    picture = GFX_report_event_generic_factory
+    is_triggered_only = yes
+    fire_only_once = yes
+    trigger = { original_tag = AUS NOT = { has_country_flag = KRAUS_golden_danube_policy_5_resolved } }
+    immediate = { set_country_flag = KRAUS_golden_danube_policy_5_queued }
+    option = {
+        name = KRAUS_golden_danube_policy.5.a
+        set_country_flag = KRAUS_golden_danube_policy_5_resolved
+        clr_country_flag = KRAUS_golden_danube_policy_5_queued
+        add_stability = 0.02
+        KRAUS_bop_push_renner_05 = yes
+    }
+    option = {
+        name = KRAUS_golden_danube_policy.5.b
+        set_country_flag = KRAUS_golden_danube_policy_5_resolved
+        clr_country_flag = KRAUS_golden_danube_policy_5_queued
+        add_tech_bonus = { name = KRAUS_golden_danube_policy.5.b bonus = 0.5 uses = 1 category = construction_tech }
+        KRAUS_bop_push_miklas_05 = yes
+    }
+}
+
+country_event = {
+    id = KRAUS_golden_danube_policy.6
+    title = KRAUS_golden_danube_policy.6.t
+    desc = KRAUS_golden_danube_policy.6.d
+    picture = GFX_report_event_generic_factory
+    is_triggered_only = yes
+    fire_only_once = yes
+    trigger = { original_tag = AUS NOT = { has_country_flag = KRAUS_golden_danube_policy_6_resolved } }
+    immediate = { set_country_flag = KRAUS_golden_danube_policy_6_queued }
+    option = {
+        name = KRAUS_golden_danube_policy.6.a
+        set_country_flag = KRAUS_golden_danube_policy_6_resolved
+        clr_country_flag = KRAUS_golden_danube_policy_6_queued
+        add_stability = 0.03
+        KRAUS_bop_push_renner_05 = yes
+    }
+    option = {
+        name = KRAUS_golden_danube_policy.6.b
+        set_country_flag = KRAUS_golden_danube_policy_6_resolved
+        clr_country_flag = KRAUS_golden_danube_policy_6_queued
+        KRAUS_imperial_gain = yes
+        KRAUS_bop_push_miklas_05 = yes
+    }
+}

@@ -1,0 +1,34 @@
+KRAUS_crown_crisis_deep = {
+    icon = "GFX_modifier_KRAUS_sm_crown_crisis"
+    remove_trigger = { NOT = { KRAUS_crown_crisis_state_eligible = yes } }
+    state_production_speed_buildings_factor = -0.35
+    local_manpower = -0.2
+}
+
+KRAUS_crown_crisis_heavy = {
+    icon = "GFX_modifier_KRAUS_sm_crown_crisis"
+    remove_trigger = { NOT = { KRAUS_crown_crisis_state_eligible = yes } }
+    state_production_speed_buildings_factor = -0.22
+    local_manpower = -0.13
+}
+
+KRAUS_crown_crisis_moderate = {
+    icon = "GFX_modifier_KRAUS_sm_crown_crisis"
+    remove_trigger = { NOT = { KRAUS_crown_crisis_state_eligible = yes } }
+    state_production_speed_buildings_factor = -0.12
+    local_manpower = -0.07
+}
+
+KRAUS_crown_crisis_light = {
+    icon = "GFX_modifier_KRAUS_sm_crown_crisis"
+    remove_trigger = { NOT = { KRAUS_crown_crisis_state_eligible = yes } }
+    state_production_speed_buildings_factor = -0.05
+    local_manpower = -0.03
+}
+
+KRAUS_crown_crisis_recovery = {
+    icon = "GFX_modifier_KRAUS_crown_recovery"
+    remove_trigger = { NOT = { KRAUS_crown_crisis_state_eligible = yes } }
+    state_production_speed_buildings_factor = 0.1
+    local_manpower = 0.05
+}

@@ -1,0 +1,57 @@
+############################################################
+### 帝国议会的重心：决议栏面板（2026-10-13 样板）
+### 写法参照 KR：决议分类挂面板（BUL/GER 的 context_type = decision_category），
+### 按变量摆放图标（00 state of interest scripted gui.txt 的 properties x/y）。
+############################################################
+scripted_gui = {
+	KRAUS_polmap_sg = {
+		context_type = decision_category
+		window_name = "KRAUS_polmap_window"
+
+		triggers = {
+			KRAUS_polmap_emperor_visible = {
+				has_country_flag = KRAUS_pm_emperor_on
+			}
+			KRAUS_polmap_ring_s_visible = {
+				has_country_flag = KRAUS_pm_comp_low
+			}
+			KRAUS_polmap_ring_m_visible = {
+				NOT = { has_country_flag = KRAUS_pm_comp_low }
+				NOT = { has_country_flag = KRAUS_pm_comp_high }
+			}
+			KRAUS_polmap_law_visible = {
+				has_country_flag = KRAUS_pm_charter_open
+				NOT = { has_country_flag = KRAUS_pm_postwar_done }
+			}
+			KRAUS_polmap_law_text_visible = {
+				has_country_flag = KRAUS_pm_charter_open
+				NOT = { has_country_flag = KRAUS_pm_postwar_done }
+			}
+			KRAUS_polmap_ring_l_visible = {
+				has_country_flag = KRAUS_pm_comp_high
+			}
+		}
+
+		properties = {
+			KRAUS_polmap_law = {
+				frame = KRAUS_pm_law_frame?1
+			}
+			KRAUS_polmap_dot = {
+				x = KRAUS_pm_dot_px?243
+				y = KRAUS_pm_dot_py?198
+			}
+			KRAUS_polmap_ring_s = {
+				x = KRAUS_pm_ring_px?143
+				y = KRAUS_pm_ring_py?98
+			}
+			KRAUS_polmap_ring_m = {
+				x = KRAUS_pm_ring_px?111
+				y = KRAUS_pm_ring_py?66
+			}
+			KRAUS_polmap_ring_l = {
+				x = KRAUS_pm_ring_px?63
+				y = KRAUS_pm_ring_py?18
+			}
+		}
+	}
+}

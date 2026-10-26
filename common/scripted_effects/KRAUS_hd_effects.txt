@@ -1,0 +1,39 @@
+############################################################
+### 哈布斯堡外交遗产（2026-10-12）：「列强的邀请」给盟友部分（每个盟友 +1% 政治点数），「多瑙河之外」给附庸部分（每个附庸多贡献 1% 工业）
+############################################################
+KRAUS_hd_recalc = {
+	set_variable = { KRAUS_hd_n = 0 }
+	every_other_country = {
+		limit = {
+			is_subject = no
+			OR = {
+				is_in_faction_with = ROOT
+				is_ally_with = ROOT
+			}
+		}
+		ROOT = { add_to_variable = { KRAUS_hd_n = 1 } }
+	}
+	set_variable = { KRAUS_hd_pp = KRAUS_hd_n }
+	multiply_variable = { KRAUS_hd_pp = 0.01 }
+	if = {
+		limit = { has_country_flag = KRAUS_hd_doubled }
+		multiply_variable = { KRAUS_hd_pp = 2 }
+	}
+}
+
+# 「多瑙河之外」给的部分：每个附庸（任意形式）多贡献 1% 工业
+KRAUS_hd_sub_recalc = {
+	every_subject_country = {
+		limit = { NOT = { has_idea = KRAUS_hd_subject } }
+		add_ideas = KRAUS_hd_subject
+	}
+}
+
+# 哈布斯堡世界帝国：外交遗产的效果翻倍（每个盟友 +1% 变为 +2%）
+KRAUS_hd_double = {
+	custom_effect_tooltip = KRAUS_hd_double_tt
+	hidden_effect = {
+		set_country_flag = KRAUS_hd_doubled
+		KRAUS_hd_recalc = yes
+	}
+}

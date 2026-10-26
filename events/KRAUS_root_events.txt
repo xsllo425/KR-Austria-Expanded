@@ -1,0 +1,140 @@
+add_namespace = KRAUS_root_events
+
+# 某条根深蒂固的问题被彻底解决（由 KRAUS_root_problems_update 触发）
+country_event = {
+	id = KRAUS_root_events.1
+	title = KRAUS_root_events.1.t
+	desc = KRAUS_root_events.1.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_root_events.1.a
+	}
+}
+
+# 三条全部解决 → 王冠领地的和谐发展
+country_event = {
+	id = KRAUS_root_events.2
+	title = KRAUS_root_events.2.t
+	desc = KRAUS_root_events.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_root_events.2.a
+		effect_tooltip = { add_ideas = KRAUS_crown_harmony }
+	}
+}
+
+# 皇权与秩序：开局第 3 天启用（由 KRAUS_on_actions 派发一次）
+country_event = {
+	id = KRAUS_root_events.10
+	title = KRAUS_root_events.10.t
+	desc = KRAUS_root_events.10.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = KRAUS_root_events.10.a
+		set_country_flag = KRAUS_imperial_authority_ready
+		KRAUS_imperial_authority_init = yes
+		custom_effect_tooltip = KRAUS_root_events.10.a_tt
+	}
+}
+
+# Crown crisis: fired every 90 days while Crown and Order < 25 (KRAUS_on_actions)
+country_event = {
+	id = KRAUS_root_events.20
+	title = KRAUS_root_events.20.t
+	desc = KRAUS_root_events.20.d
+	picture = GFX_report_event_generic_riot
+	is_triggered_only = yes
+	trigger = { check_variable = { KRAUS_imperial_authority < 25 } }
+	option = {
+		name = KRAUS_root_events.20.a
+		KRAUS_imperial_gain_15 = yes
+		add_stability = -0.05
+		KRAUS_bop_push_miklas_10 = yes
+	}
+	option = {
+		name = KRAUS_root_events.20.b
+		KRAUS_imperial_gain_10 = yes
+		add_political_power = -75
+	}
+	option = {
+		name = KRAUS_root_events.20.c
+		add_timed_idea = { idea = KRAUS_crown_eclipse days = 180 }
+	}
+}
+
+# Germany helps through Black Monday (KRAUS_on_actions, daily check)
+country_event = {
+	id = KRAUS_root_events.30
+	title = KRAUS_root_events.30.t
+	desc = KRAUS_root_events.30.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	trigger = { NOT = { has_idea = KRAUS_german_bm_aid_1 } NOT = { has_idea = KRAUS_german_bm_aid_2 } }
+	option = {
+		name = KRAUS_root_events.30.a
+		if = {
+			limit = { has_completed_focus = KRAUS_german_central_european_prosperity }
+			add_ideas = KRAUS_german_bm_aid_2
+		}
+		else = {
+			add_ideas = KRAUS_german_bm_aid_1
+		}
+		custom_effect_tooltip = KRAUS_german_bm_aid_tt
+	}
+}
+country_event = {
+	id = KRAUS_root_events.31
+	title = KRAUS_root_events.31.t
+	desc = KRAUS_root_events.31.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	trigger = { has_idea = KRAUS_german_bm_aid_1 }
+	option = {
+		name = KRAUS_root_events.31.a
+		swap_ideas = { remove_idea = KRAUS_german_bm_aid_1 add_idea = KRAUS_german_bm_aid_2 }
+		custom_effect_tooltip = KRAUS_german_bm_aid_tt
+	}
+}
+country_event = {
+	id = KRAUS_root_events.32
+	title = KRAUS_root_events.32.t
+	desc = KRAUS_root_events.32.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	trigger = { OR = { has_idea = KRAUS_german_bm_aid_1 has_idea = KRAUS_german_bm_aid_2 } }
+	option = {
+		name = KRAUS_root_events.32.a
+		if = { limit = { has_idea = KRAUS_german_bm_aid_1 } remove_ideas = KRAUS_german_bm_aid_1 }
+		if = { limit = { has_idea = KRAUS_german_bm_aid_2 } remove_ideas = KRAUS_german_bm_aid_2 }
+	}
+}
+
+# 王冠的重量：四分五裂的王冠领与皇帝的作用
+country_event = {
+	id = KRAUS_root_events.41
+	title = KRAUS_root_events.41.t
+	desc = KRAUS_root_events.41.d
+	picture = GFX_report_event_generic_cabinet_meeting
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_root_events.41.a
+	}
+}
+
+# 共同的军队与人民：新兵宣誓
+country_event = {
+	id = KRAUS_root_events.40
+	title = KRAUS_root_events.40.t
+	desc = KRAUS_root_events.40.d
+	picture = GFX_report_event_generic_army
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_root_events.40.a
+		army_experience = 10
+		add_war_support = 0.02
+	}
+}

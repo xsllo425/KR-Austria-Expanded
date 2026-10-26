@@ -1,0 +1,228 @@
+# KRAUS 原创事件图 / 新闻图（37 张，PNG，沿用 KR 做法不转 DDS）
+# 事件图 210x176 灰度带倾斜投影；新闻图 397x153 灰度
+
+spriteTypes = {
+
+	# KRAUS_balkan_events.40
+	spriteType = {
+		name = "GFX_report_event_KRAUS_balkan_events_40"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_balkan_events_40.png"
+	}
+
+	# KRAUS_balkan_events.70
+	spriteType = {
+		name = "GFX_report_event_KRAUS_balkan_events_70"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_balkan_events_70.png"
+	}
+
+	# KRAUS_civwar_events.1
+	spriteType = {
+		name = "GFX_report_event_KRAUS_civwar_events_1"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_civwar_events_1.png"
+	}
+
+	# KRAUS_civwar_events.2
+	spriteType = {
+		name = "GFX_report_event_KRAUS_civwar_events_2"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_civwar_events_2.png"
+	}
+
+	# KRAUS_danube_crisis.1
+	spriteType = {
+		name = "GFX_report_event_KRAUS_danube_crisis_1"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_danube_crisis_1.png"
+	}
+
+	# KRAUS_danube_crisis.2
+	spriteType = {
+		name = "GFX_report_event_KRAUS_danube_crisis_2"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_danube_crisis_2.png"
+	}
+
+	# KRAUS_echo.1
+	spriteType = {
+		name = "GFX_report_event_KRAUS_echo_1"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_echo_1.png"
+	}
+
+	# KRAUS_el2c.0
+	spriteType = {
+		name = "GFX_report_event_KRAUS_el2c_0"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_el2c_0.png"
+	}
+
+	# KRAUS_election2.2
+	spriteType = {
+		name = "GFX_report_event_KRAUS_election2_2"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_election2_2.png"
+	}
+
+	# KRAUS_pm_crisis.1
+	spriteType = {
+		name = "GFX_report_event_KRAUS_pm_crisis_1"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_pm_crisis_1.png"
+	}
+
+	# KRAUS_pm_crisis.2
+	spriteType = {
+		name = "GFX_report_event_KRAUS_pm_crisis_2"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_pm_crisis_2.png"
+	}
+
+	# KRAUS_pm_post.1
+	spriteType = {
+		name = "GFX_report_event_KRAUS_pm_post_1"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_pm_post_1.png"
+	}
+
+	# KRAUS_pol_aid.1
+	spriteType = {
+		name = "GFX_report_event_KRAUS_pol_aid_1"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_pol_aid_1.png"
+	}
+
+	# KRAUS_rel_events.1
+	spriteType = {
+		name = "GFX_report_event_KRAUS_rel_events_1"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_rel_events_1.png"
+	}
+
+	# KRAUS_rel_events.2
+	spriteType = {
+		name = "GFX_report_event_KRAUS_rel_events_2"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_rel_events_2.png"
+	}
+
+	# KRAUS_rel_events.3
+	spriteType = {
+		name = "GFX_report_event_KRAUS_rel_events_3"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_rel_events_3.png"
+	}
+
+	# KRAUS_route_events.1
+	spriteType = {
+		name = "GFX_report_event_KRAUS_route_events_1"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_route_events_1.png"
+	}
+
+	# KRAUS_tomorrow_events.1
+	spriteType = {
+		name = "GFX_report_event_KRAUS_tomorrow_events_1"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_tomorrow_events_1.png"
+	}
+
+	# KRAUS_tomorrow_events.10
+	spriteType = {
+		name = "GFX_report_event_KRAUS_tomorrow_events_10"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_tomorrow_events_10.png"
+	}
+
+	# KRAUS_tomorrow_events.5
+	spriteType = {
+		name = "GFX_report_event_KRAUS_tomorrow_events_5"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_tomorrow_events_5.png"
+	}
+
+	# KRAUS_ukr_aid.1
+	spriteType = {
+		name = "GFX_report_event_KRAUS_ukr_aid_1"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_ukr_aid_1.png"
+	}
+
+	# KRAUS_leader_intro.1
+	spriteType = {
+		name = "GFX_report_event_KRAUS_leader_intro_1"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_leader_intro_1.png"
+	}
+
+	# KRAUS_leader_intro.2
+	spriteType = {
+		name = "GFX_report_event_KRAUS_leader_intro_2"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_leader_intro_2.png"
+	}
+
+	# KRAUS_leader_intro.3
+	spriteType = {
+		name = "GFX_report_event_KRAUS_leader_intro_3"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_leader_intro_3.png"
+	}
+
+	# KRAUS_pp_coal.1
+	spriteType = {
+		name = "GFX_report_event_KRAUS_pp_coal_1"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_pp_coal_1.png"
+	}
+
+	# KRAUS_pp_coal.2
+	spriteType = {
+		name = "GFX_report_event_KRAUS_pp_coal_2"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_pp_coal_2.png"
+	}
+
+	# KRAUS_pp_coal.3
+	spriteType = {
+		name = "GFX_report_event_KRAUS_pp_coal_3"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_pp_coal_3.png"
+	}
+
+	# KRAUS_pp_coal.4
+	spriteType = {
+		name = "GFX_report_event_KRAUS_pp_coal_4"
+		texturefile = "gfx/event_pictures/KRAUS/GFX_report_event_KRAUS_pp_coal_4.png"
+	}
+
+	# KRAUS_news_events.1
+	spriteType = {
+		name = "GFX_news_event_KRAUS_news_events_1"
+		texturefile = "gfx/event_news_pictures/KRAUS/GFX_news_event_KRAUS_news_events_1.png"
+	}
+
+	# KRAUS_news_events.2
+	spriteType = {
+		name = "GFX_news_event_KRAUS_news_events_2"
+		texturefile = "gfx/event_news_pictures/KRAUS/GFX_news_event_KRAUS_news_events_2.png"
+	}
+
+	# KRAUS_news_events.3
+	spriteType = {
+		name = "GFX_news_event_KRAUS_news_events_3"
+		texturefile = "gfx/event_news_pictures/KRAUS/GFX_news_event_KRAUS_news_events_3.png"
+	}
+
+	# KRAUS_news_events.4
+	spriteType = {
+		name = "GFX_news_event_KRAUS_news_events_4"
+		texturefile = "gfx/event_news_pictures/KRAUS/GFX_news_event_KRAUS_news_events_4.png"
+	}
+
+	# KRAUS_news_events.5
+	spriteType = {
+		name = "GFX_news_event_KRAUS_news_events_5"
+		texturefile = "gfx/event_news_pictures/KRAUS/GFX_news_event_KRAUS_news_events_5.png"
+	}
+
+	# KRAUS_news_events.6
+	spriteType = {
+		name = "GFX_news_event_KRAUS_news_events_6"
+		texturefile = "gfx/event_news_pictures/KRAUS/GFX_news_event_KRAUS_news_events_6.png"
+	}
+
+	# KRAUS_news_events.7
+	spriteType = {
+		name = "GFX_news_event_KRAUS_news_events_7"
+		texturefile = "gfx/event_news_pictures/KRAUS/GFX_news_event_KRAUS_news_events_7.png"
+	}
+
+	# KRAUS_news_events.8
+	spriteType = {
+		name = "GFX_news_event_KRAUS_news_events_8"
+		texturefile = "gfx/event_news_pictures/KRAUS/GFX_news_event_KRAUS_news_events_8.png"
+	}
+
+	# KRAUS_news_events.9
+	spriteType = {
+		name = "GFX_news_event_KRAUS_news_events_9"
+		texturefile = "gfx/event_news_pictures/KRAUS/GFX_news_event_KRAUS_news_events_9.png"
+	}
+
+}

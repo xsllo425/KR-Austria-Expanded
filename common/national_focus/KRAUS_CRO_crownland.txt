@@ -1,0 +1,336 @@
+### KRAUS 王冠领国策树：CRO（2026-10-12，AI 向）。设计：王领政治树设计_伊利里亚与匈牙利。
+### 忠诚与自主两条分支不互斥，各推一档「王冠领地位」；另挂共同经济树、共同军事树。
+focus_tree = {
+	id = KRAUS_CRO_focus
+	country = {
+		factor = 0
+		modifier = { add = 100 original_tag = CRO }
+	}
+	default = no
+	continuous_focus_position = { x = 50 y = 1200 }
+	shared_focus = AUS_eco_council
+	shared_focus = AUS_military_expansion
+
+	focus = {
+		id = KRAUS_CRO_path
+		icon = GFX_goal_generic_national_unity
+		x = 6
+		y = 0
+		cost = 3
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_path"
+			add_political_power = 150
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_unity_road
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = KRAUS_CRO_path }
+		relative_position_id = KRAUS_CRO_path
+		x = -2
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_unity_road"
+			109 = { add_building_construction = { type = infrastructure level = 2 instant_build = yes } }
+			104 = { add_building_construction = { type = infrastructure level = 2 instant_build = yes } }
+			163 = { add_building_construction = { type = infrastructure level = 2 instant_build = yes } }
+			build_railway = { level = 1 start_state = 109 target_state = 104 }
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_dalmatian_bauxite
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = KRAUS_CRO_path }
+		relative_position_id = KRAUS_CRO_path
+		x = 0
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_dalmatian_bauxite"
+			add_resource = { type = aluminium amount = 8 state = 163 }
+			163 = { add_extra_state_shared_building_slots = 2 }
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_illyrian_academy
+		icon = GFX_goal_generic_scientific_exchange
+		prerequisite = { focus = KRAUS_CRO_path }
+		relative_position_id = KRAUS_CRO_path
+		x = 2
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_illyrian_academy"
+			add_stability = 0.09
+			add_tech_bonus = { name = KRAUS_CRO_illyrian_academy bonus = 1 uses = 1 category = industry }
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_rijeka_yard
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = KRAUS_CRO_dalmatian_bauxite }
+		relative_position_id = KRAUS_CRO_path
+		x = -1
+		y = 2
+		cost = 5
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_rijeka_yard"
+			103 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = dockyard level = 2 instant_build = yes }
+			}
+			navy_experience = 30
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_two_scripts
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = KRAUS_CRO_dalmatian_bauxite }
+		relative_position_id = KRAUS_CRO_path
+		x = 1
+		y = 2
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_two_scripts"
+			add_stability = 0.15
+		}
+		ai_will_do = {
+			base = 12
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_emperors_illyria
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = KRAUS_CRO_path }
+		relative_position_id = KRAUS_CRO_path
+		x = -5
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_emperors_illyria"
+			KRAUS_cl_toward_loyal = yes
+			add_political_power = 150
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority > 49 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 AUS = { has_country_flag = KRAUS_dc_won_CRO } }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value < -0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_croat_serb_coalition
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = KRAUS_CRO_emperors_illyria }
+		relative_position_id = KRAUS_CRO_path
+		x = -5
+		y = 2
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_croat_serb_coalition"
+			KRAUS_cl_toward_loyal = yes
+			add_stability = 0.09
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority > 49 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 AUS = { has_country_flag = KRAUS_dc_won_CRO } }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value < -0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_stepinac_church
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = KRAUS_CRO_croat_serb_coalition }
+		relative_position_id = KRAUS_CRO_path
+		x = -5
+		y = 3
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_stepinac_church"
+			KRAUS_cl_toward_loyal = yes
+			add_stability = 0.09
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority > 49 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 AUS = { has_country_flag = KRAUS_dc_won_CRO } }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value < -0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_imperial_illyria
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = KRAUS_CRO_stepinac_church }
+		relative_position_id = KRAUS_CRO_path
+		x = -5
+		y = 4
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_imperial_illyria"
+			KRAUS_cl_toward_loyal = yes
+			add_political_power = 150
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority > 49 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score > 1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 AUS = { has_country_flag = KRAUS_dc_won_CRO } }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value < -0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_radic_peasants
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = KRAUS_CRO_path }
+		relative_position_id = KRAUS_CRO_path
+		x = 5
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_radic_peasants"
+			KRAUS_cl_toward_autonomy = yes
+			add_political_power = 150
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority < 25 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < -1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 3 has_country_flag = KRAUS_dc_punished }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value > 0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_croatian_command
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = KRAUS_CRO_radic_peasants }
+		relative_position_id = KRAUS_CRO_path
+		x = 5
+		y = 2
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_croatian_command"
+			KRAUS_cl_toward_autonomy = yes
+			army_experience = 45
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority < 25 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < -1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 3 has_country_flag = KRAUS_dc_punished }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value > 0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_dragojlov_mountaineers
+		icon = GFX_goal_generic_special_forces
+		prerequisite = { focus = KRAUS_CRO_croatian_command }
+		relative_position_id = KRAUS_CRO_path
+		x = 5
+		y = 3
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_dragojlov_mountaineers"
+			KRAUS_cl_toward_autonomy = yes
+			add_ideas = KRAUS_CRO_mountain_training
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority < 25 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < -1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 3 has_country_flag = KRAUS_dc_punished }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value > 0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_south_slav_autonomy
+		icon = GFX_focus_generic_self_management
+		prerequisite = { focus = KRAUS_CRO_dragojlov_mountaineers }
+		relative_position_id = KRAUS_CRO_path
+		x = 5
+		y = 4
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_south_slav_autonomy"
+			KRAUS_cl_toward_autonomy = yes
+			add_war_support = 0.15
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 1.5 AUS = { check_variable = { KRAUS_imperial_authority < 25 } } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < 0 } }
+			modifier = { factor = 2 check_variable = { KRAUS_cl_treat_score < -1 } }
+			modifier = { factor = 0.5 check_variable = { KRAUS_cl_treat_score > 0 } }
+			modifier = { factor = 3 has_country_flag = KRAUS_dc_punished }
+			modifier = { factor = 1.5 AUS = { has_power_balance = { id = KRAUS_regime_balance } power_balance_value = { id = KRAUS_regime_balance value > 0.2 } } }
+		}
+	}
+	focus = {
+		id = KRAUS_CRO_backa
+		icon = GFX_goal_generic_more_territorial_claims
+		prerequisite = { focus = KRAUS_CRO_two_scripts }
+		relative_position_id = KRAUS_CRO_path
+		x = 0
+		y = 3
+		cost = 5
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+		}
+		completion_reward = {
+			log = "[GetDateText]: Focus Completed KRAUS_CRO_backa"
+			custom_effect_tooltip = KRAUS_cl_dispute_tt
+			hidden_effect = { AUS = { country_event = { id = KRAUS_cl_dispute.3 days = 1 } } }
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+}

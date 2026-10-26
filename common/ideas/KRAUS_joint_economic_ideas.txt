@@ -1,0 +1,172 @@
+############################################################
+### 共同经济树（2026-10-12）：王冠领精神「多瑙河共同建设」I-V（逐级累计）
+############################################################
+ideas = {
+	country = {
+		KRAUS_joint_econ_spirit_1 = {
+			picture = KRAUS_joint_econ
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.03
+				production_speed_buildings_factor = 0.05
+			}
+		}
+		KRAUS_joint_econ_spirit_2 = {
+			picture = KRAUS_joint_econ
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.03
+				research_speed_factor = 0.03
+				production_speed_buildings_factor = 0.05
+			}
+		}
+		KRAUS_joint_econ_spirit_3 = {
+			picture = KRAUS_joint_econ
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.03
+				research_speed_factor = 0.03
+				production_speed_buildings_factor = 0.05
+				local_resources_factor = 0.1
+			}
+		}
+		KRAUS_joint_econ_spirit_4 = {
+			picture = KRAUS_joint_econ
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.03
+				research_speed_factor = 0.03
+				production_speed_buildings_factor = 0.1
+				production_factory_max_efficiency_factor = 0.05
+				local_resources_factor = 0.1
+			}
+		}
+		KRAUS_joint_econ_spirit_5 = {
+			picture = KRAUS_joint_econ
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.05
+				industrial_capacity_factory = 0.05
+				research_speed_factor = 0.03
+				production_speed_buildings_factor = 0.1
+				production_factory_max_efficiency_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.1
+				industry_free_repair_factor = 0.1
+				local_resources_factor = 0.1
+			}
+		}
+		KRAUS_joint_econ_spirit_6 = {
+			picture = KRAUS_joint_econ
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.05
+				industrial_capacity_factory = 0.05
+				research_speed_factor = 0.08
+				production_speed_buildings_factor = 0.1
+				production_factory_max_efficiency_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.1
+				industry_free_repair_factor = 0.1
+				local_resources_factor = 0.1
+			}
+		}
+		KRAUS_joint_econ_spirit_7 = {
+			picture = KRAUS_joint_econ
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.05
+				industrial_capacity_factory = 0.05
+				research_speed_factor = 0.08
+				production_speed_buildings_factor = 0.2
+				production_speed_infrastructure_factor = 0.2
+				production_factory_max_efficiency_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.1
+				industry_free_repair_factor = 0.1
+				local_resources_factor = 0.1
+			}
+		}
+		KRAUS_joint_econ_spirit_8 = {
+			picture = KRAUS_joint_econ
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.05
+				industrial_capacity_factory = 0.05
+				research_speed_factor = 0.08
+				production_speed_buildings_factor = 0.2
+				production_speed_infrastructure_factor = 0.2
+				production_factory_max_efficiency_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.1
+				industry_free_repair_factor = 0.1
+				local_resources_factor = 0.2
+				production_lack_of_resource_penalty_factor = -0.15
+			}
+		}
+		KRAUS_joint_econ_spirit_9 = {
+			picture = KRAUS_joint_econ
+			allowed = {
+				OR = { original_tag = CZE original_tag = GAL original_tag = CRO original_tag = HUN original_tag = SLO original_tag = TRS }
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.05
+				industrial_capacity_factory = 0.1
+				research_speed_factor = 0.11
+				production_speed_buildings_factor = 0.2
+				production_speed_infrastructure_factor = 0.2
+				production_factory_max_efficiency_factor = 0.1
+				production_factory_efficiency_gain_factor = 0.1
+				industry_free_repair_factor = 0.1
+				local_resources_factor = 0.2
+				production_lack_of_resource_penalty_factor = -0.15
+			}
+		}
+	}
+}
+ideas = {
+	country = {
+	}
+}
+
+ideas = {
+	country = {
+		KRAUS_jm_intel = {
+			picture = generic_intel_bonus
+			removal_cost = -1
+			modifier = {
+				decryption_factor = 0.10
+				intel_network_gain_factor = 0.15
+			}
+		}
+		KRAUS_jm_war_ministry = {
+			picture = generic_army_war_college
+			removal_cost = -1
+			modifier = {
+				command_power_gain_mult = 0.10
+				army_org_factor = 0.03
+			}
+		}
+	}
+}

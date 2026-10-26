@@ -1,0 +1,71 @@
+############################################################
+### 设立新王冠领（2026-10-12）：由「设立斯洛伐克 / 特兰西瓦尼亚王冠领」决议调用。
+### 写法照 KR「拥抱多元主义」：先把匈牙利手里带核心的州划给奥地利，再用 KR 的 release_targeted_tag 释放为附庸，设为王冠领。
+############################################################
+# 奥地利作用域：设立SLO王冠领
+KRAUS_found_do_SLO = {
+	HUN = {
+		add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_backed_claim }
+		hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = -2 } }
+	}
+	hidden_effect = {
+		every_state = {
+			limit = {
+				is_owned_by = HUN
+				is_core_of = SLO
+				NOT = { is_core_of = GAL }
+			}
+			set_state_owner_to = ROOT
+			set_state_controller_to = ROOT
+			# 释放脚本不会转移奥地利自己拥有核心或宣称的州，先去掉（0.9 实测：设立决议没有效果）
+			remove_core_of = ROOT
+			remove_claim_by = ROOT
+		}
+		set_temp_variable = { tag_to_release = SLO }
+		release_targeted_tag = yes
+		SLO = {
+			set_cosmetic_tag = SLO_habsburg
+			AUS_refresh_crownland_army_ideas = yes
+		}
+	}
+	set_autonomy = {
+		target = SLO
+		autonomy_state = crownland
+		end_wars = no
+	}
+	# 新王领的整合花费当场算出来，否则当天读到 0（整合决议会变成免费、0 天）
+	hidden_effect = { KRAUS_integ_recalc = yes }
+}
+# 奥地利作用域：设立TRS王冠领
+KRAUS_found_do_TRS = {
+	HUN = {
+		add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_backed_claim }
+		hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = -2 } }
+	}
+	hidden_effect = {
+		every_state = {
+			limit = {
+				is_owned_by = HUN
+				is_core_of = TRS
+			}
+			set_state_owner_to = ROOT
+			set_state_controller_to = ROOT
+			# 释放脚本不会转移奥地利自己拥有核心或宣称的州，先去掉（0.9 实测：设立决议没有效果）
+			remove_core_of = ROOT
+			remove_claim_by = ROOT
+		}
+		set_temp_variable = { tag_to_release = TRS }
+		release_targeted_tag = yes
+		TRS = {
+			set_cosmetic_tag = TRS_habsburg
+			AUS_refresh_crownland_army_ideas = yes
+		}
+	}
+	set_autonomy = {
+		target = TRS
+		autonomy_state = crownland
+		end_wars = no
+	}
+	# 新王领的整合花费当场算出来，否则当天读到 0（整合决议会变成免费、0 天）
+	hidden_effect = { KRAUS_integ_recalc = yes }
+}

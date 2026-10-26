@@ -1,0 +1,35 @@
+############################################################
+### 帝国议会的重心：政治地图样板（2026-10-13）
+### 底图 400x400，坐标 0..100，1 单位 = 4 像素。图由 polmap_gfx.py 生成。
+############################################################
+spriteTypes = {
+	spriteType = {
+		name = "GFX_KRAUS_polmap_bg"
+		texturefile = "gfx/interface/kraus_polmap/kraus_polmap_bg.dds"
+	}
+	spriteType = {
+		name = "GFX_KRAUS_polmap_dot"
+		texturefile = "gfx/interface/kraus_polmap/kraus_polmap_dot.dds"
+	}
+	spriteType = {
+		name = "GFX_KRAUS_polmap_ring_s"
+		texturefile = "gfx/interface/kraus_polmap/kraus_polmap_ring_s.dds"
+	}
+	spriteType = {
+		name = "GFX_KRAUS_polmap_ring_m"
+		texturefile = "gfx/interface/kraus_polmap/kraus_polmap_ring_m.dds"
+	}
+	spriteType = {
+		name = "GFX_KRAUS_polmap_ring_l"
+		texturefile = "gfx/interface/kraus_polmap/kraus_polmap_ring_l.dds"
+	}
+	spriteType = {
+		name = "GFX_KRAUS_polmap_emperor"
+		texturefile = "gfx/interface/kraus_polmap/kraus_polmap_emperor.dds"
+	}
+	spriteType = {
+		name = "GFX_KRAUS_polmap_law"
+		texturefile = "gfx/interface/kraus_polmap/kraus_polmap_law.dds"
+		noOfFrames = 11
+	}
+}

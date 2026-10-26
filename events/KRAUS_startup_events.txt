@@ -1,0 +1,115 @@
+add_namespace = austria_election_events
+add_namespace = KRAUS_startup_events
+
+country_event = {
+	id = KRAUS_startup_events.1
+	title = KRAUS_startup_events.1.t
+	desc = KRAUS_startup_events.1.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRAUS_startup_events.1.a
+		log = "[GetLogInfo]: event KRAUS_startup_events.1 option a"
+		ai_chance = {
+			base = 20
+		}
+	}
+
+	option = {
+		name = KRAUS_startup_events.1.b
+		log = "[GetLogInfo]: event KRAUS_startup_events.1 option b"
+		set_country_flag = KRAUS_new_way_chosen
+		mark_focus_tree_layout_dirty = yes
+		ai_chance = {
+			base = 80
+		}
+	}
+}
+
+
+############################################################
+### 【2026-09-18 新增】KRAUS 版 1936 年选举事件
+###
+### 覆盖 KR 的 austria_election_events.1 / .100 / .101 / .102
+### 原理：同 namespace + 同 id，后加载的插件覆盖。我们的 mod
+###       在 KR 之后加载，所以本文件生效。
+###
+### 与 KR 原版的三处差别：
+###   1. .100 删掉 KR 的 date < 1937.1.1 硬截止
+###      原版这条会让「错过选举日 = 大选永久无法完成」，
+###      我们改为「只要没完成就允许完成」。
+###   2. .100 分支改为纯支持率判定（不再依赖 game rule）
+###      哪个党支持率高就触发哪个事件。
+###   3. .1 保留 is_triggered_only（由 KR history 的
+###      days = 41 触发，无需改动）。
+###
+### 【勿删】complete_national_focus = AUS_elections
+###    AUS_elections 是原版国策节点（我们树里复刻了），
+###    黑色星期一的消除链挂在它后面。
+############################################################
+
+# ── ① 选举开始（仍由 KR 的 history days=41 触发）──
+# ★ 2026-09-21 第七轮：重写叙事。
+#   原版只说「since federalisation begun」，把选举写成联邦化的产物。
+#   我们的剧情：选举是奥地利内部事务，皇帝居中维持派系平衡。
+# ★ .a 后加回调：activate_targeted_decision 成功后「选举议程」
+#   议程目卡会自动弹出。这是玩家发现该议程的主要途径。
+
+
+# ── ② 选举结果统计：去掉硬截止 + 按支持率分支 ──
+
+
+# ── ③ 基督教社会党胜 ──
+
+
+# ── ④ 社会民主党胜 ──
+
+
+############################################################
+### ★★ 覆写 KR 原版的选举事件（2026-09-21 第六轮）
+###
+### 用户要求：
+###   1) 「这个原版事件的叙事要改一下，符合我们的剧情设定」
+###      → 覆写 .1 的叙事（纳入「皇帝居中」框架）
+###   2) 「这个关于激进社会主义的相关事件，要改一下，再做一个选项，
+###       让激进社会主义政党和社民党进行妥协，后续再弹出一个事件，
+###       表达达成妥协，在胜选后会加入执政联盟。」
+###      → 覆写 .3，加「妥协」选项 → 触发 .7
+############################################################
+
+############################################################
+### .3 阿德勒谴责社民党（覆写 + ★ 新增妥协选项）
+############################################################
+
+
+############################################################
+### .7 ★ 妥协达成（我方新增）
+###
+### 用户要求「后续再弹出一个事件，表达达成妥协」
+############################################################
+country_event = {
+	id = austria_election_events.7
+	title = austria_election_events.7.t
+	desc = austria_election_events.7.d
+	picture = GFX_report_event_AUS_Viktor_Adler
+
+	is_triggered_only = yes
+
+	option = {
+		name = austria_election_events.7.a
+		log = "[GetLogInfo]: KRAUS left compromise reached"
+		custom_override_tooltip = {
+			tooltip = austria_election_events.7.a_tt
+			add_popularity = {
+				ideology = social_democrat
+				popularity = 0.02
+			}
+		}
+		hidden_effect = {
+			set_country_flag = KRAUS_left_compromise_done
+		}
+	}
+}

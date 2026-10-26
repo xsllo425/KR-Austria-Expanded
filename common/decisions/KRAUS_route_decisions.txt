@@ -1,0 +1,28 @@
+############################################################
+### 终局路线入口（2026-10-12）：大奥地利合众国
+### 条件：所有王冠领都已整合，随时可选（不必等二战）。花费随「合众国倾向」下降，精神随倾向分三档。
+############################################################
+KRAUS_route_category = {
+	KRAUS_route_usga = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { original_tag = AUS }
+		visible = {
+			NOT = { has_country_flag = KRAUS_usga_formed }
+			NOT = { has_country_flag = KRAUS_route_greater_germany }
+			NOT = { has_country_flag = KRAUS_route_hre }
+		}
+		available = {
+			KRAUS_all_crownlands_integrated = yes
+			NOT = { KRAUS_dc_ongoing = yes }
+		}
+		cost = KRAUS_usga_cost
+		complete_effect = {
+			log = "[GetLogRoot]: Decision complete KRAUS_route_usga"
+			KRAUS_usga_apply = yes
+			country_event = { id = KRAUS_route_events.1 days = 1 }
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+}

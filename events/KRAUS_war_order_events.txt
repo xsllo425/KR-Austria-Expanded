@@ -1,0 +1,998 @@
+add_namespace = KRAUS_war_order_events
+
+############################################################
+### 战后秩序 · 全球去殖民化浪潮（2026-09-24）
+###
+### ★ 用户定案：
+###   「其实这个殖民地独立的机制就是**奥地利推动大国在全球范围内，
+###     让所有国家殖民地都独立的去殖民化浪潮**。因为奥地利没有殖民地，
+###     而且也是以**平等博爱、团结合作、民主自由**为意识形态旗帜的一部分。」
+###
+### ★ 一次事件链，不做「一个个点」的决议。
+###
+### ★ 已核实的机制（全部来自 KR / 原版）：
+###   · set_autonomy = { target = X  autonomy_state = autonomy_free }
+###       出处：KR_fight_for_independence（00 Generic decisions.txt）
+###   · AUS = { add_to_faction = PREV }
+###       出处：KR\common\scripted_effects\00_Post_War_effects.txt:581（奥地利把主题国拉入阵营）
+###   · every_subject_country / every_country / country_exists
+###       KR 全库常用
+###   · 殖民自治档次：colonial_government / french_colonial_government
+###   · KR 认定的殖民 tag：MAF（中央非洲）/ GEA（德属东亚）/ DEI（荷属东印度）
+###       is_colonial_tag = { OR = { original_tag = MAF  original_tag = GEA  original_tag = DEI } }
+###
+### ★ 不使用 replace_path（工程铁律）
+############################################################
+
+
+############################################################
+### .1 去殖民化浪潮（奥地利国内事件 · 开启链条）
+###   触发点：KRAUS_war_order_britain / _france / _russia 任一完成后，
+###           由 KRAUS_on_actions 或国策 completion_reward 调用
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.1
+	title = KRAUS_war_order_events.1.t
+	desc = KRAUS_war_order_events.1.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	# ★ 只有奥地利、且二战结束、且尚未发起过
+	trigger = {
+		original_tag = AUS
+		has_global_flag = second_weltkrieg_has_ended
+		NOT = { has_country_flag = KRAUS_decolonisation_launched }
+	}
+
+	# 玩家选择如何推动这场浪潮
+	option = {
+		name = KRAUS_war_order_events.1.a
+		log = "[GetLogInfo]: event KRAUS_war_order_events.1 option a"
+		ai_chance = { base = 80 }
+		# 强硬推动：付出外交代价，换来更大范围
+		add_political_power = -50
+		add_stability = -0.03
+		add_war_support = -0.02
+		set_country_flag = KRAUS_decolonisation_launched
+		set_country_flag = KRAUS_decolonisation_firm
+		# 全球通报
+		every_country = {
+			limit = {
+				country_exists = yes
+				NOT = { tag = AUS }
+			}
+			country_event = { id = KRAUS_war_order_events.2 days = 3 }
+		}
+	}
+
+	option = {
+		name = KRAUS_war_order_events.1.b
+		log = "[GetLogInfo]: event KRAUS_war_order_events.1 option b"
+		ai_chance = { base = 20 }
+		# 稳健推动：只对已战败的四国施压，代价小、范围小
+		add_political_power = -20
+		set_country_flag = KRAUS_decolonisation_launched
+		set_country_flag = KRAUS_decolonisation_soft
+		every_country = {
+			limit = {
+				country_exists = yes
+				NOT = { tag = AUS }
+			}
+			country_event = { id = KRAUS_war_order_events.2 days = 3 }
+		}
+	}
+}
+
+
+############################################################
+### .2 回应（任何国家都收到 · 只有被点名的殖民宗主国会有实质选项）
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.2
+	title = KRAUS_war_order_events.2.t
+	desc = KRAUS_war_order_events.2.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	is_triggered_only = yes
+
+	# ★ 只有这四家是「被要求释放殖民地」的对象
+	trigger = {
+		OR = {
+			tag = GBR
+			tag = FRA
+			tag = GER
+			tag = POR
+			# 战败政权的残余挂名也算
+			original_tag = GBR
+			original_tag = FRA
+		}
+	}
+
+	immediate = {
+		log = "[GetLogInfo]: event KRAUS_war_order_events.2 fired for [GetLogRoot]"
+	}
+
+	# a. 接受：释放全部殖民地，并让它们加入欧洲联盟
+	option = {
+		name = KRAUS_war_order_events.2.a
+		log = "[GetLogInfo]: event KRAUS_war_order_events.2 option a"
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 2
+				has_country_flag = KRAUS_decolonisation_firm
+			}
+			modifier = {
+				factor = 0.5
+				is_subject = no
+				has_war = no
+			}
+		}
+		# ★ 释放所有殖民自治档次的主题国
+		every_subject_country = {
+			limit = {
+				OR = {
+					has_autonomy_state = colonial_government
+					has_autonomy_state = french_colonial_government
+					has_autonomy_state = federated_colony
+				}
+			}
+			ROOT = {
+				set_autonomy = {
+					target = PREV
+					autonomy_state = autonomy_free
+				}
+			}
+			# 独立后加入欧洲联盟
+			AUS = { add_to_faction = PREV }
+			set_country_flag = KRAUS_was_colony_released
+		}
+		# 已知的殖民实体（可能不是主题国，逐个兜底）
+		if = {
+			limit = { country_exists = MAF }
+			MAF = {
+				if = { limit = { is_subject = yes } ROOT = { set_autonomy = { target = PREV autonomy_state = autonomy_free } } }
+				AUS = { add_to_faction = PREV }
+				set_country_flag = KRAUS_was_colony_released
+			}
+		}
+		if = {
+			limit = { country_exists = GEA }
+			GEA = {
+				if = { limit = { is_subject = yes } ROOT = { set_autonomy = { target = PREV autonomy_state = autonomy_free } } }
+				AUS = { add_to_faction = PREV }
+				set_country_flag = KRAUS_was_colony_released
+			}
+		}
+		if = {
+			limit = { country_exists = DEI }
+			DEI = {
+				if = { limit = { is_subject = yes } ROOT = { set_autonomy = { target = PREV autonomy_state = autonomy_free } } }
+				AUS = { add_to_faction = PREV }
+				set_country_flag = KRAUS_was_colony_released
+			}
+		}
+		# 葡萄牙的非洲与亚洲殖民地（KR 认定的殖民核心：
+		#   安哥拉 ANG / 莫桑比克 MZB / 几内亚比绍 GNB 为核心；
+		#   果阿 321 / 佛得角 702 / 圣多美 705 / 东帝汶 721 / 澳门 729 为州）
+		# ★ 用 release_autonomy + autonomy_state = autonomy_free 释放为完全独立
+		#   （定义见原版 effects_documentation.md:5733；release_puppet = TAG 见 KR\LIB focus (Liberia).txt:2862）
+		if = {
+			limit = { country_exists = ANG }
+			release = ANG
+			set_autonomy = { target = ANG autonomy_state = autonomy_free }
+			ANG = { set_country_flag = KRAUS_was_colony_released }
+			AUS = { add_to_faction = ANG }
+		}
+		if = {
+			limit = { country_exists = MZB }
+			release = MZB
+			set_autonomy = { target = MZB autonomy_state = autonomy_free }
+			MZB = { set_country_flag = KRAUS_was_colony_released }
+			AUS = { add_to_faction = MZB }
+		}
+		if = {
+			limit = { country_exists = GNB }
+			release = GNB
+			set_autonomy = { target = GNB autonomy_state = autonomy_free }
+			GNB = { set_country_flag = KRAUS_was_colony_released }
+			AUS = { add_to_faction = GNB }
+		}
+		set_country_flag = KRAUS_accepted_decolonisation
+		# 好感代价
+		AUS = {
+			reverse_add_opinion_modifier = { target = ROOT modifier = KR_pleased }
+		}
+		# ★ 通报奥地利（.3 的触发条件依赖这个）
+		AUS = { country_event = { id = KRAUS_war_order_events.3 days = 5 } }
+		# ★ 德国另有一摊：殖民实体（MAF / GEA）单独处理
+		if = {
+			limit = { tag = GER }
+			country_event = { id = KRAUS_war_order_events.4 days = 10 }
+		}
+	}
+
+	# b. 拒绝：奥地利施压，关系恶化，但殖民地暂不动
+	option = {
+		name = KRAUS_war_order_events.2.b
+		log = "[GetLogInfo]: event KRAUS_war_order_events.2 option b"
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 3
+				has_country_flag = KRAUS_decolonisation_soft
+			}
+		}
+		set_country_flag = KRAUS_refused_decolonisation
+		AUS = {
+			add_opinion_modifier = { target = ROOT modifier = KR_displeased }
+		}
+		# 奥地利记下这一笔，后续可用（例如拒绝的国家不被拉进欧盟）
+		AUS = { country_event = { id = KRAUS_war_order_events.3 days = 5 } }
+	}
+}
+
+
+############################################################
+### .4 德国的殖民遗产（MAF 中央非洲 / GEA 德属东亚）
+###   ★ 参考 KR 自己的范式：MAF events 里有 set_country_flag + 事件触发
+###   ★ 事件号取 .9（KR 的 MAF 事件也是 .9，这里沿用同一习惯）
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.4
+	title = KRAUS_war_order_events.4.t
+	desc = KRAUS_war_order_events.4.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetLogInfo]: event KRAUS_war_order_events.4 for [GetLogRoot]"
+	}
+
+	# a. 接受：把中央非洲与德属东亚拆成独立国家
+	option = {
+		name = KRAUS_war_order_events.4.a
+		log = "[GetLogInfo]: event KRAUS_war_order_events.4 option a"
+		ai_chance = { base = 70 }
+
+		# ★ MAF 与 GEA 是【主题国】，所以用 set_autonomy 释放
+		#   （与 .2 的 every_subject_country 同一手法，KR_fight_for_independence 范式的反向）
+		if = {
+			limit = { country_exists = MAF }
+			MAF = {
+				if = {
+					limit = { is_subject = yes }
+					ROOT = { set_autonomy = { target = PREV  autonomy_state = autonomy_free } }
+				}
+				set_country_flag = KRAUS_was_colony_released
+				AUS = { add_to_faction = PREV }
+				# 通报奥地利
+				AUS = { country_event = { id = KRAUS_war_order_events.5 days = 5 } }
+			}
+		}
+		if = {
+			limit = { country_exists = GEA }
+			GEA = {
+				if = {
+					limit = { is_subject = yes }
+					ROOT = { set_autonomy = { target = PREV  autonomy_state = autonomy_free } }
+				}
+				set_country_flag = KRAUS_was_colony_released
+				AUS = { add_to_faction = PREV }
+				AUS = { country_event = { id = KRAUS_war_order_events.5 days = 5 } }
+			}
+		}
+		set_country_flag = KRAUS_german_colonies_released
+	}
+
+	# b. 拒绝：奥地利公开谴责，德国保住殖民地但关系受损
+	option = {
+		name = KRAUS_war_order_events.4.b
+		log = "[GetLogInfo]: event KRAUS_war_order_events.4 option b"
+		ai_chance = { base = 30 }
+		set_country_flag = KRAUS_kept_german_colonies
+		AUS = {
+			add_opinion_modifier = { target = ROOT modifier = KR_displeased }
+		}
+	}
+}
+
+
+############################################################
+### .5 奥地利的殖民遗产通报（具体哪一块独立了）
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.5
+	title = KRAUS_war_order_events.5.t
+	desc = KRAUS_war_order_events.5.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_war_order_events.5.a
+		log = "[GetLogInfo]: event KRAUS_war_order_events.5 option a"
+		ai_chance = { base = 100 }
+		add_political_power = 15
+	}
+}
+
+
+############################################################
+### .3 奥地利国内通报：世界在变（浪潮结果的汇报）
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.3
+	title = KRAUS_war_order_events.3.t
+	desc = KRAUS_war_order_events.3.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	# ★ 至少要有一个殖民宗主国答复过（英/法/德），浪潮才算真的起步
+	#   不要求全答复 —— 否则玩家永远等不到
+	trigger = {
+		OR = {
+			GBR = { has_country_flag = KRAUS_accepted_decolonisation }
+			GBR = { has_country_flag = KRAUS_refused_decolonisation }
+			FRA = { has_country_flag = KRAUS_accepted_decolonisation }
+			FRA = { has_country_flag = KRAUS_refused_decolonisation }
+			GER = { has_country_flag = KRAUS_accepted_decolonisation }
+			GER = { has_country_flag = KRAUS_refused_decolonisation }
+		}
+	}
+
+	immediate = {
+		log = "[GetLogInfo]: event KRAUS_war_order_events.3"
+	}
+
+	option = {
+		name = KRAUS_war_order_events.3.a
+		log = "[GetLogInfo]: event KRAUS_war_order_events.3 option a"
+		ai_chance = { base = 100 }
+		add_political_power = 30
+		add_stability = 0.02
+		set_country_flag = KRAUS_decolonisation_done
+	}
+}
+
+############################################################
+### .10 奥地利提出调停（向交战双方分别发送）
+###
+### ★ 用户定案：
+###   「一般情况下，战争状态的国家不会接受调停，但是在战争处于不利状态的一方，
+###    更容易接受调停，而处于优势的一方通常不会接受。
+###    而玩家可以选择加入其中任意一方。」
+###
+### ★ 接受率的设计（照用户原话）：
+###   · 基础很低（战争中的国家一般不听劝）
+###   · 不利的一方（投降度 > 0.15）→ 显著提高
+###   · 优势的一方（投降度 < 0.05）→ 进一步降低
+###   · 与奥地利关系好 → 略提高
+###   · 已被打残（人力见底）→ 提高
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.10
+	title = KRAUS_war_order_events.10.t
+	desc = KRAUS_war_order_events.10.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetLogInfo]: event KRAUS_war_order_events.10 for [GetLogRoot]"
+	}
+
+	# a. 接受调停 —— 停火，按当前控制线和平
+	option = {
+		name = KRAUS_war_order_events.10.a
+		log = "[GetLogInfo]: event KRAUS_war_order_events.10 option a"
+
+		ai_chance = {
+			base = 10
+			# ★ 处于不利状态的一方更容易接受
+			modifier = {
+				factor = 5
+				surrender_progress > 0.15
+			}
+			modifier = {
+				factor = 3
+				surrender_progress > 0.35
+			}
+			# ★ 处于优势的一方通常不会接受
+			modifier = {
+				factor = 0.3
+				surrender_progress < 0.05
+			}
+			# 被奥地利拉过好感的，给个面子
+			modifier = {
+				factor = 1.5
+				has_opinion = { target = AUS  value > 25 }
+			}
+			# 人力见底 = 打不动了
+			modifier = {
+				factor = 2
+				has_army_manpower = { size < 50000 }
+			}
+		}
+
+		set_country_flag = KRAUS_mediation_accepted
+		# 通报奥地利
+		AUS = { country_event = { id = KRAUS_war_order_events.11 days = 2 } }
+	}
+
+	# b. 拒绝调停
+	option = {
+		name = KRAUS_war_order_events.10.b
+		log = "[GetLogInfo]: event KRAUS_war_order_events.10 option b"
+
+		ai_chance = {
+			base = 90
+			modifier = {
+				factor = 0.2
+				surrender_progress > 0.15
+			}
+			modifier = {
+				factor = 2
+				surrender_progress < 0.05
+			}
+		}
+
+		set_country_flag = KRAUS_mediation_refused
+		AUS = { country_event = { id = KRAUS_war_order_events.12 days = 2 } }
+	}
+}
+
+
+############################################################
+### .11 调停被接受（奥地利收到）
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.11
+	title = KRAUS_war_order_events.11.t
+	desc = KRAUS_war_order_events.11.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_war_order_events.11.a
+		log = "[GetLogInfo]: event KRAUS_war_order_events.11 option a"
+		ai_chance = { base = 100 }
+		add_political_power = 20
+		add_stability = 0.01
+		custom_effect_tooltip = KRAUS_mediation_accepted_tt
+	}
+}
+
+
+############################################################
+### .12 调停被拒绝（奥地利收到 · 破局阶段）
+###   ★ 用户可以「对一方宣战」——这里给两个选项
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.12
+	title = KRAUS_war_order_events.12.t
+	desc = KRAUS_war_order_events.12.d
+	picture = GFX_report_event_generic_towar
+
+	is_triggered_only = yes
+
+	# a. 接受拒绝：外交谴责，记仇，但不宣战
+	option = {
+		name = KRAUS_war_order_events.12.a
+		log = "[GetLogInfo]: event KRAUS_war_order_events.12 option a"
+		ai_chance = { base = 70 }
+		add_political_power = 10
+		if = {
+			limit = { country_exists = event_target:KRAUS_mediation_target }
+			event_target:KRAUS_mediation_target = {
+				reverse_add_opinion_modifier = { target = ROOT  modifier = KR_displeased }
+			}
+		}
+		set_country_flag = KRAUS_mediation_dropped
+	}
+
+	# b. 强硬：宣布将介入（宣战由后续决议/事件选边完成）
+	option = {
+		name = KRAUS_war_order_events.12.b
+		log = "[GetLogInfo]: event KRAUS_war_order_events.12 option b"
+		ai_chance = { base = 30 }
+		add_war_support = 0.03
+		add_stability = -0.02
+		set_country_flag = KRAUS_mediation_escalated
+		custom_effect_tooltip = KRAUS_mediation_escalated_tt
+	}
+}
+############################################################
+### 战后秩序 · 协约国归来与俄国处置（2026-10-07 补完）
+###
+### 填补原 .6-.9 空号。原链只有去殖民化(.1-.5)与
+### 全球化调停(.10-.12)，三个战序国策的解锁事件一直空着。
+###
+### ★ 判据全部来自 KR 自己的旗标，本 MOD 不新增任何 global flag。
+############################################################
+
+############################################################
+### .6 不列颠归来 —— 解锁 KRAUS_war_order_britain
+###   触发：哈利法克斯会议达成 + 德国不干预英法
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.6
+	title = KRAUS_war_order_events.6.t
+	desc = KRAUS_war_order_events.6.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetLogRoot]: War Order - Britain Returns"
+	}
+
+	option = {
+		name = KRAUS_war_order_events.6.a
+		log = "[GetLogInfo]: event KRAUS_war_order_events.6 option a"
+
+		# ★ 协约国的 tag 转换由 KR 自己处理（会后加拿大 → 不列颠），
+		#   本事件不碰首都、不换 tag，只负责给奥地利开门。
+		set_country_flag = KRAUS_britain_abdication_done
+	}
+}
+
+############################################################
+### .7 法兰西的处置 —— 解锁 KRAUS_war_order_france
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.7
+	title = KRAUS_war_order_events.7.t
+	desc = KRAUS_war_order_events.7.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetLogRoot]: War Order - France Resolved"
+	}
+
+	option = {
+		name = KRAUS_war_order_events.7.a
+		log = "[GetLogInfo]: event KRAUS_war_order_events.7 option a"
+
+		set_country_flag = KRAUS_france_dependency_done
+	}
+}
+
+############################################################
+### .8 沙皇的遗产 —— 【奥地利仍是帝国】时的两条结局
+###
+###   皇帝在位，我们便也有资格对俄国指手画脚：
+###     a → 与沙皇同行        → KRAUS_russians_done
+###     b → 输出共和的样本    → KRAUS_russian_republic_done
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.8
+	title = KRAUS_war_order_events.8.t
+	desc = KRAUS_war_order_events.8.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetLogRoot]: War Order - The Tsar's Legacy"
+	}
+
+	# a. 与沙皇同行 —— 我们和他都困在旧世界里，但我们的多民族还能共荣
+	option = {
+		name = KRAUS_war_order_events.8.a
+		log = "[GetLogInfo]: event KRAUS_war_order_events.8 option a"
+
+		set_country_flag = KRAUS_russians_done
+	}
+
+	# b. 输出样本 —— 我们的多民族共荣，是给他们看的活样板
+	option = {
+		name = KRAUS_war_order_events.8.b
+		log = "[GetLogInfo]: event KRAUS_war_order_events.8 option b"
+
+		set_country_flag = KRAUS_russian_republic_done
+	}
+}
+
+############################################################
+### .9 共和派的俄国 —— 【奥地利已成共和国】，只剩共和一条路
+###
+###   我们自己已经走完了这条路，没有立场再劝谁留在旧世界里。
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.9
+	title = KRAUS_war_order_events.9.t
+	desc = KRAUS_war_order_events.9.d
+	picture = GFX_report_event_generic_diplomacy3
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetLogRoot]: War Order - The Russian Republic"
+	}
+
+	option = {
+		name = KRAUS_war_order_events.9.a
+		log = "[GetLogInfo]: event KRAUS_war_order_events.9 option a"
+
+		set_country_flag = KRAUS_russian_republic_done
+	}
+}
+
+############################################################
+### .20 哈布斯堡家族成员出任GBR国家元首
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.20
+	title = KRAUS_war_order_events.20.t
+	desc = KRAUS_war_order_events.20.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRAUS_war_order_events.20.a
+		ai_chance = { base = 100 }
+		if = {
+			limit = { country_exists = GBR }
+			GBR = {
+				AUS_otto_von_habsburg = {
+					set_nationality = PREV
+					remove_all_country_leader_roles = yes
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = authoritarian_democrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_conservative_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = market_liberal_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_liberal_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_democrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = paternal_autocrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = national_populist_subtype
+						}
+						promote_leader = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { country_exists = GBR } country_exists = GBP }
+			GBP = {
+				AUS_otto_von_habsburg = {
+					set_nationality = PREV
+					remove_all_country_leader_roles = yes
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = authoritarian_democrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_conservative_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = market_liberal_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_liberal_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_democrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = paternal_autocrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = national_populist_subtype
+						}
+						promote_leader = yes
+					}
+				}
+			}
+		}
+		custom_effect_tooltip = KRAUS_war_order_events.20.a_tt
+	}
+
+	option = {
+		name = KRAUS_war_order_events.20.b
+		ai_chance = { base = 0 }
+	}
+}
+
+############################################################
+### .21 哈布斯堡家族成员出任FRA国家元首
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.21
+	title = KRAUS_war_order_events.21.t
+	desc = KRAUS_war_order_events.21.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRAUS_war_order_events.21.a
+		ai_chance = { base = 100 }
+		if = {
+			limit = { country_exists = FRA }
+			FRA = {
+				AUS_maximilian_eugen_von_habsburg = {
+					set_nationality = PREV
+					remove_all_country_leader_roles = yes
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = authoritarian_democrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_conservative_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = market_liberal_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_liberal_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_democrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = paternal_autocrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = national_populist_subtype
+						}
+						promote_leader = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { country_exists = FRA } country_exists = FRP }
+			FRP = {
+				AUS_maximilian_eugen_von_habsburg = {
+					set_nationality = PREV
+					remove_all_country_leader_roles = yes
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = authoritarian_democrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_conservative_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = market_liberal_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_liberal_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_democrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = paternal_autocrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = national_populist_subtype
+						}
+						promote_leader = yes
+					}
+				}
+			}
+		}
+		custom_effect_tooltip = KRAUS_war_order_events.21.a_tt
+	}
+
+	option = {
+		name = KRAUS_war_order_events.21.b
+		ai_chance = { base = 0 }
+	}
+}
+
+############################################################
+### .22 哈布斯堡家族成员出任西班牙国家元首（西班牙是奥地利的傀儡时）
+############################################################
+country_event = {
+	id = KRAUS_war_order_events.22
+	title = KRAUS_war_order_events.22.t
+	desc = KRAUS_war_order_events.22.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRAUS_war_order_events.22.a
+		ai_chance = { base = 100 }
+		every_subject_country = {
+			limit = {
+				OR = {
+					original_tag = SPA
+					original_tag = SPK
+					original_tag = SPR
+				}
+			}
+			AUS_joseph_august_von_habsburg = {
+				set_nationality = PREV
+				remove_all_country_leader_roles = yes
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = authoritarian_democrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_conservative_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = market_liberal_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_liberal_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = social_democrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = paternal_autocrat_subtype
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader = {
+							desc = KRAUS_habsburg_monarch_leader_desc
+							ideology = national_populist_subtype
+						}
+						promote_leader = yes
+					}
+			}
+		}
+		custom_effect_tooltip = KRAUS_war_order_events.22.a_tt
+	}
+
+	option = {
+		name = KRAUS_war_order_events.22.b
+		ai_chance = { base = 0 }
+	}
+}

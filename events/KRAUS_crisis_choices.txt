@@ -1,0 +1,230 @@
+############################################################
+### KRAUS 黑色星期一 · 危机选边（第 2 批）
+###
+### ★★ 设计核心（用户 2026-09-21 定案）
+###
+###   「黑一不该只是 debuff，而是联盟撕裂的催化剂。」
+###
+### ★ 玩法：黑一存续期内每 60 天弹一个危机事件，
+###   每个事件都是「左翼要 A，右翼要 B」，
+###   ★ 两边都是负收益 —— 只有【幅度】在选。
+###   这不是"选好处"，是"选你愿意得罪谁"。
+###
+### ★★ 每个事件做两件事
+###   ① 咬某一翼的忠诚度（内部联盟）
+###   ② 推动天平（外部平衡）
+###   → 黑一因此同时成为"外部天平"和"内部联盟"的双重压力源，
+###     两个系统在这里咬合。
+###
+### ★★ 与读条决议的关系
+###   读条本体【不动】（已跑通）。
+###   危机事件【独立于读条结算】，只共享黑一存续期。纯增量。
+###
+### ★ 用户定案：每 60 天一次（黑一 180 天里约 3 次）
+###
+### ★ 不使用 replace_path（三条铁律之二）
+############################################################
+
+add_namespace = KRAUS_crisis_choices
+
+############################################################
+### .1 银行挤兑
+############################################################
+country_event = {
+	id = KRAUS_crisis_choices.1
+	title = KRAUS_crisis_choices.1.t
+	desc = KRAUS_crisis_choices.1.d
+	picture = GFX_report_event_GER_Blackweekover
+
+	is_triggered_only = yes
+
+	# ── 选项 a：国家接管银行（左翼要的）──
+	option = {
+		name = KRAUS_crisis_choices.1.a
+		log = "[GetLogInfo]: KRAUS crisis - nationalise the banks"
+		custom_override_tooltip = {
+			tooltip = KRAUS_crisis_left_tt
+			add_political_power = -30
+		}
+		# ★ 左翼满意，右翼不满
+		# ★ 同时推动天平（向伦纳侧）
+		if = {
+			limit = { has_power_balance = { id = KRAUS_regime_balance } }
+			add_power_balance_value = {
+				id = KRAUS_regime_balance
+				value = -0.05
+				tooltip_side = KRAUS_renner_side
+			}
+		}
+		KRAUS_imperial_loss = yes
+	}
+
+	# ── 选项 b：政府担保私人存款（右翼要的）──
+	option = {
+		name = KRAUS_crisis_choices.1.b
+		log = "[GetLogInfo]: KRAUS crisis - guarantee deposits"
+		custom_override_tooltip = {
+			tooltip = KRAUS_crisis_right_tt
+			add_political_power = -30
+		}
+		if = {
+			limit = { has_power_balance = { id = KRAUS_regime_balance } }
+			add_power_balance_value = {
+				id = KRAUS_regime_balance
+				value = 0.05
+				tooltip_side = KRAUS_miklas_side
+			}
+		}
+		KRAUS_imperial_gain_3 = yes
+	}
+}
+
+############################################################
+### .2 失业工人游行
+############################################################
+country_event = {
+	id = KRAUS_crisis_choices.2
+	title = KRAUS_crisis_choices.2.t
+	desc = KRAUS_crisis_choices.2.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	# ── a：扩大救济（左翼）──
+	option = {
+		name = KRAUS_crisis_choices.2.a
+		log = "[GetLogInfo]: KRAUS crisis - widen relief"
+		custom_override_tooltip = {
+			tooltip = KRAUS_crisis_left_tt
+			add_stability = -0.02
+		}
+		if = {
+			limit = { has_power_balance = { id = KRAUS_regime_balance } }
+			add_power_balance_value = {
+				id = KRAUS_regime_balance
+				value = -0.05
+				tooltip_side = KRAUS_renner_side
+			}
+		}
+		KRAUS_imperial_loss = yes
+	}
+
+	# ── b：削减开支（右翼）──
+	option = {
+		name = KRAUS_crisis_choices.2.b
+		log = "[GetLogInfo]: KRAUS crisis - cut spending"
+		custom_override_tooltip = {
+			tooltip = KRAUS_crisis_right_tt
+			add_stability = -0.02
+		}
+		if = {
+			limit = { has_power_balance = { id = KRAUS_regime_balance } }
+			add_power_balance_value = {
+				id = KRAUS_regime_balance
+				value = 0.05
+				tooltip_side = KRAUS_miklas_side
+			}
+		}
+		KRAUS_imperial_gain_3 = yes
+	}
+}
+
+############################################################
+### .3 农村破产
+############################################################
+country_event = {
+	id = KRAUS_crisis_choices.3
+	title = KRAUS_crisis_choices.3.t
+	desc = KRAUS_crisis_choices.3.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	# ── a：土地改革（左翼 / 改革派）──
+	option = {
+		name = KRAUS_crisis_choices.3.a
+		log = "[GetLogInfo]: KRAUS crisis - land reform"
+		custom_override_tooltip = {
+			tooltip = KRAUS_crisis_left_tt
+			add_stability = -0.03
+		}
+		if = {
+			limit = { has_power_balance = { id = KRAUS_regime_balance } }
+			add_power_balance_value = {
+				id = KRAUS_regime_balance
+				value = -0.05
+				tooltip_side = KRAUS_renner_side
+			}
+		}
+		KRAUS_imperial_loss = yes
+	}
+
+	# ── b：农业补贴（右翼 / 威权）──
+	option = {
+		name = KRAUS_crisis_choices.3.b
+		log = "[GetLogInfo]: KRAUS crisis - farm subsidies"
+		custom_override_tooltip = {
+			tooltip = KRAUS_crisis_right_tt
+			add_stability = -0.01
+		}
+		if = {
+			limit = { has_power_balance = { id = KRAUS_regime_balance } }
+			add_power_balance_value = {
+				id = KRAUS_regime_balance
+				value = 0.05
+				tooltip_side = KRAUS_miklas_side
+			}
+		}
+		KRAUS_imperial_gain_3 = yes
+	}
+}
+
+############################################################
+### .4 工会总罢工 —— 最尖锐的一次
+############################################################
+country_event = {
+	id = KRAUS_crisis_choices.4
+	title = KRAUS_crisis_choices.4.t
+	desc = KRAUS_crisis_choices.4.d
+	picture = GFX_report_event_generic_arrests
+
+	is_triggered_only = yes
+
+	# ── a：承认工会（左翼）──
+	option = {
+		name = KRAUS_crisis_choices.4.a
+		log = "[GetLogInfo]: KRAUS crisis - recognise the unions"
+		custom_override_tooltip = {
+			tooltip = KRAUS_crisis_left_tt
+			add_stability = -0.03
+		}
+		if = {
+			limit = { has_power_balance = { id = KRAUS_regime_balance } }
+			add_power_balance_value = {
+				id = KRAUS_regime_balance
+				value = -0.10
+				tooltip_side = KRAUS_renner_side
+			}
+		}
+		KRAUS_imperial_loss = yes
+	}
+
+	# ── b：出动军队（右翼）──
+	option = {
+		name = KRAUS_crisis_choices.4.b
+		log = "[GetLogInfo]: KRAUS crisis - send in the army"
+		custom_override_tooltip = {
+			tooltip = KRAUS_crisis_right_tt
+			add_stability = -0.03
+		}
+		if = {
+			limit = { has_power_balance = { id = KRAUS_regime_balance } }
+			add_power_balance_value = {
+				id = KRAUS_regime_balance
+				value = 0.10
+				tooltip_side = KRAUS_miklas_side
+			}
+		}
+		KRAUS_imperial_gain_3 = yes
+	}
+}

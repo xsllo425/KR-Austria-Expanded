@@ -1,0 +1,133 @@
+############################################################
+### 帝国议会的重心：面板读数（2026-10-13 样板）
+############################################################
+defined_text = {
+	name = KRAUS_pm_GetLeader
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_lead_cs }
+		localization_key = KRAUS_pm_party_cs
+	}
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_lead_ml }
+		localization_key = KRAUS_pm_party_ml
+	}
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_lead_sd }
+		localization_key = KRAUS_pm_party_sd
+	}
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_lead_sl }
+		localization_key = KRAUS_pm_party_sl
+	}
+	text = {
+		localization_key = KRAUS_pm_party_none
+	}
+}
+defined_text = {
+	name = KRAUS_pm_GetCabCS
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_cab_cs }
+		localization_key = KRAUS_pm_cab_cs
+	}
+	text = { localization_key = KRAUS_pm_empty }
+}
+defined_text = {
+	name = KRAUS_pm_GetCabML
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_cab_ml }
+		localization_key = KRAUS_pm_cab_ml
+	}
+	text = { localization_key = KRAUS_pm_empty }
+}
+defined_text = {
+	name = KRAUS_pm_GetCabSD
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_cab_sd }
+		localization_key = KRAUS_pm_cab_sd
+	}
+	text = { localization_key = KRAUS_pm_empty }
+}
+defined_text = {
+	name = KRAUS_pm_GetCabSL
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_cab_sl }
+		localization_key = KRAUS_pm_cab_sl
+	}
+	text = { localization_key = KRAUS_pm_empty }
+}
+defined_text = {
+	name = KRAUS_pm_GetComp
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_comp_low }
+		localization_key = KRAUS_pm_comp_low
+	}
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_comp_high }
+		localization_key = KRAUS_pm_comp_high
+	}
+	text = { localization_key = KRAUS_pm_comp_mid }
+}
+defined_text = {
+	name = KRAUS_pm_GetLawState
+	text = {
+		trigger = { has_country_flag = KRAUS_basic_law_passed }
+		localization_key = KRAUS_pm_law_st_passed
+	}
+	text = {
+		trigger = { has_country_flag = KRAUS_basic_law_shelved }
+		localization_key = KRAUS_pm_law_st_shelved
+	}
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_charter_ready }
+		localization_key = KRAUS_pm_law_st_ready
+	}
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_law_single }
+		localization_key = KRAUS_pm_law_st_single
+	}
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_law_multi }
+		localization_key = KRAUS_pm_law_st_multi
+	}
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_law_wait }
+		localization_key = KRAUS_pm_law_st_wait
+	}
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_law_paused }
+		localization_key = KRAUS_pm_law_st_paused
+	}
+	text = { localization_key = KRAUS_pm_law_st_none }
+}
+defined_text = {
+	name = KRAUS_pm_GetProposerEmp
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_emperor_on }
+		localization_key = KRAUS_pm_proposer_emp
+	}
+	text = { localization_key = KRAUS_pm_proposer_cab }
+}
+
+# 各党党魁与首相（国家元首仍是卡尔皇帝；党魁只是党魁与首相）
+defined_text = {
+	name = KRAUS_pm_GetPremier
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_lead_cs }
+		localization_key = KRAUS_pm_premier_cs
+	}
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_lead_ml }
+		localization_key = KRAUS_pm_premier_ml
+	}
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_lead_sd }
+		localization_key = KRAUS_pm_premier_sd
+	}
+	text = {
+		trigger = { has_country_flag = KRAUS_pm_lead_sl }
+		localization_key = KRAUS_pm_premier_sl
+	}
+	text = {
+		localization_key = KRAUS_pm_premier_none
+	}
+}

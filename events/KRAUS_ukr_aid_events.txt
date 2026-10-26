@@ -1,0 +1,89 @@
+############################################################
+### 乌克兰内战里的哈布斯堡援助（0.9 实测，2026-10-14）
+### 乌克兰内战的胜负靠点数与决议决定。内战爆发后，利沃夫的乌克兰人团体与哈布斯堡亲王给共和派带来政治点数与指挥点数。
+### 效果走 KR 自己的 UKR_change_vdr_strength（国策「第聂伯河对岸的共和派」用的同一个），不另起机制。
+############################################################
+add_namespace = KRAUS_ukr_aid
+
+country_event = {
+	id = KRAUS_ukr_aid.1
+	title = KRAUS_ukr_aid.1.t
+	desc = KRAUS_ukr_aid.1.d
+	picture = GFX_report_event_KRAUS_ukr_aid_1
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = { hidden_effect = { set_country_flag = KRAUS_ukr_line_open } }
+	option = {
+		name = KRAUS_ukr_aid.1.a
+		log = "[GetLogInfo]: event KRAUS_ukr_aid.1 option KRAUS_ukr_aid.1.a"
+		add_political_power = -50
+		custom_effect_tooltip = KRAUS_ukr_aid_a_tt
+		hidden_effect = {
+			UKR = {
+				add_political_power = 40
+				add_command_power = 15
+				set_temp_variable = { UKR_strength_change = 8 }
+				UKR_change_vdr_strength = yes
+			}
+			country_event = { id = KRAUS_ukr_aid.2 days = 60 }
+		}
+		ai_chance = { base = 70 }
+	}
+	option = {
+		name = KRAUS_ukr_aid.1.b
+		log = "[GetLogInfo]: event KRAUS_ukr_aid.1 option KRAUS_ukr_aid.1.b"
+		add_stability = -0.01
+		custom_effect_tooltip = KRAUS_ukr_aid_b_tt
+		hidden_effect = {
+			UKR = {
+				add_political_power = 80
+				add_command_power = 30
+				set_temp_variable = { UKR_strength_change = 12 }
+				UKR_change_vdr_strength = yes
+			}
+			country_event = { id = KRAUS_ukr_aid.2 days = 60 }
+		}
+		ai_chance = { base = 20 }
+	}
+	option = {
+		name = KRAUS_ukr_aid.1.c
+		log = "[GetLogInfo]: event KRAUS_ukr_aid.1 option KRAUS_ukr_aid.1.c"
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRAUS_ukr_aid.2
+	title = KRAUS_ukr_aid.2.t
+	desc = KRAUS_ukr_aid.2.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		country_exists = UKR
+		UKR = {
+			has_country_flag = UKR_revolt_started
+			NOT = { has_country_flag = UKR_revolt_over }
+		}
+	}
+	option = {
+		name = KRAUS_ukr_aid.2.a
+		log = "[GetLogInfo]: event KRAUS_ukr_aid.2 option KRAUS_ukr_aid.2.a"
+		add_political_power = -50
+		custom_effect_tooltip = KRAUS_ukr_aid_a_tt
+		hidden_effect = {
+			UKR = {
+				add_political_power = 40
+				add_command_power = 15
+				set_temp_variable = { UKR_strength_change = 8 }
+				UKR_change_vdr_strength = yes
+			}
+		}
+		ai_chance = { base = 70 }
+	}
+	option = {
+		name = KRAUS_ukr_aid.2.b
+		log = "[GetLogInfo]: event KRAUS_ukr_aid.2 option KRAUS_ukr_aid.2.b"
+		ai_chance = { base = 30 }
+	}
+}

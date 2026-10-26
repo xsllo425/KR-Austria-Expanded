@@ -1,0 +1,21 @@
+characters = {
+	KRAUS_maria_theresia_academy = {
+		name = KRAUS_maria_theresia_academy
+		portraits = {
+			army = {
+				small = GFX_portrait_KRAUS_maria_theresia_academy_small
+			}
+		}
+		advisor = {
+			slot = theorist
+			idea_token = KRAUS_maria_theresia_academy_theorist
+			ledger = army
+			allowed = { original_tag = AUS }
+			available = {
+				has_completed_focus = KRAUS_german_advisors
+			}
+			traits = { KRAUS_academy_theorist }
+			cost = 100
+		}
+	}
+}

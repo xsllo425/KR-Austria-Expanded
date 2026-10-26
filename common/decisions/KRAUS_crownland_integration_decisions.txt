@@ -1,0 +1,642 @@
+############################################################
+### 王冠领整合（2026-10-12）：整合决议的花费与天数按王领的地位档位取值（KRAUS_integ_recalc 每日重算）；
+### 整合后每个王领各有一个 180 天循环任务，到期触发自己的红利事件。
+############################################################
+KRAUS_crownland_integration_category = {
+	KRAUS_integrate_CZE = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { original_tag = AUS }
+		visible = {
+			NOT = { has_country_flag = KRAUS_usga_formed }
+			country_exists = CZE
+			CZE = { is_subject_of = ROOT }
+		}
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+			NOT = { has_country_flag = KRAUS_integ_running_CZE }
+			hidden_trigger = { check_variable = { KRAUS_integ_cost_CZE > 0 } }
+		}
+		cost = KRAUS_integ_cost_CZE
+		days_remove = KRAUS_integ_days_CZE
+		complete_effect = {
+			set_country_flag = KRAUS_integ_running_CZE
+			custom_effect_tooltip = KRAUS_integ_start_tt
+		}
+		remove_effect = {
+			if = {
+				limit = { country_exists = CZE CZE = { is_subject_of = ROOT } }
+				KRAUS_integ_do_CZE = yes
+			}
+		}
+		cancel_trigger = {
+			OR = {
+				NOT = { country_exists = CZE }
+				NOT = { CZE = { is_subject_of = ROOT } }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 3 CZE = { OR = { has_idea = KRAUS_cl_loyal_2 has_idea = KRAUS_cl_loyal_3 } } }
+			modifier = { factor = 0 CZE = { OR = { has_idea = KRAUS_cl_auto_2 has_idea = KRAUS_cl_auto_3 } } }
+		}
+	}
+	KRAUS_integ_dividend_CZE = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { has_country_flag = KRAUS_integrated_CZE }
+		days_mission_timeout = 30
+		is_good = yes
+		selectable_mission = no
+		available = { hidden_trigger = { always = no } }
+		timeout_effect = {
+			add_to_variable = { KRAUS_divt_CZE = 30 }
+			if = {
+				limit = { check_variable = { KRAUS_divt_CZE > KRAUS_div_days_m1 } }
+				set_variable = { KRAUS_divt_CZE = 0 }
+				country_event = { id = KRAUS_integ_events.1 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_integrate_GAL = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { original_tag = AUS }
+		visible = {
+			NOT = { has_country_flag = KRAUS_usga_formed }
+			country_exists = GAL
+			GAL = { is_subject_of = ROOT }
+		}
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+			NOT = { has_country_flag = KRAUS_integ_running_GAL }
+			hidden_trigger = { check_variable = { KRAUS_integ_cost_GAL > 0 } }
+		}
+		cost = KRAUS_integ_cost_GAL
+		days_remove = KRAUS_integ_days_GAL
+		complete_effect = {
+			set_country_flag = KRAUS_integ_running_GAL
+			custom_effect_tooltip = KRAUS_integ_start_tt
+		}
+		remove_effect = {
+			if = {
+				limit = { country_exists = GAL GAL = { is_subject_of = ROOT } }
+				KRAUS_integ_do_GAL = yes
+			}
+		}
+		cancel_trigger = {
+			OR = {
+				NOT = { country_exists = GAL }
+				NOT = { GAL = { is_subject_of = ROOT } }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 3 GAL = { OR = { has_idea = KRAUS_cl_loyal_2 has_idea = KRAUS_cl_loyal_3 } } }
+			modifier = { factor = 0 GAL = { OR = { has_idea = KRAUS_cl_auto_2 has_idea = KRAUS_cl_auto_3 } } }
+		}
+	}
+	KRAUS_integ_dividend_GAL = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { has_country_flag = KRAUS_integrated_GAL }
+		days_mission_timeout = 30
+		is_good = yes
+		selectable_mission = no
+		available = { hidden_trigger = { always = no } }
+		timeout_effect = {
+			add_to_variable = { KRAUS_divt_GAL = 30 }
+			if = {
+				limit = { check_variable = { KRAUS_divt_GAL > KRAUS_div_days_m1 } }
+				set_variable = { KRAUS_divt_GAL = 0 }
+				country_event = { id = KRAUS_integ_events.2 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_integrate_CRO = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { original_tag = AUS }
+		visible = {
+			NOT = { has_country_flag = KRAUS_usga_formed }
+			country_exists = CRO
+			CRO = { is_subject_of = ROOT }
+		}
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+			NOT = { has_country_flag = KRAUS_integ_running_CRO }
+			hidden_trigger = { check_variable = { KRAUS_integ_cost_CRO > 0 } }
+		}
+		cost = KRAUS_integ_cost_CRO
+		days_remove = KRAUS_integ_days_CRO
+		complete_effect = {
+			set_country_flag = KRAUS_integ_running_CRO
+			custom_effect_tooltip = KRAUS_integ_start_tt
+		}
+		remove_effect = {
+			if = {
+				limit = { country_exists = CRO CRO = { is_subject_of = ROOT } }
+				KRAUS_integ_do_CRO = yes
+			}
+		}
+		cancel_trigger = {
+			OR = {
+				NOT = { country_exists = CRO }
+				NOT = { CRO = { is_subject_of = ROOT } }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 3 CRO = { OR = { has_idea = KRAUS_cl_loyal_2 has_idea = KRAUS_cl_loyal_3 } } }
+			modifier = { factor = 0 CRO = { OR = { has_idea = KRAUS_cl_auto_2 has_idea = KRAUS_cl_auto_3 } } }
+		}
+	}
+	KRAUS_integ_dividend_CRO = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { has_country_flag = KRAUS_integrated_CRO }
+		days_mission_timeout = 30
+		is_good = yes
+		selectable_mission = no
+		available = { hidden_trigger = { always = no } }
+		timeout_effect = {
+			add_to_variable = { KRAUS_divt_CRO = 30 }
+			if = {
+				limit = { check_variable = { KRAUS_divt_CRO > KRAUS_div_days_m1 } }
+				set_variable = { KRAUS_divt_CRO = 0 }
+				country_event = { id = KRAUS_integ_events.3 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_integrate_HUN = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { original_tag = AUS }
+		visible = {
+			NOT = { has_country_flag = KRAUS_usga_formed }
+			country_exists = HUN
+			HUN = { is_subject_of = ROOT }
+		}
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+			NOT = { has_country_flag = KRAUS_integ_running_HUN }
+			hidden_trigger = { check_variable = { KRAUS_integ_cost_HUN > 0 } }
+		}
+		cost = KRAUS_integ_cost_HUN
+		days_remove = KRAUS_integ_days_HUN
+		complete_effect = {
+			set_country_flag = KRAUS_integ_running_HUN
+			custom_effect_tooltip = KRAUS_integ_start_tt
+		}
+		remove_effect = {
+			if = {
+				limit = { country_exists = HUN HUN = { is_subject_of = ROOT } }
+				KRAUS_integ_do_HUN = yes
+			}
+		}
+		cancel_trigger = {
+			OR = {
+				NOT = { country_exists = HUN }
+				NOT = { HUN = { is_subject_of = ROOT } }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 3 HUN = { OR = { has_idea = KRAUS_cl_loyal_2 has_idea = KRAUS_cl_loyal_3 } } }
+			modifier = { factor = 0 HUN = { OR = { has_idea = KRAUS_cl_auto_2 has_idea = KRAUS_cl_auto_3 } } }
+		}
+	}
+	KRAUS_integ_dividend_HUN = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { has_country_flag = KRAUS_integrated_HUN }
+		days_mission_timeout = 30
+		is_good = yes
+		selectable_mission = no
+		available = { hidden_trigger = { always = no } }
+		timeout_effect = {
+			add_to_variable = { KRAUS_divt_HUN = 30 }
+			if = {
+				limit = { check_variable = { KRAUS_divt_HUN > KRAUS_div_days_m1 } }
+				set_variable = { KRAUS_divt_HUN = 0 }
+				country_event = { id = KRAUS_integ_events.4 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_integrate_SLO = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { original_tag = AUS }
+		visible = {
+			NOT = { has_country_flag = KRAUS_usga_formed }
+			country_exists = SLO
+			SLO = { is_subject_of = ROOT }
+		}
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+			NOT = { has_country_flag = KRAUS_integ_running_SLO }
+			hidden_trigger = { check_variable = { KRAUS_integ_cost_SLO > 0 } }
+		}
+		cost = KRAUS_integ_cost_SLO
+		days_remove = KRAUS_integ_days_SLO
+		complete_effect = {
+			set_country_flag = KRAUS_integ_running_SLO
+			custom_effect_tooltip = KRAUS_integ_start_tt
+		}
+		remove_effect = {
+			if = {
+				limit = { country_exists = SLO SLO = { is_subject_of = ROOT } }
+				KRAUS_integ_do_SLO = yes
+			}
+		}
+		cancel_trigger = {
+			OR = {
+				NOT = { country_exists = SLO }
+				NOT = { SLO = { is_subject_of = ROOT } }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 3 SLO = { OR = { has_idea = KRAUS_cl_loyal_2 has_idea = KRAUS_cl_loyal_3 } } }
+			modifier = { factor = 0 SLO = { OR = { has_idea = KRAUS_cl_auto_2 has_idea = KRAUS_cl_auto_3 } } }
+		}
+	}
+	KRAUS_integ_dividend_SLO = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { has_country_flag = KRAUS_integrated_SLO }
+		days_mission_timeout = 30
+		is_good = yes
+		selectable_mission = no
+		available = { hidden_trigger = { always = no } }
+		timeout_effect = {
+			add_to_variable = { KRAUS_divt_SLO = 30 }
+			if = {
+				limit = { check_variable = { KRAUS_divt_SLO > KRAUS_div_days_m1 } }
+				set_variable = { KRAUS_divt_SLO = 0 }
+				country_event = { id = KRAUS_integ_events.5 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_integrate_TRS = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { original_tag = AUS }
+		visible = {
+			NOT = { has_country_flag = KRAUS_usga_formed }
+			country_exists = TRS
+			TRS = { is_subject_of = ROOT }
+		}
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+			NOT = { has_country_flag = KRAUS_integ_running_TRS }
+			hidden_trigger = { check_variable = { KRAUS_integ_cost_TRS > 0 } }
+		}
+		cost = KRAUS_integ_cost_TRS
+		days_remove = KRAUS_integ_days_TRS
+		complete_effect = {
+			set_country_flag = KRAUS_integ_running_TRS
+			custom_effect_tooltip = KRAUS_integ_start_tt
+		}
+		remove_effect = {
+			if = {
+				limit = { country_exists = TRS TRS = { is_subject_of = ROOT } }
+				KRAUS_integ_do_TRS = yes
+			}
+		}
+		cancel_trigger = {
+			OR = {
+				NOT = { country_exists = TRS }
+				NOT = { TRS = { is_subject_of = ROOT } }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 3 TRS = { OR = { has_idea = KRAUS_cl_loyal_2 has_idea = KRAUS_cl_loyal_3 } } }
+			modifier = { factor = 0 TRS = { OR = { has_idea = KRAUS_cl_auto_2 has_idea = KRAUS_cl_auto_3 } } }
+		}
+	}
+	KRAUS_integ_dividend_TRS = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { has_country_flag = KRAUS_integrated_TRS }
+		days_mission_timeout = 30
+		is_good = yes
+		selectable_mission = no
+		available = { hidden_trigger = { always = no } }
+		timeout_effect = {
+			add_to_variable = { KRAUS_divt_TRS = 30 }
+			if = {
+				limit = { check_variable = { KRAUS_divt_TRS > KRAUS_div_days_m1 } }
+				set_variable = { KRAUS_divt_TRS = 0 }
+				country_event = { id = KRAUS_integ_events.6 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	############################################################
+	### 设立新王冠领（2026-10-12）：多瑙河危机了结后，奥地利打赢了匈牙利，或匈牙利处于忠诚 II 以上，
+	### 就可以把匈牙利手里带斯洛伐克 / 特兰西瓦尼亚核心的州划出来，设为新的王冠领（从中立档起步）。
+	############################################################
+	KRAUS_found_SLO = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { original_tag = AUS }
+		visible = {
+			NOT = { has_country_flag = KRAUS_usga_formed }
+			country_exists = HUN
+			HUN = {
+				is_subject_of = ROOT
+				any_owned_state = { is_core_of = SLO }
+			}
+			NOT = { SLO = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+			custom_trigger_tooltip = {
+				tooltip = KRAUS_found_cond_tt
+				OR = {
+					AND = {
+						has_country_flag = KRAUS_dc_had_war
+						KRAUS_dc_victory = yes
+					}
+					HUN = { OR = { has_idea = KRAUS_cl_loyal_2 has_idea = KRAUS_cl_loyal_3 } }
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = KRAUS_ia_need_25_tt
+				check_variable = { KRAUS_imperial_authority > 24 }
+			}
+		}
+		cost = 100
+		fire_only_once = yes
+		complete_effect = {
+			custom_effect_tooltip = KRAUS_ia_cost_25_tt
+			hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 25 } KRAUS_imperial_clamp = yes }
+			custom_effect_tooltip = KRAUS_found_SLO_tt
+			KRAUS_found_do_SLO = yes
+		}
+		ai_will_do = { factor = 1 }
+	}
+	KRAUS_found_TRS = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { original_tag = AUS }
+		visible = {
+			NOT = { has_country_flag = KRAUS_usga_formed }
+			country_exists = HUN
+			HUN = {
+				is_subject_of = ROOT
+				any_owned_state = { is_core_of = TRS }
+			}
+			NOT = { TRS = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+			custom_trigger_tooltip = {
+				tooltip = KRAUS_found_cond_tt
+				OR = {
+					AND = {
+						has_country_flag = KRAUS_dc_had_war
+						KRAUS_dc_victory = yes
+					}
+					HUN = { OR = { has_idea = KRAUS_cl_loyal_2 has_idea = KRAUS_cl_loyal_3 } }
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = KRAUS_ia_need_25_tt
+				check_variable = { KRAUS_imperial_authority > 24 }
+			}
+		}
+		cost = 100
+		fire_only_once = yes
+		complete_effect = {
+			custom_effect_tooltip = KRAUS_ia_cost_25_tt
+			hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 25 } KRAUS_imperial_clamp = yes }
+			custom_effect_tooltip = KRAUS_found_TRS_tt
+			KRAUS_found_do_TRS = yes
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	############################################################
+	### 释放新的王冠领（2026-10-12 实测反馈）：奥地利打赢并吞并匈牙利之后，一年之内可以释放斯洛伐克、特兰西瓦尼亚与匈牙利。
+	### 一年内没有放完：所有王冠领的不满，自主拉满，整合代价 ×3；二战中同时与德、法、俄任意两国开战，未整合的王冠领会叛乱。
+	############################################################
+	KRAUS_release_SLO = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { original_tag = AUS }
+		visible = {
+			NOT = { has_country_flag = KRAUS_usga_formed }
+			KRAUS_dc_resolved = yes
+			KRAUS_dc_victory = yes
+			NOT = { country_exists = HUN }
+			NOT = { country_exists = SLO }
+			NOT = { has_country_flag = KRAUS_cl_resentful }
+			any_owned_state = { is_core_of = SLO }
+		}
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+			custom_trigger_tooltip = {
+				tooltip = KRAUS_ia_need_25_tt
+				check_variable = { KRAUS_imperial_authority > 24 }
+			}
+		}
+		cost = 100
+		fire_only_once = yes
+		complete_effect = {
+			custom_effect_tooltip = KRAUS_ia_cost_25_tt
+			hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 25 } KRAUS_imperial_clamp = yes }
+			custom_effect_tooltip = KRAUS_release_SLO_tt
+			KRAUS_release_do_SLO = yes
+		}
+		ai_will_do = { factor = 2 }
+	}
+	KRAUS_release_TRS = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { original_tag = AUS }
+		visible = {
+			NOT = { has_country_flag = KRAUS_usga_formed }
+			KRAUS_dc_resolved = yes
+			KRAUS_dc_victory = yes
+			NOT = { country_exists = HUN }
+			NOT = { country_exists = TRS }
+			NOT = { has_country_flag = KRAUS_cl_resentful }
+			any_owned_state = { is_core_of = TRS }
+		}
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+			custom_trigger_tooltip = {
+				tooltip = KRAUS_ia_need_25_tt
+				check_variable = { KRAUS_imperial_authority > 24 }
+			}
+		}
+		cost = 100
+		fire_only_once = yes
+		complete_effect = {
+			custom_effect_tooltip = KRAUS_ia_cost_25_tt
+			hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 25 } KRAUS_imperial_clamp = yes }
+			custom_effect_tooltip = KRAUS_release_TRS_tt
+			KRAUS_release_do_TRS = yes
+		}
+		ai_will_do = { factor = 2 }
+	}
+	KRAUS_release_HUN = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { original_tag = AUS }
+		visible = {
+			NOT = { has_country_flag = KRAUS_usga_formed }
+			KRAUS_dc_resolved = yes
+			KRAUS_dc_victory = yes
+			NOT = { country_exists = HUN }
+			NOT = { country_exists = HUN }
+			NOT = { has_country_flag = KRAUS_cl_resentful }
+			any_owned_state = { is_core_of = HUN }
+		}
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+			custom_trigger_tooltip = {
+				tooltip = KRAUS_release_hun_last_tt
+				OR = {
+					country_exists = SLO
+					NOT = { any_owned_state = { is_core_of = SLO } }
+				}
+				OR = {
+					country_exists = TRS
+					NOT = { any_owned_state = { is_core_of = TRS } }
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = KRAUS_ia_need_25_tt
+				check_variable = { KRAUS_imperial_authority > 24 }
+			}
+		}
+		cost = 150
+		fire_only_once = yes
+		complete_effect = {
+			custom_effect_tooltip = KRAUS_ia_cost_25_tt
+			hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 25 } KRAUS_imperial_clamp = yes }
+			custom_effect_tooltip = KRAUS_release_HUN_tt
+			KRAUS_release_do_HUN = yes
+		}
+		ai_will_do = { factor = 2 }
+	}
+	############################################################
+	### 0.9 实测：「不只是名义上的联盟」改为一条每 60 天可用一次的决议，快速提升各王冠领的顺从度，直到全部整合。
+	############################################################
+	KRAUS_us_unity_loyalty = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { original_tag = AUS }
+		visible = {
+			has_completed_focus = KRAUS_pl_L1
+			KRAUS_has_crownland = yes
+		}
+		available = {
+			NOT = { KRAUS_dc_ongoing = yes }
+		}
+		cost = 25
+		days_re_enable = 60
+		complete_effect = {
+			custom_effect_tooltip = KRAUS_us_unity_loyalty_tt
+			hidden_effect = {
+				every_subject_country = {
+					limit = { KRAUS_is_crownland_of_root = yes }
+					KRAUS_cl_toward_loyal = yes
+				}
+			}
+		}
+		ai_will_do = { factor = 1 }
+	}
+	KRAUS_coop_POL = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { has_country_flag = KRAUS_coop_POL }
+		days_mission_timeout = 30
+		is_good = yes
+		selectable_mission = no
+		available = { hidden_trigger = { always = no } }
+		timeout_effect = {
+			add_to_variable = { KRAUS_coopt_POL = 30 }
+			if = {
+				limit = { check_variable = { KRAUS_coopt_POL > KRAUS_div_days_m1 } }
+				set_variable = { KRAUS_coopt_POL = 0 }
+				country_event = { id = KRAUS_coop.11 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_coop_UKR = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { has_country_flag = KRAUS_coop_UKR }
+		days_mission_timeout = 30
+		is_good = yes
+		selectable_mission = no
+		available = { hidden_trigger = { always = no } }
+		timeout_effect = {
+			add_to_variable = { KRAUS_coopt_UKR = 30 }
+			if = {
+				limit = { check_variable = { KRAUS_coopt_UKR > KRAUS_div_days_m1 } }
+				set_variable = { KRAUS_coopt_UKR = 0 }
+				country_event = { id = KRAUS_coop.12 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_coop_GER = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { has_country_flag = KRAUS_coop_GER }
+		days_mission_timeout = 30
+		is_good = yes
+		selectable_mission = no
+		available = { hidden_trigger = { always = no } }
+		timeout_effect = {
+			add_to_variable = { KRAUS_coopt_GER = 30 }
+			if = {
+				limit = { check_variable = { KRAUS_coopt_GER > KRAUS_div_days_m1 } }
+				set_variable = { KRAUS_coopt_GER = 0 }
+				country_event = { id = KRAUS_coop.13 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_coop_ITA = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { has_country_flag = KRAUS_coop_ITA }
+		days_mission_timeout = 30
+		is_good = yes
+		selectable_mission = no
+		available = { hidden_trigger = { always = no } }
+		timeout_effect = {
+			add_to_variable = { KRAUS_coopt_ITA = 30 }
+			if = {
+				limit = { check_variable = { KRAUS_coopt_ITA > KRAUS_div_days_m1 } }
+				set_variable = { KRAUS_coopt_ITA = 0 }
+				country_event = { id = KRAUS_coop.14 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_pl_mobilisation = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { original_tag = AUS }
+		visible = {
+			has_global_flag = second_weltkrieg_has_started
+			NOT = { has_country_flag = KRAUS_pl_mobilised }
+			has_completed_focus = aus_mult_defense_prep
+		}
+		available = {
+			has_war = yes
+		}
+		fire_only_once = yes
+		cost = 50
+		complete_effect = {
+			set_country_flag = KRAUS_pl_mobilised
+			KRAUS_pl_spawn_militia_10 = yes
+			if = {
+				limit = { OR = { has_war_with = SER has_war_with = ROM } }
+				KRAUS_pl_spawn_militia_5 = yes
+			}
+		}
+		ai_will_do = { factor = 5 }
+	}
+}

@@ -1,0 +1,79 @@
+KRAUS_crown_crisis_clear_state = {
+    if = { limit = { has_dynamic_modifier = { modifier = KRAUS_crown_crisis_deep } } remove_dynamic_modifier = { modifier = KRAUS_crown_crisis_deep } }
+    if = { limit = { has_dynamic_modifier = { modifier = KRAUS_crown_crisis_heavy } } remove_dynamic_modifier = { modifier = KRAUS_crown_crisis_heavy } }
+    if = { limit = { has_dynamic_modifier = { modifier = KRAUS_crown_crisis_moderate } } remove_dynamic_modifier = { modifier = KRAUS_crown_crisis_moderate } }
+    if = { limit = { has_dynamic_modifier = { modifier = KRAUS_crown_crisis_light } } remove_dynamic_modifier = { modifier = KRAUS_crown_crisis_light } }
+    if = { limit = { has_dynamic_modifier = { modifier = KRAUS_crown_crisis_recovery } } remove_dynamic_modifier = { modifier = KRAUS_crown_crisis_recovery } }
+}
+# Called in AUS scope. No recovery dividend before Black Monday has actually appeared.
+KRAUS_crown_crisis_daily = {
+    if = { limit = { KRAUS_has_black_monday_trigger = yes } set_country_flag = KRAUS_crown_crisis_started }
+    if = {
+        limit = { has_country_flag = KRAUS_crown_crisis_started }
+        if = { limit = { NOT = { KRAUS_has_black_monday_trigger = yes } } set_variable = { KRAUS_crown_crisis_tier = 4 } }
+        else_if = { limit = { OR = { has_idea = AUS_black_monday_cs-3 has_idea = AUS_black_monday_sdap-3 } } set_variable = { KRAUS_crown_crisis_tier = 3 } }
+        else_if = { limit = { OR = { has_idea = AUS_black_monday_cs-2 has_idea = AUS_black_monday_sdap-2 } } set_variable = { KRAUS_crown_crisis_tier = 2 } }
+        else_if = { limit = { OR = { has_idea = AUS_black_monday_cs-1 has_idea = AUS_black_monday_sdap-1 } } set_variable = { KRAUS_crown_crisis_tier = 1 } }
+        else = { set_variable = { KRAUS_crown_crisis_tier = 0 } }
+        # 0.9 反馈27：适用于各王冠领全部核心州（整合后同样适用），而不止首都州
+        every_state = {
+            limit = {
+                OR = {
+                    state = 9
+                    state = 109
+                    state = 89
+                    is_core_of = CZE
+                    is_core_of = GAL
+                    is_core_of = CRO
+                    is_core_of = HUN
+                    is_core_of = SLO
+                    is_core_of = TRS
+                }
+            }
+            if = {
+                limit = { KRAUS_crown_crisis_state_eligible = yes }
+                if = {
+                    limit = { AUS = { check_variable = { KRAUS_crown_crisis_tier = 0 } } }
+                    if = {
+                        limit = { NOT = { has_dynamic_modifier = { modifier = KRAUS_crown_crisis_deep } } }
+                        KRAUS_crown_crisis_clear_state = yes
+                        add_dynamic_modifier = { modifier = KRAUS_crown_crisis_deep }
+                    }
+                }
+                else_if = {
+                    limit = { AUS = { check_variable = { KRAUS_crown_crisis_tier = 1 } } }
+                    if = {
+                        limit = { NOT = { has_dynamic_modifier = { modifier = KRAUS_crown_crisis_heavy } } }
+                        KRAUS_crown_crisis_clear_state = yes
+                        add_dynamic_modifier = { modifier = KRAUS_crown_crisis_heavy }
+                    }
+                }
+                else_if = {
+                    limit = { AUS = { check_variable = { KRAUS_crown_crisis_tier = 2 } } }
+                    if = {
+                        limit = { NOT = { has_dynamic_modifier = { modifier = KRAUS_crown_crisis_moderate } } }
+                        KRAUS_crown_crisis_clear_state = yes
+                        add_dynamic_modifier = { modifier = KRAUS_crown_crisis_moderate }
+                    }
+                }
+                else_if = {
+                    limit = { AUS = { check_variable = { KRAUS_crown_crisis_tier = 3 } } }
+                    if = {
+                        limit = { NOT = { has_dynamic_modifier = { modifier = KRAUS_crown_crisis_light } } }
+                        KRAUS_crown_crisis_clear_state = yes
+                        add_dynamic_modifier = { modifier = KRAUS_crown_crisis_light }
+                    }
+                }
+                else_if = {
+                    limit = { AUS = { check_variable = { KRAUS_crown_crisis_tier = 4 } } }
+                    if = {
+                        limit = { NOT = { has_dynamic_modifier = { modifier = KRAUS_crown_crisis_recovery } } }
+                        KRAUS_crown_crisis_clear_state = yes
+                        add_dynamic_modifier = { modifier = KRAUS_crown_crisis_recovery }
+                    }
+                }
+            }
+            else = { KRAUS_crown_crisis_clear_state = yes }
+        }
+    }
+}

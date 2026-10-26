@@ -1,0 +1,15 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			AUS = {
+				add_ideas = {
+					aus_economic_crisis
+					aus_political_instability
+					aus_military_weakness
+				}
+				# 2026-10-11: no recruiting / template editing / disbanding until the army is unified
+				country_lock_all_division_template = { is_locked = yes desc = KRAUS_military_lock_desc }
+			}
+		}
+	}
+}

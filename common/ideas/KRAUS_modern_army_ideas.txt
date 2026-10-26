@@ -1,0 +1,95 @@
+############################################################
+### 联合军事线：两条陆军现代化精神（2026-10-12 实测反馈）
+### KR 的 AUS_modern_army_jansa / _von_hubicki 共用同一个名字「共同陆军现代化」，
+### 联合军事线两条学说都能点，玩家会同时看到两条同名精神。这里复制出区分名字的版本。
+############################################################
+ideas = {
+	country = {
+		# 0.9 反馈33：希克曼列的第二档，与雅恩萨、胡比茨基对齐
+		KRAUS_modern_army_hickmann_mid = {
+			name = AUS_modern_army
+			picture = KRAUS_modern_army_hickmann
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				army_core_attack_factor = 0.05
+				army_core_defence_factor = 0.1
+				army_org_factor = 0.05
+			}
+		}
+		KRAUS_modern_army_jansa = {
+			name = KRAUS_modern_army_jansa
+			picture = KRAUS_modern_army_jansa
+			allowed = { always = no }
+			modifier = {
+				army_core_attack_factor = 0.05
+				army_core_defence_factor = 0.05
+				max_dig_in = 5
+			}
+		}
+		KRAUS_modern_army_jansa_2 = {
+			name = KRAUS_modern_army_jansa
+			picture = KRAUS_modern_army_jansa
+			allowed = { always = no }
+			modifier = {
+				army_core_attack_factor = 0.05
+				army_core_defence_factor = 0.05
+				max_dig_in = 5
+				army_org_factor = 0.05
+			}
+		}
+		KRAUS_modern_army_jansa_3 = {
+			name = KRAUS_modern_army_jansa
+			picture = KRAUS_modern_army_jansa
+			allowed = { always = no }
+			modifier = {
+				army_core_attack_factor = 0.05
+				army_core_defence_factor = 0.1
+				max_dig_in = 5
+				army_org_factor = 0.05
+				max_planning = 0.1
+			}
+		}
+		KRAUS_modern_army_hubicki = {
+			name = KRAUS_modern_army_hubicki
+			picture = KRAUS_modern_army_hubicki
+			allowed = { always = no }
+			modifier = {
+				army_core_attack_factor = 0.05
+				army_core_defence_factor = 0.05
+				army_armor_attack_factor = 0.05
+				army_armor_defence_factor = 0.05
+				mechanized_attack_factor = 0.05
+				mechanized_defence_factor = 0.05
+			}
+		}
+		KRAUS_modern_army_hubicki_2 = {
+			name = KRAUS_modern_army_hubicki
+			picture = KRAUS_modern_army_hubicki
+			allowed = { always = no }
+			modifier = {
+				army_core_attack_factor = 0.05
+				army_core_defence_factor = 0.05
+				army_armor_attack_factor = 0.05
+				army_armor_defence_factor = 0.05
+				mechanized_attack_factor = 0.05
+				mechanized_defence_factor = 0.05
+				army_org_factor = 0.05
+			}
+		}
+		KRAUS_modern_army_hubicki_3 = {
+			name = KRAUS_modern_army_hubicki
+			picture = KRAUS_modern_army_hubicki
+			allowed = { always = no }
+			modifier = {
+				army_core_attack_factor = 0.1
+				army_core_defence_factor = 0.05
+				army_armor_attack_factor = 0.1
+				army_armor_defence_factor = 0.1
+				mechanized_attack_factor = 0.1
+				mechanized_defence_factor = 0.1
+				army_org_factor = 0.05
+			}
+		}
+	}
+}

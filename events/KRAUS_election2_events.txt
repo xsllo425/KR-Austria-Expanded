@@ -1,0 +1,116 @@
+add_namespace = KRAUS_election2
+
+# 第二次大选之前：危机在议会里留下的裂缝开始愈合
+country_event = {
+	id = KRAUS_election2.1
+	title = KRAUS_election2.1.t
+	desc = KRAUS_election2.1.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_election2.1.a
+		log = "[GetLogInfo]: event KRAUS_election2.1 option KRAUS_election2.1.a"
+		if = {
+			limit = { has_idea = AUS_divided_society }
+			remove_ideas = AUS_divided_society
+		}
+		hidden_effect = {
+			country_event = { id = KRAUS_election2.2 days = 30 }
+		}
+	}
+}
+
+# 第二次大选：各党团的积累换成选票，得票最多的党执政
+country_event = {
+	id = KRAUS_election2.2
+	title = KRAUS_election2.2.t
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_lead_sd }
+		text = KRAUS_election2.2.d_sd
+	}
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_lead_cs }
+		text = KRAUS_election2.2.d_cs
+	}
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_lead_sl }
+		text = KRAUS_election2.2.d_sl
+	}
+	desc = {
+		trigger = { has_country_flag = KRAUS_pm_lead_ml }
+		text = KRAUS_election2.2.d_ml
+	}
+	desc = {
+		trigger = {
+			NOT = { has_country_flag = KRAUS_pm_lead_sd }
+			NOT = { has_country_flag = KRAUS_pm_lead_cs }
+			NOT = { has_country_flag = KRAUS_pm_lead_sl }
+			NOT = { has_country_flag = KRAUS_pm_lead_ml }
+		}
+		text = KRAUS_election2.2.d_other
+	}
+	picture = GFX_report_event_KRAUS_election2_2
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			KRAUS_pm_recalc = yes
+			# 党团积累折成选票：主党 +6%，辅党（完成了任一国策）+3%
+			if = {
+				limit = { has_country_flag = KRAUS_pp_main_sd }
+				add_popularity = { ideology = social_democrat popularity = 0.06 }
+			}
+			else_if = {
+				limit = { OR = { has_completed_focus = KRAUS_pp_sd_1 has_completed_focus = KRAUS_pp_sd_2 has_completed_focus = KRAUS_pp_sd_3 } }
+				add_popularity = { ideology = social_democrat popularity = 0.03 }
+			}
+			if = {
+				limit = { has_country_flag = KRAUS_pp_main_cs }
+				add_popularity = { ideology = social_conservative popularity = 0.06 }
+			}
+			else_if = {
+				limit = { OR = { has_completed_focus = KRAUS_pp_cs_1 has_completed_focus = KRAUS_pp_cs_2 has_completed_focus = KRAUS_pp_cs_3 } }
+				add_popularity = { ideology = social_conservative popularity = 0.03 }
+			}
+			if = {
+				limit = { has_country_flag = KRAUS_pp_main_sl }
+				add_popularity = { ideology = social_liberal popularity = 0.06 }
+			}
+			else_if = {
+				limit = { OR = { has_completed_focus = KRAUS_pp_sl_1 has_completed_focus = KRAUS_pp_sl_2 has_completed_focus = KRAUS_pp_sl_3 } }
+				add_popularity = { ideology = social_liberal popularity = 0.03 }
+			}
+			if = {
+				limit = { has_country_flag = KRAUS_pp_main_ml }
+				add_popularity = { ideology = market_liberal popularity = 0.06 }
+			}
+			else_if = {
+				limit = { OR = { has_completed_focus = KRAUS_pp_ml_1 has_completed_focus = KRAUS_pp_ml_2 has_completed_focus = KRAUS_pp_ml_3 } }
+				add_popularity = { ideology = market_liberal popularity = 0.03 }
+			}
+		}
+	}
+	option = {
+		name = KRAUS_election2.2.a
+		log = "[GetLogInfo]: event KRAUS_election2.2 option KRAUS_election2.2.a"
+		# 2026-10-13 合众国路线第 1 批：执政党改由政治地图的主导党决定，不再按支持率
+		# 0.9 实测 22：重心落在正中（四党等距）算僵局，不决出执政党，直接进入基本法进度，一直僵持到大战
+		if = {
+			limit = {
+				check_variable = { var = KRAUS_pm_x value = 48 compare = greater_than_or_equals }
+				check_variable = { var = KRAUS_pm_x value = 52 compare = less_than_or_equals }
+				check_variable = { var = KRAUS_pm_y value = 48 compare = greater_than_or_equals }
+				check_variable = { var = KRAUS_pm_y value = 52 compare = less_than_or_equals }
+			}
+			set_country_flag = KRAUS_el2c_deadlock
+			set_country_flag = KRAUS_pm_charter_open
+			custom_effect_tooltip = KRAUS_el2c_deadlock_tt
+		}
+		else = {
+			KRAUS_pm_apply_government = yes
+			hidden_effect = { country_event = { id = KRAUS_pm_issue.1 days = 60 } }
+		}
+		add_political_power = 25
+		set_country_flag = KRAUS_election2_done
+	}
+}

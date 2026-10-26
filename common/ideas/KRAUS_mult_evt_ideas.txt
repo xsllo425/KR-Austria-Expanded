@@ -1,0 +1,56 @@
+############################################################
+### 拥抱多元主义：事件临时精神（小单 G 附带的 6 个）
+### 用途：事件选项要给的是 modifier（工厂产出、顺从增长、可征募人口…），
+###       而 option 里不能直接写 modifier，只能 add_timed_idea 挂一个承载精神。
+###       故这 6 个精神只服务事件，不做长期国策奖励，天数为 3650（≈永久）。
+### 数值：全部取 数值表.md §7（85-95 行）/ §二（408-418 行）
+### 修正名逐个 h4q.py check 通过（2026-10-24）
+### 图标：沿用模组现成精神图，未新画
+############################################################
+ideas = {
+	country = {
+		# KRAUS_mult.1 选项 A：王领顺从增长 +0.02（政点/稳定/顺从已在 option 里直接给）
+		# KRAUS_mult.1 选项 B：动员 +10%（战支/陆经/工厂/师已在 option 里给）
+		# KRAUS_mult.2 选项 A：全国工厂产出 +5%
+		# KRAUS_mult.2 选项 B：全国可征募人口 +1%（加利西亚顺从已在 option 里按州给）
+		# KRAUS_mult.3 唯一选项：顺从增长 +0.01、经济/贸易/动员三类法案花费各 -5%
+		KRAUS_mult_evt_verdict = {
+			picture = KRAUS_CZE_kohout_manual
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				compliance_gain = 0.01
+				economy_cost_factor = -0.05
+				trade_laws_cost_factor = -0.05
+				mobilization_laws_cost_factor = -0.05
+			}
+		}
+		# KRAUS_mult.4 唯一选项：全境工厂产出 +5%、贸易法案花费 -10%
+		KRAUS_mult_evt_danube = {
+			picture = KRAUS_arms_trade_profits
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.05
+				trade_laws_cost_factor = -0.10
+			}
+		}
+		# 10-27：邦议会的记录语言（KRAUS_mult.5）
+		KRAUS_fed_lang_german = {
+			picture = KRAUS_fed_lang_german
+			allowed = { original_tag = AUS }
+			modifier = {
+				political_power_factor = 0.10
+				stability_factor = -0.03
+			}
+		}
+		KRAUS_fed_lang_many = {
+			picture = KRAUS_fed_lang_many
+			allowed = { original_tag = AUS }
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = -0.05
+			}
+		}
+	}
+}

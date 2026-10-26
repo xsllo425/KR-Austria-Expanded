@@ -1,0 +1,98 @@
+############################################################
+### KRAUS 全球民主化运动 · 决议（2026-09-24）
+###
+### ★ 用户定案：
+###   「用决议体现，点了决议同时向相关方发送事件。」
+###   「一般情况下，战争状态的国家不会接受调停，但是在战争处于不利状态的一方，
+###    更容易接受调停，而处于优势的一方通常不会接受。
+###    而玩家可以选择加入其中任意一方。」
+###   「如果双方接受，则无条件和平，双方按照当前控制领土和平。」
+###
+### ★ 类目定义在同目录的 categories\KRAUS_global_categories.txt
+###   （漏了类目 → 决议静默消失，本项目踩过）
+###
+### ★ 已核实的机制：
+###   · targeted_decision 中用 FROM 拿到目标国 — 见原版 FRA decisions (France).txt
+###     FRA_intervene_on_side_of_FROM（「站在（GetNameDef）一边调停」）
+###   · add_to_war = { targeted_alliance / enemy / hostility_reason / single_target_only }
+###     effects_documentation.md:2359
+###   · every_enemy_country  — 遍历目标国的所有敌国
+###   · white_peace = TAG     — 停战（★ 不转移领土）
+###   · transfer_state_to     — Scopes: STATE — 把州的所有权与控制权给某国
+###     （「按当前控制线和平」＝ 先转移州，再 white_peace）
+############################################################
+
+
+
+	KRAUS_global_democratisation = {
+
+		####################################################
+		### 调停战争
+		####################################################
+		KRAUS_mediate_war = {
+			icon = GFX_decision_category_generic_crisis
+
+			targets = { }
+			target_array = countries
+
+			# 目标国：正在打仗、不是我们自己、我们与它没有交战
+			target_trigger = {
+				FROM = {
+					has_war = yes
+					NOT = { tag = AUS }
+					NOT = { has_war_with = AUS }
+					# 至少要有一个非内战、非我们的敌人
+					any_enemy_country = {
+						NOT = { tag = AUS }
+						NOT = { civilwar_target = PREV }
+					}
+				}
+			}
+
+			# 奥地利侧门槛：需要政治资本去调停
+			available = {
+				has_political_power > 75
+				has_war = no
+			}
+
+			visible = {
+				has_global_flag = second_weltkrieg_has_ended
+				has_country_flag = KRAUS_decolonisation_launched
+			}
+
+			fire_only_once = no
+			days_remove = 0
+			cost = 75
+			days_re_enable = 120
+
+			complete_effect = {
+				log = "[GetLogRoot][GetLogFrom]: Decision KRAUS_mediate_war on [GetLogFrom]"
+
+				# ★ 玩家选的是「要调停哪一场战争」——目标国是其中一方
+				#   向【目标国】发调停提议
+				FROM = {
+					country_event = { id = KRAUS_war_order_events.10 days = 1 }
+				}
+
+				# ★ 同时向【它的所有敌国】发调停提议（用户要求：向相关方发送事件）
+				FROM = {
+					every_enemy_country = {
+						limit = {
+							NOT = { tag = AUS }
+							NOT = { civilwar_target = PREV }
+						}
+						country_event = { id = KRAUS_war_order_events.10 days = 1 }
+					}
+				}
+
+				# 记录本轮的调停对象，供后续事件使用
+				FROM = {
+					save_global_event_target_as = KRAUS_mediation_target
+					set_country_flag = KRAUS_mediation_proposed
+				}
+
+				add_political_power = -25
+			}
+		}
+	}
+

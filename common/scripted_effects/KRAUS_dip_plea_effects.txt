@@ -1,0 +1,111 @@
+############################################################
+### 乌克兰、波兰求援国策里「要求哈布斯堡成为元首」的执行体（0.9 实测 72、73，2026-10-14）。
+### 内容照搬「奥乌 / 奥波经济一体化」里原有的换元首写法。奥地利作用域。
+############################################################
+KRAUS_ukr_install_habsburg = {
+	hidden_effect = {
+			if = {
+				limit = { UKR = { has_character = UKR_wilhelm_franz_von_habsburg NOT = { has_country_leader = { character = UKR_wilhelm_franz_von_habsburg } } } }
+				custom_effect_tooltip = tooltip_white_line
+				custom_effect_tooltip = KRAUS_dip_ukraine_habsburg_tt
+				hidden_effect = {
+					UKR = {
+					if = {
+						limit = { has_government = totalist }
+						UKR_wilhelm_franz_von_habsburg = { add_country_leader_role = { country_leader = { desc = UKR_wilhelm_franz_von_habsburg_leader_desc ideology = totalist_subtype traits = { UKR_red_prince } } promote_leader = yes } }
+					}
+					else_if = {
+						limit = { has_government = syndicalist }
+						UKR_wilhelm_franz_von_habsburg = { add_country_leader_role = { country_leader = { desc = UKR_wilhelm_franz_von_habsburg_leader_desc ideology = syndicalist_subtype traits = { UKR_red_prince } } promote_leader = yes } }
+					}
+					else_if = {
+						limit = { has_government = radical_socialist }
+						UKR_wilhelm_franz_von_habsburg = { add_country_leader_role = { country_leader = { desc = UKR_wilhelm_franz_von_habsburg_leader_desc ideology = radical_socialist_subtype traits = { UKR_red_prince } } promote_leader = yes } }
+					}
+					else_if = {
+						limit = { has_government = social_democrat }
+						UKR_wilhelm_franz_von_habsburg = { add_country_leader_role = { country_leader = { desc = UKR_wilhelm_franz_von_habsburg_leader_desc ideology = social_democrat_subtype traits = { UKR_red_prince } } promote_leader = yes } }
+					}
+					else_if = {
+						limit = { has_government = social_liberal }
+						UKR_wilhelm_franz_von_habsburg = { add_country_leader_role = { country_leader = { desc = UKR_wilhelm_franz_von_habsburg_leader_desc ideology = social_liberal_subtype traits = { UKR_red_prince } } promote_leader = yes } }
+					}
+					else_if = {
+						limit = { has_government = market_liberal }
+						UKR_wilhelm_franz_von_habsburg = { add_country_leader_role = { country_leader = { desc = UKR_wilhelm_franz_von_habsburg_leader_desc ideology = market_liberal_subtype traits = { UKR_red_prince } } promote_leader = yes } }
+					}
+					else_if = {
+						limit = { has_government = social_conservative }
+						UKR_wilhelm_franz_von_habsburg = { add_country_leader_role = { country_leader = { desc = UKR_wilhelm_franz_von_habsburg_leader_desc ideology = social_conservative_subtype traits = { UKR_red_prince } } promote_leader = yes } }
+					}
+					else_if = {
+						limit = { has_government = authoritarian_democrat }
+						UKR_wilhelm_franz_von_habsburg = { add_country_leader_role = { country_leader = { desc = UKR_wilhelm_franz_von_habsburg_leader_desc ideology = authoritarian_democrat_subtype traits = { UKR_red_prince } } promote_leader = yes } }
+					}
+					else_if = {
+						limit = { has_government = paternal_autocrat }
+						UKR_wilhelm_franz_von_habsburg = { add_country_leader_role = { country_leader = { desc = UKR_wilhelm_franz_von_habsburg_leader_desc ideology = paternal_autocrat_subtype traits = { UKR_red_prince } } promote_leader = yes } }
+					}
+					else_if = {
+						limit = { has_government = national_populist }
+						UKR_wilhelm_franz_von_habsburg = { add_country_leader_role = { country_leader = { desc = UKR_wilhelm_franz_von_habsburg_leader_desc ideology = national_populist_subtype traits = { UKR_red_prince } } promote_leader = yes } }
+					}
+						country_event = { id = KRAUS_dip_events.11 days = 1 }
+					}
+				}
+			}
+	}
+}
+KRAUS_pol_install_habsburg = {
+			hidden_effect = {
+				if = {
+					limit = { country_exists = GAL GAL = { has_character = AUS_karl_albrecht_von_habsburg } }
+					GAL_remove_karl_albrecht = yes
+					GAL = { KRAUS_cl_toward_autonomy = yes }
+				}
+				AUS_karl_albrecht_von_habsburg = { set_nationality = POL }
+				POL = {
+				if = {
+					limit = { has_government = totalist }
+					AUS_karl_albrecht_von_habsburg = { add_country_leader_role = { country_leader = { desc = AUS_karl_albrecht_von_habsburg_leader_desc ideology = totalist_subtype traits = { } } promote_leader = yes } }
+				}
+				else_if = {
+					limit = { has_government = syndicalist }
+					AUS_karl_albrecht_von_habsburg = { add_country_leader_role = { country_leader = { desc = AUS_karl_albrecht_von_habsburg_leader_desc ideology = syndicalist_subtype traits = { } } promote_leader = yes } }
+				}
+				else_if = {
+					limit = { has_government = radical_socialist }
+					AUS_karl_albrecht_von_habsburg = { add_country_leader_role = { country_leader = { desc = AUS_karl_albrecht_von_habsburg_leader_desc ideology = radical_socialist_subtype traits = { } } promote_leader = yes } }
+				}
+				else_if = {
+					limit = { has_government = social_democrat }
+					AUS_karl_albrecht_von_habsburg = { add_country_leader_role = { country_leader = { desc = AUS_karl_albrecht_von_habsburg_leader_desc ideology = social_democrat_subtype traits = { } } promote_leader = yes } }
+				}
+				else_if = {
+					limit = { has_government = social_liberal }
+					AUS_karl_albrecht_von_habsburg = { add_country_leader_role = { country_leader = { desc = AUS_karl_albrecht_von_habsburg_leader_desc ideology = social_liberal_subtype traits = { } } promote_leader = yes } }
+				}
+				else_if = {
+					limit = { has_government = market_liberal }
+					AUS_karl_albrecht_von_habsburg = { add_country_leader_role = { country_leader = { desc = AUS_karl_albrecht_von_habsburg_leader_desc ideology = market_liberal_subtype traits = { } } promote_leader = yes } }
+				}
+				else_if = {
+					limit = { has_government = social_conservative }
+					AUS_karl_albrecht_von_habsburg = { add_country_leader_role = { country_leader = { desc = AUS_karl_albrecht_von_habsburg_leader_desc ideology = social_conservative_subtype traits = { } } promote_leader = yes } }
+				}
+				else_if = {
+					limit = { has_government = authoritarian_democrat }
+					AUS_karl_albrecht_von_habsburg = { add_country_leader_role = { country_leader = { desc = AUS_karl_albrecht_von_habsburg_leader_desc ideology = authoritarian_democrat_subtype traits = { } } promote_leader = yes } }
+				}
+				else_if = {
+					limit = { has_government = paternal_autocrat }
+					AUS_karl_albrecht_von_habsburg = { add_country_leader_role = { country_leader = { desc = AUS_karl_albrecht_von_habsburg_leader_desc ideology = paternal_autocrat_subtype traits = { } } promote_leader = yes } }
+				}
+				else_if = {
+					limit = { has_government = national_populist }
+					AUS_karl_albrecht_von_habsburg = { add_country_leader_role = { country_leader = { desc = AUS_karl_albrecht_von_habsburg_leader_desc ideology = national_populist_subtype traits = { } } promote_leader = yes } }
+				}
+					country_event = { id = KRAUS_dip_events.10 days = 1 }
+				}
+			}
+}

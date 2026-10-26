@@ -1,0 +1,6 @@
+KRAUS_dc_category = {
+	icon = GFX_decision_category_generic_crisis
+	priority = 100
+	allowed = { original_tag = AUS }
+	visible = { has_country_flag = KRAUS_dc_stalling }
+}

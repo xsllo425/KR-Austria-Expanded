@@ -1,0 +1,227 @@
+# 2026-10-24 小单J，国家作用域：复用整合红利周期，不增加计数变量。
+
+# 2026-10-24 小单J，国家作用域：按文件顺序，每次最多完成一个前置满足的联合经济国策。
+KRAUS_mult_autopick_econ = {
+	custom_effect_tooltip = KRAUS_mult_autopick_econ_tt
+	if = {
+		limit = { NOT = { has_completed_focus = AUS_eco_council } }
+		complete_national_focus = AUS_eco_council
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_skoda } has_completed_focus = AUS_eco_council }
+		complete_national_focus = AUS_skoda
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_vienna_circle_1 } has_completed_focus = AUS_eco_council }
+		complete_national_focus = AUS_vienna_circle_1
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_suedbahn } has_completed_focus = AUS_eco_council }
+		complete_national_focus = AUS_suedbahn
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_farms_expand } has_completed_focus = AUS_eco_council }
+		complete_national_focus = AUS_farms_expand
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_daimler } has_completed_focus = AUS_skoda }
+		complete_national_focus = AUS_daimler
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_vienna_circle_2 } has_completed_focus = AUS_vienna_circle_1 }
+		complete_national_focus = AUS_vienna_circle_2
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_homeland_eco } has_completed_focus = AUS_suedbahn }
+		complete_national_focus = AUS_homeland_eco
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_alpine_mines } has_completed_focus = AUS_farms_expand }
+		complete_national_focus = AUS_alpine_mines
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_homeland_mil } has_completed_focus = AUS_daimler }
+		complete_national_focus = AUS_homeland_mil
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = KRAUS_je_institute } has_completed_focus = AUS_vienna_circle_2 }
+		complete_national_focus = KRAUS_je_institute
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = KRAUS_je_works } has_completed_focus = AUS_homeland_eco }
+		complete_national_focus = KRAUS_je_works
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = KRAUS_je_resources } has_completed_focus = AUS_alpine_mines }
+		complete_national_focus = KRAUS_je_resources
+	}
+	else_if = {
+		limit = {
+			NOT = { has_completed_focus = KRAUS_je_charter }
+			has_completed_focus = AUS_homeland_mil
+			has_completed_focus = KRAUS_je_institute
+			has_completed_focus = KRAUS_je_works
+			has_completed_focus = KRAUS_je_resources
+		}
+		complete_national_focus = KRAUS_je_charter
+	}
+}
+
+# 2026-10-24 小单J补充，国家作用域：军事授权及必需前置，每次最多完成一个。
+# 默认走灵活海军、Hickmann支援及步兵坦克；尊重玩家已完成的互斥/替代前置。
+KRAUS_mult_autopick_mil = {
+	custom_effect_tooltip = KRAUS_mult_autopick_mil_tt
+	if = {
+		limit = { NOT = { has_completed_focus = AUS_military_expansion } }
+		complete_national_focus = AUS_military_expansion
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_naval_effort } has_completed_focus = AUS_military_expansion }
+		complete_national_focus = AUS_naval_effort
+	}
+	else_if = {
+		limit = {
+			NOT = { has_completed_focus = AUS_flexible_navy }
+			NOT = { has_completed_focus = AUS_large_navy }
+			has_completed_focus = AUS_naval_effort
+		}
+		complete_national_focus = AUS_flexible_navy
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_small_ships_effort } has_completed_focus = AUS_flexible_navy }
+		complete_national_focus = AUS_small_ships_effort
+	}
+	else_if = {
+		limit = {
+			NOT = { has_completed_focus = AUS_capital_ships_effort }
+			NOT = { has_completed_focus = AUS_small_ships_effort }
+			has_completed_focus = AUS_large_navy
+		}
+		complete_national_focus = AUS_capital_ships_effort
+	}
+	else_if = {
+		limit = {
+			NOT = { has_completed_focus = AUS_istria_ports }
+			OR = { has_completed_focus = AUS_small_ships_effort has_completed_focus = AUS_capital_ships_effort }
+		}
+		complete_national_focus = AUS_istria_ports
+	}
+	else_if = {
+		limit = {
+			NOT = { has_completed_focus = AUS_cattaro }
+			OR = { has_completed_focus = AUS_small_ships_effort has_completed_focus = AUS_capital_ships_effort }
+		}
+		complete_national_focus = AUS_cattaro
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_military_tech } has_completed_focus = AUS_military_expansion }
+		complete_national_focus = AUS_military_tech
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_radar } has_completed_focus = AUS_military_tech }
+		complete_national_focus = AUS_radar
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_rockets } has_completed_focus = AUS_radar }
+		complete_national_focus = AUS_rockets
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_rifle_trials } has_completed_focus = AUS_military_tech }
+		complete_national_focus = AUS_rifle_trials
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_artillery_modernisation } has_completed_focus = AUS_rifle_trials }
+		complete_national_focus = AUS_artillery_modernisation
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_military_mountaineers } has_completed_focus = AUS_artillery_modernisation }
+		complete_national_focus = AUS_military_mountaineers
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_motorisation } has_completed_focus = AUS_military_tech }
+		complete_national_focus = AUS_motorisation
+	}
+	else_if = {
+		limit = { NOT = { has_completed_focus = AUS_aviation_effort } has_completed_focus = AUS_military_expansion }
+		complete_national_focus = AUS_aviation_effort
+	}
+	else_if = {
+		limit = {
+			NOT = { has_completed_focus = AUS_loehr-plan }
+			NOT = { has_completed_focus = AUS_uzelac-plan }
+			has_completed_focus = AUS_aviation_effort
+		}
+		complete_national_focus = AUS_loehr-plan
+	}
+	else_if = {
+		limit = {
+			NOT = { has_completed_focus = AUS_reform_AOK }
+			NOT = { has_completed_focus = AUS_auftragstaktik }
+			NOT = { has_completed_focus = AUS_infanteriepanzer }
+			NOT = { has_completed_focus = AUS_kavalleriepanzer }
+			has_completed_focus = AUS_military_expansion
+		}
+		complete_national_focus = AUS_reform_AOK
+	}
+	else_if = {
+		limit = {
+			NOT = { has_completed_focus = AUS_doctrine_Hickmann }
+			NOT = { has_completed_focus = AUS_better_support_equipment }
+			NOT = { has_completed_focus = AUS_communications }
+			NOT = { has_completed_focus = AUS_mech_cavalry }
+			has_completed_focus = AUS_reform_AOK
+		}
+		complete_national_focus = AUS_doctrine_Hickmann
+	}
+	else_if = {
+		limit = {
+			NOT = { has_completed_focus = AUS_better_support_equipment }
+			NOT = { has_completed_focus = AUS_communications }
+			NOT = { has_completed_focus = AUS_mech_cavalry }
+			has_completed_focus = AUS_doctrine_Hickmann
+		}
+		complete_national_focus = AUS_better_support_equipment
+	}
+	else_if = {
+		limit = {
+			NOT = { has_completed_focus = AUS_auftragstaktik }
+			OR = {
+				has_completed_focus = AUS_communications
+				has_completed_focus = AUS_better_support_equipment
+				has_completed_focus = AUS_mech_cavalry
+			}
+		}
+		complete_national_focus = AUS_auftragstaktik
+	}
+	else_if = {
+		limit = {
+			NOT = { has_completed_focus = AUS_infanteriepanzer }
+			NOT = { has_completed_focus = AUS_kavalleriepanzer }
+			OR = { has_completed_focus = AUS_communications has_completed_focus = AUS_better_support_equipment }
+		}
+		complete_national_focus = AUS_infanteriepanzer
+	}
+	else_if = {
+		limit = {
+			NOT = { has_completed_focus = AUS_infanteriepanzer }
+			NOT = { has_completed_focus = AUS_kavalleriepanzer }
+			has_completed_focus = AUS_mech_cavalry
+		}
+		complete_national_focus = AUS_kavalleriepanzer
+	}
+	else_if = {
+		limit = {
+			NOT = { has_completed_focus = AUS_mil_expanded }
+			has_completed_focus = AUS_auftragstaktik
+			has_completed_focus = AUS_military_mountaineers
+			OR = { has_completed_focus = AUS_infanteriepanzer has_completed_focus = AUS_kavalleriepanzer }
+		}
+		complete_national_focus = AUS_mil_expanded
+	}
+}
+
+# 2026-10-24 小单J，国家作用域：打开按执政党显示的要价国策分支。
+KRAUS_mult_open_claims = {
+	custom_effect_tooltip = KRAUS_mult_open_claims_tt
+	set_country_flag = KRAUS_mult_claims_open
+}

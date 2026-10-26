@@ -1,0 +1,50 @@
+############################################################
+### 合众国路线第 4 批：战时政策决议的限时精神（180 天）。本文件由 gen_war.py 生成。
+############################################################
+ideas = {
+	country = {
+		KRAUS_pm_warpol_emp = {
+			picture = KRAUS_pm_warpol_emp
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.05
+				land_reinforce_rate = 0.02
+			}
+		}
+		KRAUS_pm_warpol_sd = {
+			picture = KRAUS_pm_warpol_sd
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				production_factory_efficiency_gain_factor = 0.10
+				stability_factor = 0.03
+			}
+		}
+		KRAUS_pm_warpol_cs = {
+			picture = KRAUS_pm_warpol_cs
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				conscription_factor = 0.10
+			}
+		}
+		KRAUS_pm_warpol_sl = {
+			picture = KRAUS_pm_warpol_sl
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.05
+				stability_factor = 0.03
+			}
+		}
+		KRAUS_pm_warpol_ml = {
+			picture = KRAUS_pm_warpol_ml
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.05
+			}
+		}
+	}
+}

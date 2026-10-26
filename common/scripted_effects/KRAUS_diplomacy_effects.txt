@@ -1,0 +1,125 @@
+############################################################
+### 外交线（2026-10-12）
+############################################################
+# 加利西亚作用域：「四方之交」升一级（与波兰、乌克兰各建立一次经济一体化）
+KRAUS_gal_crossroads_up = {
+	if = {
+		limit = { has_idea = KRAUS_gal_crossroads_1 }
+		swap_ideas = { remove_idea = KRAUS_gal_crossroads_1 add_idea = KRAUS_gal_crossroads_2 }
+	}
+	else_if = {
+		limit = { NOT = { has_idea = KRAUS_gal_crossroads_2 } }
+		add_ideas = KRAUS_gal_crossroads_1
+	}
+}
+# 加利西亚作用域：把波兰 / 乌克兰记为伙伴（每个伙伴只计一次），升级「四方之交」，开启奥地利与该伙伴的投资
+KRAUS_gal_add_partner_POL = {
+	if = {
+		limit = { NOT = { has_country_flag = KRAUS_gal_partner_POL } }
+		set_country_flag = KRAUS_gal_partner_POL
+		KRAUS_gal_crossroads_up = yes
+	}
+	hidden_effect = {
+		set_country_flag = KRAUS_gal_invest_from_AUS
+		set_country_flag = KRAUS_gal_invest_from_POL
+	}
+}
+KRAUS_gal_add_partner_UKR = {
+	if = {
+		limit = { NOT = { has_country_flag = KRAUS_gal_partner_UKR } }
+		set_country_flag = KRAUS_gal_partner_UKR
+		KRAUS_gal_crossroads_up = yes
+	}
+	hidden_effect = {
+		set_country_flag = KRAUS_gal_invest_from_AUS
+		set_country_flag = KRAUS_gal_invest_from_UKR
+	}
+}
+# 奥地利作用域：「共同繁荣」——加利西亚不割让，与提出要求的一方建立经济一体化
+KRAUS_common_prosperity_POL = {
+	custom_effect_tooltip = KRAUS_common_prosperity_tt
+	add_political_power = -50
+	POL = {
+		if = {
+			limit = { NOT = { has_idea = KRAUS_pol_aus_integration } }
+			add_ideas = KRAUS_pol_aus_integration
+		}
+		add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship }
+		country_event = { id = KRAUS_dip_events.30 days = 1 }
+	}
+	GAL = { KRAUS_gal_add_partner_POL = yes }
+	custom_effect_tooltip = KRAUS_gal_invest_start_tt
+	KRAUS_gal_sez_apply = yes
+}
+KRAUS_common_prosperity_UKR = {
+	custom_effect_tooltip = KRAUS_common_prosperity_tt
+	add_political_power = -50
+	UKR = {
+		if = {
+			limit = { NOT = { has_idea = KRAUS_ukr_aus_integration } }
+			add_ideas = KRAUS_ukr_aus_integration
+		}
+		add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship }
+		country_event = { id = KRAUS_dip_events.30 days = 1 }
+	}
+	GAL = { KRAUS_gal_add_partner_UKR = yes }
+	custom_effect_tooltip = KRAUS_gal_invest_start_ukr_tt
+	KRAUS_gal_sez_apply = yes
+}
+# 奥地利作用域：在加利西亚成立经济合作开发区（地区修正）；已有三方版时不降级；顺带把「加利西亚的走廊」缩短 7 天
+KRAUS_gal_sez_apply = {
+	every_state = {
+		limit = {
+			is_core_of = GAL
+			NOT = { has_dynamic_modifier = { modifier = KRAUS_gal_sez } }
+			NOT = { has_dynamic_modifier = { modifier = KRAUS_gal_sez_tri } }
+		}
+		add_dynamic_modifier = { modifier = KRAUS_gal_sez }
+	}
+	KRAUS_gal_corridor_faster = yes
+}
+# 奥地利作用域：奥地利、波兰、乌克兰三方参与的经济合作开发区，加成更强
+KRAUS_gal_sez_tri_apply = {
+	every_state = {
+		limit = { is_core_of = GAL has_dynamic_modifier = { modifier = KRAUS_gal_sez } }
+		remove_dynamic_modifier = { modifier = KRAUS_gal_sez }
+	}
+	every_state = {
+		limit = { is_core_of = GAL NOT = { has_dynamic_modifier = { modifier = KRAUS_gal_sez_tri } } }
+		add_dynamic_modifier = { modifier = KRAUS_gal_sez_tri }
+	}
+	KRAUS_gal_corridor_faster = yes
+}
+KRAUS_gal_corridor_faster = {
+	if = {
+		limit = { NOT = { has_completed_focus = KRAUS_dip_poland_corridor } }
+		reduce_focus_completion_cost = {
+			focus = KRAUS_dip_poland_corridor
+			cost = 7
+		}
+		custom_effect_tooltip = KRAUS_gal_corridor_faster_tt
+	}
+}
+# 三方版：波兰、乌克兰都与奥地利同阵营时可选
+KRAUS_common_prosperity_TRI = {
+	add_political_power = -50
+	POL = {
+		if = {
+			limit = { NOT = { has_idea = KRAUS_pol_aus_integration } }
+			add_ideas = KRAUS_pol_aus_integration
+		}
+		add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship }
+	}
+	UKR = {
+		if = {
+			limit = { NOT = { has_idea = KRAUS_ukr_aus_integration } }
+			add_ideas = KRAUS_ukr_aus_integration
+		}
+		add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship }
+	}
+	GAL = {
+		KRAUS_gal_add_partner_POL = yes
+		KRAUS_gal_add_partner_UKR = yes
+	}
+	KRAUS_gal_sez_tri_apply = yes
+}

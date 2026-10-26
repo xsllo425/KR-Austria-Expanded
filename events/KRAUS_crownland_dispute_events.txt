@@ -1,0 +1,192 @@
+add_namespace = KRAUS_cl_dispute
+
+# 王领纠纷：由王领的纠纷国策触发，奥地利裁决
+country_event = {
+	id = KRAUS_cl_dispute.1
+	title = KRAUS_cl_dispute.1.t
+	desc = KRAUS_cl_dispute.1.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	trigger = { NOT = { has_completed_focus = KRAUS_federal_charter } }
+	option = {
+		name = KRAUS_cl_dispute.1.a
+		ai_chance = { base = 1 }
+		CZE = {
+			KRAUS_cl_toward_loyal = yes
+			capital_scope = { add_extra_state_shared_building_slots = 1 }
+		}
+		if = {
+			limit = { country_exists = HUN }
+			HUN = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_backed_claim } }
+		}
+	}
+	option = {
+		name = KRAUS_cl_dispute.1.b
+		ai_chance = { base = 2 }
+		CZE = { KRAUS_cl_toward_autonomy = yes }
+		if = {
+			limit = { country_exists = HUN }
+			HUN = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_status_quo } }
+		}
+	}
+	option = {
+		name = KRAUS_cl_dispute.1.c
+		ai_chance = { base = 1 }
+		trigger = { check_variable = { KRAUS_imperial_authority > 9 } }
+		custom_effect_tooltip = KRAUS_ia_cost_10_tt
+		hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 10 } KRAUS_imperial_clamp = yes }
+		add_political_power = 25
+		if = {
+			limit = { country_exists = HUN }
+			HUN = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_arbitrated } }
+		}
+	}
+}
+country_event = {
+	id = KRAUS_cl_dispute.2
+	title = KRAUS_cl_dispute.2.t
+	desc = KRAUS_cl_dispute.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	trigger = { NOT = { has_completed_focus = KRAUS_federal_charter } }
+	option = {
+		name = KRAUS_cl_dispute.2.a
+		ai_chance = { base = 1 }
+		GAL = {
+			KRAUS_cl_toward_loyal = yes
+			capital_scope = { add_extra_state_shared_building_slots = 1 }
+		}
+		if = {
+			limit = { country_exists = HUN }
+			HUN = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_backed_claim } }
+		}
+	}
+	option = {
+		name = KRAUS_cl_dispute.2.b
+		ai_chance = { base = 2 }
+		GAL = { KRAUS_cl_toward_autonomy = yes }
+		if = {
+			limit = { country_exists = HUN }
+			HUN = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_status_quo } }
+		}
+	}
+	option = {
+		name = KRAUS_cl_dispute.2.c
+		ai_chance = { base = 1 }
+		trigger = { check_variable = { KRAUS_imperial_authority > 9 } }
+		custom_effect_tooltip = KRAUS_ia_cost_10_tt
+		hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 10 } KRAUS_imperial_clamp = yes }
+		add_political_power = 25
+		if = {
+			limit = { country_exists = HUN }
+			HUN = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_arbitrated } }
+		}
+	}
+}
+country_event = {
+	id = KRAUS_cl_dispute.3
+	title = KRAUS_cl_dispute.3.t
+	desc = KRAUS_cl_dispute.3.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	trigger = { NOT = { has_completed_focus = KRAUS_federal_charter } }
+	option = {
+		name = KRAUS_cl_dispute.3.a
+		ai_chance = { base = 1 }
+		CRO = {
+			KRAUS_cl_toward_loyal = yes
+			capital_scope = { add_extra_state_shared_building_slots = 1 }
+		}
+		if = {
+			limit = { country_exists = HUN }
+			HUN = {
+				add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_backed_claim }
+				hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = -1 } }
+			}
+		}
+	}
+	option = {
+		name = KRAUS_cl_dispute.3.b
+		ai_chance = { base = 2 }
+		CRO = { KRAUS_cl_toward_autonomy = yes }
+		if = {
+			limit = { country_exists = HUN }
+			HUN = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_status_quo } }
+		}
+	}
+	option = {
+		name = KRAUS_cl_dispute.3.c
+		ai_chance = { base = 1 }
+		trigger = { check_variable = { KRAUS_imperial_authority > 9 } }
+		custom_effect_tooltip = KRAUS_ia_cost_10_tt
+		hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 10 } KRAUS_imperial_clamp = yes }
+		add_political_power = 25
+		if = {
+			limit = { country_exists = HUN }
+			HUN = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_arbitrated } }
+		}
+	}
+}
+country_event = {
+	id = KRAUS_cl_dispute.4
+	title = KRAUS_cl_dispute.4.t
+	desc = KRAUS_cl_dispute.4.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	trigger = { NOT = { has_completed_focus = KRAUS_federal_charter } }
+	option = {
+		name = KRAUS_cl_dispute.4.a
+		ai_chance = { base = 1 }
+		HUN = {
+			KRAUS_cl_toward_loyal = yes
+			capital_scope = { add_extra_state_shared_building_slots = 1 }
+		}
+		if = {
+			limit = { country_exists = CRO }
+			CRO = {
+				add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_backed_claim }
+				hidden_effect = { add_to_variable = { KRAUS_cl_treat_score = -1 } }
+			}
+		}
+	}
+	option = {
+		name = KRAUS_cl_dispute.4.b
+		ai_chance = { base = 2 }
+		HUN = { KRAUS_cl_toward_autonomy = yes }
+		if = {
+			limit = { country_exists = CRO }
+			CRO = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_status_quo } }
+		}
+	}
+	option = {
+		name = KRAUS_cl_dispute.4.c
+		ai_chance = { base = 1 }
+		trigger = { check_variable = { KRAUS_imperial_authority > 9 } }
+		custom_effect_tooltip = KRAUS_ia_cost_10_tt
+		hidden_effect = { subtract_from_variable = { KRAUS_imperial_authority = 10 } KRAUS_imperial_clamp = yes }
+		add_political_power = 25
+		if = {
+			limit = { country_exists = CRO }
+			CRO = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_arbitrated } }
+		}
+	}
+}
+
+# 0.9 实测 15：再妥协与多瑙河危机期间，王领之间不会发生直接的纠纷（提醒）
+country_event = {
+	id = KRAUS_cl_dispute.10
+	title = KRAUS_cl_dispute.10.t
+	desc = KRAUS_cl_dispute.10.d
+	picture = GFX_report_event_generic_conference
+	fire_only_once = yes
+	trigger = {
+		original_tag = AUS
+		has_country_flag = KRAUS_dc_started
+	}
+	mean_time_to_happen = { days = 2 }
+	option = {
+		name = KRAUS_cl_dispute.10.a
+		log = "[GetLogInfo]: event KRAUS_cl_dispute.10 option KRAUS_cl_dispute.10.a"
+		custom_effect_tooltip = KRAUS_cl_dispute_pause_tt
+	}
+}

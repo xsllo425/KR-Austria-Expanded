@@ -1,0 +1,65 @@
+############################################################
+### 合众国路线第 5 批：战后大选的结局精神与联合内阁危机的减益。本文件由 gen_postwar.py 生成。
+############################################################
+ideas = {
+	country = {
+		KRAUS_pm_end_emperor = {
+			picture = KRAUS_pm_end_emperor
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.10
+				conscription_factor = 0.10
+				political_power_gain = 0.10
+				research_speed_factor = -0.05
+			}
+		}
+		KRAUS_pm_end_1 = {
+			picture = KRAUS_pm_end
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.08
+				political_power_gain = 0.15
+				production_speed_buildings_factor = 0.10
+			}
+		}
+		KRAUS_pm_end_2 = {
+			picture = KRAUS_pm_end
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.08
+				political_power_gain = 0.10
+			}
+		}
+		KRAUS_pm_end_3 = {
+			picture = KRAUS_pm_end
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				political_power_gain = 0.05
+				research_speed_factor = 0.05
+			}
+		}
+		KRAUS_pm_end_4 = {
+			picture = KRAUS_pm_end
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.12
+				political_power_gain = -0.05
+			}
+		}
+		KRAUS_pm_crisis_idea = {
+			picture = KRAUS_pm_crisis_idea
+			allowed = { original_tag = AUS }
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.05
+				political_power_gain = -0.10
+			}
+		}
+	}
+}

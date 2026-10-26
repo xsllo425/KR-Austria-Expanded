@@ -1,0 +1,144 @@
+############################################################
+### 1848 的回响（0.9 实测 17）：平定匈牙利之后，不重演 1848 的错误
+### 奥地利作用域。匈牙利可能是附庸，也可能已被并入（KRAUS_dc_victory 两种都算赢）。
+############################################################
+# 把带某核心的州（匈牙利或奥地利手里，且不带加利西亚核心）划给奥地利，再释放为王冠领
+KRAUS_echo_free_SLO = {
+	if = {
+		limit = { country_exists = HUN }
+		HUN = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_backed_claim } }
+	}
+	hidden_effect = {
+		every_state = {
+			limit = {
+				OR = { is_owned_by = HUN is_owned_by = ROOT }
+				is_core_of = SLO
+				NOT = { is_core_of = GAL }
+			}
+			set_state_owner_to = ROOT
+			set_state_controller_to = ROOT
+			remove_core_of = ROOT
+			remove_claim_by = ROOT
+		}
+		set_temp_variable = { tag_to_release = SLO }
+		release_targeted_tag = yes
+		SLO = {
+			set_cosmetic_tag = SLO_habsburg
+			AUS_refresh_crownland_army_ideas = yes
+		}
+	}
+	set_autonomy = { target = SLO autonomy_state = crownland end_wars = no }
+	hidden_effect = { KRAUS_integ_recalc = yes }
+}
+KRAUS_echo_free_TRS = {
+	if = {
+		limit = { country_exists = HUN }
+		HUN = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dispute_backed_claim } }
+	}
+	hidden_effect = {
+		every_state = {
+			limit = {
+				OR = { is_owned_by = HUN is_owned_by = ROOT }
+				is_core_of = TRS
+			}
+			set_state_owner_to = ROOT
+			set_state_controller_to = ROOT
+			remove_core_of = ROOT
+			remove_claim_by = ROOT
+		}
+		set_temp_variable = { tag_to_release = TRS }
+		release_targeted_tag = yes
+		TRS = {
+			set_cosmetic_tag = TRS_habsburg
+			AUS_refresh_crownland_army_ideas = yes
+		}
+	}
+	set_autonomy = { target = TRS autonomy_state = crownland end_wars = no }
+	hidden_effect = { KRAUS_integ_recalc = yes }
+}
+# 匈牙利本身：已是附庸就设为王冠领，已被并入就释放为王冠领
+KRAUS_echo_free_HUN = {
+	if = {
+		limit = { NOT = { country_exists = HUN } }
+		hidden_effect = {
+			# 释放脚本不会转移奥地利自己拥有核心或宣称的州，先去掉（0.9 反馈7：裂解时匈牙利没有被放出）
+			every_owned_state = {
+				limit = { is_core_of = HUN }
+				remove_core_of = ROOT
+				remove_claim_by = ROOT
+			}
+			set_temp_variable = { tag_to_release = HUN }
+			release_targeted_tag = yes
+			HUN = { set_cosmetic_tag = HUN_habsburg }
+		}
+	}
+	if = {
+		limit = { country_exists = HUN }
+		set_autonomy = { target = HUN autonomy_state = crownland end_wars = no }
+		HUN = { KRAUS_cl_toward_loyal = yes }
+	}
+	hidden_effect = { KRAUS_integ_recalc = yes }
+}
+# ① 对匈牙利宽容：释放完整的匈牙利王冠领
+KRAUS_echo_lenient = {
+	set_country_flag = KRAUS_echo_lenient
+	KRAUS_echo_free_HUN = yes
+}
+# ② 严惩叛乱分子：不再释放匈牙利；核心州顺从度下降、抵抗微升，按顺从度造核
+KRAUS_echo_harsh = {
+	set_country_flag = KRAUS_echo_harsh
+	hidden_effect = {
+		every_state = {
+			limit = {
+				is_core_of = HUN
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+			add_compliance = -10
+			add_resistance = 8
+			enable_state_integration_50_compliance = yes
+		}
+	}
+}
+# ③ 裂解圣斯蒂芬王冠：斯洛伐克、特兰西瓦尼亚、匈牙利各自为王领；南部平原（伏伊伏丁那）给伊利里亚，外喀尔巴阡给加利西亚，多瑙平原给斯洛伐克
+KRAUS_echo_split = {
+	set_country_flag = KRAUS_echo_split
+	KRAUS_echo_free_SLO = yes
+	KRAUS_echo_free_TRS = yes
+	hidden_effect = {
+		if = {
+			limit = { country_exists = CRO }
+			45 = {
+				if = {
+					limit = { OR = { is_owned_by = HUN is_owned_by = ROOT } }
+					set_state_owner_to = CRO
+					set_state_controller_to = CRO
+					add_core_of = CRO
+				}
+			}
+		}
+		if = {
+			limit = { country_exists = GAL }
+			73 = {
+				if = {
+					limit = { OR = { is_owned_by = HUN is_owned_by = ROOT } }
+					set_state_owner_to = GAL
+					set_state_controller_to = GAL
+					add_core_of = GAL
+				}
+			}
+		}
+		if = {
+			limit = { country_exists = SLO }
+			664 = {
+				if = {
+					limit = { OR = { is_owned_by = HUN is_owned_by = ROOT } }
+					set_state_owner_to = SLO
+					set_state_controller_to = SLO
+					add_core_of = SLO
+				}
+			}
+		}
+	}
+	KRAUS_echo_free_HUN = yes
+}

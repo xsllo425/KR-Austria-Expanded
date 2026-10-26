@@ -1,0 +1,20 @@
+KRAUS_diplomacy_category = {
+	icon = GFX_decision_category_generic_foreign_policy
+	priority = 56
+	allowed = { original_tag = AUS }
+	visible = { has_completed_focus = KRAUS_dip_beyond_danube }
+	visible_when_empty = no
+}
+KRAUS_gal_invest_category = {
+	icon = GFX_decision_category_generic_economy
+	priority = 50
+	allowed = { original_tag = GAL }
+	visible = {
+		OR = {
+			has_country_flag = KRAUS_gal_invest_from_AUS
+			has_country_flag = KRAUS_gal_invest_from_POL
+			has_country_flag = KRAUS_gal_invest_from_UKR
+		}
+	}
+	visible_when_empty = no
+}

@@ -1,0 +1,216 @@
+############################################################
+### KRAUS 1936 大选 · 风味事件组
+###
+### 设计依据（用户要求 2026-09-21）：
+###   「可以在 1936 年大选触发前，新增多个风味事件来影响两个
+###     政党的支持度，来决定最终上台的是哪个政党。」
+###
+### ★★ 2026-09-21 第二轮修正（用户实测反馈）★★
+###   用户反馈：「事件的效果，应该在选项中显示出来，
+###              基于游戏机制，而不是文字叙述。」
+###
+###   ★ 根因：HOI4 的 option 里直接写 add_popularity 时，
+###     只有【单选项】事件会自动生成 tooltip；
+###     【多选项】事件不会 —— 玩家看不到各选项的效果。
+###
+###   ★ 正确写法（KR 实证，00 League Collapse events.txt 等）：
+###       custom_override_tooltip = {
+###           tooltip = <loc_key>          # 说明文字
+###           add_popularity = { ... }     # ★ 真实效果写在这里
+###       }
+###     effect 与 tooltip 绑在一起，玩家在按钮上就能看到。
+###
+###   ★ 本文件所有 option 一律采用此写法。
+###
+### ★ 范本：KR 原版 austria_election_events.2~.6
+###   · .2 伦纳演讲 / .3 维克多·阿德勒
+###   · .4 ★ 奥托王子打猎（GFX_report_event_AUS_CS_Hunt）
+###   · .5 保守派得利 / .6 奥托受伤
+###
+### ★ 我们的做法：不覆盖 KR 原版（同 namespace 覆盖风险高），
+###   改用【自己的 namespace】，在选举前触发。
+###
+### ★ 不使用 replace_path（三条铁律之二）
+############################################################
+
+add_namespace = KRAUS_election_flavor
+
+############################################################
+### .1 帝国新闻：黑色星期一的街头
+###
+### ★ 第三轮：也改为可见事件（与 .2 一致，效果显示在按钮上）
+############################################################
+country_event = {
+	id = KRAUS_election_flavor.1
+	title = KRAUS_election_flavor.1.t
+	desc = KRAUS_election_flavor.1.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_election_flavor.1.a
+		log = "[GetLogInfo]: KRAUS election flavor .1 - the streets"
+		# 危机中工人转向社民党 → 社民 +3%
+		custom_override_tooltip = {
+			tooltip = KRAUS_ef1_a_tt
+			add_popularity = {
+				ideology = social_democrat
+				popularity = 0.03
+			}
+		}
+	}
+}
+
+############################################################
+### .2 教会的声音
+###
+### ★ 2026-09-21 第三轮：由「隐藏事件」改为【可见事件 + 一个按钮】
+###   用户要求：效果要在选项上显示出来（像伦纳的演说那样）。
+###   隐藏事件没有按钮 → 玩家看不到效果。
+###   → 改为可见事件，单个 option + custom_override_tooltip。
+############################################################
+country_event = {
+	id = KRAUS_election_flavor.2
+	title = KRAUS_election_flavor.2.t
+	desc = KRAUS_election_flavor.2.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_election_flavor.2.a
+		log = "[GetLogInfo]: KRAUS election flavor .2 - the pulpit"
+		# 主教背书 → 保守 +3%
+		custom_override_tooltip = {
+			tooltip = KRAUS_ef2_a_tt
+			add_popularity = {
+				ideology = social_conservative
+				popularity = 0.03
+			}
+		}
+	}
+}
+
+############################################################
+### .3 ★ 狩猎之行（呼应 KR 原版 GFX_report_event_AUS_CS_Hunt）
+###
+### 两个选项，各有效果 → ★ 用 custom_override_tooltip 显示
+############################################################
+country_event = {
+	id = KRAUS_election_flavor.3
+	title = KRAUS_election_flavor.3.t
+	desc = KRAUS_election_flavor.3.d
+	picture = GFX_report_event_AUS_CS_Hunt
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_election_flavor.3.a
+		log = "[GetLogInfo]: KRAUS election flavor .3 - defend the hunt"
+		# 力挺王室：保守 +4%，社民 −2%
+		custom_override_tooltip = {
+			tooltip = KRAUS_ef3_a_tt
+			add_popularity = {
+				ideology = social_conservative
+				popularity = 0.04
+			}
+		}
+		custom_override_tooltip = {
+			tooltip = KRAUS_ef3_a2_tt
+			add_popularity = {
+				ideology = social_democrat
+				popularity = -0.02
+			}
+		}
+	}
+
+	option = {
+		name = KRAUS_election_flavor.3.b
+		log = "[GetLogInfo]: KRAUS election flavor .3 - admit the mishap"
+		# 承认失仪：社民 +4%，保守 −3%
+		custom_override_tooltip = {
+			tooltip = KRAUS_ef3_b_tt
+			add_popularity = {
+				ideology = social_democrat
+				popularity = 0.04
+			}
+		}
+		custom_override_tooltip = {
+			tooltip = KRAUS_ef3_b2_tt
+			add_popularity = {
+				ideology = social_conservative
+				popularity = -0.03
+			}
+		}
+	}
+}
+
+############################################################
+### .4 伦纳的演说
+############################################################
+country_event = {
+	id = KRAUS_election_flavor.4
+	title = KRAUS_election_flavor.4.t
+	desc = KRAUS_election_flavor.4.d
+	picture = GFX_report_event_AUS_Renner_Speech
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_election_flavor.4.a
+		log = "[GetLogInfo]: KRAUS election flavor .4 - Renner speaks of the tent"
+		# 伦纳讲「大帐篷」：社民 +5%
+		custom_override_tooltip = {
+			tooltip = KRAUS_ef4_a_tt
+			add_popularity = {
+				ideology = social_democrat
+				popularity = 0.05
+			}
+		}
+	}
+}
+
+############################################################
+### .5 米克拉斯的沉默（呼应 KR 原版 austria_election_events.6）
+###
+### 两个选项，各有效果 → ★ 用 custom_override_tooltip 显示
+############################################################
+country_event = {
+	id = KRAUS_election_flavor.5
+	title = KRAUS_election_flavor.5.t
+	desc = KRAUS_election_flavor.5.d
+	picture = GFX_report_event_AUS_Otto_Hurt
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_election_flavor.5.a
+		log = "[GetLogInfo]: KRAUS election flavor .5 - the silence"
+		# 保持沉默（史实性格）：保守 −5%
+		custom_override_tooltip = {
+			tooltip = KRAUS_ef5_a_tt
+			add_popularity = {
+				ideology = social_conservative
+				popularity = -0.05
+			}
+		}
+	}
+
+	option = {
+		name = KRAUS_election_flavor.5.b
+		log = "[GetLogInfo]: KRAUS election flavor .5 - he speaks"
+		# 公开发声：保守 +2%，政治点 −25
+		custom_override_tooltip = {
+			tooltip = KRAUS_ef5_b_tt
+			add_popularity = {
+				ideology = social_conservative
+				popularity = 0.02
+			}
+		}
+		custom_override_tooltip = {
+			tooltip = KRAUS_ef5_b2_tt
+			add_political_power = -25
+		}
+	}
+}

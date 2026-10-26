@@ -1,0 +1,181 @@
+############################################################
+### KRAUS 黑色星期一 · 州级效果（地块可视化）
+###
+### ★★ 2026-09-21 第六轮新增（场景 B）★★
+###
+### 用户需求：
+###   「如果可以的话，我们就能直接定向给奥地利本部的地块加 BUFF，
+###     那样就更精准」
+###
+### ★ 本文件解决的核心问题
+###   黑一现在是一个【全国性】debuff（AUS_black_monday 的
+###   industrial_capacity_factory = -0.50），均匀打击全国，
+###   玩家在读条决议里推进了半天，**看不到任何地图上的变化**。
+###
+###   → 改为：按黑一层级，给本部 7 州挂【不同强度】的州级修正。
+###     读条成功一层，地图上的州就轻一分。
+###     ★ 玩家能直接看见自己的成果。
+###
+### ★★ 机制可行性（已实测通过，2026-09-21）
+###   · 州级 add_dynamic_modifier 能挂上       ✅
+###   · 州级能读变量（动态值）                 ✅
+###   · remove_dynamic_modifier 能干净清除     ✅
+###   实测证据：州界面同时显示「本部测试（静态）: +10%」
+###             与「本部测试（动态）: +15%」
+###
+### ★ 字段选择依据（KR 全库州级 dynmod 使用频次统计）
+###   state_production_speed_buildings_factor    56 次  ← 建造速度
+###   local_manpower                             49 次  ← 本地人力
+###   local_building_slots_factor                49 次  ← 建筑位
+###   state_resources_factor                     29 次  ← 本地资源
+###   state_production_speed_industrial_complex_factor 8 次
+###   state_production_speed_arms_factory_factor       8 次
+###
+###   ★ 注意：国家级字段（stability_factor / political_power_factor /
+###     consumer_goods_factor）【在州级无效】，必须用上面这些 local_/state_ 字段。
+###
+### ★★ 四档设计（层级越深 = 惩罚越轻，与 idea 层级方向一致）
+###
+###   黑一层级           建造速度    人力     说明
+###   AUS_black_monday    -0.35     -0.20    ★ 最重（初始）
+###   _cs-1 / _sdap-1     -0.22     -0.13    稍缓
+###   _cs-2 / _sdap-2     -0.12     -0.07    缓解
+###   _cs-3 / _sdap-3     -0.05     -0.03    ★ 最轻（即将消除）
+###   【消除后】           +0.10     +0.05    ★ 正面（复苏红利）
+###
+### ★ 不使用 replace_path（三条铁律之二）
+############################################################
+
+############################################################
+### ★ A 档 · 最重（初始黑一）
+############################################################
+KRAUS_dm_crisis_deep = {
+	icon = "GFX_modifier_KRAUS_sm_great_crisis"
+
+	remove_trigger = {
+		NOT = { is_owned_by = AUS }
+	}
+
+	state_production_speed_buildings_factor = -0.35
+	local_manpower = -0.20
+}
+
+############################################################
+### ★ B 档 · 稍缓（_cs-1 / _sdap-1）
+############################################################
+KRAUS_dm_crisis_heavy = {
+	icon = "GFX_modifier_KRAUS_sm_great_crisis"
+
+	remove_trigger = {
+		NOT = { is_owned_by = AUS }
+	}
+
+	state_production_speed_buildings_factor = -0.22
+	local_manpower = -0.13
+}
+
+############################################################
+### ★ C 档 · 缓解（_cs-2 / _sdap-2）
+############################################################
+KRAUS_dm_crisis_moderate = {
+	icon = "GFX_modifier_KRAUS_sm_great_crisis"
+
+	remove_trigger = {
+		NOT = { is_owned_by = AUS }
+	}
+
+	state_production_speed_buildings_factor = -0.12
+	local_manpower = -0.07
+}
+
+############################################################
+### ★ D 档 · 最轻（_cs-3 / _sdap-3）
+############################################################
+KRAUS_dm_crisis_light = {
+	icon = "GFX_modifier_KRAUS_sm_great_crisis"
+
+	remove_trigger = {
+		NOT = { is_owned_by = AUS }
+	}
+
+	state_production_speed_buildings_factor = -0.05
+	local_manpower = -0.03
+}
+
+############################################################
+### ★ E 档 · 复苏红利（黑一完全消除后）
+###
+### 正向 BUFF —— 让玩家看到「我熬过来了」
+############################################################
+KRAUS_dm_recovery = {
+	icon = "GFX_modifier_KRAUS_sm_recovery"
+
+	remove_trigger = {
+		NOT = { is_owned_by = AUS }
+	}
+
+	state_production_speed_buildings_factor = 0.10
+	local_manpower = 0.05
+}
+
+############################################################
+### ★★ 变量驱动的动态版本（可选，用于平滑过渡）
+###
+### 若要做「数值随时间连续变化」而非四级跳变，
+### 用这个版本 + 每日更新变量。
+### （州级变量绑定已实测可用）
+############################################################
+
+############################################################
+### ★★ 场景 A · 胜选红利（2026-09-21 第六轮）
+###
+### 用户定案：胜选【减时】不改（政党领袖影响皇帝决策，
+### 那个链条成立）。本组是【额外】的、看得见的红利。
+###
+### ★ 叙事区分
+###   伦纳（社民 / 大帐篷）→ 工人与城市受益
+###     · 本地人力 +（工人愿意留下）
+###     · 民用工厂建造速度 +（民生优先）
+###
+###   米克拉斯（天主教秩序）→ 秩序与效率受益
+###     · 建造速度 +（官僚机器高效运转）
+###     · 本地资源 +（秩序带来可预期的生产）
+###
+### ★ 两者都对【本部 14 州】生效 —— 作用域是本国的奥地利部分，
+###   不碰王领（符合边界规则：不对王领下直接指令）。
+###
+### ★ 持续到局势改变 —— 若天平极端偏移，由事件换成负面版本
+###   （那是后续内容；当前先做"胜选即得"的正向版本）
+############################################################
+
+############################################################
+### ★ 伦纳胜选红利 —— 社会改革红利
+############################################################
+KRAUS_dm_renner_victory = {
+	icon = "GFX_modifier_KRAUS_social_reform"
+
+	remove_trigger = {
+		NOT = { is_owned_by = AUS }
+	}
+
+	# 工人愿意留下，城市有活力
+	local_manpower = 0.12
+	# 民生工程优先推进
+	state_production_speed_buildings_factor = 0.08
+}
+
+############################################################
+### ★ 米克拉斯胜选红利 —— 秩序红利
+############################################################
+KRAUS_dm_miklas_victory = {
+	icon = "GFX_modifier_KRAUS_sm_order_gains"
+
+	remove_trigger = {
+		NOT = { is_owned_by = AUS }
+	}
+
+	# 官僚机器高效运转
+	state_production_speed_buildings_factor = 0.12
+	# 秩序带来可预期的生产
+	state_resources_factor = 0.08
+}

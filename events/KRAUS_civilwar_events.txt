@@ -1,0 +1,134 @@
+add_namespace = KRAUS_civwar_events
+
+# 美国内战：选择支援哪一方（只列出仍然存在且不是社会主义政府的交战方）
+country_event = {
+	id = KRAUS_civwar_events.1
+	title = KRAUS_civwar_events.1.t
+	desc = KRAUS_civwar_events.1.d
+	picture = GFX_report_event_KRAUS_civwar_events_1
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_civwar_events.1.USA
+		log = "[GetLogInfo]: event KRAUS_civwar_events.1 option KRAUS_civwar_events.1.USA"
+		trigger = {
+			country_exists = USA
+			USA = { NOT = { has_socialist_government = yes } }
+		}
+		ai_chance = { base = 30 }
+		set_country_flag = KRAUS_acw_backed_USA
+		USA = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship } }
+	}
+	option = {
+		name = KRAUS_civwar_events.1.ACC
+		log = "[GetLogInfo]: event KRAUS_civwar_events.1 option KRAUS_civwar_events.1.ACC"
+		trigger = {
+			country_exists = ACC
+			ACC = { NOT = { has_socialist_government = yes } }
+		}
+		ai_chance = { base = 30 }
+		set_country_flag = KRAUS_acw_backed_ACC
+		ACC = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship } }
+	}
+	option = {
+		name = KRAUS_civwar_events.1.WCA
+		log = "[GetLogInfo]: event KRAUS_civwar_events.1 option KRAUS_civwar_events.1.WCA"
+		trigger = {
+			country_exists = WCA
+			WCA = { NOT = { has_socialist_government = yes } }
+		}
+		ai_chance = { base = 30 }
+		set_country_flag = KRAUS_acw_backed_WCA
+		WCA = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship } }
+	}
+	option = {
+		name = KRAUS_civwar_events.1.NEE
+		log = "[GetLogInfo]: event KRAUS_civwar_events.1 option KRAUS_civwar_events.1.NEE"
+		trigger = {
+			country_exists = NEE
+			NEE = { NOT = { has_socialist_government = yes } }
+		}
+		ai_chance = { base = 30 }
+		set_country_flag = KRAUS_acw_backed_NEE
+		NEE = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship } }
+	}
+	option = {
+		name = KRAUS_civwar_events.1.watch
+		log = "[GetLogInfo]: event KRAUS_civwar_events.1 option KRAUS_civwar_events.1.watch"
+		ai_chance = { base = 20 }
+		add_political_power = 25
+	}
+}
+
+# 西班牙内战：选择支援哪一方
+country_event = {
+	id = KRAUS_civwar_events.2
+	title = KRAUS_civwar_events.2.t
+	desc = KRAUS_civwar_events.2.d
+	picture = GFX_report_event_KRAUS_civwar_events_2
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_civwar_events.2.SPA
+		log = "[GetLogInfo]: event KRAUS_civwar_events.2 option KRAUS_civwar_events.2.SPA"
+		trigger = {
+			country_exists = SPA
+			SPA = { NOT = { has_socialist_government = yes } }
+		}
+		ai_chance = { base = 30 }
+		set_country_flag = KRAUS_spa_backed_SPA
+		SPA = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship } }
+	}
+	option = {
+		name = KRAUS_civwar_events.2.SPK
+		log = "[GetLogInfo]: event KRAUS_civwar_events.2 option KRAUS_civwar_events.2.SPK"
+		trigger = {
+			country_exists = SPK
+			SPK = { NOT = { has_socialist_government = yes } }
+		}
+		ai_chance = { base = 30 }
+		set_country_flag = KRAUS_spa_backed_SPK
+		SPK = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship } }
+	}
+	option = {
+		name = KRAUS_civwar_events.2.SPR
+		log = "[GetLogInfo]: event KRAUS_civwar_events.2 option KRAUS_civwar_events.2.SPR"
+		trigger = {
+			country_exists = SPR
+			SPR = { NOT = { has_socialist_government = yes } }
+		}
+		ai_chance = { base = 30 }
+		set_country_flag = KRAUS_spa_backed_SPR
+		SPR = { add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship } }
+	}
+	option = {
+		name = KRAUS_civwar_events.2.watch
+		log = "[GetLogInfo]: event KRAUS_civwar_events.2 option KRAUS_civwar_events.2.watch"
+		ai_chance = { base = 20 }
+		add_political_power = 25
+	}
+}
+
+# 通知：美国内战爆发
+country_event = {
+	id = KRAUS_civwar_events.3
+	title = KRAUS_civwar_events.3.t
+	desc = KRAUS_civwar_events.3.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_civwar_events.3.a
+		log = "[GetLogInfo]: event KRAUS_civwar_events.3 option KRAUS_civwar_events.3.a"
+	}
+}
+
+# 通知：西班牙内战爆发
+country_event = {
+	id = KRAUS_civwar_events.4
+	title = KRAUS_civwar_events.4.t
+	desc = KRAUS_civwar_events.4.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_civwar_events.4.a
+		log = "[GetLogInfo]: event KRAUS_civwar_events.4 option KRAUS_civwar_events.4.a"
+	}
+}

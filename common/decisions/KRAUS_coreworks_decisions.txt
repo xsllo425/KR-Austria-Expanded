@@ -1,0 +1,293 @@
+############################################################
+### 金色多瑙河 · 本部工程（2026-10-11 重写）
+###
+### 付费项目：玩家点击后读条，完成时自动建造（与王冠领工程同一施工队，一次一项）
+### 国策交付：完成相应国策后自动出现读条任务，到期自动建造（不占施工队）
+### 目标州失去控制或没有槽位时：付费项目取消并退还一半；国策交付到期不建造，自动重新读条
+############################################################
+KRAUS_golden_danube_category = {
+	KRAUS_coreworks_lciv = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		visible = {
+			has_country_flag = KRAUS_golden_danube_open
+			KRAUS_coreworks_lciv_open = yes
+		}
+		available = {
+			is_subject = no
+			NOT = { has_country_flag = KRAUS_golden_danube_project_active }
+			KRAUS_coreworks_lower_civil_valid = yes
+			if = {
+				limit = { has_government = social_conservative }
+				custom_trigger_tooltip = {
+					tooltip = KRAUS_ia_need_10_tt
+					check_variable = { KRAUS_imperial_authority > 9 }
+				}
+			}
+		}
+		cost = 50
+		days_remove = 60
+		cancel_trigger = { NOT = { KRAUS_coreworks_lower_civil_valid = yes } }
+		complete_effect = {
+			set_country_flag = KRAUS_golden_danube_project_active
+			if = {
+				limit = { has_government = social_conservative }
+				KRAUS_imperial_loss_10 = yes
+			}
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_golden_danube_project_active
+			set_country_flag = KRAUS_coreworks_built_lciv
+			4 = { add_extra_state_shared_building_slots = 1
+ add_building_construction = { type = industrial_complex level = 1 instant_build = yes } }
+		}
+		cancel_effect = {
+			clr_country_flag = KRAUS_golden_danube_project_active
+			add_political_power = 25
+		}
+		ai_will_do = { factor = 1 }
+	}
+	KRAUS_coreworks_uciv = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		visible = {
+			has_country_flag = KRAUS_golden_danube_open
+			KRAUS_coreworks_uciv_open = yes
+		}
+		available = {
+			is_subject = no
+			NOT = { has_country_flag = KRAUS_golden_danube_project_active }
+			KRAUS_coreworks_upper_civil_valid = yes
+			if = {
+				limit = { has_government = social_conservative }
+				custom_trigger_tooltip = {
+					tooltip = KRAUS_ia_need_10_tt
+					check_variable = { KRAUS_imperial_authority > 9 }
+				}
+			}
+		}
+		cost = 50
+		days_remove = 90
+		cancel_trigger = { NOT = { KRAUS_coreworks_upper_civil_valid = yes } }
+		complete_effect = {
+			set_country_flag = KRAUS_golden_danube_project_active
+			if = {
+				limit = { has_government = social_conservative }
+				KRAUS_imperial_loss_10 = yes
+			}
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_golden_danube_project_active
+			set_country_flag = KRAUS_coreworks_built_uciv
+			152 = { add_extra_state_shared_building_slots = 1
+ add_building_construction = { type = industrial_complex level = 1 instant_build = yes } }
+		}
+		cancel_effect = {
+			clr_country_flag = KRAUS_golden_danube_project_active
+			add_political_power = 25
+		}
+		ai_will_do = { factor = 1 }
+	}
+	KRAUS_coreworks_lmil = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		visible = {
+			has_country_flag = KRAUS_golden_danube_open
+			KRAUS_coreworks_lmil_open = yes
+		}
+		available = {
+			is_subject = no
+			NOT = { has_country_flag = KRAUS_golden_danube_project_active }
+			KRAUS_coreworks_lower_mil_valid = yes
+			if = {
+				limit = { has_government = social_conservative }
+				custom_trigger_tooltip = {
+					tooltip = KRAUS_ia_need_10_tt
+					check_variable = { KRAUS_imperial_authority > 9 }
+				}
+			}
+		}
+		cost = 50
+		days_remove = 90
+		cancel_trigger = { NOT = { KRAUS_coreworks_lower_mil_valid = yes } }
+		complete_effect = {
+			set_country_flag = KRAUS_golden_danube_project_active
+			if = {
+				limit = { has_government = social_conservative }
+				KRAUS_imperial_loss_10 = yes
+			}
+		}
+		remove_effect = {
+			clr_country_flag = KRAUS_golden_danube_project_active
+			set_country_flag = KRAUS_coreworks_built_lmil
+			4 = { add_extra_state_shared_building_slots = 1
+ add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
+		}
+		cancel_effect = {
+			clr_country_flag = KRAUS_golden_danube_project_active
+			add_political_power = 25
+		}
+		ai_will_do = { factor = 1 }
+	}
+	KRAUS_coreworks_m_eco4 = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { KRAUS_coreworks_eco4_open = yes }
+		days_mission_timeout = 75
+		is_good = yes
+		selectable_mission = no
+		available = {
+			hidden_trigger = { always = no }
+			KRAUS_coreworks_eco4_valid = yes
+		}
+		timeout_effect = {
+			if = {
+				limit = { KRAUS_coreworks_eco4_valid = yes }
+				set_country_flag = KRAUS_coreworks_built_eco4
+				4 = { add_extra_state_shared_building_slots = 1
+ add_building_construction = { type = industrial_complex level = 3 instant_build = yes } }
+			}
+			else = {
+				custom_effect_tooltip = KRAUS_coreworks_retry_tt
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_coreworks_m_mil4 = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { KRAUS_coreworks_mil4_open = yes }
+		days_mission_timeout = 90
+		is_good = yes
+		selectable_mission = no
+		available = {
+			hidden_trigger = { always = no }
+			KRAUS_coreworks_mil4_valid = yes
+		}
+		timeout_effect = {
+			if = {
+				limit = { KRAUS_coreworks_mil4_valid = yes }
+				set_country_flag = KRAUS_coreworks_built_mil4
+				4 = { add_extra_state_shared_building_slots = 1
+ add_building_construction = { type = arms_factory level = 3 instant_build = yes } }
+			}
+			else = {
+				custom_effect_tooltip = KRAUS_coreworks_retry_tt
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_coreworks_m_mil736 = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { KRAUS_coreworks_mil736_open = yes }
+		days_mission_timeout = 90
+		is_good = yes
+		selectable_mission = no
+		available = {
+			hidden_trigger = { always = no }
+			KRAUS_coreworks_mil736_valid = yes
+		}
+		timeout_effect = {
+			if = {
+				limit = { KRAUS_coreworks_mil736_valid = yes }
+				set_country_flag = KRAUS_coreworks_built_mil736
+				736 = { add_extra_state_shared_building_slots = 1
+ add_building_construction = { type = arms_factory level = 3 instant_build = yes } }
+			}
+			else = {
+				custom_effect_tooltip = KRAUS_coreworks_retry_tt
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_coreworks_m_rail775 = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { KRAUS_coreworks_rail775_open = yes }
+		days_mission_timeout = 60
+		is_good = yes
+		selectable_mission = no
+		available = {
+			hidden_trigger = { always = no }
+			KRAUS_coreworks_rail775_valid = yes
+		}
+		timeout_effect = {
+			if = {
+				limit = { KRAUS_coreworks_rail775_valid = yes }
+				set_country_flag = KRAUS_coreworks_built_rail775
+				775 = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+			}
+			else = {
+				custom_effect_tooltip = KRAUS_coreworks_retry_tt
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_coreworks_m_rail102 = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { KRAUS_coreworks_rail102_open = yes }
+		days_mission_timeout = 60
+		is_good = yes
+		selectable_mission = no
+		available = {
+			hidden_trigger = { always = no }
+			KRAUS_coreworks_rail102_valid = yes
+		}
+		timeout_effect = {
+			if = {
+				limit = { KRAUS_coreworks_rail102_valid = yes }
+				set_country_flag = KRAUS_coreworks_built_rail102
+				102 = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+			}
+			else = {
+				custom_effect_tooltip = KRAUS_coreworks_retry_tt
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_coreworks_m_rail736 = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { KRAUS_coreworks_rail736_open = yes }
+		days_mission_timeout = 60
+		is_good = yes
+		selectable_mission = no
+		available = {
+			hidden_trigger = { always = no }
+			KRAUS_coreworks_rail736_valid = yes
+		}
+		timeout_effect = {
+			if = {
+				limit = { KRAUS_coreworks_rail736_valid = yes }
+				set_country_flag = KRAUS_coreworks_built_rail736
+				736 = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+			}
+			else = {
+				custom_effect_tooltip = KRAUS_coreworks_retry_tt
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+	KRAUS_coreworks_m_rail488 = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = { original_tag = AUS }
+		activation = { KRAUS_coreworks_rail488_open = yes }
+		days_mission_timeout = 60
+		is_good = yes
+		selectable_mission = no
+		available = {
+			hidden_trigger = { always = no }
+			KRAUS_coreworks_rail488_valid = yes
+		}
+		timeout_effect = {
+			if = {
+				limit = { KRAUS_coreworks_rail488_valid = yes }
+				set_country_flag = KRAUS_coreworks_built_rail488
+				488 = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+			}
+			else = {
+				custom_effect_tooltip = KRAUS_coreworks_retry_tt
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+}

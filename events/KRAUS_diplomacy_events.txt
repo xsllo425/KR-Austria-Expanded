@@ -1,0 +1,432 @@
+add_namespace = KRAUS_dip_events
+
+# 意大利：奥地利邀请意大利重返多瑙-亚得里亚同盟（ROOT = 意大利，FROM = 奥地利）
+country_event = {
+	id = KRAUS_dip_events.1
+	title = KRAUS_dip_events.1.t
+	desc = KRAUS_dip_events.1.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_dip_events.1.a
+		ai_chance = { base = 70 }
+		add_to_tech_sharing_group = austrian_research
+		add_opinion_modifier = { target = FROM modifier = KRAUS_dip_friendship }
+		FROM = {
+			add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship }
+		}
+		FROM = { add_to_faction = ROOT }
+		FROM = { country_event = { id = KRAUS_dip_events.2 days = 1 } }
+	}
+	option = {
+		name = KRAUS_dip_events.1.b
+		ai_chance = { base = 30 }
+		FROM = { country_event = { id = KRAUS_dip_events.3 days = 1 } }
+	}
+}
+# 奥地利：意大利接受
+country_event = {
+	id = KRAUS_dip_events.2
+	title = KRAUS_dip_events.2.t
+	desc = KRAUS_dip_events.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.2.a }
+}
+# 奥地利：意大利拒绝
+country_event = {
+	id = KRAUS_dip_events.3
+	title = KRAUS_dip_events.3.t
+	desc = KRAUS_dip_events.3.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.3.a }
+}
+# 波兰：哈布斯堡的元首
+country_event = {
+	id = KRAUS_dip_events.10
+	title = KRAUS_dip_events.10.t
+	desc = KRAUS_dip_events.10.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.10.a }
+}
+# 加利西亚：来自奥地利的投资
+country_event = {
+	id = KRAUS_dip_events.20
+	title = KRAUS_dip_events.20.t
+	desc = KRAUS_dip_events.20.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_dip_events.20.a
+		random_list = {
+			25 = {
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = no } }
+					add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				}
+			}
+			15 = {
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = arms_factory size > 0 include_locked = no } }
+					add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+				}
+			}
+			20 = {
+				random_owned_controlled_state = {
+					add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+				}
+			}
+			15 = {
+				random_owned_controlled_state = { add_extra_state_shared_building_slots = 1 }
+			}
+			25 = { add_political_power = 30 }
+		}
+	}
+}
+# 加利西亚：来自波兰的投资
+country_event = {
+	id = KRAUS_dip_events.21
+	title = KRAUS_dip_events.21.t
+	desc = KRAUS_dip_events.21.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_dip_events.21.a
+		random_list = {
+			25 = {
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = no } }
+					add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				}
+			}
+			15 = {
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = arms_factory size > 0 include_locked = no } }
+					add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+				}
+			}
+			20 = {
+				random_owned_controlled_state = {
+					add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+				}
+			}
+			15 = {
+				random_owned_controlled_state = { add_extra_state_shared_building_slots = 1 }
+			}
+			25 = { add_political_power = 30 }
+		}
+	}
+}
+# 加利西亚：来自乌克兰的投资
+country_event = {
+	id = KRAUS_dip_events.22
+	title = KRAUS_dip_events.22.t
+	desc = KRAUS_dip_events.22.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_dip_events.22.a
+		random_list = {
+			25 = {
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = no } }
+					add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				}
+			}
+			15 = {
+				random_owned_controlled_state = {
+					limit = { free_building_slots = { building = arms_factory size > 0 include_locked = no } }
+					add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+				}
+			}
+			20 = {
+				random_owned_controlled_state = {
+					add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+				}
+			}
+			15 = {
+				random_owned_controlled_state = { add_extra_state_shared_building_slots = 1 }
+			}
+			25 = { add_political_power = 30 }
+		}
+	}
+}
+# 乌克兰：奥地利邀请乌克兰加入多瑙-亚得里亚同盟（ROOT = 乌克兰，FROM = 奥地利）
+country_event = {
+	id = KRAUS_dip_events.4
+	title = KRAUS_dip_events.4.t
+	desc = KRAUS_dip_events.4.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = {
+		name = KRAUS_dip_events.4.a
+		ai_chance = { base = 70 }
+		FROM = { add_to_faction = ROOT }
+		FROM = { country_event = { id = KRAUS_dip_events.5 days = 1 } }
+	}
+	option = {
+		name = KRAUS_dip_events.4.b
+		ai_chance = { base = 30 }
+		FROM = { country_event = { id = KRAUS_dip_events.6 days = 1 } }
+	}
+}
+country_event = {
+	id = KRAUS_dip_events.5
+	title = KRAUS_dip_events.5.t
+	desc = KRAUS_dip_events.5.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.5.a }
+}
+country_event = {
+	id = KRAUS_dip_events.6
+	title = KRAUS_dip_events.6.t
+	desc = KRAUS_dip_events.6.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.6.a }
+}
+# 乌克兰：红色亲王成为元首
+country_event = {
+	id = KRAUS_dip_events.11
+	title = KRAUS_dip_events.11.t
+	desc = KRAUS_dip_events.11.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.11.a }
+}
+# 共同繁荣：通知提出要求的一方（波兰 / 乌克兰）
+country_event = {
+	id = KRAUS_dip_events.30
+	title = KRAUS_dip_events.30.t
+	desc = KRAUS_dip_events.30.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.30.a }
+}
+# 共同繁荣：通知加利西亚（它请求并入波兰时，维也纳给出的答复）
+country_event = {
+	id = KRAUS_dip_events.31
+	title = KRAUS_dip_events.31.t
+	desc = KRAUS_dip_events.31.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.31.a }
+}
+
+# ============ 巴尔干与奥斯曼（2026-10-12） ============
+# 保加利亚
+# 邀请：ROOT = 被邀请国，FROM = 奥地利
+country_event = {
+	id = KRAUS_dip_events.40
+	title = KRAUS_dip_events.40.t
+	desc = KRAUS_dip_events.40.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	trigger = {
+		is_subject = no
+		is_in_faction = no
+		NOT = { has_war_with = FROM }
+		has_socialist_government = no
+	}
+	option = {
+		log = "[GetLogInfo]: event KRAUS_dip_events.40 option KRAUS_dip_events.40.a"
+		name = KRAUS_dip_events.40.a
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = 1000
+				FROM = { has_completed_focus = KRAUS_balkan_volunteer_act }
+			}
+			modifier = {
+				add = 30
+				OR = { has_completed_focus = BUL_international_alliances has_completed_focus = BUL_seek_factions_wk }
+			}
+			modifier = {
+				add = 20
+				FROM = { KRAUS_bul_won_balkan_war = yes }
+			}
+			# 0.9 反馈17：第四次巴尔干战争中战败又不属于任何阵营的保加利亚必定接受
+			modifier = {
+				add = 1000
+				has_country_flag = BUL_balkan_peace_loss
+			}
+		}
+		add_to_tech_sharing_group = austrian_research
+		add_opinion_modifier = { target = FROM modifier = KRAUS_dip_friendship }
+		FROM = {
+			add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship }
+			army_experience = 25
+		}
+		FROM = { add_to_faction = ROOT }
+		FROM = { build_railway = { start_province = 11666 target_province = 949 level = 2 } }
+		FROM = { country_event = { id = KRAUS_dip_events.41 days = 1 } }
+	}
+	option = {
+		log = "[GetLogInfo]: event KRAUS_dip_events.40 option KRAUS_dip_events.40.b"
+		name = KRAUS_dip_events.40.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				FROM = { has_completed_focus = KRAUS_balkan_volunteer_act }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = BUL_balkan_peace_loss
+			}
+		}
+		FROM = { country_event = { id = KRAUS_dip_events.42 days = 1 } }
+	}
+}
+country_event = {
+	id = KRAUS_dip_events.41
+	title = KRAUS_dip_events.41.t
+	desc = KRAUS_dip_events.41.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.41.a }
+}
+country_event = {
+	id = KRAUS_dip_events.42
+	title = KRAUS_dip_events.42.t
+	desc = KRAUS_dip_events.42.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.42.a }
+}
+# 希腊
+# 邀请：ROOT = 被邀请国，FROM = 奥地利
+country_event = {
+	id = KRAUS_dip_events.43
+	title = KRAUS_dip_events.43.t
+	desc = KRAUS_dip_events.43.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	trigger = {
+		is_subject = no
+		is_in_faction = no
+		NOT = { has_war_with = FROM }
+		has_socialist_government = no
+	}
+	option = {
+		log = "[GetLogInfo]: event KRAUS_dip_events.43 option KRAUS_dip_events.43.a"
+		name = KRAUS_dip_events.43.a
+		ai_chance = {
+			base = 20
+			modifier = {
+				add = 40
+				OR = { has_war = yes threat > 0.6 }
+			}
+			modifier = {
+				add = 20
+				threat > 0.3
+			}
+			modifier = {
+				add = 15
+				has_country_flag = KRAUS_gre_settled
+			}
+			modifier = {
+				add = 1000
+				FROM = { has_country_flag = KRAUS_greek_question_done }
+			}
+		}
+		add_to_tech_sharing_group = austrian_research
+		add_opinion_modifier = { target = FROM modifier = KRAUS_dip_friendship }
+		FROM = {
+			add_opinion_modifier = { target = ROOT modifier = KRAUS_dip_friendship }
+			navy_experience = 25
+		}
+		FROM = { add_to_faction = ROOT }
+		FROM = { build_railway = { start_province = 11666 target_province = 4109 level = 2 } }
+		FROM = { country_event = { id = KRAUS_dip_events.44 days = 1 } }
+	}
+	option = {
+		log = "[GetLogInfo]: event KRAUS_dip_events.43 option KRAUS_dip_events.43.b"
+		name = KRAUS_dip_events.43.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				FROM = { has_country_flag = KRAUS_greek_question_done }
+			}
+		}
+		FROM = { country_event = { id = KRAUS_dip_events.45 days = 1 } }
+	}
+}
+country_event = {
+	id = KRAUS_dip_events.44
+	title = KRAUS_dip_events.44.t
+	desc = KRAUS_dip_events.44.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.44.a }
+}
+country_event = {
+	id = KRAUS_dip_events.45
+	title = KRAUS_dip_events.45.t
+	desc = KRAUS_dip_events.45.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.45.a }
+}
+# 阿尔巴尼亚
+# 邀请：ROOT = 被邀请国，FROM = 奥地利
+country_event = {
+	id = KRAUS_dip_events.46
+	title = KRAUS_dip_events.46.t
+	desc = KRAUS_dip_events.46.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	trigger = {
+		is_subject = no
+		is_in_faction = no
+		NOT = { has_war_with = FROM }
+		has_socialist_government = no
+	}
+	option = {
+		log = "[GetLogInfo]: event KRAUS_dip_events.46 option KRAUS_dip_events.46.a"
+		name = KRAUS_dip_events.46.a
+		ai_chance = {
+			base = 40
+
+		}
+		FROM = { add_to_faction = ROOT }
+		FROM = {
+			add_political_power = -20
+			custom_effect_tooltip = KRAUS_dip_alb_gendarmerie_tt
+			build_railway = { start_province = 11666 target_province = 9914 level = 2 }
+		}
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_completed_focus = ALB_arm_of_gendarmerie } }
+				complete_national_focus = ALB_arm_of_gendarmerie
+			}
+		}
+		FROM = { country_event = { id = KRAUS_dip_events.47 days = 1 } }
+	}
+	option = {
+		log = "[GetLogInfo]: event KRAUS_dip_events.46 option KRAUS_dip_events.46.b"
+		name = KRAUS_dip_events.46.b
+		ai_chance = { base = 30 }
+		FROM = { country_event = { id = KRAUS_dip_events.48 days = 1 } }
+	}
+}
+country_event = {
+	id = KRAUS_dip_events.47
+	title = KRAUS_dip_events.47.t
+	desc = KRAUS_dip_events.47.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.47.a }
+}
+country_event = {
+	id = KRAUS_dip_events.48
+	title = KRAUS_dip_events.48.t
+	desc = KRAUS_dip_events.48.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = { name = KRAUS_dip_events.48.a }
+}

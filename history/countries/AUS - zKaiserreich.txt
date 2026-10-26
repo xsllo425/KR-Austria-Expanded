@@ -1,0 +1,30 @@
+# AUS history overrides · emitted by Kaiserreich 奥地利拓展 export
+# Filename idiom `AUS - z<modname>.txt` · loads after vanilla `AUS - <Name>.txt`(z > U/G/F/etc 字母序覆盖)
+
+set_stability = 0.3
+set_war_support = 0.2
+
+add_ideas = {
+	aus_economic_crisis
+	aus_political_instability
+	aus_military_weakness
+}
+
+# Round-trip · ruling_party folded from CountryModel.ideology (recruit file pre-existed)
+# 2026-09-18 修复「大选不自动完成」：
+#   原来只写 ruling_party。KR 原版 AUS 历史里 set_politics 含
+#   last_election / election_frequency / elections_allowed，
+#   我们覆盖时漏了这三项。若 set_politics 会重置整块，
+#   选举日就不存在了，on_new_term_election 永不触发，
+#   1936 大选永不完成，黑色星期一也无法消除。
+#   补全为与 KR 原版一致的数值。
+set_politics = {
+	ruling_party = social_conservative
+	last_election = "1930.3.9"
+	election_frequency = 72
+	elections_allowed = yes
+}
+
+
+# 玛利亚特蕾莎军事学院理论家：开局招募，完成「德奥军事顾问」国策后才可用（写法同 KR 俄国梅斯纳）
+recruit_character = KRAUS_maria_theresia_academy

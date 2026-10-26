@@ -1,0 +1,16 @@
+faction_template_european_union = {
+	name = faction_european_union
+	icon = GFX_faction_icon_donau_adriabund
+	manifest = faction_manifest_liberation_of_europe
+
+	default_rules = {
+		# ★ 借用帝国公约（Reichspakt）的机制：非社会主义准入 + 社会主义踢出 + 领袖永不更替
+		#   Reichspakt 原文见 KR\common\factions\templates\reichspakt.txt:
+		#     joining_rule_non_socialist / dismissal_rule_ideology_socialist / change_leader_rule_never
+		#   ★ change_leader_rule_never → 奥地利永久主导
+		#     （对应设计文档「三条夺权路径」的反面：我们自己的阵营不给别人夺权的口子）
+		joining_rule_non_socialist
+		dismissal_rule_ideology_socialist
+		change_leader_rule_never
+	}
+}

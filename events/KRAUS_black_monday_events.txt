@@ -1,0 +1,305 @@
+############################################################
+### KRAUS 黑色星期一 · 事件
+###
+### ★★ 2026-09-21 第三轮重做 ★★
+###
+### 用户要求：
+###   「开局并不能存在黑色星期一，所以决议要做黑色星期一BUFF
+###     出现后才出现，并且有一个事件提示这个读条决议出现，
+###     可以用黑一出现触发读条决议的前置事件，让前置事件来
+###     触发读条决议。」
+###
+### → 本文件新增 .0 前置事件：
+###     黑一出现时触发 → 提示玩家「读条决议已出现」
+###
+### ★ 事件编号重排（语义清晰）：
+###     .0  黑一出现（前置事件，提示读条决议）
+###     .1  条件达成（加速，剩余时间缩短）
+###     .2  时间到 = 结算成功（缓解一层）
+###     .3  时间到但无从推进（等同失败分支）
+###     .10 黑一完全消除（里程碑）
+###     .20 最深不做为（已退回初始最重层）
+###
+### ★ 不使用 replace_path（三条铁律之二）
+############################################################
+
+add_namespace = KRAUS_black_monday_events
+
+############################################################
+### .0 ★ 黑一出现（前置事件）
+###
+### 由 austria_events.2（KR 原版加黑一的地方）之后触发，
+### 或在 on_daily_AUS 里检测「刚获得黑一」时触发。
+### 作用：告知玩家「重整帝国经济」读条决议已出现。
+############################################################
+country_event = {
+	id = KRAUS_black_monday_events.0
+	title = KRAUS_black_monday_events.0.t
+	desc = KRAUS_black_monday_events.0.d
+	picture = GFX_report_event_GER_Blackweekover
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_black_monday_events.0.a
+		log = "[GetLogInfo]: KRAUS BM event .0 - read-bar unlocked"
+		set_country_flag = KRAUS_bm_readbar_open
+	}
+}
+
+############################################################
+### .1 ★ 危机中的进展 —— 条件已达标（叙事反馈 + 州级效果刷新）
+###
+### ★★ 2026-09-21 第八轮修复
+###
+### 【用户反馈】「危机中的进展事件既无法对民族精神中的
+###             黑色星期一的余波 BUFF 造成影响，
+###             也无法对地块的大萧条 BUFF 造成影响」
+###
+### 【原因】上一轮我删掉了 complete_effect（它会导致任务
+###   被立即结算），但 .1 事件原本【只由那个 complete_effect 触发】，
+###   于是 .1 成了孤儿事件 —— 既不触发，也没有任何效果。
+###
+### 【本轮的处置】
+###   两条路只能选一条，我选后者：
+###     A. 让 .1 去改黑一层级 —— 但那会让"读条"失去意义
+###        （条件一满足就立刻消层，等于回到"瞬间完成"的老 bug）
+###     B. ★ 让 .1 只做「叙事反馈 + 州级效果刷新」，
+###        真正的层级变更仍然只在倒计时结束时发生
+###
+###   ★ 选 B 的理由：读条的核心设计是「先熬过本层期限」。
+###     玩家在过程中达标，应该得到【反馈】而不是【立刻结算】。
+###
+###   但这里有一个真问题要解决：
+###     玩家达标后、倒计时结束前，如果州级修正没刷新，
+###     玩家会以为"达标没用"。所以 .1 里【刷新一次州级效果】——
+###     而 KRAUS_bm_apply_state_tier 是幂等的（读当前 idea 挂对应档），
+###     黑一层级此时没变，所以刷出来的还是同一档，
+###     不会产生副作用，只是让显示保持最新。
+############################################################
+country_event = {
+	id = KRAUS_black_monday_events.1
+	title = KRAUS_black_monday_events.1.t
+	desc = KRAUS_black_monday_events.1.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+    trigger = { KRAUS_has_black_monday_trigger = yes KRAUS_bm_layer_passed_trigger = yes NOT = { has_country_flag = KRAUS_bm_prepared_this_cycle } }
+    immediate = { set_country_flag = KRAUS_bm_prepared_this_cycle }
+
+	option = {
+		name = KRAUS_black_monday_events.1.a
+		log = "[GetLogInfo]: KRAUS BM event .1 - conditions met, awaiting timer"
+		# ★ 刷新州级效果显示（幂等，不会改变层级）
+		KRAUS_bm_apply_state_tier = yes
+		# ★ 明线小幅 +
+		add_to_variable = { KRAUS_regime_legitimacy = 3 }
+		KRAUS_clamp_political_vars = yes
+		# ★ 标记：本轮已达标（供 timeout_effect 判定成功）
+		set_country_flag = KRAUS_bm_accelerated
+	}
+}
+
+############################################################
+### .2 倒计时结束 —— ★ 在这里才真正结算
+############################################################
+country_event = {
+	id = KRAUS_black_monday_events.2
+	title = KRAUS_black_monday_events.2.t
+	desc = KRAUS_black_monday_events.2.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_black_monday_events.2.a
+		log = "[GetLogInfo]: KRAUS BM event .2 - layer relieved"
+	}
+}
+
+############################################################
+### .3 倒计时结束但毫无进展 —— 恶化
+############################################################
+country_event = {
+	id = KRAUS_black_monday_events.3
+	title = KRAUS_black_monday_events.3.t
+	desc = KRAUS_black_monday_events.3.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_black_monday_events.3.a
+		log = "[GetLogInfo]: KRAUS BM event .3 - no progress"
+	}
+}
+
+############################################################
+### .10 ★ 黑一完全消除（里程碑）
+############################################################
+country_event = {
+	id = KRAUS_black_monday_events.10
+	title = KRAUS_black_monday_events.10.t
+	desc = KRAUS_black_monday_events.10.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_black_monday_events.10.a
+		log = "[GetLogInfo]: KRAUS BM fully cleared"
+		custom_override_tooltip = {
+			tooltip = KRAUS_bm10_reward_tt
+			add_stability = 0.03
+		}
+		custom_override_tooltip = {
+			tooltip = KRAUS_bm10_pp_tt
+			add_political_power = 50
+		}
+		hidden_effect = {
+			set_country_flag = KRAUS_black_monday_cleared
+		}
+	}
+}
+
+############################################################
+### .20 ★ 最坏情况（已退回初始最重层仍失败）
+############################################################
+country_event = {
+	id = KRAUS_black_monday_events.20
+	title = KRAUS_black_monday_events.20.t
+	desc = KRAUS_black_monday_events.20.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_black_monday_events.20.a
+		log = "[GetLogInfo]: KRAUS BM deepest failure"
+		custom_override_tooltip = {
+			tooltip = KRAUS_bm20_stab_tt
+			add_stability = -0.03
+		}
+		custom_override_tooltip = {
+			tooltip = KRAUS_bm20_pp_tt
+			add_political_power = -50
+		}
+	}
+}
+
+# Settlement feedback only: all mechanical changes happened in the timer effect.
+country_event = {
+    id = KRAUS_black_monday_events.4
+    title = KRAUS_black_monday_events.4.t
+    desc = KRAUS_black_monday_events.4.d
+    picture = GFX_report_event_generic_parliament
+    is_triggered_only = yes
+    option = { name = KRAUS_black_monday_events.4.a }
+}
+
+############################################################
+### ★★ 2026-10-23 黑一限期自救 · 期限结算事件
+###
+###   .30 逾期结算（没赶上 · 认罚 / 急刹车）
+###   .31 赶上了（已消除 · 叙事 + 小额正面）
+###   .32 谈判开场提示（第 470 天 · 不写死剩余天数）
+############################################################
+
+############################################################
+### .30 ★ 逾期结算 —— 多瑙河危机已经开打 / 已经收场
+###
+### 【玩家看到的】
+###   帝国在危机来临前没能稳住经济，现在要付账。
+###
+### 【两个选项 · 用户定案】
+###   a 认罚     → KRAUS_bm_overdue_penalty
+###                （拖累精神 + 最惨再加硬 + 扣稳定/政治点）
+###   b 急刹车   → KRAUS_bm_emergency_brake
+###                （只扣 150 政治点，逾期惩罚全免）
+###                ★ 政治点不足时不可选，且要能看见原因
+###
+### 【AI】ai_chance 认罚 100 / 急刹车 0
+############################################################
+country_event = {
+	id = KRAUS_black_monday_events.30
+	title = KRAUS_black_monday_events.30.t
+	# ★ 两个 desc 变体：钱不够时玩家能看到「为什么踩不了这脚刹车」
+	#   （事件选项的 trigger 不满足时选项会直接隐藏，所以原因必须写进 desc）
+	#   ★ 门槛 = 真正的 150：用 NOT = { < 150 } 不用 > 149
+	#     （政治点是浮点数，149.5 会漏过 > 149）。
+	desc = {
+		text = KRAUS_black_monday_events.30.d
+		trigger = { NOT = { has_political_power < 150 } }
+	}
+	desc = {
+		text = KRAUS_black_monday_events.30.d_poor
+		trigger = { has_political_power < 150 }
+	}
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	option = { # 认罚
+		name = KRAUS_black_monday_events.30.a
+		log = "[GetLogInfo]: KRAUS BM deadline missed - accept the penalty"
+		# ★ 效果启用要有一行玩家看得见的提示（用户偏好）
+		custom_effect_tooltip = KRAUS_bm30_penalty_tt
+		KRAUS_bm_overdue_penalty = yes
+		ai_chance = { base = 100 }
+	}
+	option = { # 急刹车（花 150 政治点买平安）
+		name = KRAUS_black_monday_events.30.b
+		log = "[GetLogInfo]: KRAUS BM deadline missed - emergency brake"
+		# ★ 引擎行为：事件选项的 trigger 不满足时该选项【不显示】。
+		#   所以「为什么点不了」写在 desc 的 d_poor 变体里。
+		#   AI 永远选认罚（ai_chance b = 0）。
+		trigger = {
+			NOT = { has_political_power < 150 }
+		}
+		# ★ 玩家看到的是一句话而不是生硬的「−150 政治点数」
+		#   （custom_override_tooltip = 显示指定文案 + 执行内部 effect）
+		custom_override_tooltip = {
+			tooltip = KRAUS_bm30_need_pp_tt
+			KRAUS_bm_emergency_brake = yes
+		}
+		ai_chance = { base = 0 }
+	}
+}
+
+############################################################
+### .31 ★ 赶上了 —— 危机爆发前已经消完黑一
+############################################################
+country_event = {
+	id = KRAUS_black_monday_events.31
+	title = KRAUS_black_monday_events.31.t
+	desc = KRAUS_black_monday_events.31.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_black_monday_events.31.a
+		log = "[GetLogInfo]: KRAUS BM deadline met - relief"
+		# ★ 效果启用要有一行玩家看得见的提示（用户偏好）
+		custom_effect_tooltip = KRAUS_bm31_relief_tt
+	}
+}
+
+############################################################
+### .32 ★ 谈判开场提示（第 470 天前后）
+###
+### 任务单要求：提示里【不写死剩余天数】，因为终点是浮动的。
+############################################################
+country_event = {
+	id = KRAUS_black_monday_events.32
+	title = KRAUS_black_monday_events.32.t
+	desc = KRAUS_black_monday_events.32.d
+	picture = GFX_report_event_generic_cabinet_meeting
+
+	is_triggered_only = yes
+
+	option = {
+		name = KRAUS_black_monday_events.32.a
+		log = "[GetLogInfo]: KRAUS BM - negotiation opened, deadline reminder shown"
+	}
+}

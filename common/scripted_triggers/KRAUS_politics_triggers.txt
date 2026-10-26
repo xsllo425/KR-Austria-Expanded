@@ -1,0 +1,160 @@
+# Bulgaria came out of the Balkan war on top (war over, no peace loss)
+KRAUS_bul_won_balkan_war = {
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_bul_won_balkan_war_tt
+		country_exists = BUL
+		BUL = { NOT = { has_country_flag = BUL_balkan_peace_loss } }
+	}
+}
+
+# 多瑙河危机已经了结（任一结局），或者危机根本没有爆发
+KRAUS_dc_resolved = {
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_dc_resolved_tt
+		OR = {
+			has_country_flag = KRAUS_dc_resolved_flag
+			AND = {
+				has_completed_focus = AUS_ausgleich
+				NOT = { has_country_flag = KRAUS_dc_started }
+				date > 1938.6.1
+			}
+		}
+	}
+}
+# 政治线已经走完（任一执政党）
+KRAUS_political_line_done = {
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_political_line_done_tt
+		OR = {
+			has_completed_focus = KRAUS_renner_tent_3
+			has_completed_focus = KRAUS_miklas_recovery_4
+		}
+	}
+}
+# 三条根深蒂固的问题全部解决
+KRAUS_roots_solved = {
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_roots_solved_tt
+		NOT = { has_idea = aus_economic_crisis } NOT = { has_idea = aus_economic_crisis_1h } NOT = { has_idea = aus_economic_crisis_2 } NOT = { has_idea = aus_economic_crisis_2h } NOT = { has_idea = aus_economic_crisis_3 } NOT = { has_idea = aus_economic_crisis_3h } NOT = { has_idea = aus_military_weakness } NOT = { has_idea = aus_military_weakness_1h } NOT = { has_idea = aus_military_weakness_2 } NOT = { has_idea = aus_military_weakness_2h } NOT = { has_idea = aus_military_weakness_3 } NOT = { has_idea = aus_military_weakness_3h } NOT = { has_idea = aus_political_instability } NOT = { has_idea = aus_political_instability_1h } NOT = { has_idea = aus_political_instability_2 } NOT = { has_idea = aus_political_instability_2h } NOT = { has_idea = aus_political_instability_3 } NOT = { has_idea = aus_political_instability_3h }
+	}
+}
+# 多瑙河危机：奥地利赢下了对匈牙利的战争（匈牙利重新成为附庸或已不存在）
+KRAUS_dc_victory = {
+	OR = {
+		NOT = { country_exists = HUN }
+		HUN = { is_subject_of = ROOT }
+	}
+}
+
+# 王冠领全部整合：六个王领都已不存在（被整合），未建立的斯洛伐克与特兰西瓦尼亚视为已完成
+KRAUS_all_crownlands_integrated = {
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_all_crownlands_integrated_tt
+		NOT = { country_exists = CZE }
+		NOT = { country_exists = GAL }
+		NOT = { country_exists = CRO }
+		NOT = { country_exists = HUN }
+		NOT = { country_exists = SLO }
+		NOT = { country_exists = TRS }
+	}
+}
+
+############################################################
+### 内战的自适应状态（2026-10-12）：读 KR 自己的标志，不自造计时
+############################################################
+KRAUS_spa_war_ongoing = {
+	has_global_flag = spanish_civil_war
+}
+# 西班牙内战已结束，且胜者不是社会主义政府
+KRAUS_spa_winner_contactable = {
+	NOT = { has_global_flag = spanish_civil_war }
+	any_country = {
+		has_country_flag = SPA_aftermath_of_the_civil_war
+		NOT = { has_socialist_government = yes }
+	}
+}
+# 西班牙内战已结束（有胜者标志）
+KRAUS_spa_war_over = {
+	NOT = { has_global_flag = spanish_civil_war }
+	any_country = { has_country_flag = SPA_aftermath_of_the_civil_war }
+}
+KRAUS_acw_war_ongoing = {
+	has_global_flag = USA_civil_war_begun_flag
+	NOT = { has_global_flag = USA_civil_war_over_flag }
+}
+KRAUS_acw_war_over = {
+	has_global_flag = USA_civil_war_over_flag
+}
+# 美国内战已结束，且还存在非社会主义的美洲大国可以接触
+KRAUS_acw_winner_contactable = {
+	has_global_flag = USA_civil_war_over_flag
+	any_country = {
+		is_american_tag = yes
+		NOT = { has_socialist_government = yes }
+		num_of_controlled_states > 5
+	}
+}
+
+############################################################
+### 意大利线（0.9 实测 54）
+############################################################
+# 意大利已被某个势力统一（KR 的统一者标志）
+KRAUS_ita_unified = {
+	any_country = { has_country_flag = italian_unifier }
+}
+# 米兰（159）或威尼斯（160）由社会主义政府控制
+KRAUS_ita_socialist_north = {
+	OR = {
+		159 = { controller = { has_socialist_government = yes } }
+		160 = { controller = { has_socialist_government = yes } }
+	}
+}
+# 意大利的统一者或主要政权是奥地利的傀儡
+KRAUS_ita_is_puppet = {
+	OR = {
+		any_country = { has_country_flag = italian_unifier is_subject_of = ROOT }
+		AND = { country_exists = ITA ITA = { is_subject_of = ROOT } }
+	}
+}
+# 联络统一者：一定接受（不控制撒丁-皮埃蒙特且没有宣称）或一定拒绝（控制撒丁-皮埃蒙特且已有阵营）；两者都不是则不可点
+KRAUS_ita_unifier_contactable = {
+	any_country = {
+		has_country_flag = italian_unifier
+		has_socialist_government = no
+		is_subject = no
+		NOT = { has_war_with = ROOT }
+		OR = {
+			KRAUS_ita_unifier_refuses = yes
+			KRAUS_ita_unifier_accepts = yes
+		}
+	}
+}
+# 以下两个在统一者作用域内求值
+KRAUS_ita_unifier_refuses = {
+	158 = { is_controlled_by = PREV }
+	is_in_faction = yes
+}
+KRAUS_ita_unifier_accepts = {
+	NOT = { 158 = { is_controlled_by = PREV } }
+	NOT = { any_state = { is_claimed_by = PREV NOT = { is_owned_by = PREV } } }
+}
+
+# 0.9 反馈23：巴尔干半岛上没有社会主义国家
+KRAUS_balkan_no_socialist = {
+	NOT = { country_exists = SER SER = { has_socialist_government = yes } }
+	NOT = { country_exists = ROM ROM = { has_socialist_government = yes } }
+	NOT = { country_exists = GRE GRE = { has_socialist_government = yes } }
+	NOT = { country_exists = ALB ALB = { has_socialist_government = yes } }
+	NOT = { country_exists = BUL BUL = { has_socialist_government = yes } }
+}
+# 身上还挂着巴尔干火药桶
+KRAUS_has_powder_keg = {
+	OR = {
+		has_idea = aus_political_instability
+		has_idea = aus_political_instability_1h
+		has_idea = aus_political_instability_2
+		has_idea = aus_political_instability_2h
+		has_idea = aus_political_instability_3
+		has_idea = aus_political_instability_3h
+	}
+}

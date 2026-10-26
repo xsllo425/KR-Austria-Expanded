@@ -1,0 +1,43 @@
+############################################################
+### 特兰西瓦尼亚（2026-10-12）：匈牙利完成「帝国宪兵进驻特兰西瓦尼亚」或「马扎尔化」后（全局标志 KRAUS_trs_secured），
+### 罗马尼亚在特兰西瓦尼亚的秘密起义准备会被破获：清掉 KR 的准备标志、起义计数归零、撤掉各州的抵抗修正。
+### KR 的「组织起义」「资助分离分子」决议只能执行一次，所以破获后罗马尼亚走不通秘密准备这条路。
+### 不拦截罗马尼亚趁州 84 的主人打仗时直接起义（KR 原有的另一条路），但起义的附加效果会因为计数归零而很弱。
+### 由 on_daily_AUS 调用。
+############################################################
+KRAUS_trs_bust_check = {
+	if = {
+		limit = {
+			has_global_flag = KRAUS_trs_secured
+			country_exists = ROM
+			ROM = {
+				OR = {
+					has_country_flag = ROM_TRS_prepared
+					has_country_flag = ROM_funded_separatist
+					check_variable = { revolt > 0 }
+				}
+			}
+		}
+		ROM = {
+			clr_country_flag = ROM_TRS_prepared
+			clr_country_flag = ROM_funded_separatist
+			set_variable = { revolt = 0 }
+			country_event = { id = KRAUS_trs_events.1 }
+		}
+		every_state = {
+			limit = { is_core_of = TRS }
+			clear_variable = ROM_transylvanian_resistance_target
+			clear_variable = ROM_transylvanian_resistance_activity
+			clear_variable = ROM_transylvanian_resistance_garrison
+			if = {
+				limit = { has_dynamic_modifier = { modifier = ROM_transylvanian_resistance } }
+				remove_dynamic_modifier = { modifier = ROM_transylvanian_resistance }
+			}
+			force_enable_resistance = { occupier = AUS occupied = TRS clear = yes }
+			force_enable_resistance = { occupier = HUN occupied = TRS clear = yes }
+			force_enable_resistance = { occupier = CRO occupied = TRS clear = yes }
+			force_enable_resistance = { occupier = TRS occupied = TRS clear = yes }
+		}
+		84 = { owner = { country_event = { id = KRAUS_trs_events.2 } } }
+	}
+}

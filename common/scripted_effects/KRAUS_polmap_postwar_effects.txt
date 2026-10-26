@@ -1,0 +1,145 @@
+############################################################
+### 合众国路线第 5 批：战后大选（2026-10-13，按设计稿 v1.3 第五节）。本文件由 gen_postwar.py 生成。
+### 由 on_weekly_AUS 在 second_weltkrieg_has_ended 之后累计 90 天（无进行中或已成的德意志路线）时调用。
+### 判定：皇帝点在场，且（重心离皇帝点 <= 25，或入阁圈只有一个党而它离重心比皇帝更远）→ 皇帝亲政；
+###   否则党派宪政，按入阁圈里的党数给 KRAUS_pm_end_1..4，再给主导党的专属精神（沿用 KRAUS_usga_main_*）。
+### 三党、四党内阁：战争结束、共同的敌人不在了，妥协意愿 -10；若因此跌出高档，由每周检查触发联合内阁危机。
+############################################################
+
+KRAUS_pm_postwar_resolve = {
+	KRAUS_pm_recalc = yes
+	set_country_flag = KRAUS_pm_postwar_done
+	set_temp_variable = { var = KRAUS_pm_size value = 0 }
+	if = {
+		limit = { has_country_flag = KRAUS_pm_cab_cs }
+		add_to_temp_variable = { var = KRAUS_pm_size value = 1 }
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pm_cab_ml }
+		add_to_temp_variable = { var = KRAUS_pm_size value = 1 }
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pm_cab_sd }
+		add_to_temp_variable = { var = KRAUS_pm_size value = 1 }
+	}
+	if = {
+		limit = { has_country_flag = KRAUS_pm_cab_sl }
+		add_to_temp_variable = { var = KRAUS_pm_size value = 1 }
+	}
+	# 重心离皇帝点 (50,5) 的距离平方
+	set_temp_variable = { var = KRAUS_pm_de value = KRAUS_pm_x }
+	subtract_from_temp_variable = { var = KRAUS_pm_de value = 50 }
+	multiply_temp_variable = { var = KRAUS_pm_de value = KRAUS_pm_de }
+	set_temp_variable = { var = KRAUS_pm_dey value = KRAUS_pm_y }
+	subtract_from_temp_variable = { var = KRAUS_pm_dey value = 5 }
+	multiply_temp_variable = { var = KRAUS_pm_dey value = KRAUS_pm_dey }
+	add_to_temp_variable = { var = KRAUS_pm_de value = KRAUS_pm_dey }
+	set_temp_variable = { var = KRAUS_pm_emp value = 0 }
+	if = {
+		limit = { has_country_flag = KRAUS_pm_emperor_on }
+		if = {
+			limit = { check_variable = { var = KRAUS_pm_de value = 625 compare = less_than_or_equals } }
+			set_temp_variable = { var = KRAUS_pm_emp value = 1 }
+		}
+		else_if = {
+			limit = { check_variable = { var = KRAUS_pm_size value = 1 compare = less_than_or_equals } }
+			if = {
+				limit = {
+					has_country_flag = KRAUS_pm_lead_cs
+					check_variable = { var = KRAUS_pm_d_cs value = KRAUS_pm_de compare = greater_than }
+				}
+				set_temp_variable = { var = KRAUS_pm_emp value = 1 }
+			}
+			if = {
+				limit = {
+					has_country_flag = KRAUS_pm_lead_ml
+					check_variable = { var = KRAUS_pm_d_ml value = KRAUS_pm_de compare = greater_than }
+				}
+				set_temp_variable = { var = KRAUS_pm_emp value = 1 }
+			}
+			if = {
+				limit = {
+					has_country_flag = KRAUS_pm_lead_sd
+					check_variable = { var = KRAUS_pm_d_sd value = KRAUS_pm_de compare = greater_than }
+				}
+				set_temp_variable = { var = KRAUS_pm_emp value = 1 }
+			}
+			if = {
+				limit = {
+					has_country_flag = KRAUS_pm_lead_sl
+					check_variable = { var = KRAUS_pm_d_sl value = KRAUS_pm_de compare = greater_than }
+				}
+				set_temp_variable = { var = KRAUS_pm_emp value = 1 }
+			}
+		}
+	}
+	clr_country_flag = KRAUS_pm_emperor_on
+	if = {
+		limit = { check_variable = { var = KRAUS_pm_emp value = 1 compare = equals } }
+		set_country_flag = KRAUS_pm_end_emperor
+		end_coalition = yes
+		set_politics = { ruling_party = paternal_autocrat elections_allowed = no }
+		add_ideas = KRAUS_pm_end_emperor
+	}
+	else = {
+		KRAUS_pm_apply_government = yes
+		if = {
+			limit = { check_variable = { var = KRAUS_pm_size value = 4 compare = greater_than_or_equals } }
+			set_country_flag = KRAUS_pm_end_4
+			add_ideas = KRAUS_pm_end_4
+		}
+		else_if = {
+			limit = { check_variable = { var = KRAUS_pm_size value = 3 compare = equals } }
+			set_country_flag = KRAUS_pm_end_3
+			add_ideas = KRAUS_pm_end_3
+		}
+		else_if = {
+			limit = { check_variable = { var = KRAUS_pm_size value = 2 compare = equals } }
+			set_country_flag = KRAUS_pm_end_2
+			add_ideas = KRAUS_pm_end_2
+		}
+		else = {
+			set_country_flag = KRAUS_pm_end_1
+			add_ideas = KRAUS_pm_end_1
+		}
+		if = {
+			limit = {
+				has_country_flag = KRAUS_pm_lead_cs
+				NOT = { has_idea = KRAUS_usga_main_cs }
+			}
+			add_ideas = KRAUS_usga_main_cs
+		}
+		if = {
+			limit = {
+				has_country_flag = KRAUS_pm_lead_ml
+				NOT = { has_idea = KRAUS_usga_main_ml }
+			}
+			add_ideas = KRAUS_usga_main_ml
+		}
+		if = {
+			limit = {
+				has_country_flag = KRAUS_pm_lead_sd
+				NOT = { has_idea = KRAUS_usga_main_sd }
+			}
+			add_ideas = KRAUS_usga_main_sd
+		}
+		if = {
+			limit = {
+				has_country_flag = KRAUS_pm_lead_sl
+				NOT = { has_idea = KRAUS_usga_main_sl }
+			}
+			add_ideas = KRAUS_usga_main_sl
+		}
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = KRAUS_pm_end_3
+					has_country_flag = KRAUS_pm_end_4
+				}
+			}
+			set_temp_variable = { var = KRAUS_pm_in_comp value = -10 }
+			KRAUS_pm_comp_add = yes
+		}
+	}
+	country_event = { id = KRAUS_pm_post.1 days = 1 }
+}

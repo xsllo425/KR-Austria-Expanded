@@ -1,0 +1,184 @@
+############################################################
+### KRAUS 政局天平 · 权力平衡（BOP）
+###
+### ★★ 2026-09-21 第三轮重做（用户定案）★★
+###
+### 用户反馈：
+###   「感觉这个政局天平，放在民族精神中并不合适，或许可以改到
+###     放在权力平衡的位置，然后开局不存在，等大选后才出现，
+###     权力平衡的一侧是伦纳，另一侧是米克拉斯。」
+###
+### ★ 为什么这个改动是对的
+###   · 权力平衡（BOP）自带【平衡条 UI】，天然表达「两端博弈」
+###   · 民族精神栏原本只显示一个抽象数值，玩家看不出「拉锯」感
+###   · 开局不存在、大选后出现 → ★ 符合叙事（大选才产生两派格局）
+###   · KR 原版奥地利【没有】BOP → 零冲突（已核实 13 个实例无 AUS）
+###
+### ★★ 叙事内核（用户上一轮定稿）
+###   选举是奥地利内部事务，对其他王领影响不大。
+###   是【皇帝】在维持奥地利多个派系的平衡，
+###   也在维系诸多【王领在帝国内部的平衡】。
+###
+### → 所以这不是「左派 vs 右派」的路线斗争，
+###   而是【皇帝手中那杆天平的两端】：
+###       左 = 伦纳（社民 / 大帐篷 / 把所有人拉进来）
+###       右 = 米克拉斯（保守秩序 / 守住天主教奥地利）
+###   两者都要拉拢，但都不能让一方独大。
+###
+### ★ 激活时机：大选结果事件（austria_election_events.101 / .102）
+###   ★ 开局【不存在】，大选后才出现
+###
+### ★ 已核实的语法依据
+###   · 官方 effects_documentation.md：set_power_balance / add_power_balance_value
+###   · KR 实例：common/bop/IRE.txt（最清晰）、RUS.txt、ETH 等 13 个
+###   · range 可直接挂根级（中段不属于任何 side）
+###
+### ★ 不使用 replace_path（三条铁律之二）
+############################################################
+
+KRAUS_regime_balance = {
+	initial_value = 0.0
+	left_side = KRAUS_renner_side
+	right_side = KRAUS_miklas_side
+	# ★★ 2026-09-21 第三轮修正：必须挂 decision_category
+	#
+	#   参考 SRI（社会主义意大利）：
+	#     common/bop/SRI.txt 里 decision_category = KRAUS_regime_balance_category
+	#     该 category 定义在 01 Italy decision_cats.txt：{ allowed = { tag = SRI } }
+	#     ★ 全库【没有】针对 SRI_power_balance 的 set_power_balance 调用
+	#     → 说明 BOP 要正确显示，【category 必须先存在】
+	#
+	#   我们原先漏了这个 category 定义 → 天平不出现。
+	#   已在 common/decisions/categories/AUS_AUS_categories.txt 补上。
+	decision_category = KRAUS_regime_balance_category
+
+	########################################################
+	### ★★ 中段：皇帝的平衡 = 最好的状态
+	###    两派都不独大，皇帝居中调停
+	########################################################
+	range = {
+		id = KRAUS_bop_imperial_balance_range
+		min = -0.20
+		max = 0.20
+		modifier = {
+			stability_factor = 0.10
+			political_power_factor = 0.10
+		}
+		on_activate = {
+			custom_effect_tooltip = KRAUS_bop_imperial_balance_tt
+			# ★ 明线 +2（皇帝维持住了平衡）
+			add_to_variable = { KRAUS_regime_legitimacy = 2 }
+			KRAUS_clamp_political_vars = yes
+			# ★★ 皇帝权威 +3（第五轮方案 §3.3）
+			#   居中 = 皇帝成功仲裁 → 威望增长。
+			#   这是保皇派路线的核心正源。
+			if = {
+				limit = { has_country_flag = KRAUS_imperial_authority_ready }
+				KRAUS_imperial_gain_3 = yes
+			}
+		}
+	}
+
+	########################################################
+	### 左：伦纳（社民 / 大帐篷）
+	########################################################
+	side = {
+		id = KRAUS_renner_side
+		icon = GFX_bop_ETH_decentralisation_side
+
+		# ---- 伦纳得势（温和）----
+		range = {
+			id = KRAUS_bop_renner_tilt_range
+			min = -0.60
+			max = -0.20
+			modifier = {
+				consumer_goods_factor = -0.05
+				production_speed_industrial_complex_factor = 0.10
+				monthly_population = 0.10
+				war_support_factor = -0.05
+			}
+			on_activate = {
+				custom_effect_tooltip = KRAUS_bop_renner_tilt_tt
+				# 保守派开始不安
+				add_to_variable = { KRAUS_dhofers_shadow = 2 }
+				KRAUS_clamp_political_vars = yes
+			}
+		}
+
+		# ---- 伦纳独大（工人与各民族得势，保守派离心）----
+		range = {
+			id = KRAUS_bop_renner_dominant_range
+			min = -1.00
+			max = -0.60
+			modifier = {
+				consumer_goods_factor = -0.08
+				production_speed_industrial_complex_factor = 0.20
+				research_speed_factor = 0.05
+				monthly_population = 0.15
+				war_support_factor = -0.10
+			}
+			on_activate = {
+				custom_effect_tooltip = KRAUS_bop_renner_dominant_tt
+				add_to_variable = { KRAUS_dhofers_shadow = 4 }
+				KRAUS_clamp_political_vars = yes
+				# ★ 皇帝权威 -3（天平极端 = 皇权被架空）
+				if = {
+					limit = { has_country_flag = KRAUS_imperial_authority_ready }
+					KRAUS_imperial_loss = yes
+				}
+				country_event = { id = KRAUS_renner_events.2 days = 2 }
+			}
+		}
+	}
+
+	########################################################
+	### 右：米克拉斯（保守秩序）
+	########################################################
+	side = {
+		id = KRAUS_miklas_side
+		icon = GFX_bop_ETH_centralisation_side
+
+		# ---- 米克拉斯得势（温和）----
+		range = {
+			id = KRAUS_bop_miklas_tilt_range
+			min = 0.20
+			max = 0.60
+			modifier = {
+				army_org_factor = 0.05
+				conscription_factor = 0.05
+				production_speed_arms_factory_factor = 0.10
+				consumer_goods_factor = 0.03
+			}
+			on_activate = {
+				custom_effect_tooltip = KRAUS_bop_miklas_tilt_tt
+				add_to_variable = { KRAUS_dhofers_shadow = 2 }
+				KRAUS_clamp_political_vars = yes
+			}
+		}
+
+		# ---- 米克拉斯独大（威权秩序，合法性流失）----
+		range = {
+			id = KRAUS_bop_miklas_dominant_range
+			min = 0.60
+			max = 1.00
+			modifier = {
+				army_org_factor = 0.08
+				conscription_factor = 0.10
+				production_speed_arms_factory_factor = 0.20
+				command_power_gain_mult = 0.10
+				consumer_goods_factor = 0.05
+			}
+			on_activate = {
+				custom_effect_tooltip = KRAUS_bop_miklas_dominant_tt
+				add_to_variable = { KRAUS_dhofers_shadow = 4 }
+				KRAUS_clamp_political_vars = yes
+				# ★ 皇帝权威 -3（同上：任一侧独大都是皇权失位）
+				if = {
+					limit = { has_country_flag = KRAUS_imperial_authority_ready }
+					KRAUS_imperial_loss = yes
+				}
+				country_event = { id = KRAUS_renner_events.3 days = 2 }
+			}
+		}
+	}
+}

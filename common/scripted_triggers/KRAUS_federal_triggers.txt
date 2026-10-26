@@ -1,0 +1,36 @@
+############################################################
+### 10-27 联邦行政化：合众国成立时遗留的两类负面状态是否已经消除
+### 同一个负面状态的三档同名，原生写法会显示三行；这里每个负面状态合成一行，措辞照原生的「没有民族精神」
+############################################################
+KRAUS_fed_gov_settled = {
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_fed_no_gov_tt
+		NOT = { has_idea = KRAUS_cg_gov_3 has_idea = KRAUS_cg_gov_2 has_idea = KRAUS_cg_gov_1 }
+	}
+}
+KRAUS_fed_states_settled = {
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_fed_no_CZE_tt
+		NOT = { has_idea = KRAUS_cg_CZE_3 has_idea = KRAUS_cg_CZE_2 has_idea = KRAUS_cg_CZE_1 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_fed_no_GAL_tt
+		NOT = { has_idea = KRAUS_cg_GAL_3 has_idea = KRAUS_cg_GAL_2 has_idea = KRAUS_cg_GAL_1 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_fed_no_CRO_tt
+		NOT = { has_idea = KRAUS_cg_CRO_3 has_idea = KRAUS_cg_CRO_2 has_idea = KRAUS_cg_CRO_1 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_fed_no_HUN_tt
+		NOT = { has_idea = KRAUS_cg_HUN_3 has_idea = KRAUS_cg_HUN_2 has_idea = KRAUS_cg_HUN_1 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_fed_no_SLO_tt
+		NOT = { has_idea = KRAUS_cg_SLO_3 has_idea = KRAUS_cg_SLO_2 has_idea = KRAUS_cg_SLO_1 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = KRAUS_fed_no_TRS_tt
+		NOT = { has_idea = KRAUS_cg_TRS_3 has_idea = KRAUS_cg_TRS_2 has_idea = KRAUS_cg_TRS_1 }
+	}
+}

@@ -1,0 +1,13 @@
+# Minimal repair for the existing KRAUS_war_order_france reward.
+# Modifier precedent: Kaiserreich common/ideas/00 Laws.txt:395.
+ideas = {
+	country = {
+		KRAUS_french_reconstruction_aid = {
+			picture = KRAUS_french_reconstruction_aid
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.05
+			}
+		}
+	}
+}
