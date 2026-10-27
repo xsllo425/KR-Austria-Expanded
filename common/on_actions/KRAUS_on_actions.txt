@@ -117,6 +117,30 @@ on_actions = {
                 set_country_flag = KRAUS_dc_reckoning_done
                 country_event = { id = KRAUS_danube_crisis.2 days = 0 }
             }
+            # Crownland investment: at the start of each round, set its length from member loyalty
+            # (90 days, -3 per loyalty tier of every member crownland, at least 30; the mission itself is 30)
+            if = {
+                limit = {
+                    has_active_mission = KRAUS_cw_program
+                    NOT = { has_country_flag = KRAUS_cw_round_set }
+                }
+                set_country_flag = KRAUS_cw_round_set
+                set_temp_variable = { KRAUS_cw_tiers = 0 }
+                every_subject_country = {
+                    limit = { KRAUS_joint_econ_crownland = yes }
+                    if = { limit = { has_idea = KRAUS_cl_loyal_1 } ROOT = { add_to_temp_variable = { KRAUS_cw_tiers = 1 } } }
+                    if = { limit = { has_idea = KRAUS_cl_loyal_2 } ROOT = { add_to_temp_variable = { KRAUS_cw_tiers = 2 } } }
+                    if = { limit = { has_idea = KRAUS_cl_loyal_3 } ROOT = { add_to_temp_variable = { KRAUS_cw_tiers = 3 } } }
+                }
+                # extra 3-day steps on top of the 30-day floor: 20 steps = 90 days
+                set_temp_variable = { KRAUS_cw_steps = 20 }
+                subtract_from_temp_variable = { KRAUS_cw_steps = KRAUS_cw_tiers }
+                while_loop_effect = {
+                    limit = { check_variable = { KRAUS_cw_steps > 0 } }
+                    add_days_mission_timeout = { mission = KRAUS_cw_program days = 3 }
+                    subtract_from_temp_variable = { KRAUS_cw_steps = 1 }
+                }
+            }
             # Crownland investment resumes after the Danube crisis
             if = {
                 limit = {

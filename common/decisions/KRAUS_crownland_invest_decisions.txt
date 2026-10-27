@@ -1,7 +1,8 @@
 ############################################################
 ### 王冠领共同投资（2026-10-11）
 ### 决议：邀请所有王冠领（含匈牙利）；政治点数 ≥ 50 的王领必定接受，7 天后回复。
-### 读条：每 90 天，每个已接受的王领获得一项随机投资（军工 / 民工 / 基建 / 建筑位），循环进行。
+### 读条：每轮 90 天起算，已加入王领的忠诚每一层缩短 3 天，最短 30 天（每轮开始时按当时档位定，on_daily_AUS 里加天数）；
+###       每个已接受的王领获得一项随机投资（军工 / 民工 / 基建 / 建筑位），循环进行。
 ### 多瑙河危机期间暂停，结束后自动恢复（均有事件提示）。
 ### 王冠领全部不复存在时，按累计投资次数结算为永久精神。
 ############################################################
@@ -55,7 +56,7 @@ KRAUS_golden_danube_category = {
 			NOT = { has_country_flag = KRAUS_cw_settled }
 			NOT = { KRAUS_dc_ongoing = yes }
 		}
-		days_mission_timeout = 90
+		days_mission_timeout = 30	# 下限；实际天数在 on_daily_AUS 按忠诚档位补上
 		is_good = yes
 		selectable_mission = no
 		available = {
@@ -64,6 +65,7 @@ KRAUS_golden_danube_category = {
 		timeout_effect = {
 			custom_effect_tooltip = KRAUS_cw_program_tt
 			hidden_effect = {
+				clr_country_flag = KRAUS_cw_round_set
 				every_subject_country = {
 					limit = {
 						KRAUS_is_crownland_of_root = yes
@@ -104,6 +106,7 @@ KRAUS_golden_danube_category = {
 			}
 		}
 		cancel_effect = {
+			clr_country_flag = KRAUS_cw_round_set
 			if = {
 				limit = { KRAUS_dc_ongoing = yes }
 				set_country_flag = KRAUS_cw_paused

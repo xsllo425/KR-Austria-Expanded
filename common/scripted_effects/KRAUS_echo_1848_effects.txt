@@ -28,6 +28,7 @@ KRAUS_echo_free_SLO = {
 		}
 	}
 	set_autonomy = { target = SLO autonomy_state = crownland end_wars = no }
+	hidden_effect = { KRAUS_cw_auto_join = { TAG = SLO } }
 	hidden_effect = { KRAUS_integ_recalc = yes }
 }
 KRAUS_echo_free_TRS = {
@@ -54,6 +55,7 @@ KRAUS_echo_free_TRS = {
 		}
 	}
 	set_autonomy = { target = TRS autonomy_state = crownland end_wars = no }
+	hidden_effect = { KRAUS_cw_auto_join = { TAG = TRS } }
 	hidden_effect = { KRAUS_integ_recalc = yes }
 }
 # 匈牙利本身：已是附庸就设为王冠领，已被并入就释放为王冠领
@@ -76,6 +78,7 @@ KRAUS_echo_free_HUN = {
 		limit = { country_exists = HUN }
 		set_autonomy = { target = HUN autonomy_state = crownland end_wars = no }
 		HUN = { KRAUS_cl_toward_loyal = yes }
+		hidden_effect = { KRAUS_cw_auto_join = { TAG = HUN } }
 	}
 	hidden_effect = { KRAUS_integ_recalc = yes }
 }
@@ -83,6 +86,7 @@ KRAUS_echo_free_HUN = {
 KRAUS_echo_lenient = {
 	set_country_flag = KRAUS_echo_lenient
 	KRAUS_echo_free_HUN = yes
+	custom_effect_tooltip = KRAUS_cw_auto_join_tt
 }
 # ② 严惩叛乱分子：不再释放匈牙利；核心州顺从度下降、抵抗微升，按顺从度造核
 KRAUS_echo_harsh = {
@@ -141,4 +145,5 @@ KRAUS_echo_split = {
 		}
 	}
 	KRAUS_echo_free_HUN = yes
+	custom_effect_tooltip = KRAUS_cw_auto_join_tt
 }

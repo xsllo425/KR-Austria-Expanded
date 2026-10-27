@@ -2,6 +2,18 @@
 ### 设立新王冠领（2026-10-12）：由「设立斯洛伐克 / 特兰西瓦尼亚王冠领」决议调用。
 ### 写法照 KR「拥抱多元主义」：先把匈牙利手里带核心的州划给奥地利，再用 KR 的 release_targeted_tag 释放为附庸，设为王冠领。
 ############################################################
+# 奥地利作用域：维也纳亲手设立（或重新放出）的王冠领直接加入共同投资，
+# 这样联合国策树照常给它发奖励，并补上当前的共同经济 / 军事精神（新王领政治点数不够 50，等邀请永远不会接受）
+KRAUS_cw_auto_join = {
+	if = {
+		limit = { country_exists = $TAG$ }
+		$TAG$ = {
+			set_country_flag = KRAUS_cw_accepted
+			KRAUS_joint_econ_spirit_sync = yes
+			KRAUS_joint_mil_spirit_sync = yes
+		}
+	}
+}
 # 奥地利作用域：设立SLO王冠领
 KRAUS_found_do_SLO = {
 	HUN = {
@@ -33,6 +45,8 @@ KRAUS_found_do_SLO = {
 		autonomy_state = crownland
 		end_wars = no
 	}
+	custom_effect_tooltip = KRAUS_cw_auto_join_tt
+	hidden_effect = { KRAUS_cw_auto_join = { TAG = SLO } }
 	# 新王领的整合花费当场算出来，否则当天读到 0（整合决议会变成免费、0 天）
 	hidden_effect = { KRAUS_integ_recalc = yes }
 }
@@ -66,6 +80,8 @@ KRAUS_found_do_TRS = {
 		autonomy_state = crownland
 		end_wars = no
 	}
+	custom_effect_tooltip = KRAUS_cw_auto_join_tt
+	hidden_effect = { KRAUS_cw_auto_join = { TAG = TRS } }
 	# 新王领的整合花费当场算出来，否则当天读到 0（整合决议会变成免费、0 天）
 	hidden_effect = { KRAUS_integ_recalc = yes }
 }

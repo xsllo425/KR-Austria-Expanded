@@ -2,7 +2,7 @@
 
 《钢铁雄心 4》Kaiserreich 的奥地利扩展子模组。An Austria expansion submod for Kaiserreich (Hearts of Iron IV).
 
-- 当前版本 / Version: **0.10.0**（第一个正式版本 / first official release）
+- 当前版本 / Version: **0.10.1**
 - 游戏版本 / Game version: 1.19.3
 - 依赖 / Requires: [Kaiserreich](https://steamcommunity.com/sharedfiles/filedetails/?id=1521695605)
 - Steam 创意工坊 / Steam Workshop: <https://steamcommunity.com/sharedfiles/filedetails/?id=3803866323>

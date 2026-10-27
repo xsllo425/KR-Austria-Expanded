@@ -8070,9 +8070,13 @@ focus_tree = {
 			log = "[GetLogRoot]: Focus Completed KRAUS_renner_tent_3"
 			# 「大帐篷」成型：把指针拉回中间
 			# ★ 修正：官方文档是 set_value（不是 value）
-			set_power_balance = {
-				id = KRAUS_regime_balance
-				set_value = 0.0
+			# 玩家反馈：天平已收起/锁定后（多瑙河危机了结、离心或中央独裁锁定）不能再把它建出来
+			if = {
+				limit = { has_power_balance = { id = KRAUS_regime_balance } }
+				set_power_balance = {
+					id = KRAUS_regime_balance
+					set_value = 0.0
+				}
 			}
 			add_stability = 0.05
 			add_political_power = 50
